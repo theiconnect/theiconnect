@@ -113,7 +113,7 @@ select *from EMP where  DEPTNO=10 AND SAL>3500
 --LIst employees who are not receiving commission
 SELECT *FROM EMP WHERE COMM IS NULL
 --List employees who receive some commission
-SELECT *FROM EMP WHERE COMM IS NOT NULL
+SELECT *FROM EMP WHERE COMM >0
 --List employees whose last name contains an 'A' and is exactly 5 characters long
 SELECT *FROM EMP WHERE LastName LIKE '%A%' AND len(LastName)=5 
 --List employee ID, first name, last name in ascending order based on employee ID
