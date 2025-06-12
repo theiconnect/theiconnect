@@ -1,0 +1,325 @@
+1. Even or odd
+Begin
+	Declare @input Varchar(256)
+	Declare @n int
+	set @input = '28.5'
+	if TRY_CAST(@input as int) IS NULL 
+	Begin
+		Print'invaild input,please enter a vaild input'
+	End
+	else if TRY_CAST(@input as decimal) IS NULL 
+	Begin
+		Print'invaild input,please enter a vaild input'
+	End
+	Else
+	Begin 
+		Set @n = CAST(@input as int)
+		if @n % 2 = 0
+		Begin
+			Print cast(@n as varchar) +' is a even'
+		End
+		else
+		Begin
+			Print cast(@n as varchar) +' is a odd'
+		End
+	End
+
+End
+
+2.Largest of three numbers
+
+Begin 
+	Declare @input1 varchar(200), @input2 varchar(500), @input3 varchar(500)
+	Declare @x int, @y int, @z int
+	set @input1 = '123.12'
+	set @input2 = '123.01'
+	set @input3 = '11.01'
+	if TRY_CAST(@input1 as int) IS NULL 
+	Begin
+		Print'invalid input please enter vaild number'
+	End
+    else if TRY_CAST(@input2 as int) IS NULL 
+	Begin
+		Print'invalid input please enter vaild number'
+	End
+	else if TRY_CAST(@input3 as int) IS NULL 
+		Begin
+			Print'invalid input please enter vaild number'
+		End
+
+	Else
+		begin
+			set @x = CAST(@input1 as int)
+			set @y = CAST(@input2 as int)
+			set @z = CAST(@input3 as int)
+			if @x = @y AND @y = @z 
+			Begin
+				print 'all are equal'
+			End
+			else if @x >= @y And @x >= @z
+				Begin 
+					print cast(@x as varchar) + ' is a largest number'
+				End
+			else if @y>= @z And @y >= @x
+				Begin 
+					print cast(@y as varchar) + ' is a largest number'
+				End
+			else
+				Begin
+					Print cast(@z as varchar) + ' is a largest number'
+				End
+		end
+	end
+3.factorial 
+Begin 
+Declare @input varchar(500)
+Declare @n bigint
+Declare @fact bigint = 1 , @i bigint = 1
+Set @input = '8'
+If TRY_CAST(@input as bigint) IS NULL 
+	Begin
+			print 'Invalid input,Please enter a vaild number'
+	end
+	else
+	Begin
+			Set @n = CAST(@input as bigint)
+			If @n < 0
+				Begin 
+					print'Please enter a positive integer'
+				end
+			else
+			Begin
+					while @i <=@n
+					begin
+						set @fact = @fact * @i
+						set @i = @i + 1
+					End
+						print @fact
+				End
+	End
+End
+
+4.sum of natural number from 1 to n
+Begin 
+Declare @input varchar(500)
+Declare @n Bigint
+Declare @sum Bigint = 0 , @i int = 1
+Set @input = '939296542'
+If TRY_CAST(@input as Bigint) IS NULL 
+	Begin
+			print 'Invalid input,Please enter a vaild number'
+	end
+	else
+	Begin
+			Set @n = CAST(@input as Bigint)
+			If @n <=0
+				Begin 
+					print'Please enter a natural number'
+				end
+				else
+				Begin
+					set @sum = (@n*(@n+1))/2
+						print @sum
+				End
+	End
+End
+5.prime number or not
+Begin 
+	Declare @input varchar(500), @n1 int, @i int = 2
+	set @input = '4'
+	If TRY_CAST(@input as int) is NULL 
+	Begin 
+		print 'invalid input,please enter validinput'
+	End
+	else
+	Begin
+		set @n1 = CAST(@input as int)
+		if @n1 <=1
+		begin
+			print ' please enter a valid integer'
+		end
+		while @i <= @n1/2
+		begin
+			if(@n1 % @i = 0)
+			begin
+				break
+					 print 'is a not prime'
+			end
+			set @i = @i + 1
+
+		end
+		print ' is a prime'
+	end
+end
+6.multiplication table
+Begin 
+	declare @input varchar(500), @n int, @result int = 1, @i int = 1
+	set @input ='9'
+	if TRY_CAST (@input as int) is null
+	begin
+		print 'invalid input enter a valid input'
+	end
+	else
+	begin
+		set @n = CAST(@input as int)
+		if @n <=0
+		begin 
+			print 'invalid input'
+		end
+		else
+		begin
+			while @i <= 10
+			begin
+				Set @result = @n * @i
+				print cast(@n as varchar)+'x'+ cast(@i as varchar) +'=' + cast(@result as varchar)
+				set @i = @i +1
+			end
+		end
+	end
+end
+7.reverse of a number
+begin
+ declare @input varchar(100)
+ declare @x int,@n int,@digit int
+ set @input='12345671'
+ set @x = 0
+ if TRY_cast(@input as int)IS NULL
+   begin
+     print 'invalid input'
+	 end
+	ELSE
+	  begin
+	    set @n=cast(@input as int)
+		if @n<=1
+		  begin 
+		    print 'invalid'
+		  end
+		else
+		 begin
+		   while @n!=0
+		    begin 
+			   set @digit=@n%10
+			   set @x=@x*10+@digit
+			   set @n=@n/10
+			end
+			 print @x
+		end
+   end
+end
+8.fibonacci series
+begin
+	declare @input varchar(100)
+	declare @num1 int =0, @num2 int = 1, @num3 int = 0
+	declare @n int, @i int =2
+	set @input = '10'
+	if TRY_CAST(@input as int) is null 
+	begin
+		print 'invalid inpur please enter a vaild number'
+	end
+	else
+	begin
+		set @n = CAST(@input as int)
+		if @n <= 1
+		begin
+			print 'invalid input'
+		end
+		else
+		begin
+			print @num1
+			print @num2
+			while @i <= @n
+			begin
+				set @num3 = @num1 + @num2
+				print @num3
+				set @num1 = @num2
+				set @num2 = @num3
+				
+				set @i = @i + 1
+			end
+		end
+	end
+end
+9. sum of even all numbers 
+begin
+	declare @input varchar(100)
+	declare @n int ,@sum int =0, @i int =0
+	set @input = '5'
+	if TRY_CAST (@input as int) is null 
+	begin
+		print 'invalid input'
+	end
+	else
+	begin
+		set @n = CAST(@input as int)
+		if @n <=1
+		begin
+			print 'invalid input'
+		end
+		else
+		begin
+			while @i <= @n
+			begin
+				if @i % 2 = 0
+				begin
+					set @sum = @sum + @i
+				end
+				set @i = @i + 1
+			end
+			print @sum
+		end
+	end
+end
+10.grade calculator
+begin
+	declare @input varchar(100), @n int
+	set @input = '0'
+	if TRY_CAST(@input as int) is null
+	begin
+		print 'invalid'
+	end
+	else
+	begin
+		set @n = CAST(@input as int)
+		if @n < 0
+		begin
+			 print ' invalid input please enter the positive number'
+		end
+		else
+		begin
+		if @n >=0 And @n <= 100
+			if @n >=90 AND @n <= 100 
+			begin
+				print 'grade A'
+			end
+			else if  @n >=80 AND @n <= 89
+			begin 
+			    print 'grade B'
+			end
+			else if  @n >=70 AND @n <= 79
+			begin
+				 print 'grade C'
+			end
+			else if  @n >=60 AND @n <= 69
+			begin
+				print ' grade D'
+			end
+			else if @n >=50 AND @n <= 59
+			begin
+				print 'grade E'
+			end
+			else if @n >=40 AND @n <=49
+			begin
+				print 'grade P'
+			end
+			else
+			begin
+				print 'fail'
+			end
+			else
+			begin 
+				print ' enter a number between 1-100'
+			end
+		end
+	end
+end
+	
