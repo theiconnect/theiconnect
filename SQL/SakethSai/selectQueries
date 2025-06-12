@@ -1,0 +1,205 @@
+CREATE DATABASE SampleDemo
+USE SampleDemo
+
+BEGIN TRANSACTION;
+
+DROP TABLE if exists EMP;
+DROP TABLE if exists DEPT;
+DROP TABLE if exists SALGRADE;
+
+CREATE TABLE DEPT
+(
+    DEPTNO INT PRIMARY KEY,
+    DNAME VARCHAR(14),
+    LOC VARCHAR(13)
+);
+
+CREATE TABLE SALGRADE
+(
+    GRADE INT PRIMARY KEY, 
+    LOSAL DECIMAL(10, 2),
+    HISAL DECIMAL(10, 2)
+);
+
+CREATE TABLE EMP
+(
+    EMPNO INT PRIMARY KEY, -- Add Primary Key for better practice and joins
+    FirstName VARCHAR(20), -- Split ENAME for better string function practice
+    LastName VARCHAR(20),
+    JOB VARCHAR(9),
+    MGR INT,
+    HIREDATE DATETIME,
+    SAL DECIMAL(10, 2), -- Use DECIMAL for salary to handle precision
+    COMM DECIMAL(10, 2), -- Commission can be NULL
+    DEPTNO INT,
+    CONSTRAINT FK_EMP_DEPT FOREIGN KEY (DEPTNO) REFERENCES DEPT(DEPTNO), -- Add FK for referential integrity
+    CONSTRAINT FK_EMP_MGR FOREIGN KEY (MGR) REFERENCES EMP(EMPNO) -- Self-referencing FK for managers
+);
+
+
+-- Insert into DEPT first due to FK constraint
+INSERT INTO DEPT VALUES (10,'ACCOUNTING','NEW YORK');
+INSERT INTO DEPT VALUES (20,'RESEARCH','DALLAS');
+INSERT INTO DEPT VALUES (30,'SALES','CHICAGO');
+INSERT INTO DEPT VALUES (40,'OPERATIONS','BOSTON');
+INSERT INTO DEPT VALUES (50,'MARKETING','LONDON'); 
+
+INSERT INTO EMP VALUES(7369,'JOHN','SMITH','CLERK',7902,'1980-12-17',800.00, NULL, 20);
+INSERT INTO EMP VALUES(7499,'ALEX','ALLEN','SALESMAN',7698,'1981-02-20',1600.00,300.00,30);
+INSERT INTO EMP VALUES(7521,'PETER','WARD','SALESMAN',7698,'1981-02-22',1250.00,500.00,30);
+INSERT INTO EMP VALUES(7566,'DAVID','JONES','MANAGER',7839,'1981-04-02',2975.00,NULL,20);
+INSERT INTO EMP VALUES(7654,'MARY','MARTIN','SALESMAN',7698,'1981-09-28',1250.00,1400.00,30);
+INSERT INTO EMP VALUES(7698,'ROBERT','BLAKE','MANAGER',7839,'1981-05-01',2850.00,NULL,30);
+INSERT INTO EMP VALUES(7782,'SUSAN','CLARK','MANAGER',7839,'1981-06-09',2450.00,NULL,NULL); 
+INSERT INTO EMP VALUES(7788,'MICHAEL','SCOTT','ANALYST',7566,'1982-12-09',3000.00,NULL,20); 
+INSERT INTO EMP VALUES(7839,'ANNA','KING','PRESIDENT',NULL,'1981-11-17',5000.00,NULL,10);
+INSERT INTO EMP VALUES(7844,'THOMAS','TURNER','SALESMAN',7698,'1981-09-08',1500.00,0.00,30);
+INSERT INTO EMP VALUES(7876,'CHRIS','ADAMS','CLERK',7788,'1983-01-12',1100.00, NULL,20); 
+INSERT INTO EMP VALUES(7900,'JOHN','JAMES','CLERK',7698,'1981-12-03',950.00,NULL,NULL); 
+INSERT INTO EMP VALUES(7902,'PATRICK','FORD','ANALYST',7566,'1981-12-03',3000.00,NULL,20);
+INSERT INTO EMP VALUES(7934,'LINDA','MILLER','CLERK',7782,'1982-01-23',1300.00,NULL,10);
+
+INSERT INTO SALGRADE VALUES (1, 700.00, 1200.00);
+INSERT INTO SALGRADE VALUES (2, 1201.00, 1400.00);
+INSERT INTO SALGRADE VALUES (3, 1401.00, 2000.00);
+INSERT INTO SALGRADE VALUES (4, 2001.00, 3000.00);
+INSERT INTO SALGRADE VALUES (5, 3001.00, 9999.00);
+
+COMMIT;
+
+SELECT 'DB tables with data is ready - Please start working on the queries' AS Message;
+SELECT * FROM EMP;
+SELECT * FROM DEPT;
+SELECT * FROM SALGRADE;
+
+
+--List all employee details.
+SELECT *
+fROM Emp;
+
+--List all department details
+
+SELECT *
+FROM dept;
+
+--List all unique job titles
+
+SELECT 
+	DISTINCT Job
+FROM Emp;
+
+--List all unique office locations
+
+
+SELECT 
+	DISTINCT Loc
+FROM Dept;
+
+
+--List employee's first name, last name, salary, and commission
+
+SELECT
+	FirstName,LastName,Sal,Comm
+FROM Emp;
+
+--List employee ID, first name, last name, and department ID, renaming columns to "Employee ID", "First Name", "Last Name", and "Department ID".
+
+SELECT 
+	Empno AS EmployeeId,
+	FirstName AS FirstName,
+	LastName AS LastName,
+	DeptNo AS DepartmentId
+FROM Emp;
+
+--List employee's annual salary (salary * 12) along with their first and last names.
+
+SELECT 
+	SAL*12,FirstName,LastName
+FROM Emp;
+
+--List all details for the employee named 'SMITH' (Last Name).
+
+SELECT *
+FROM Emp
+WHERE LastName = 'Smith';
+
+--List employees working in department 20.
+
+SELECT *
+FROM Emp
+where DeptNo = 20;
+
+--List employees whose salary is between 2500 and 3000 (inclusive).
+SELECT *
+FROM Emp
+WHERE Sal >=2500 AND Sal <= 3000;
+
+--List employees working in department 10 or 20.
+SELECT *
+FROM Emp
+WHERE deptno = 10 OR deptno = 20;
+
+--Find employees who are not working in department 10 or 30.
+ SELECT *
+ FROM Emp
+ WHERE NOT( DeptNo = 10 OR DeptNo = 30);
+
+--List employees whose last name starts with 'S'.
+SELECT *
+FROM Emp
+WHERE LastName like's%';
+
+--List employees whose last name starts with 'S' and ends with 'H'.
+
+SELECT LastName
+FROM Emp
+WHERE LastName Like 'S%H';
+
+--List employees whose last name has exactly 4 characters and starts with 'S'.
+SELECT LastName
+FROM Emp
+WHERE LastName like 'S%' AND len(LastName) = 4;
+
+--List employees who work in department 10 AND earn more than 3500.
+Select *
+FROM Emp
+WHERE deptNo = 10 and Sal > 3500;
+
+--List employees who are not receiving commission
+SELECT *
+FROM Emp
+WHERE COMM IS NULL;
+
+--List employees who receive some commission
+SELECT *
+FROM Emp
+WHERE NOT COMM IS NULL;
+
+--List employees whose last name contains an 'A' and is exactly 5 characters long
+
+SELECT LastName
+FROM Emp
+WHERE  contains(lastname,'A') AND len(LastName) = 5;
+
+-- List employee ID, first name, last name in ascending order based on employee ID
+
+SELECT EMPNO,FirstName,LastName
+FROM Emp
+ORDER BY Empno;
+
+--List employee ID, first name, last name in descending order based on salary.
+
+SELECT EMPNO,FirstName,LastName, Sal
+FROM Emp
+ORDER BY Sal DESC;
+
+--List employee details, sorted by last name in ascending order, then by salary in descending order.
+SELECT *
+FROM Emp
+ORDER BY LastName ASC, Sal DESC;
+
+--List employee details, sorted by last name in ascending order, then by department ID in descending order.
+
+SELECT *
+FROM Emp
+ORDER BY LastName ASC, DeptNo DESC;
