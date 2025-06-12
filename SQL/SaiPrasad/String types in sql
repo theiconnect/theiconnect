@@ -1,0 +1,87 @@
+Begin
+Declare @n varchar(10)
+set @n = 'I ConnectTech Solutions'
+select len(@n)
+select(@n)
+set @n=null
+select len(@n)
+select ltrim(' iconnect ')
+select rtrim(' iconnect ')  
+select left('iconnect',6)
+select right('iconnect',7)
+select substring('iconnect',0,10)
+select charindex('n','iconnect')
+select replace('saiprasad','prasad','bhemm')
+
+select right('Emp-001',3)
+end      
+
+begin
+    declare @Empcode varchar(50) = 'Emp-009'
+    declare @tempcode varchar(50),@n1 int
+    set @tempcode = RIGHT (@Empcode,3)
+    set @n1 = convert(INT,@tempcode)
+    set @n1=@n1+1
+    set @tempcode='Emp-'+RIGHT('000'+cast(@n1 as varchar),3)
+    print @tempcode
+end
+
+begin
+    declare @f varchar(200),@l varchar(200),@name int
+    declare @input1 varchar(100)='sdfgdfgdfg fdsg;ldsfg;ai-prdfsgdfg;dfgdfgasad'
+    set @name = charindex( '-',@input1)
+    set @f =substring(@input1,1,@name-1)
+    set @l=substring(@input1,@name+1,len(@input1)-len(@f))
+    print  'first name is ' + @f
+    print  'last name is ' + @l
+ end 
+   
+
+begin
+    declare @firstname varchar(200),@lastname varchar(100),@companyname varchar(300),@first_dotindex int,@atdate int,@fullemail int
+    declare @input varchar(200)='saiprasad.kuruva@iconnect.com'
+    set @first_dotindex = charindex('.',@input)
+    set @atdate = charindex('@',@input)
+    set @fullemail = len(@input)
+    set @firstname = substring(@input,1,@first_dotindex-1)
+    set @lastname = substring(@input,@first_dotindex+1,@atdate-(@first_dotindex+1))
+    declare @domainfullname varchar(200) = substring(@input,@atdate+1,@fullemail)
+    set @companyname = substring(@input,1,charindex('.',@domainfullname) - 1)
+    print 'Firstname   :' + @firstname
+    print 'lastname    :' + @lastname
+    print 'companyname :' + @companyname
+end
+
+
+begin
+ DECLARE @firstname1 VARCHAR(200),
+        @lastname2 VARCHAR(100),
+        @companyname2 VARCHAR(300),
+        @a INT,
+        @b INT,
+        @c INT
+
+DECLARE @input2 VARCHAR(200) = 'saiprasad.kuruva@iconnect.com'
+
+-- Position of .
+SET @a = CHARINDEX('.', @input2)           -- 10
+-- Position of @
+SET @b = CHARINDEX('@', @input2)           -- 17
+-- Position of .com
+SET @c = CHARINDEX('.com', @input2)        -- 26
+
+-- Extract parts
+SET @firstname1 = SUBSTRING(@input2, 1, @a - 1)
+SET @lastname2 = SUBSTRING(@input2, @a + 1, @b - @a - 1)
+SET @companyname2 = SUBSTRING(@input2, @b + 1, @c - @b - 1)
+
+-- Output
+PRINT 'Firstname   : ' + @firstname1
+PRINT 'Lastname    : ' + @lastname2
+PRINT 'Companyname : ' + @companyname2
+end
+
+ 
+
+
+	
