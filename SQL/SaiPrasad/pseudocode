@@ -1,0 +1,306 @@
+Sum of natural numbers
+Begin
+    Declare @input varchar(500)
+    Declare @n Int
+    Declare @sum int =0, @i Int=1
+    set @input = '120'
+    IF TRY_CAST(@input as int)Is Null
+    Begin
+        print 'Invalid input,please enter valid number'
+    End
+    Else
+    Begin
+      set @n = cast(@input as int)
+      if @n<=0
+      Begin
+       print 'Please enter the value,greater than Zero'
+      End
+      Else
+      Begin
+        while @i<=@n
+        Begin
+            set @sum=@sum+@i
+            set @i=@i+1;
+        End
+        print @sum
+        end
+    end
+end
+
+Even or Odd
+Begin
+    Declare @input1 varchar(500)
+    declare @n1 Int
+    set @input1= '255'
+    IF TRY_cast(@input1 as int)Is Null
+      Begin
+        print 'Invalid input,please enter a valid number'
+      end
+      else
+      begin
+        set @n1 = cast(@input1 as int)
+         IF @n1%2=0
+        Begin
+           print 'Even number'
+        end
+        else
+         begin
+           print 'odd number'
+         end
+       end
+end
+
+Largest Number 
+Begin
+ Declare @input2 varchar(500)
+ Declare @input3 varchar(500)
+ Declare @input4 varchar(500)
+ Declare @x Int,@y Int,@z Int
+ set @input2 = '455'
+ set @input3 = '989'
+ set @input4 = '24'
+ IF TRY_cast(@input2 as int)IS NULL
+    Begin
+        print 'Inavali Input,Please enter a valid Input'
+    End
+ IF TRY_cast(@input3 as int)IS NULL
+    Begin
+        print 'Invalid Input,Please enter a valid Input'
+    end
+ IF TRY_cast(@input4 as int)IS NULL
+    Begin
+        print 'Invalid Input,Please enter a valid Input'
+    end
+ Else
+    Begin
+        set @x=cast(@input2 as int)
+        set @y=cast(@input3 as int)
+        set @z=cast(@input4 as int)
+    end
+  IF @x=@Y and @y=@z
+    Begin
+        print 'Invalid Number'
+    end
+  IF @x>@y and @x>@z
+    Begin
+        print ' x is largest'
+    end
+  IF @y>@x and @y>@z
+    Begin
+        print 'y is largest'
+    end
+  IF @z<@x and @z>@y 
+    Begin
+        print 'z is largest'
+    end
+    end
+
+Factorial
+Begin
+    Declare @input5 varchar(500)
+    Declare @n2 int,@fact Bigint =1, @j Bigint= 1
+    set @input5 = '4'
+    IF TRY_cast(@input5 as int)IS NULL
+    Begin
+        print 'Invalid input,please enter valid number'
+    end
+    Else
+    begin
+        set @n2=cast(@input5 as int)
+    end
+    begin
+        while @j< = @n2
+        begin
+            set @fact=@fact*@j
+            set @j=@j+1;
+        end
+        print @fact
+    end
+end
+
+
+
+Prime Number
+Begin
+    Declare @input6 varchar(500)
+    Declare @n3 int,@count int =1,@k int=2
+    set @input6 ='6'
+    IF TRy_cast(@input6 as int)IS NULL
+    Begin
+        print 'Invalid input,please enter valid number'
+    end
+    else
+    Begin
+        set @n3=cast(@input6 as int)
+        If @n3<=1
+        Begin
+            print 'inavalid number'
+        end
+        while @k < = @n3
+        begin
+        iF  @n3 % @k = 0
+        begin
+          set  @count = @count+1
+        end
+       
+        begin
+            if @count=2
+            begin
+                print'Prime Number'
+            end
+            else
+            begin
+            print'not prime'
+
+
+
+        set @k=@k + 1
+            end
+        end
+    end
+    end
+end
+    
+Multiplication Table       
+Begin
+Declare @input7 varchar(500)
+declare @n4 int
+declare @result int =1,@h int =1
+set @input7 ='5'
+IF TRY_cast(@input7 as int)IS NULL
+   Begin
+     print'Invalid input,please enter valid number'
+   end
+   
+else
+    begin
+     set @n4 = cast(@input7 as int)
+    Begin
+        while @h<=10
+        begin
+          set @result = @n4*@h
+          print cast(@n4 as varchar) + 'x' + cast(@h as varchar) + '=' +cast(@result as varchar)
+         set @h=@h+1
+        end
+     end
+end
+end
+
+
+Fibonacci Series
+begin
+declare @input varchar(500)
+declare @n int, @num1 int =0, @num2 int =1,@num3 int , @i int =2
+set @input='5'
+IF TRY_cast(@input as int)IS NULL
+Begin
+	print 'Invalid number'
+end
+else
+begin
+	set @n=cast(@input as int)
+	if @n<=1
+	Begin
+		print 'Invalid input'
+	end
+	print @num1 
+	print @num2
+	while @i <= @n
+	begin
+		set @num3=@num1+@num2
+		set @num1=@num2
+		set @num2=@num3
+		print @num3
+		set @i=@i+1
+	end
+end
+end
+
+  Reversing Number
+Begin
+	declare @input varchar(100)
+	declare @r int 
+	declare @n int,@digit int
+	set @input = '165'
+	set @r=0
+	If TRY_cast(@input as int)IS NULL
+	Begin
+		print 'invalid input'
+	end
+	else
+	begin
+		set @n = cast(@input as int)
+		if @n<=1
+		begin
+			print'Inavalid'
+		end
+		else
+		begin
+			while @n!=0
+			begin
+				set @digit = @n%10
+				set @r =@r*10+@digit
+				set @n = @n/10
+			end
+				print @r
+		end
+	end
+end
+
+Grading System
+
+Begin
+	Declare @input varchar(500)
+	declare @n int
+	set @input = '60'
+	If TRY_cast(@input as int)IS NULL
+	begin
+		print 'Inavalid input'
+	end
+	else
+	begin
+		set @n = cast(@input as int)
+		if @n<=1
+		begin
+			print'inavalid'
+		end
+		else
+		begin
+			if @n>=90 And @n<=100
+			begin
+				print'A Grade'
+			end
+			else if @n>=80 And @n<=89
+			begin
+				print'B Grade'
+			end
+			else if @n>=70 And @n<=79
+			begin
+				print'C Grade'
+			end
+			else if @n>=60 And @n<=69
+			begin
+				print'D grade'
+			end
+			else
+			begin
+				print'Fail'
+			end
+			end
+			end
+	end
+
+
+
+    
+
+           
+                                                                                                            
+
+       
+
+       
+
+
+
+
