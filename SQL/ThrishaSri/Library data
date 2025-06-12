@@ -1,0 +1,251 @@
+Create Table Library(
+LibraryIdPk Int Primary Key ,
+AssociateName Varchar(512),
+Address Varchar(512),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+) 
+
+ Select * From Library; 
+
+Create Table Librarian (
+LibrarianIdPk  Int Primary Key,
+Name Varchar(512),
+Gender Char,
+Email Varchar(128),
+Mobile Char(10),
+[Password] Varchar(256),
+LibraryIdFk Int,
+Constraint Fk_Librarian_Library Foreign Key(LibraryIdFk) References [Library](LibraryIdPk),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+
+Select * From Librarian
+
+Create Table Attendance(
+AttendanceIdPk Int Primary Key,
+DateAndTime Datetime,	
+LibraianName Varchar(512),
+[Type] Time,
+LibrarianIdFk Int,
+Constraint Fk_Attendance_Librarian Foreign Key(LibrarianIdFk) References [Librarian](LibrarianIdPk),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Attendance
+
+Create Table Department(
+DepartmentIdPk Int Primary Key,
+[Name] Varchar(512),
+Code Varchar(100),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Department
+
+Create Table Section(
+SectionIdPk Int Primary Key,
+[Name] Varchar(512),
+Code Varchar(100),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Section
+
+Create Table Rack(
+RackIdPk Int Primary Key,
+[Name] Varchar(512),
+Code Varchar(512),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Rack
+
+Create Table Subject(
+SubjectIdPk Int Primary Key,
+SubjectName Varchar(512),
+DepartmentIdFk Int,
+SectionIdFk Int,
+RackIdFk Int,
+Constraint Fk_Subject_Department Foreign Key(DepartmentIdFk) References [Department](DepartmentIdPk),
+Constraint Fk_Subject_Section Foreign Key(SectionIdFk) References[Section](SectionIdPk),
+Constraint Fk_Subject_Rack Foreign Key(RackIdFk) References [Rack](RackIdPk),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+
+Select * From Subject;
+
+Create Table Shelf(
+ShelfIdPk Int Primary Key,
+Code Varchar(512),
+RackIdFk Int,
+Constraint Fk_Shelf_Rack Foreign Key(RackIdFk) References[Rack](RackIdPk),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Shelf
+
+Create Table Block(
+BlockIdPk Int Primary Key,
+Code Varchar(512),
+ShelfIdFk Int,
+Constraint Fk_Block_Shelf Foreign Key(ShelfIdFk) References[Shelf](ShelfIdPk),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Block
+
+Create Table Book(
+BookIdPk Int Primary Key,
+[Name] Varchar(512),
+PublishedOn Datetime,
+Code Varchar(100),
+DepartmentName Varchar(512),
+Price Decimal(10,2),
+ShelfCode Varchar(100),
+AvailableOfQuantity Varchar(100),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Book
+
+Create Table Author (
+AuthorIdPk Int Primary Key,
+[Name] Varchar(512),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Author
+
+Create Table BookAuthor(
+BookAuthorIdPk Int Primary Key,
+BookIdFk Int,
+AuthorIdFk Int,
+Constraint Fk_BookAuthor_Book Foreign Key(BookIdFk) References [Book](BookIdPk),
+Constraint Fk_BookAuthor_Author Foreign Key(AuthorIdFk) References[Author](AuthorIdPk),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From BookAuthor
+
+Create Table Student(
+StudentIdPk Int Primary Key,
+RollNo Varchar(100),
+[Name] Varchar(512),
+FatherName Varchar(512),
+Mobile Char(10),
+EmailId Varchar(128),
+Class Varchar(50),
+Branch Varchar(50),
+CreatedBy Varchar(256) Not Null ,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From Student
+
+Create Table BookIssueAndReturn(
+BookIssueAndReturnIdPk Int Primary Key,
+DateAndTime Datetime,
+LibrarianIdFk Int,
+BookAndItemCode Varchar(100),
+ExceptedReturnDate Date,
+ActualReturnDate Date,
+StudentName Varchar(512),
+IsLost Varchar(100),
+IsDamage Varchar(100),
+Fine Decimal(10,2),
+Constraint Fk_BookIssueAndReturn_Librarian Foreign Key(LibrarianIdFk) References [Librarian](LibrarianIdPk),
+CreatedBy Varchar(256) Not Null,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From BookIssueAndReturn
+
+Create Table StudentBookIssue(
+StudentBookIssueIdPk Int Primary Key,
+StudentIdFk Int,
+BookIssueAndReturnIdFk Int,
+Constraint Fk_StudentBookIssue_Student Foreign Key (StudentIdFk) References [Student](StudentIdPk),
+Constraint Fk_StudentBookIssue_BookIssueAndReturn Foreign Key (BookIssueAndReturnIdFk)References [BookIssueAndReturn](BookIssueAndReturnIdPk),
+CreatedBy Varchar(256) Not Null,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+Select * From StudentBookIssue
+
+Create Table Stock(
+StockIdPk Int Primary Key,
+EntryDate Date,
+BookIdFk Int,
+Constraint Fk_Stock_Book Foreign Key (BookIdFk) References [Book](BookIdPk),
+PricePerUnit Decimal(10,2),
+DiscountPerUnit Decimal(10,2),
+FinalAmountPerUnit Decimal(10,2),
+PurchasedDate Date,
+LibrarianName Varchar(512),
+CreatedBy Varchar(256) Not Null,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+ 
+Select * From Stock;
+
+Create Table Vendor(
+VendorIdPk Int Primary Key,
+VendorName Varchar(512),
+Mobile Char(10),
+Address Varchar(512),
+StockIdFk Int,
+Constraint Fk_Vendor_Stock Foreign Key (StockIdFk) References [Stock](StockIdPk),
+CreatedBy Varchar(256) Not Null,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+
+Select * From Vendor;
+
+Create Table Item(
+ItemIdPk Int Primary Key,
+ItemCode Varchar(100),
+StockIdFk Int,
+Constraint Fk_Item_Stock Foreign Key (StockIdFk) References [Stock](StockIdPk),
+CreatedBy Varchar(256) Not Null,
+CreatedOn Datetime Not Null Default(GetDate()),
+LastUpdatedBy Varchar(256) Null,
+LastUpdatedOn Datetime Null
+)
+
+Select * From Item;
+
+
