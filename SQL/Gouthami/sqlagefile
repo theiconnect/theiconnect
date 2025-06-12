@@ -37,3 +37,39 @@ begin
 	set @noofdays = datepart(dd,@currentdate) - datepart(dd,@dob)
 	print @noofdays
 end
+
+
+
+
+
+
+
+
+
+
+
+select getdate()
+select datepart(dd,getdate())as day,
+datepart(mm,getdate())as month,
+datepart(yy,getdate())as year,
+datepart(hh,getdate())as hour,
+datepart(mi,getdate())as minutes,
+format(getdate(),'tt')as amorpm,
+sysdatetimeoffset()as timezone
+
+
+
+
+
+
+
+
+select datename(dw,getdate())as day,
+ datename(mm,getdate())as month, 
+ datename(yy,getdate())as year,
+datepart(hh,getdate())as hour,
+datepart(mi,getdate())as minute,
+sysdatetimeoffset()as timezone
+
+
+
