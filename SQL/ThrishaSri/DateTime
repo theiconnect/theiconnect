@@ -1,0 +1,57 @@
+select getdate()
+select datepart(dd,getdate())
+select datename(mm,getdate())
+select datepart(yy,getdate())
+select datepart(hh,getdate())
+select datepart(mi,getdate())
+select datepart(ss,getdate())
+select datename(dw,getdate())
+select SYSDATETIMEOFFSET() as timezone
+
+
+
+select datediff(yy,'2004-09-18',GETDATE()) as years,
+datediff(MM,'2004-09-18',getdate())as month,
+datediff(dd,'2004-09-18',getdate())as days
+
+
+declare @dob date, @currentdate date ,@noofyears int,@noofmonths int,@noofdays int
+
+set @dob ='2004-09-18'
+set @currentdate = getdate()
+if month(@dob) > month(@currentdate)
+begin 
+	 set @noofyears= datediff(yy,@dob,@currentdate)
+	set @noofyears = @noofyears - 1
+	print @noofyears
+end
+else
+begin
+ set @noofyears= datediff(yy,@dob,@currentdate)
+	print @noofyears
+end
+
+if day(@dob) > day(@currentdate)
+begin
+	set @noofmonths= datediff(mm,@dob,@currentdate)
+	set	@noofmonths = @noofmonths - 1
+	set @noofmonths = @noofmonths % 12
+	print @noofmonths
+end
+else
+begin
+	set @noofmonths= datediff(mm,@dob,@currentdate) % 12
+	print @noofmonths
+end
+
+if day(@dob) > day(@currentdate)
+begin
+declare @totaldaysinmonth int = day(eomonth(@currentdate))
+set @noofdays = (@totaldaysinmonth - datepart(dd,@dob)) + datepart(dd,@currentdate)
+print @noofdays
+end
+else
+begin
+	set @noofdays = datepart(dd,@currentdate) - datepart(dd,@dob)
+	print @noofdays
+end
