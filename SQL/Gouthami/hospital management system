@@ -1,0 +1,208 @@
+CREATE TABLE Hospital (
+    HospitalIdPk INT PRIMARY KEY,
+    Name VARCHAR(128),
+    Mobile CHAR(10),
+    Address VARCHAR(1000),
+    EmailId VARCHAR(128)
+);
+
+CREATE TABLE Department (
+    DepartmentIdPk INT PRIMARY KEY,
+    DepartmentCode VARCHAR(128),
+    Name VARCHAR(256),
+    Description VARCHAR(512),
+    HospitalIdFk INT,
+    StatusIdFk INT,
+    Location VARCHAR(100),
+    CONSTRAINT Fk_Department_Hospital FOREIGN KEY (HospitalIdFk) REFERENCES Hospital(HospitalIdPk),
+    CONSTRAINT Fk_Department_Status FOREIGN KEY (StatusIdFk) REFERENCES Status(StatusIdPk)
+);
+
+CREATE TABLE Status (
+    StatusIdPk INT PRIMARY KEY,
+    StatusName VARCHAR(150),
+    StatusType VARCHAR(150),
+    Description VARCHAR(1500),
+    IsActive BIT
+);
+
+CREATE TABLE Speciality (
+    SpecialityIdPk INT PRIMARY KEY,
+    SpecialityName VARCHAR(512),
+    Description VARCHAR(MAX),
+    IsActive BIT
+);
+
+CREATE TABLE Doctor (
+    DoctorIdPk INT PRIMARY KEY,
+    DoctorCode VARCHAR(128),
+    FirstName VARCHAR(512),
+    LastName VARCHAR(512),
+    SpecialityIdFk INT,
+    Salary DECIMAL(10,2),
+    Mobile CHAR(10),
+    EmailId VARCHAR(128),
+    StatusIdFk INT,
+    RegisteredNumber VARCHAR(65),
+    CONSTRAINT Fk_Doctor_Status FOREIGN KEY (StatusIdFk) REFERENCES Status(StatusIdPk),
+    CONSTRAINT Fk_Doctor_Speciality FOREIGN KEY (SpecialityIdFk) REFERENCES Speciality(SpecialityIdPk)
+);
+
+CREATE TABLE DepartmentDoctor (
+    DepartmentDoctor INT PRIMARY KEY,
+    DoctorIdFk INT,
+    DepartmentIdFk INT,
+    EffectiveDate DATE,
+    EndDate DATE,
+    ConsultingTimings TIME,
+    CONSTRAINT Fk_DepartmentDoctor_Doctor FOREIGN KEY (DoctorIdFk) REFERENCES Doctor(DoctorIdPk),
+    CONSTRAINT Fk_DepartmentDoctor_Department FOREIGN KEY (DepartmentIdFk) REFERENCES Department(DepartmentIdPk)
+);
+
+SELECT * FROM DepartmentDoctor;
+
+CREATE TABLE Patient (
+    PatientIdPk INT PRIMARY KEY,
+    FirstName VARCHAR(256),
+    LastName VARCHAR(256),
+    Gender CHAR(1),
+    DateOfBirth DATE,
+    Address VARCHAR(512),
+    MrNumber VARCHAR(100)
+);
+
+CREATE TABLE AppointmentStatus (
+    AppointmentStatusIdPk INT PRIMARY KEY,
+    AppointmentStatus VARCHAR(100),
+    Description VARCHAR(1000),
+    IsActive BIT
+);
+
+CREATE TABLE FollowUp (
+    FollowUpIdPk INT PRIMARY KEY,
+    FollowUpDate DATE,
+    Notes VARCHAR(1000),
+    DoctorIdFk INT,
+    Status VARCHAR(50),
+    CONSTRAINT Fk_FollowUp_Doctor FOREIGN KEY (DoctorIdFk) REFERENCES Doctor(DoctorIdPk)
+);
+
+CREATE TABLE Appointment (
+    AppointmentIdPk INT PRIMARY KEY,
+    VisitDateTime DATETIME,
+    ConsultationFee DECIMAL(9,2),
+    PaidFee DECIMAL(9,2),
+    Balance DECIMAL(9,2),
+    PatientIdFk INT,
+    DoctorIdFk INT,
+    AppointmentNumber VARCHAR(150),
+    BillNumber VARCHAR(120),
+    PaymentMode VARCHAR(100),
+    AppointmentStatusIdFk INT,
+    FollowUpStatusIdFk INT,
+    Comments VARCHAR(512),
+    TreatmentDetails VARCHAR(MAX),
+    PrescriptionDocumentFileName VARCHAR(512),
+    CONSTRAINT Fk_Appointment_Doctor FOREIGN KEY (DoctorIdFk) REFERENCES Doctor(DoctorIdPk),
+    CONSTRAINT Fk_Appointment_Patient FOREIGN KEY (PatientIdFk) REFERENCES Patient(PatientIdPk)
+);
+
+CREATE TABLE PaymentStatus (
+    PaymentStatusIdPk INT PRIMARY KEY,
+    PaymentStatus VARCHAR(100),
+    Description VARCHAR(1000),
+    IsActive BIT
+);
+
+CREATE TABLE PatientAdmission (
+    PatientAdmissionIdPk INT PRIMARY KEY,
+    PatientIdFk INT,
+    AdminDateTime DATETIME,
+    AdmissionFee DECIMAL(9,2),
+    AttendentName VARCHAR(140),
+    AttendentMobile CHAR(10),
+    AdmissionNumber VARCHAR(100),
+    DepartmentIdFk INT,
+    StatusIdFk INT,
+    PaymentStatusIdFk INT,
+    CONSTRAINT Fk_PatientAdmission_Patient FOREIGN KEY (PatientIdFk) REFERENCES Patient(PatientIdPk), 
+    CONSTRAINT Fk_PatientAdmission_Department FOREIGN KEY (DepartmentIdFk) REFERENCES Department(DepartmentIdPk),
+    CONSTRAINT Fk_PatientAdmission_Status FOREIGN KEY (StatusIdFk) REFERENCES Status(StatusIdPk),
+    CONSTRAINT Fk_PatientAdmission_PaymentStatus FOREIGN KEY (PaymentStatusIdFk) REFERENCES PaymentStatus(PaymentStatusIdPk)
+);
+
+CREATE TABLE DoctorIpVisit (
+    DoctorIpVisitIdPk INT PRIMARY KEY,
+    DoctorIdFk INT,
+    PatientAdmissionIdFk INT,
+    VisitDateTime DATETIME,
+    SuggestedTreatment VARCHAR(MAX),
+    CONSTRAINT Fk_DoctorIpVisit_Doctor FOREIGN KEY (DoctorIdFk) REFERENCES Doctor(DoctorIdPk),
+    CONSTRAINT Fk_DoctorIpVisit_PatientAdmission FOREIGN KEY (PatientAdmissionIdFk) REFERENCES PatientAdmission(PatientAdmissionIdPk)
+);
+
+CREATE TABLE IpBill(
+IpBillIdPk INT PRIMARY KEY,
+BillTypeIdFk INT,
+Amount DECIMAL(10,3),
+DiscountPercentage DECIMAL(10,3),
+Gst VARCHAR(15),
+BillAmount Decimal(10,3),
+PatientAdmissionIdFk INT,
+CONSTRAINT Fk_IpBill_BillType FOREIGN KEY (BillTypeIdFk) REFERENCES BillType(BillTypeIdPk),
+)
+
+CREATE TABLE BillType(
+BillTypeIdPk INT PRIMARY KEY,
+InPatientBill VARCHAR(120),
+OutPatientBill VARCHAR(120),
+HospiatalPatientBill VARCHAR(120),
+)
+
+CREATE TABLE IPTreatmentDetails(
+IPTreatmentDetailsIdPk INT PRIMARY KEY,
+TreatmnetDescription VARCHAR(MAX),
+DateAndTime DATETIME,
+DoctorIpVisitIdFk INT,
+CONSTRAINT Fk_IPTreatmentDetails_DoctorIpVisit FOREIGN KEY (DoctorIpVisitIdFk) REFERENCES DoctorIpVisit (DoctorIpVisitIdPk)
+)
+
+CREATE TABLE IpRoomAssignment(
+IpRoomAssignmentIdPk INT PRIMARY KEY,
+PatientAdmissionIdFk INT,
+RoomIdFk INT,
+InDateTime DATETIME,
+OutDateTime DATETIME,
+CONSTRAINT Fk_IpRoomAssignment_PatientAdmission FOREIGN KEY (PatientAdmissionIdFk) REFERENCES PatientAdmission(PatientAdmissionIdPk),
+CONSTRAINT Fk_IpRoomAssignment_Room FOREIGN KEY(RoomIdFk) REFERENCES Room(RoomIDPk)
+)
+
+CREATE TABLE Room(
+RoomIdPk INT PRIMARY KEY,
+RoomNumber VARCHAR(120),
+BuildingName VARCHAR(150),
+FloorNumber Varchar(50),
+DepartmentIdFk INT,
+RoomTypeIdFk INT,
+CONSTRAINT Fk_Room_RoomType FOREIGN KEY (RoomTypeIdFk) REFERENCES RoomType(RoomTypeIdPk),
+CONSTRAINT Fk_Room_Department FOREIGN KEY (DepartmentIdFk) REFERENCES Department(DepartmentIdPk),
+)
+
+CREATE TABLE RoomType(
+RoomTypeIdPk INT PRIMARY KEY,
+Sharing VARCHAR(50),
+Individual VARCHAR(50),
+)
+
+Alter Table  BillType
+ADD CreatedBy VARCHAR(256) NOT NULL 
+
+Alter Table  BillType
+ADD CreatedOn DATETIME NOT NULL Default(GETDATE())
+
+Alter Table  BillType
+ADD LastUpdatedBy VARCHAR(256) NOT NULL 
+
+Alter Table  BillType
+ADD LastUpdatedOn VARCHAR(256) NULL 
+
