@@ -1,0 +1,66 @@
+declare @fullname varchar(200)='gouthami-legala'
+select substring(@fullname,1,(charindex( '-',@fullname))-1) AS FirstName,
+substring(@fullname,charindex( '-',@fullname) + 1,len(@fullname) - charindex( '-',@fullname))
+
+
+begin
+declare @fullname varchar(200)='gouthami-kanna'
+declare @a int,@b int,@firstname varchar(100),@lastname varchar(100)
+set @a=charindex( '-',@fullname)
+set @firstname=substring(@fullname,1,@a-1)
+set @b=len(@fullname)
+print 'first name is '+@firstname
+set @lastname=substring(@fullname,@a + 1,@b - @a)
+print 'last name is '+@lastname
+end
+
+
+
+ begin 
+declare @EMPcode varchar(400)='EMP-599'
+declare @tempcode varchar(50),@n int
+set @tempcode= RIGHT(@empcode,3)
+set @n=convert(int,@tempcode)
+set @n=@n+1
+set @tempcode='EMP-'+RIGHT('00'+CAST(@n as varchar),3)
+print @tempcode
+end
+
+begin
+declare  @email varchar(100)='gouthami@iconnecttechsolutions.com'
+declare @firstDotIndex int,@atIndex int, @FullEmailLen int ,@firstname varchar(100),@lastname varchar(100),@companyname varchar(100),@Name varchar(100)
+set @firstDotIndex=charindex( '.',@email)
+set @atIndex =charindex('@',@email)
+set @FullEmailLen =Len(@email)
+if @firstDotIndex > 0 and @firstDotIndex < @atIndex
+ begin
+  set @firstname=substring(@email,1,@firstDotIndex-1)
+     print 'first name is '+@firstname
+  set @lastname=substring(@email,@firstDotIndex+1,@atIndex-(@firstDotIndex+1))
+     print 'last name is '+@lastname
+   declare @domainfullname varchar(50) = substring (@email,@atIndex+1,@FullEmailLen)
+  set @companyname= substring(@domainfullname, 1, charindex( '.',@domainfullname)-1)
+     print 'company name is '+@companyname
+ end
+ELSE
+ begin
+   print 'its an company mailID'
+
+		 set @Name  = substring (@email,1,@atIndex-1)
+         set @companyname =  substring (@email,@atIndex+1,@FullEmailLen-(@atIndex+1))
+            print 'name =' + @Name
+	        print 'Company name ='+ @companyname
+end
+end
+
+
+
+
+
+
+
+
+   
+
+
+
