@@ -1,0 +1,120 @@
+begin
+	declare @n varchar(max)
+	set @n =' Iconnecttechsolutions '
+	select len(@n) 
+	-- if the size is not properly declared then the exceeded value will get trim
+	select(@n)
+	set @n = null
+	select len(@n)
+	select upper('iconnecttechsolutions') ----	ICONNECTECHSOLUTIONS
+	select lower('ICONNECTtechSOLUTIONS') ---- iconecttechsolutions
+	select len(' iconnect                            ') --- 9
+	select ltrim(' iconnect ')     ---   iconnect      
+	select rtrim(' iconnect ')     ---- iconnect
+	select left(' iconnect',4)   --- ico
+	select right('iconnect' ,5) --- nnect
+	select substring('iconnect',2,50) ---- connect
+	select charindex('n','iconnect')
+
+	declare @x varchar(max), @y varchar(1001),@num int
+	set @x ='DEPT-0009'
+	set @y = right(@x,4)
+	set @num = cast(@y as int)
+	set @num = @num +1
+	set @y = 'DEPT-'+ right('000'+ cast(@num as varchar),4)
+	print @y
+	
+
+	declare @name varchar(1000),@c int,@f varchar(1000),@l varchar(1000)
+	set @name ='kjhkhlnlk  kjhkjnlk ,m jj;lk;l-kjbkjln;knlknjuibui sai'
+	set @c = CHARINDEX('-',@name)
+	set @f = SUBSTRING(@name,1,@c-1)
+	set @l = substring(@name,@c+1,len(@name)-@c)
+	print 'first name is ' + @f
+	print 'last name is ' + @l
+
+	declare @empeaddress varchar(max),@c1 int, @c2 int,@fname varchar(1000),@lname varchar(1000),@cname varchar(1000),@c3 int
+	set @empeaddress ='sakethsai.gangishetty@iconnecttechsolutions.com'
+	set @c1 = CHARINDEX('.',@empeaddress)
+	set @c2 = CHARINDEX('@',@empeaddress)
+	set @c3 = CHARINDEX('.com',@empeaddress)
+	set @fname = SUBSTRING(@empeaddress,1,@c1 - 1)
+	set @lname = SUBSTRING(@empeaddress,@c1+1,@c2-(@c1+1))
+	set @cname = SUBSTRING(@empeaddress,@c2+1,(@c3-1)-@c2)
+	print @fname
+	print @lname
+	print @cname
+	
+
+end
+
+select getdate()
+
+
+select datepart(dd,getdate()) as date,
+datepart(mm,getdate())as month,
+datepart(yy,getdate())as year,
+datepart(hh,getdate())as hours,
+datepart(mi,getdate())as minutes,
+format(getdate(),'tt')as AmOrPm,
+SYSDATETIMEOFFSET() as timezone
+
+select datename(dw,getdate()) as day,
+datename(mm,getdate()) as month,
+ datepart(YY,getdate()) as year,
+ datepart(hh,getdate()) as hours,
+ datepart(mi,getdate()) as mintues,
+ sysdatetimeoffset() as timezone
+
+
+select datediff(yy,'2003-07-02',GETDATE()) as years,
+datediff(MM,'2003-07-02',getdate())as month,
+datediff(dd,'2003-07-02',getdate())as days
+
+
+declare @dob date, @currentdate date ,@noofyears int,@noofmonths int,@noofdays int
+
+set @dob ='2003-07-02'
+set @currentdate = getdate()
+if month(@dob) > month(@currentdate)
+begin 
+	 set @noofyears= datediff(yy,@dob,@currentdate)
+	set @noofyears = @noofyears - 1
+	print @noofyears
+end
+else
+begin
+ set @noofyears= datediff(yy,@dob,@currentdate)
+	print @noofyears
+end
+
+if day(@dob) > day(@currentdate)
+begin
+	set @noofmonths= datediff(mm,@dob,@currentdate)
+	set	@noofmonths = @noofmonths - 1
+	set @noofmonths = @noofmonths % 12
+	print @noofmonths
+end
+else
+begin
+	set @noofmonths= datediff(mm,@dob,@currentdate) % 12
+	print @noofmonths
+end
+
+if day(@dob) > day(@currentdate)
+begin
+declare @totaldaysinmonth int = day(eomonth(@currentdate))
+set @noofdays = (@totaldaysinmonth - datepart(dd,@dob)) + datepart(dd,@currentdate)
+print @noofdays
+end
+else
+begin
+	set @noofdays = datepart(dd,@currentdate) - datepart(dd,@dob)
+	print @noofdays
+end
+
+
+	
+
+
+
