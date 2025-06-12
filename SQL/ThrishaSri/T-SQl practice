@@ -1,0 +1,125 @@
+Begin
+	Declare @input VarChar(500)
+	Declare @n bigint
+	Declare @sum bigint =0,@i int=1
+	Set @input='999999999'
+	IF TRY_cast(@input as bigint)IS NULL
+	Begin
+		print'Invalid input,please enter a valid number'
+	End
+	Else
+	Begin
+		Set @n=CAST(@input as bigint)
+		IF @n<=0
+		Begin
+			print 'Please enter the value greater than zero'
+		End
+		Else
+		Begin
+
+			set @sum = (@n * (@n+1))/2
+			--While @i<=@n
+			--Begin
+			--	Set @sum=@sum+@i
+			--	Set @i=@i+1
+			--End
+			print @sum
+		End
+	End
+End
+
+
+Begin
+	Declare @input1 VarChar(500)
+	Declare @t  int
+	Set @input1 ='3432898'
+	IF TRY_CAST(@input1 as int)IS NULL
+	Begin
+		print'Invalid input,please enter a valid number'
+	End
+	Else
+	Begin
+		Set @t=Cast(@input1 as int)
+		IF @t%2=0
+		Begin
+			Print cast(@t as varchar) +' is even'
+		End
+		Else
+		Begin
+			print cast(@t as varchar) +' is odd'
+		End
+	End
+End
+
+
+Begin
+	Declare @input2 Varchar(500),@input3 VarChar(500),@input4 VarChar(500)
+	Declare @b int,@c int,@d int
+	Set @input2 ='1'
+	Set @input3 ='8'
+	Set @input4 ='2'
+	IF TRY_CAST(@input2 as int)IS NULL
+	Begin
+		print 'Invalid input2,enter a valid input'
+	End
+	IF TRY_CAST(@input3 as int)IS NULL
+	Begin
+		print 'Invalid input3,enter a valid input'
+	End
+	IF TRY_CAST(@input4 as int)IS NULL
+	Begin
+		print 'Invalid input4,enter a valid input'
+	End
+	Else
+	Begin
+		Set @b=CAST(@input2 as int)
+		Set @c=CAST(@input3 as int)
+		Set @d=CAST(@input4 as int)
+		IF(@b=@c AND @c=@d)
+		Begin
+			print 'all are equal'
+		End
+		Else if(@b>=@c AND @c>=@d)
+		Begin
+			print 'b is largest'
+		End
+		Else if(@c>=@b AND @c>=@d)
+		Begin
+			print 'c is largest'
+		End
+		Else
+		Begin
+			print 'd is largest'
+		End	
+	End
+End
+
+	
+Begin
+	Declare @input5 VarChar(500)
+	Declare @h int 
+	Declare @fact int=1, @p int=1
+	Set @input5 ='8'
+	IF TRY_CAST(@input5 as int)IS NULL
+	Begin
+		print'Invalid input,please enter a valid number'
+	End
+	Else
+	Begin
+		Set @h = Cast(@input5 as int)
+		If @h<0
+		Begin
+			print 'please enter a valid input'
+		End
+		Else
+		Begin
+			while @h<=@p
+			Begin
+				Set @fact =@fact*@p
+				Set @p=@p+1
+			End 
+			End
+			print @fact
+	
+	End
+End
