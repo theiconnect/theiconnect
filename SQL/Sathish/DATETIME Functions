@@ -1,0 +1,65 @@
+SELECT
+    DATENAME(dw, GETDATE()) AS CurrentDay,
+    DAY(GETDATE()) AS CurrentDate,
+    YEAR(GETDATE()) AS CurrentYear,
+	DATEPART(hour,GetDate())AS hour,
+	DATENAME(mm, GETDATE()) AS MONTH,
+	DATEPART(minute, GETDATE()) AS CurrentMinute,
+    FORMAT(GETDATE(), 'dddd') AS AmPm,
+    SYSDATETIMEOFFSET() AS TimeZone
+
+SELECT
+	DAY(GETDATE()) AS CurrentDate,
+	DATEPART(mm,GETDATE()) AS Month,
+    right(cast(YEAR(GETDATE()) as varchar), 2) AS CurrentYear,
+	DATEPART(hour,GetDate())AS hour,
+	DATEPART(minute, GETDATE()) AS CurrentMinute,
+	FORMAT(GETDATE(), 'tt') AS AmPm,
+    SYSDATETIMEOFFSET() AS TimeZone
+
+	--select DATEPART(y, getdate())
+
+	select convert(varchar, getdate(), 100)
+	union select convert(varchar, getdate(), 101)
+	union select convert(varchar, getdate(), 102)
+	union select convert(varchar, getdate(), 103)
+	union select convert(varchar, getdate(), 104)
+	union select convert(varchar, getdate(), 105)
+	union select convert(varchar, getdate(), 106)
+	union select convert(varchar, getdate(), 107)
+	union select convert(varchar, getdate(), 108)
+
+	
+declare @Dob DATE='2001-11-05'
+declare @Day DATE = GetDate()
+declare @Year INT = datediff(year,@Dob,@Day) 
+declare @Month Int=datediff(mm,@Dob,@Day)
+declare @dom int=Day(EOMONTH(dateadd(m, -1, @day)))
+if month(@Dob)>month(@Day)
+Begin
+	set @Year=@Year-1
+End
+print 'Years:'
+print @Year 
+if DAY(@Dob)>DaY(@Day)	
+Begin
+	set @Month=@Month-1
+	set @Month=(@Month)%12
+End
+else
+begin
+	set @Month=(@Month)%12
+end
+print 'Months:'
+Print @Month
+if day (@Dob)> day(@Day)
+begin
+	set @dom= (@dom-Datepart(day,@Dob)+Datepart(day,@Day))
+end
+else
+begin
+	set @dom= (@dom-Datepart(day,@Dob)+Datepart(day,@Day))
+end
+print 'Days:'
+print @dom
+
