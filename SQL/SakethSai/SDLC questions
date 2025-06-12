@@ -1,0 +1,62 @@
+1. What is SDLC and why is it important in software development?
+SDLC (Software Development Life Cycle) is a process followed to build software in a structured way. It helps teams plan, design, develop, test, and deliver software properly. It's important because it improves quality, reduces risks, and ensures the project meets the goals.
+________________________________________
+2. Can you explain the different phases of the SDLC?
+•	Requirement gathering – Understand what the client wants.
+•	Design – Create the structure and plan how the software will work.
+•	Development – Write the code.
+•	Testing – Check for bugs and issues.
+•	Deployment – Release the software to users.
+•	Maintenance – Fix bugs and make updates after release.
+________________________________________
+3. Have you been involved in requirement gathering? How do you handle changing requirements?
+Yes, I’ve been involved. I talk to the client or business analyst to understand what is needed. If requirements change, I discuss them with the team and adjust the work or plan as needed to match the new needs.
+________________________________________
+4. What is Agile methodology? Which Agile framework have you worked?
+Agile is a way of working on software in small parts, getting feedback quickly, and making changes fast. I’ve worked with Scrum, a popular Agile framework.
+________________________________________
+5. What are the key principles of Agile development?
+•	Customer satisfaction is the top priority.
+•	Welcome changes even late in the project.
+•	Deliver working software frequently.
+•	Work together daily (developers + business people).
+•	Build projects around motivated people.
+•	Regular reflection to improve the process.
+________________________________________
+6. What Agile ceremonies have you participated in (Daily Standup, Planning, Retrospective)?
+I have participated in:
+•	Daily Standups – Quick meetings to share updates.
+•	Sprint Planning – To plan what we’ll do in the next sprint.
+•	Sprint Retrospective – To discuss what went well and what needs to improve.
+________________________________________
+7. What is Scrum?
+Scrum is a type of Agile framework. It divides work into time-boxed periods (called Sprints) and uses roles, ceremonies, and artifacts to manage the work.
+________________________________________
+8. What is a Sprint? What is the usual duration in your project?
+A Sprint is a short time period (usually 1–4 weeks) where we complete a set of tasks. In my project, we usually follow a 2-week Sprint.
+________________________________________
+9. What is Product Backlog?
+It’s a list of all the features, changes, fixes, and tasks needed in the project, prioritized by the Product Owner.
+________________________________________
+10. Can you explain Epic, Feature, Product Backlog Item (PBI)/User Story, and Task and how they all relate?
+•	Epic – A big chunk of work (example: “User Management”).
+•	Feature – A part of the Epic (example: “Login feature”).
+•	User Story / PBI – A small requirement written from the user’s point of view (example: “As a user, I want to log in with my email and password”).
+•	Task – A smaller part of the User Story (example: “Create login form UI”).
+All of them break down the work into smaller, manageable parts.
+________________________________________
+11. What is the Definition of Done (DoD)? Why is it important?
+Definition of Done means the checklist of things that must be completed for a user story to be considered finished (like code done, tested, reviewed, etc.). It ensures quality and that everyone knows when a task is truly complete.
+________________________________________
+12. What are Story Points? How do you estimate them in your team?
+Story Points are numbers that show how big or hard a user story is (based on effort and complexity). In our team, we use planning poker to discuss and agree on the points.
+________________________________________
+13. Have you ever participated in a Sprint Retrospective? What kind of feedback did you give or receive?
+Yes, I have. I shared what went well (like teamwork) and what could be better (like reducing bugs). I also received feedback on improving communication.
+________________________________________
+14. Have you used any tools for Scrum (Azure DevOps, Jira, Trello)? How do you manage your tasks?
+Yes, I’ve used Jira and Azure DevOps. I manage tasks by checking the board daily, updating status (To Do, In Progress, Done), and linking them with User Stories.
+________________________________________
+15. How do you ensure your code meets the user story acceptance criteria?
+I read the acceptance criteria clearly, write code to meet those needs, test it, and sometimes ask for a review to be sure everything is covered.
+
