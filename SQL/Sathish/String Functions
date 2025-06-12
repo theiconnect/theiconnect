@@ -1,0 +1,58 @@
+declare @n varchar(1000)
+set @n = 'iconnect tech soultions'
+select rTRIM (@n)
+select lTRIM (@n)
+select left (@n ,19 )
+select right (@n ,19 )
+select SUBSTRING (@n, 9,22) 
+select charindex ('s', @n)
+
+declare @x varchar (max), @z int
+set @x = 'EMP-1000'
+set @z = right (@x ,4)
+declare @y int
+set @y = cast (@z as int)
+set @y = @y*8
+set @x = 'EMP-'+ right ('000'+CAST (@y as varchar),4)
+print @x 
+
+declare @p varchar(100) = 'sathish - saketh'  
+declare @q varchar (100)= left (@p, charindex ('-',@p)-1)
+declare @r varchar (100)= right (@p ,len (@p) - charindex('-',@p))
+print 'first name = '+@q
+print 'last name ='+@r
+
+declare @fullname varchar (100) ='PAIRALA - SATHISH'
+declare @pr int = charindex ('-',@fullname)
+declare @rq int = len (@fullname)
+declare @firstname varchar (100) = substring (@fullname, 1,@pr-1)
+declare @lastname varchar(100)= substring (@fullname, @pr+1,@rq)
+print 'first name = '+ @firstname
+print 'last name ='+ @lastname
+
+
+declare @email varchar(100),@dot int, @addate int, @naa int, @firstnames varchar(100), @lastnames varchar(100), @companyname varchar(100)
+set @email = 'sathishpairala@iconnecttechsolutions.com'
+
+		set @dot = charindex ('.', @email)
+		set @addate  =charindex ('@', @email)
+		set @naa = charindex ('.com', @email)
+if @dot > 0 and @dot < @addate
+	begin
+	  print'its is a employee email ID'
+		
+		set @firstnames = substring (@email,1,@dot-1)
+		set @lastnames = substring (@email, @dot+1,@addate-(@dot+1))
+		set @companyname =  substring (@email,@addate+1,@naa-(@addate+1))
+		print 'first name ='+ @firstnames
+		print 'last name = '+ @lastnames
+		print 'company name = '+ @companyname
+	end 
+else 
+	begin
+		print 'its an company mailID'
+		declare @Name varchar(100) = substring (@email,1,@addate-1)
+		set @companyname =  substring (@email,@addate+1,@naa-(@addate+1))
+		print 'name =' + @Name
+		print 'Company name ='+ @companyname
+	end
