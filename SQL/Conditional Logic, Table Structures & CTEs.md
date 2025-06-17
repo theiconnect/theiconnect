@@ -299,14 +299,3 @@ Display `FirstName`, `LastName`, `SAL`, and a new column `SalaryQuintile`.
     * **Debugging:** Temporarily disable parts of a query.
 
 ---
-
-### Assignments - Good Practices
-
-**Assignment 6.1: Commenting Your Code**
-Take any of the previous assignments you've completed and add comments to it.
-* Include a multi-line comment at the top describing what the query does.
-* Use single-line comments to explain any tricky parts of the logic or specific function calls.
-
----
-
-Hopefully, this re-formatted version displays correctly for you! Let me know if there's anything else I can adjust. Good luck with the assignments!
