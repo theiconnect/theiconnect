@@ -1,0 +1,65 @@
+create table Employee(
+EmpIdPk INT PRIMARY KEY,
+Ename  VARCHAR(100),
+Gender CHAR(1),
+DOJ Date,
+)
+
+insert into Employee (EmpIdPk,Ename,Gender,DOJ) values
+	(1,'saketh','M','2025-05-01'),
+	(2,'sathish','M','2025-05-01'),
+	(3,'thrisha','F','2025-05-05'),
+	(4,'sai','M','2025-05-15'),
+	(5,'gouthami','F','2025-06-05')
+
+
+	select datediff(mi,'9:00','18:30')
+
+	Create table EmpAttendence(
+		EmpAttendenceIdPk INT PRIMARY KEY,
+		EmpIDFk INT,
+		logDateTime DATETIME,
+		InOrOut bit,
+		CONSTRAINT Fk_EmpAttendence_Employee FOREIGN KEY (EmpIDFk) REFERENCES Employee(EmpIdPk)
+		)
+
+		insert into EmpAttendence (EmpAttendenceIdPk,EmpIDFk,logDateTime,InOrOut) values 
+			(1,1,'2025-06-17 10:00',1),
+			(2,1,'2025-06-17 11:15',0),
+			(3,1,'2025-06-17 12:00',1),
+			(4,1,'2025-06-17 13:15',0),
+			(5,1,'2025-06-17 14:00',1),
+			(6,1,'2025-06-17 17:15',0),
+			(7,1,'2025-06-17 17:30',1),
+			(8,1,'2025-06-17 19:15',0)
+WITH AttendancePairs AS (
+    SELECT 
+        EA.EmpIDFk,
+        E.Ename,
+        EA.logDateTime AS InTime,
+        LEAD(EA.logDateTime) OVER (PARTITION BY EA.EmpIDFk ORDER BY EA.logDateTime) AS OutTime,
+        EA.InOrOut
+    FROM EmpAttendence EA
+    INNER JOIN Employee E ON EA.EmpIDFk = E.EmpIdPk
+    WHERE CAST(EA.logDateTime AS DATE) = '2025-06-17'
+),
+ActualWorkedHours AS (
+    SELECT 
+        EmpIDFk,
+        Ename,
+        SUM(DATEDIFF(MINUTE, InTime, OutTime)) / 60.0 AS ActualWorkingHrs
+    FROM AttendancePairs
+    WHERE InOrOut = 1
+    GROUP BY EmpIDFk, Ename
+),
+FinalResult AS (
+    SELECT 
+        E.EmpIdPk AS EmpId,
+        E.Ename,
+        CASE WHEN A.EmpIDFk IS NULL THEN NULL ELSE 9.5 END AS TotalWorkingHrs,
+        CASE WHEN A.EmpIDFk IS NULL THEN NULL ELSE A.ActualWorkingHrs END AS ActualWorkingHrs,
+        CASE WHEN A.EmpIDFk IS NULL THEN 'Yes' ELSE 'No' END AS AbsentOrNot
+    FROM Employee E
+    LEFT JOIN ActualWorkedHours A ON E.EmpIdPk = A.EmpIDFk
+)
+SELECT * FROM FinalResult;
