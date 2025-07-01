@@ -551,25 +551,37 @@ Left join Dept D on E.DeptNo = D.DeptNo
 
  --40.Delete the employees who are working in accounting department. 
 	
-	SELECT * 
+
+	update emp set mgr = null where mgr in(
+	SELECT *
 	FROM Emp E
 	Join Dept D on E.DeptNo = D.DeptNo
-	where Dname ='Accounting' 
+	where Dname ='Accounting' )
 
+	--DELETE E
+	--FROM Emp E
+	--Join Dept D on E.DeptNo = D.DeptNo
+	--where Dname ='Accounting'
+
+	select * from EMP
  --41.Display the second highest salary drawing employee details. 
 	
-	SELECT top 2 sal From (SELECT Sal
-	FROM Emp
-	GROUP By SAL ) AS a
-	ORder by SAL DESC
-
+	SELECT top 1 Sal From (
+	SELECT top 2 SAL
+	FROM Emp 
+	order by sal desc) as a 
+	order by sal asc
 
  --42.Display the Nth highest salary drawing employee details  
-
- 43.List out the employees who earn more than every employee in department 30. 
 	
-	SELECT MAX(SAL) as maxsal
-	FROM Emp where DEPTNO = 30 
+	SELECT * FROM(select sal,
+				DENSE_RANK() OVER (ORDER BY SAL desc) as [row_number]
+		from emp) as a 
+		WHERE row_number = 4
+		
+
+-- 43.List out the employees who earn more than every employee in department 30. 
+	
 
 --44.List out the employees who earn more than the lowest salary in department 30. 
 
@@ -611,6 +623,10 @@ Left join Dept D on E.DeptNo = D.DeptNo
 
 
 --51.How many employees who are working in different departments and display with department name. 
+	select d.DNAME,count(EMPNO) as noofemp
+	FROM Emp E  
+	JOIN Dept D on E.DeptNo = D.DeptNo
+	Group BY d.DNAME
 	
 
 --52.How many employees who are working in sales department.
@@ -631,8 +647,9 @@ Left join Dept D on E.DeptNo = D.DeptNo
 
 --54.How many jobs in the organization with designations. 
 	
-	Select JOB
+	Select count(JOB)as noofemp,JOB
 	FROM Emp 
+	group by JOB
 
 	
 
