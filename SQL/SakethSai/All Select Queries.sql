@@ -575,32 +575,44 @@ Left join Dept D on E.DeptNo = D.DeptNo
  --42.Display the Nth highest salary drawing employee details  
 	
 	SELECT * FROM(select sal,
-				DENSE_RANK() OVER (ORDER BY SAL desc) as [row_number]
+				DENSE_RANK() OVER (ORDER BY SAL desc) as [Dense_Rank]
 		from emp) as a 
-		WHERE row_number = 4
+		WHERE Dense_Rank = 1
 		
 
 -- 43.List out the employees who earn more than every employee in department 30. 
 	
+	SELECT EmpNO,FirstName,LastName,sal From EMp where sal in (Select  max(sal)
+		from emp 
+		where DEPTNO = 30)
+		
 
---44.List out the employees who earn more than the lowest salary in department 30. 
+--44.List out the employees who earn more than the lowest salary in department 30.
+SELECT EmpNO,FirstName,LastName,sal From EMp where sal in (Select  min(sal)
+		from emp 
+		where DEPTNO = 30)
+	
 
 --45.Find out whose department has not employees.
 	
-	SELECT D.DeptNo
+	SELECT D.DeptNo,d.DNAME
 	FROM Dept D
-	join Emp E on D.DeptNo = E.DeptNo
+	left join Emp E on D.DeptNo = E.DeptNo
 	WHERE EmpNo IS NULL
 
 --46.Find out which department does not have any employees.
-
- FROM Dept D
+	
+	Select dname,noofEmp from(SELECT DNAME,COUNT(EMPNO)as noofEmp
+	FROM Dept D
+	left join Emp E on D.DeptNo = E.DeptNo
+	group by DNAME) as A
+	where noofEmp = 0
 	
 	
 
 --47.Find out the employees who earn greater than the average salary for their department.
 	
-	FROM EMP
+	SELECT * from Emp where sal > (SELECT AVG(SAL)FROM EMP)
 
 
 --48.List our employees with their department names 
@@ -680,15 +692,15 @@ Left join Dept D on E.DeptNo = D.DeptNo
 	FROM Emp E
 	Join SalGrade S 
 	on E.SAl BETWEEN S.LOSAL AND S.HISAL
-	where GRADE = 4
+	where E.SAL BETWEEN 2000 and 5000
 	GROUP BY GRADE
 	
 
 --59.Display the employee details with their manager names.
 	
-	SELECT E.EmpNo,E.FirstName,E.LastName,M.MGR
+	SELECT E.EmpNo,E.FirstName,E.LastName,M.EMPNO,M.FirstName,M.LastName
 	FROM Emp E
-	Join Emp M on E.EmpNo = M.EmpNo
+	Join Emp M on E.MGR = M.EmpNo
 
 --60.Display the employee details who earn more than their managers salaries.
 	SELECT e.empno,e.firstName,e.lastName,e.sal as EmpSal,m.sal As MgrSal
@@ -698,6 +710,11 @@ Left join Dept D on E.DeptNo = D.DeptNo
 	
 
 --61.Show the no. of employees working under every manager.
+	SELECT count(E.EMPNO)as noofemp,
+			E.MGR
+	FROM Emp E
+	Left join Emp M on E.mgr = m.Empno
+	Group by E.MGR
 
 --61.Display employee details with all departments.
 	SELECT *
