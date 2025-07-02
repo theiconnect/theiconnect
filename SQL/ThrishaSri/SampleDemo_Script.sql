@@ -27,7 +27,7 @@ CREATE TABLE EMP
     DEPTNO INT,
     CONSTRAINT FK_EMP_DEPT FOREIGN KEY (DEPTNO) REFERENCES DEPT(DEPTNO)); -- Add FK for referential integrity
     -- CONSTRAINT FK_EMP_MGR FOREIGN KEY (MGR) REFERENCES EMP(EMPNO) -- Self-referencing FK for managers
-);
+
 
 CREATE TABLE DEPT
 (
@@ -265,35 +265,73 @@ Select
 --Update the employees salaries, who are working as Clerk on the basis   of 10%. 
 Update EMP Set SAL = Sal+SAL*0.1 where job ='Clerk' 
 select * from Emp
-
-
 --Delete the employees who are working in accounting department. 
+Update EMP set MGR = null where MGR in(
+	Select E.EMPNO  -- by prasad 
+	From Emp E 
+	join Dept D on E.DEPTNO = D.DEPTNO
+	where DNAME='Accounting' )
 
-
+    Delete E
+		From Emp E 
+		join Dept D on E.DEPTNO = D.DEPTNO
+		where DNAME='Accounting'
+		Select * from Emp
 --Display the second highest salary drawing employee details. 
-
---Display the Nth highest salary drawing employee details	
-
+Select Top 1 sal From (select Top 2 sal
+From Emp 
+Order by Sal Desc)as A
+Order by Sal Asc
+--Display the Nth highest salary drawing employee details
+SELECT * 
+FROM(
+	SELECT ROW_NUMBER() OVER(ORDER BY SAL DESC) ROWID,SAL
+	FROM EMP
+)A
+where rowid = 6
 --List out the employees who earn more than every employee in department 30. 
-
+SELECT *
+FROM Emp
+WHERE SAL >= All(
+    SELECT SAL
+    FROM Emp
+    WHERE DEPTNO = 30
+)
 --List out the employees who earn more than the lowest salary in department 30.
-
+SELECT *
+FROM Emp
+WHERE SAL < ALL (
+    SELECT SAL
+    FROM Emp
+    WHERE DEPTNO = 30
+)
 --Find out which department does not have any employees.
 select D.DEPTNO from DEPT D  
  left join Emp E on D.DEPTNO= E.DEPTNO
 where (E.EMPNO is null)
 --Find out the employees who earn greater than the average salary for their department.
-
+SELECT *
+FROM Emp E
+WHERE SAL > (
+    SELECT AVG(SAL)
+    FROM Emp
+    WHERE DEPTNO = E.DEPTNO
+)
 --Display the employees with their department name and regional groups. 
 Select EMPNo,FirstName,LastName,DNAME,Loc 
 from Emp E 
 join Dept D on E.DeptNo =D.DEPTNO
 --How many employees who are working in different departments and display with department name.
-Select Count(EMPNO),D.DNAME from  Emp E
-join Dept D on E.EMPNO=D.DEPTNO
-
---Which is the department having greater than or equal to 5 employees and display the department names in ascending order. 
-
+SELECT COUNT(E.EMPNO) AS NoOfEmp, D.DNAME 
+FROM Emp E
+JOIN Dept D ON E.DEPTNO = D.DEPTNO
+GROUP BY D.DNAME;
+--Which is the department having greater than or equal to 5 employees and display the department names in ascending order.
+Select D.DEPTNO,D.DNAME from Emp E
+join Dept D on E.DEPTNO = D.DEPTNO
+group by D.DEPTNO,D.DNAME
+Having Count(EmpNo) >=5
+order by D.DEPTNO Asc
 --Display employee details with salary grades. 
 Select EMPNO,FirstName,LastName,S.GRADE From Emp E
 join SALGRADE S on E.SAL between S.LOSAL and S.HISAL
@@ -303,9 +341,49 @@ from EMP E
 join SALGRADE  S on E.SAL between S.LOSAL and S.HISAL
 where E.Sal between 2000 and 5000 
 Group by S.GRADE      
-
-
 --Show the no. of employees working under every manager.
-
-
+Select 
+	E.EMPNO AS EmpID,
+    E.FirstName AS EmpName,
+    D.DNAME AS EmpDept,
+    count(*) as NoOfEmp
+    FROM Emp E
+LEFT JOIN Dept D ON E.DEPTNO = D.DEPTNO
+LEFT JOIN Emp E2 ON E.MGR = E2.EMPNO     
+GROUP BY E.EMPNO, E.FirstName, D.DNAME
 --Display the employee details with their manager names. 
+Select 
+	E.EMPNO AS EmpID,
+    E.FirstName AS EmpName,
+    D.DNAME AS EmpDept,
+    E2.FirstName AS ManagerName
+FROM Emp E
+LEFT JOIN Dept D ON E.DEPTNO = D.DEPTNO
+LEFT JOIN Emp E2 ON E.MGR = E2.EMPNO          
+--empname, department, mgrname, mgrdeptname, sprmgrname, sprmgrdeptname,sprsprmgrname, sprsprmgrdeptname
+SELECT 
+    E.EMPNO AS EmpID,
+    E.FirstName AS EmpName,
+    D.DNAME AS EmpDept,
+    
+    E2.FirstName ManagerName,
+    D2.DNAME AS ManagerDept,
+    
+    E3.FirstName AS SuperManagerName,
+    D3.DNAME AS SuperManagerDept,
+   
+    E4.FirstName AS SuperSuperManagerName,
+    D4.DNAME AS SuperSuperManagerDept
+
+FROM Emp E
+LEFT JOIN Emp E2 ON E.MGR = E2.EMPNO          
+LEFT JOIN Dept D ON E.DEPTNO = D.DEPTNO
+LEFT JOIN Dept D2 ON E2.DEPTNO = D2.DEPTNO
+
+LEFT JOIN Emp E3 ON E2.MGR = E3.EMPNO           
+LEFT JOIN Dept D3 ON E3.DEPTNO = D3.DEPTNO
+
+LEFT JOIN Emp E4 ON E3.MGR = E4.EMPNO           
+LEFT JOIN Dept D4 ON E4.DEPTNO = D4.DEPTNO
+
+
