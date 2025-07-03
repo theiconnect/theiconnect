@@ -1,4 +1,4 @@
- --Simple Queries:
+e --Simple Queries:
 --
 --1.List all the employee details
 	SELECT * FROM EMP
