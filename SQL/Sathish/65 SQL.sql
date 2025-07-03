@@ -88,7 +88,7 @@ e --Simple Queries:
 -- 41.Display the second highest salary drawing employee details. 
 	SELECT SAL FROM EMP WHERE SAL=(SELECT MAX(SAL)FROM EMP WHERE SAL<(SELECT MAX(SAL)FROM EMP))
 -- 42.Display the Nth highest salary drawing employee details  
-	
+	SELECT * FROM(select sal,DENSE_RANK() OVER (ORDER BY SAL desc) as [Dense_Rank] from emp) as a WHERE Dense_Rank = 1
 -- 43.List out the employees who earn more than every employee in department 30. 
 	SELECT * FROM EMP WHERE SAL>ALL (SELECT SAL FROM EMP WHERE DEPTNO=30)
 -- 44.List out the employees who earn more than the lowest salary in department 30. 
