@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyderabad Developers Community -All-in-One Page</title>
+</head>
+<body>
+    <h1>Hyderabad Developers Community</h1>
+    <p><em>Where Innovation Meets Collaboration in <strong>Hyderabad!</strong></em></p>
+    <nav>
+        <ul href="#section-id">
+            <li><a href="#about-section">AboutUs</a></li>
+            <li><a href="#guidelines-section">Community Guideliness</a></li>
+            <li><a href="#registration-form">Registration Form</a></li>
+            <li><a href="#contact-info">Contact Info</a></li>
+            <li><a href="#resources-section">Developer Resources</a></li>
+        </ul>
+    </nav>
+    <div id="about-section">
+        <h2>About Our Community</h2>
+        <p>We foster a <em>supportive</em> and <em>innovative</em> environment.</p>
+        <h3>Our Mission</h3>
+        <blockquote>for a Mission statement or motto</blockquote>
+        <cite>- Community Founders</cite>
+        <h3>Core Values</h3>
+        <ol>
+            <li>Collaboration</li>
+            <li>learning</li>
+            <ul>
+                <li>Workshops</li>
+                <li>MentorShips</li>
+                <li>Hackathons</li>
+            </ul>
+            <li>Innovation</li>
+        </ol>
+        <h3>Quick Facts</h3>
+        <table>
+            <tr>
+                <th>Static</th>
+                <th>Members</th>
+                <th>Events Held</th>
+                <th>Years Active</th>
+            </tr>
+            <tr>
+                <td>Value</td>
+                <td>1500+</td>
+                <td>200+</td>
+                <td>5</td>
+            </tr>
+        </table>
+        <img src="C:\Users\Saketh sai G\Downloads\20250708_1722_Developers with Tech Logo_simple_compose_01jzmxzv7te51rggvsmmjdf3wf.png" alt="Group of Developers" width="30%" height="30%">
+    </div>
+    <hr>
+    <div id="guidelines-section">
+        <h2>Community Guideliness</h2>
+        <p><u>Please read these rules carefully before participating</u></p>
+        <h3>Key Principles</h3>
+        <dl>
+            <dt>Respectful Communication</dt>
+            <dd>Always engage in polite and professional discourse.</dd>
+            <dt>Constructive Feedback</dt>
+            <dd>explains about the opinion and open feedback</dd>
+            <dt>No spam</dt>
+            <dd>a practice of sending only relevant, targeted, and permission-based messages 
+                to recipients who have explicitly opted-in to receive them</dd>
+        </dl>
+        <h3>Specific Rules</h3>
+        <ul>
+            <li><strong>Be Quiet</strong></li>
+            <li><p>Don't Judge A Book<br>By its Cover</p></li>
+            <li><code>system.out.println("hello world!!");</code></li>
+            <li>This is an <del>institute</del> iconnect</li>
+            <li>Our community's 1<sup>st</sup> rule is about H<sub>2</sub>O and staying hydrated.</li>
+            <li><abbr title="As Soon As Possible">ASAP</abbr></li>
+        </ul>
+    </div>
+    <hr>
+    <form id="registration-form">
+        <h2>New Member Registration</h2>
+        <p>it is all about the new member registration details </p>
+        <h3> Your Personal Details</h3>
+        <label for="name">Full Name</label><br>
+        <input type="text" id="name" name="name" placeholder="enter your full name" required="true"><br>
+        <label for="email">Email</label><br>
+        <input type="email" id="email"  name="email" placeholder="enter your email address" required="false"><br>
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" placeholder="enter your strong password" required="true"><br>
+        <label for="phnno">Phone Number</label><br>
+        <input type="tel" id="phnno" name="phnno" placeholder="enter the phone Number" required="true"><br>
+        <label for="dob">Date Of Birth</label><br>
+        <input type="date" id="dob" name="dob"><br>
+        <h3>Gender</h3>
+        <input type="radio" id="m" name="gender">
+        <label for="m">Male</label>
+        <input type="radio" id="f" name="gender">
+        <label for="f">Female</label>
+        <input type="checkbox">
+        <label>Prefer not to say</label>
+        <h3>Your Professional BackGround</h3>
+        <label>Select Your Role</label>
+        <select id="role">
+            <option>FrontEnd Developer</option>
+            <option>Backend Developer</option>
+            <option>Deveops Engineer</option>
+            <option>AI Engineer</option>
+            <option>Full Stack Developer</option>
+        </select><br>
+        <label>Years of Experience</label>
+        <input type="range" id="experience" min="0" max="25" value="5"><br>
+        <label>Select Your Required Language</label><br>
+        <input type="checkbox" id="check" name="skill[]">
+        <label>HTML</label><br>
+        <input type="checkbox" id="check" name="skill[]">
+        <label>CSS</label><br>
+         <input type="checkbox" id="check" name="skill[]">
+        <label>JS</label><br>
+         <input type="checkbox" id="check" name="skills[]">
+        <label>SQL</label><br>
+        <label>preferred Learning Style</label>
+        <select id="learningStyle" multiple size="3">
+            <option>hands-on projects</option>
+            <option>Video tutorials</option>
+            <option>Reading Documentation</option>
+            <option>Live WorkShops</option>
+        </select><br>
+        <label>Tell us about yourself and your interests:</label>
+        <textarea id="bio" rows="6" cols="70" placeholder="e.g., I'm passionate about building scalable web applications."></textarea>
+        <h3>Community Preferences</h3>
+        <label for="propic">ProfilePicture</label>
+        <input type="file" id="propic" accept="image/*"><br>
+        <label for="Website">Personal Website</label>
+        <input type="url" id="Website" placeholder="https://yourwebsite.com"><br>
+        <label for="favColor">Favorite Color</label>
+        <input type="color" id="favColor" value="#0056b3"><br>
+        <label>Preferred Event Time</label>
+        <input type="time" id="eventtime" value="19:00"><br>
+        <label>referral</label>
+        <input type="text" list="referralSource" id="referral">
+        <datalist id="referralSource">
+            <option value="Friend"></option>
+            <option value="Social Media"></option>
+            <option value="Search Engine"></option>
+            <option value="community Event"></option>
+        </datalist><br>
+        <label>Terms&Conditions</label>
+        <input type="checkbox" id="terms" required>I agree to the <a href="dummy-terms.html" target="_blank">Community Terms & Conditions</a><br>
+        <button type="submit">Register My Profile</button><br>
+        <input type="submit" value="Sign up (Input Type)"><br>
+        <button type="reset">Clear Form</button><br>
+        <input type="reset" value="Reset All(Input Type)">
+    </form>
+    <hr>
+    <div id="Contact-info">
+        <h2>Contact&Location</h2>
+        <address>Hyderabad Developers Hub, Hitech City, Hyderabad, Telangana, India - 500081</address>
+        <p>Phone: <a href="tel:+918008008008">+91 8008008008</a></p>
+        <p>Email: <a href="mailto:info@hyddevs.com">info@hyddevs.com</a></p>
+        <p><a href="https://www.google.com/maps/@17.4391296,78.4433152,14z?entry=ttu&g_ep=EgoyMDI1MDcwNi4wIKXMDSoASAFQAw%3D%3D" target="_blank">view on Google Maps</a></p>
+    </div>
+    <hr>
+    <div id="resources-section">
+        <h2>Developers Resources</h2>
+        <article>
+            <h3>The Future of Artificial Intelligence: Opportunities and Ethical Challenges</h3>
+                <blockquote>
+                article explores how Artificial Intelligence (AI) is transforming industries, improving lives, and raising critical ethical questions.
+                It balances the immense potential of AI with the risks and responsibilities that come with its rapid development.
+                </blockquote>
+            <p>
+                The article emphasizes that while AI has enormous promise,<code> System.out.println("hello Hyderabad!!")</code> development guided by ethical principles, transparency, and 
+                regulation is essential. The future of AI should align with human values and benefit all of society—not just a few.
+            </p>
+        </article>
+        <aside>
+            <h3>Quick Tip</h3>
+            <p>Good behaviour refers to the way a person acts in a manner that is 
+                respectful, kind, and considerate toward others. It includes qualities such as <span style="background-color: red;">honesty, politeness, self-discipline, empathy, and responsibility</span>. Practicing good behaviour means following social norms and 
+                treating people with dignity, whether at home, in school, or in public places. </p>
+        </aside>
+        <figure>
+            <img src="C:\Users\Saketh sai G\Desktop\iconnect intern\front end\download.jpeg" alt="code snippet example">
+            <figcaption>Example of a basic HTML Structure</figcaption>
+        </figure>
+    </div>
+</body>
+</html>
