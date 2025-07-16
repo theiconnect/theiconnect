@@ -11,12 +11,14 @@ body{
 main{
     max-width: 1200px;
     margin: 20px auto;
+    flex-direction: column;
 }
 
 header,footer{
     padding: 15px 30px;
     background-color: #2c3e50;
-    color: white;
+    color: white; 
+    text-align: center;
 }
 
 .product-hero,.product-description-section{
@@ -24,9 +26,10 @@ header,footer{
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0, 0.1);
+    flex-direction: column;
 }
 
-.order-form{
+.call-to-action-sidebar .order-form{
     padding: 20px;
     border: 1px solid #eee;
     border-radius: 8px;
@@ -35,6 +38,16 @@ header,footer{
 .main-nav ul li {
     display: inline-block;
     padding: 10px 15px;
+}
+
+.main-nav ul li a{
+    display: block;
+    padding: 10px 15px;
+    color: #ddd;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 5%;
+    background-color:black;
 }
 
 h1.product-title,p.product-tagline{
@@ -49,9 +62,10 @@ span.new-badge{
     font-size: 0.8em;
 }
 
-.form-group label{
+.form-group{
     display: block;
     margin-bottom: 5px;
+    
 }
 
 input[type="text"]{
@@ -130,6 +144,7 @@ button.clear-form-btn:hover{
 .specs-table-container{
     margin-top: 20px;
     margin-bottom: 20px;
+    overflow-x: auto;
 }
 
 .specs-table{
@@ -155,10 +170,21 @@ button.clear-form-btn:hover{
     background-color: #cce7f0;
 }
 
-.logo,.main-nav{
+.logo .main-nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
+}
+
+.logo a{
+    color: white;
+    font-size: large;
+    border: 1px solid white;
+    background-color: black;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
 }
 
 .product-hero,.product-description-section{
@@ -226,7 +252,7 @@ div [class *= "product"]{
 }
 
 div.promo-banner{
-    position:fixed;
+    position:sticky;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -237,16 +263,16 @@ div.promo-banner{
     z-index: 999;
 }
 
-li.has-submenu{
+li.has-submenu:hover{
     position: relative;
 }
 
-li.has-submenu:hover{
+.submenu{
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #3f51b5;
+    background-color: #2c3e50;
     min-width: 150px;
     box-shadow: 0 2px 5px rgba(0,0,0, 0.2);
     z-index: 900;
@@ -265,3 +291,34 @@ li.has-submenu:hover > .submenu{
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0, 0.1);
 }
+
+/*@keyframes myslider{
+    from{
+        margin: 0%;
+
+    }
+    to{
+        margin: 100%;
+    }
+}*/
+
+footer a{
+    color: lightblue;
+    text-decoration: none;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}
+
+.promo-banner .learn-more-link{
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #333;
+    color:white;
+    text-decoration: none;
+    border-radius: 3px;
+    margin-left: 15px;
+}
+
+
