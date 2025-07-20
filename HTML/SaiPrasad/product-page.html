@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Tech Gadget - Product Page</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        /* Task 1.2: Internal CSS here */
+        body{
+            font-family: 'Segoe UI', arial, sans-serif;
+            background-color: #f4f7f6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="#">TechWonders</a>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li class="has-submenu">
+                    <a href="#">Products</a>
+                    <ul class="submenu">
+                        <li><a href="#">Laptops</a></li>
+                        <li><a href="#">Smartphones</a></li>
+                        <li><a href="#">Accessories</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <p style="color: darkblue; font-weight: bold;">Your one-stop shop for amazing gadgets!</p> </header>
+
+    <main>
+        <section class="product-hero">
+            <h1 class="product-title">The Ultimate SmartWatch Pro</h1>
+            <div class="product-image-container">
+                <img src="https://via.placeholder.com/600x400?text=SmartWatch+Pro" alt="Awesome SmartWatch Pro" class="product-main-image">
+                <span class="new-badge">NEW!</span>
+            </div>
+            <p class="product-tagline">Experience innovation on your wrist.</p>
+        </section>
+
+    
+
+        <section class="product-description-section">
+            <div class="description-content">
+                <h2>Product Overview <span class="highlight">Unleash Your Potential</span></h2>
+                <p>The <span class="product-name-span">SmartWatch Pro</span> redefines connectivity and fitness tracking. With its sleek design and powerful features, it's more than just a watch – it's your personal assistant, health coach, and communication hub.</p>
+                <p>Key features include a vibrant AMOLED display, advanced heart rate monitoring, GPS, and a long-lasting battery. <br>Compatible with both iOS and Android devices.</p>
+                
+                <h3>Technical Specifications</h3>
+                <div class="specs-table-container">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Display</td>
+                                <td>1.8" AMOLED</td>
+                            </tr>
+                            <tr>
+                                <td>Battery Life</td>
+                                <td>Up to 7 days</td>
+                            </tr>
+                            <tr>
+                                <td>Water Resistance</td>
+                                <td>5 ATM</td>
+                            </tr>
+                            <tr>
+                                <td>Connectivity</td>
+                                <td>Bluetooth 5.2, GPS</td>
+                            </tr>
+                            <tr>
+                                <td>Sensors</td>
+                                <td>Heart Rate, SpO2, Accelerometer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="call-to-action-sidebar">
+                <h3>Ready to Order?</h3>
+                <form action="#" method="post" class="order-form">
+                    <div class="form-group">
+                        <label for="color">Color:</label>
+                        <select id="color" name="color">
+                            <option value="black">Midnight Black</option>
+                            <option value="silver">Space Silver</option>
+                            <option value="rose">Rose Gold</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="warranty">Extended Warranty:</label>
+                        <input type="checkbox" id="warranty" name="warranty">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery-date">Preferred Delivery Date:</label>
+                        <input type="date" id="delivery-date" name="deliveryDate">
+                    </div>
+                    <button type="submit" class="buy-now-btn">Buy Now</button>
+                    <button type="reset" class="clear-form-btn">Clear Form</button>
+                </form>
+                <p class="shipping-info">Free <span class="fast-delivery">express shipping</span> on all orders!</p>
+            </div>
+        </section>
+    </main>
+
+    <div class="promo-banner">
+        <p>🔥 Special Promotion: Save $50 today!</p>
+        <a href="#" class="learn-more-link">Learn More</a>
+    </div>
+    
+
+    <footer>
+        <p>&copy; 2025 TechWonders. All rights reserved.</p>
+        <p>Contact us at <a href="mailto:info@techwonders.com">info@techwonders.com</a></p>
+    </footer>
+</body>
+</html>
