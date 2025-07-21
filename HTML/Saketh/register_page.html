@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iConnect_RegisterPage</title>
+</head>
+<style>
+    body{
+        background: linear-gradient(rgba(115, 115, 226, 0.693),rgba(237, 177, 65, 0.715));
+    }
+    .main-div{
+        border-radius: 10px;
+        margin-top: 50px;
+        margin-left: 425px;
+        height: 690px;
+        margin-right: 425px;
+        background-color: aliceblue;
+        box-shadow: 5px 5px 10px aliceblue;
+    }
+
+    .sec-div{
+        border-bottom: 1px solid black;
+        text-align: center;
+        background-color: aliceblue;
+        margin-bottom: 25px;
+        padding-top: 10px;
+    }
+    .thr-div{
+        
+        margin-left: 100px;
+        margin-right: 500px;
+        height: 520px;
+        width: 462px;
+        
+    }
+
+    .thr-div label{
+        font-size: 20px;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
+    .thr-div input{
+        margin-top: 5px;
+        margin-left: 15px;
+        width: 400px;
+        padding: 10px;
+        margin-bottom: 23px;
+        border-radius: 5px;
+    }
+    .thr-div a{
+        height: 15px;
+        width: 20px;
+        padding: 5px;
+        font-size: 20px;
+        text-decoration: none;
+        color: black;
+        background-color: rgba(98, 98, 219, 0.804);
+        margin-left: 170px;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    
+</style>
+<body>
+    <div class="main-div">
+        <div class="sec-div">
+        <h2>Register Now To Get More Details </h2>
+        </div>
+        <div class="thr-div">
+            <form>
+                <label for="fname">First Name:</label><br>
+                <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" required="true"><br>
+                <label for="lname">Last Name:</label><br>
+                <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" required="true"><br>
+                <label for="Email">Email:</label><br>
+                <input type="email" id="Email" name="Email" placeholder="Enter Your Email" required="true"><br>
+                <label for="Password">Password:</label><br>
+                <input type="password" id="Password" name="Password" minlength="8" maxlength="12" placeholder="Enter Your Password" required="true"><br>
+                <label for="Password">Confirm Password:</label><br>
+                <input type="Password" id="Password" name="Password" placeholder="Enter Your Confirm Password" required="true"><br>
+                <a href="sample.html">Register</a>
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>
