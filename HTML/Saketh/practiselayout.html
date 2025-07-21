@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practise</title>
+    <style>
+        body{
+            background-color: rgb(90, 51, 247);
+            margin: 0%;
+        }
+        .main{    
+            height: 705px;
+        }
+        .first{
+            width: 10%;
+            height: 90%;
+            
+            float: left;
+        }
+        .sec{
+            width: 100%;
+            
+            display: inline-block;
+            height: 60px;
+            background-color: brown;
+        }
+        footer{
+            width: 100%;
+            
+            display: inline-block;
+            height: 55px;
+            background-color: brown;
+            text-align: center;
+        }
+        .Home{
+            text-align: center;
+            font-size: larger;
+            border-bottom: 1px solid black;
+            padding: 10px;
+            background-color: brown;
+        }
+        .Home a{
+            text-decoration: none;
+            color: white;
+        }
+        .courses{
+            text-align: center;
+            font-size: larger;
+            border-bottom: 1px solid black;
+            padding: 10px;
+            background-color: brown;
+        }
+        .courses a{
+            text-decoration: none;
+            color: white;
+        }
+        .contact{
+            text-align: center;
+            font-size: larger;
+            border-bottom: 1px solid black;
+            padding: 10px;
+            background-color: brown;
+        }
+        .contact a{
+            text-decoration: none;
+            color: white;
+        }
+        .payment{
+            text-align: center;
+            font-size: larger;
+            border-bottom: 1px solid black;
+            padding: 10px;
+            background-color: brown;
+        }
+        .payment a{
+            text-decoration: none;
+            color: white; 
+        }
+        .body-div{
+            border: 1px solid black;
+            height: 1200px;
+            width: 60%;
+            float: right;
+        }
+        .form label{
+            
+            width: 50px;
+            display: inline-block;
+        }
+        .overall{
+            
+            height: 100%;
+        }
+
+        #resetbtn{
+            border-radius: 5px;
+            margin-top: 100px;
+            margin-left: 100px;
+            margin-right: 100px;
+            height: 35px;
+            width: 65px;
+            font-size: larger;
+            background-color: brown;
+            
+        }
+
+         #subbtn{
+            border-radius: 5px;
+            margin-top: 100px;
+            margin-left: 100px;
+            margin-right: 100px;
+            height: 35px;
+            width: 75px;
+            font-size: larger;
+            background-color: brown;
+        }
+        .body-div label{
+            font-size: large;
+            padding-bottom: 20px;
+            margin-left: 15px;
+            padding: 5px;
+        }
+        .body-div input[type="text"]{
+            padding: 10px;
+            width: 300px;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+        .body-div input[type="radio"]{
+            padding: 5px;
+            margin-top: 10px;
+            margin-left: 2px;
+            
+        }
+        .body-div textarea{
+            width: 500px;
+            margin-left: 60px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+        .body-div input[type="email"]{
+            width: 300px;
+            border-radius: 10px;
+            margin-left: 10px;
+            padding: 10px;
+        }
+        .body-div input[type="tel"]{
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .body-div{
+            height: 650px;
+            overflow: scroll;
+            width: 89%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <header>
+            <div class="sec">
+                <img src="c:\Users\Saketh sai G\Desktop\WhatsApp Image 2025-07-19 at 16.22.35_67e49831.jpg" alt="logo" width="60px" height="60px">
+            </div>
+        </header>
+        <div class="overall">
+            <div class="first">
+                <div class="Home"><a href="#home">Home</a></div>
+                <div class="courses"><a href="#Courses">Courses</a></div>
+                <div class="contact"><a href="#Contact">Contact</a></div>
+                <div class="payment"><a href="#payment">payment</a></div>
+            </div>
+             <div class="body-div">
+                <h1 style="text-align: center; background-color: brown;">Registration Form</h1>
+                <form>
+                    <div>
+                    <label for="fullname">Full Name:</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Enter Your Full Name">
+                    <label for="s/o|d/o"> S/O|D/O:</label>
+                    <input type="text" id="s/o|d/o" name="s/o|d/o" placeholder="Mr/Mrs"><br>
+                    <label for="DOB">Date Of Birth:</label>
+                    <input type="date" id="DOB" name="DOB" placeholder="">
+                    <label for="gender">Gender</label>
+                    <input type="radio" id="gender" name="gender">
+                    <label for="gender">Male</label>
+                    <input type="radio" id="gender" name="gender">
+                    <label for="gender">female</label><br>
+                    <label for="address">Permanent Address:</label><br>
+                    <textarea name="address" id="address" rows="5" cols="20"></textarea><br>
+                    <label for="address">Present Address:</label><br>
+                    <textarea name="address" id="address" rows="5" cols="20"></textarea><br>
+                    <label for="cell">Mobile Number</label>
+                    <input type="tel" id="cell" name="cell" maxlength="10">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Your Email Id"><br>
+                    <label for="skills">Skills(If Any)</label><br>
+                    <textarea name="skills" id="skills" rows="5" cols="20"></textarea><br>
+                    <label for="refer">Refered By:</label>
+                    <input type="text" id="refer" name="refer" placeholder="Enter Refered By Name">
+                    <label for="cell">Mobile Number:</label>
+                    <input type="tel" id="cell" name="cell" maxlength="10">
+                    <hr>
+                    <label for="HQ">Qualification:</label>
+                    <input type="text" id="HQ" name="HQ" placeholder="Enter Your Qualification">
+                    <label for="year">Year Of Pass</label>
+                    <input type="date" id="year" name="year"><br>
+                    <label for="clg">College:</label>
+                    <input type="text" id="clg" name="clg" placeholder="Enter Your College  Name"><br>
+                    <label for="EmpHistory">Employee History(If Any)</label><br>
+                    <textarea name="EmpHistory" id="EmpHistory" rows="5" cols="20"></textarea><br>
+                    <hr>
+                    <label for="intern">Are You Interested to take Internship:</label>
+                    <input type="checkbox" id="checkbox" name="checkbox">
+                    <label>Yes</label>
+                    <input type="checkbox" id="checkbox" name="checkbox">
+                    <label>NO</label><br>
+                    <label for="timing">Are You able to come to offine(MON-SAT) 10 AM - 6 PM:</label>
+                     <input type="checkbox" id="checkbox" name="checkbox">
+                    <label>Yes</label>
+                    <input type="checkbox" id="checkbox" name="checkbox">
+                    <label>NO</label><br>
+                    <button id="resetbtn" type="reset">Reset</button>
+                    <button id="subbtn" type="submit">Submit</button>
+
+                </form>
+            </div>
+            
+        </div>
+        <footer>
+            <div class="foot">www.iconnecttechsolutions.com
+                
+            </div>
+        </footer>
+    </div>
+  
+    
+</body>
+
+</html>
