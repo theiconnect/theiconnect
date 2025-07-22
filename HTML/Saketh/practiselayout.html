@@ -23,15 +23,16 @@
             display: inline-block;
             height: 63px;
             background-color: brown;
+     
+            margin-bottom: 1px;
         }
-        footer{
+        .foot{
             width: 100%;
             display: inline-block;
-            height: 15px;
+            height: 25px;
             background-color: brown;
             text-align: center;
-            font-size: 10px;
-            padding-top: 20px;
+            font-size: 20px;
         }
         .Home{
             text-align: center;
@@ -88,7 +89,7 @@
             display: inline-block;
         }
         .overall{
-            height: 450px;
+            height: 430px;
         }
 
         #resetbtn{
@@ -157,6 +158,25 @@
         .body-div h1{
             margin-top: 0%;
         }
+        #first-heading{
+            width: 25%;
+            float: right;
+            margin-right: 538px;
+        }
+
+        .sec #logo1{
+            margin-left: 500px;
+        }
+        .form-control{
+            width: 49%;
+            float: left;
+        }
+        .form-control label{
+            padding-bottom: 10px;
+        }
+        .form-control input{
+            margin: 10px;
+        }
     </style>
 </head>
 
@@ -164,7 +184,8 @@
     <div class="main">
         <header>
             <div class="sec">
-                <img src="c:\Users\Saketh sai G\Desktop\WhatsApp Image 2025-07-19 at 16.22.35_67e49831.jpg" alt="logo" width="60px" height="60px">
+                <img src="c:\Users\Saketh sai G\Desktop\WhatsApp Image 2025-07-19 at 16.22.35_67e49831.jpg" alt="logo" width="60px" height="60px" >
+                <img  id="logo1"  src="c:\Users\Saketh sai G\Desktop\iconnectTEXT.png" alt="img" width="300px" height="55px">
             </div>
         </header>
         <div class="overall">
@@ -177,52 +198,86 @@
              <div class="body-div">
                 <h1 style="text-align: center; background-color: brown;">Registration Form</h1>
                 <form>
-                    <div>
-                    <label for="fullname">Full Name:</label>
-                    <input type="text" id="fullname" name="fullname" placeholder="Enter Your Full Name">
-                    <label for="s/o|d/o"> S/O|D/O:</label>
-                    <input type="text" id="s/o|d/o" name="s/o|d/o" placeholder="Mr/Mrs"><br>
-                    <label for="DOB">Date Of Birth:</label>
-                    <input type="date" id="DOB" name="DOB" placeholder="">
-                    <label for="gender">Gender</label>
-                    <input type="radio" id="gender" name="gender">
-                    <label for="gender">Male</label>
-                    <input type="radio" id="gender" name="gender">
-                    <label for="gender">female</label><br>
-                    <label for="address">Permanent Address:</label><br>
-                    <textarea name="address" id="address" rows="5" cols="20"></textarea><br>
-                    <label for="address">Present Address:</label><br>
-                    <textarea name="address" id="address" rows="5" cols="20"></textarea><br>
-                    <label for="cell">Mobile Number</label>
-                    <input type="tel" id="cell" name="cell" maxlength="10">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Enter Your Email Id"><br>
-                    <label for="skills">Skills(If Any)</label><br>
-                    <textarea name="skills" id="skills" rows="5" cols="20"></textarea><br>
-                    <label for="refer">Refered By:</label>
-                    <input type="text" id="refer" name="refer" placeholder="Enter Refered By Name">
-                    <label for="cell">Mobile Number:</label>
-                    <input type="tel" id="cell" name="cell" maxlength="10">
+                    <div class="form-control">
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter Your Full Name" required="true">
+                    </div>
+                    <div class="form-control">
+                        <label for="s/o|d/o"> S/O|D/O:</label>
+                        <input type="text" id="s/o|d/o" name="s/o|d/o" placeholder="Mr/Mrs" required="true"><br>
+                    </div>
+                    <div class="form-control">
+                        <label for="DOB">Date Of Birth:</label>
+                        <input type="date" id="DOB" name="DOB" required="true">
+                    </div>
+                    <div class="form-control">
+                        <label for="gender">Gender</label>
+                        <input type="radio" id="gender" name="gender">
+                        <label for="gender">Male</label>
+                        <input type="radio" id="gender" name="gender">
+                        <label for="gender">female</label><br><br>
+                    </div>
+
+                    <div class="form-control">
+                        <label for="address">Permanent Address:</label><br>
+                        <textarea name="address" id="address" rows="5" cols="20" placeholder="Enter your Permanent Address" required="true"></textarea><br>
+                    </div>
+                    <div class="form-control">
+                         <label for="address">Present Address:</label><br>
+                        <textarea name="address" id="address" rows="5" cols="20" placeholder="Enter your Present Address" required="true"></textarea><br>
+                    </div>
+                    <div class="form-control">
+                        <label for="cell">Mobile Number</label>
+                        <input type="tel" id="cell" name="cell" maxlength="10" required="true">
+                    </div>
+                    <div class="form-control">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter Your Email Id" required="true"><br>
+                    </div>
+                    <div class="form-control">
+                        <label for="skills">Skills(If Any)</label><br>
+                        <textarea name="skills" id="skills" rows="5" cols="20"></textarea><br>
+                    </div>
+                    <div class="form-control">
+                        <label for="refer">Refered By:</label>
+                        <input type="text" id="refer" name="refer" placeholder="Enter Refered By Name" required="true">
+                    </div>
+                    <div class="form-control">
+                        <label for="cell">Mobile Number:</label>
+                        <input type="tel" id="cell" name="cell" maxlength="10" required="true" placeholder="+91 ">
+                    </div>
                     <hr>
-                    <label for="HQ">Qualification:</label>
-                    <input type="text" id="HQ" name="HQ" placeholder="Enter Your Qualification">
-                    <label for="year">Year Of Pass</label>
-                    <input type="date" id="year" name="year"><br>
-                    <label for="clg">College:</label>
-                    <input type="text" id="clg" name="clg" placeholder="Enter Your College  Name"><br>
-                    <label for="EmpHistory">Employee History(If Any)</label><br>
+                    <div class="form-control">
+                        <label for="HQ">Qualification:</label>
+                        <input type="text" id="HQ" name="HQ" placeholder="Enter Your Qualification" required="true">
+                    </div>
+                    <div class="form-control">
+                        <label for="year">Year Of Pass</label>
+                        <input type="date" id="year" name="year"><br>
+                    </div>
+                    <div class="form-control">
+                        <label for="clg">College:</label>
+                        <input type="text" id="clg" name="clg" placeholder="Enter Your College  Name" required="true"><br><br>
+                    </div>
+                    <div class="form-control">
+                        <label for="EmpHistory">Employee History(If Any)</label><br>
                     <textarea name="EmpHistory" id="EmpHistory" rows="5" cols="20"></textarea><br>
+                    </div>
                     <hr>
-                    <label for="intern">Are You Interested to take Internship:</label>
-                    <input type="checkbox" id="checkbox" name="checkbox">
-                    <label>Yes</label>
-                    <input type="checkbox" id="checkbox" name="checkbox">
-                    <label>NO</label><br>
-                    <label for="timing">Are You able to come to offine(MON-SAT) 10 AM - 6 PM:</label>
-                     <input type="checkbox" id="checkbox" name="checkbox">
-                    <label>Yes</label>
-                    <input type="checkbox" id="checkbox" name="checkbox">
-                    <label>NO</label><br>
+                    <div class="form-control">
+                        <label for="intern">Are You Interested to take Internship:</label>
+                        <input type="checkbox" id="checkbox" name="checkbox">
+                        <label>Yes</label>
+                        <input type="checkbox" id="checkbox" name="checkbox">
+                        <label>NO</label><br><br>
+                    </div>
+                    <div class="form-control">
+                        <label for="timing">Are You able to come to offine(MON-SAT) 10 AM - 6 PM:</label>
+                        <input type="checkbox" id="checkbox" name="checkbox">
+                        <label>Yes</label>
+                        <input type="checkbox" id="checkbox" name="checkbox">
+                        <label>NO</label><br>
+                    </div>
                     <button id="resetbtn" type="reset">Reset</button>
                     <button id="subbtn" type="submit">Submit</button>
 
@@ -231,13 +286,14 @@
             
         </div>
         <footer>
-            <div class="foot">www.iconnecttechsolutions.com
-                
+            <div class="foot">
+                www.iconnecttechsolutions.com
+                info@iconnecttechsolutions.com
+                040-31564877/9052592492 , 7893183596 
+
             </div>
         </footer>
     </div>
-  
-    
 </body>
 
 </html>
