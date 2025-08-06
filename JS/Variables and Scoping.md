@@ -1,6 +1,6 @@
-# JavaScript Data Types and Variable Scoping Explained
+# JavaScript Data Types and Variable Scoping
 
-This video provides a comprehensive overview of JavaScript data types, variable scoping, and related concepts like hoisting, the distinction between `undefined` and `null`, and the use of the `let` keyword. It aims to clarify how JavaScript handles variables and data, especially for developers familiar with languages like C# or Java.
+This section provides a comprehensive overview of JavaScript data types, variable scoping, and related concepts like hoisting, the distinction between `undefined` and `null`, and the use of the `let` keyword. It aims to clarify how JavaScript handles variables and data, especially for developers familiar with languages like C# or Java.
 
 ## Data Types in JavaScript
 
