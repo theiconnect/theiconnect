@@ -9,6 +9,8 @@ JavaScript employs *inferred* data types. This means that the data type of a var
 ```javascript
 var x = 10; // x is a number
 x = "Hello"; // x is now a string
+```
+
 Because JavaScript is a dynamic language, the data type of x can change from number to string as shown above. The fundamental data types in JavaScript are number, string, and boolean. Notably, JavaScript doesn't differentiate between integers and decimal numbers; both are simply classified as "number".
 
 
@@ -20,6 +22,7 @@ A variable declared outside a function has global scope and is accessible from a
 A variable declared inside a function has local scope (also known as private scope) and is accessible only within that function.
 This scoping mechanism is based on lexical scoping, where a variable's scope is determined by its declaration's location within the source code.
 
+```javascript
 var x = 10; // Global variable
 
 function fun1() {
@@ -32,13 +35,15 @@ fun1(); // Call the function to see the alerts
 
 alert(x); // Accessible - alerts 10
 alert(y); // Error: y is not defined - outside the scope of fun1
-
+```
 
 **Declaration vs. Assignment**
 In JavaScript, declaring a variable and assigning a value to it are distinct operations.
-
+```javascript
 var t; // Declaration - t exists but is currently undefined
 t = 20; // Assignment - t now has the value 20
+```
+
 If you assign a value to a variable without first declaring it using var, JavaScript automatically declares it as a global variable. This can easily lead to unintended consequences and bugs.
 
 y = 10; // Automatically creates a global variable y if 'y' wasn't declared with var, let, or const
@@ -51,16 +56,18 @@ It's crucial to understand the difference between undefined and null in JavaScri
 
 **Null**: Represents the intentional absence of a value. It signifies that a variable explicitly has no value; it is "nothing".
 
+```javascript
 var t;         // Declaration only
 alert(t);      // Output: undefined - t has been declared but not assigned a value
 
 var u = null;  // Explicitly assigning 'nothing' to u
 alert(u);      // Output: null - u intentionally has no value
-
+```
 
 **JavaScript Hoisting**
 Hoisting is a JavaScript behavior where variable and function declarations are moved to the top of their scope before the code is executed. It's important to understand that only the declaration is hoisted, not the initialization (assignment of a value). This can lead to unexpected results if you're not aware of it.
 
+```javascript
 alert(t); // Output: undefined - declaration of t is hoisted, but assignment is not
 
 if (true) {
@@ -69,17 +76,18 @@ if (true) {
 
 alert(t); // Output: 10 - t is accessible here because 'var' has function scope (or global if outside a function)
 Even though t is declared inside the if block, the declaration is hoisted to the top of the scope. Therefore, the first alert(t) doesn't throw an error, but outputs undefined because the assignment t = 10 hasn't been executed yet.
-
+```
 
 **The let Keyword**
 The let keyword offers a way to declare variables with block scope. Unlike var, variables declared with let are only accessible within the specific block of code where they are defined (e.g., inside an if statement, a for loop, or any code enclosed in curly braces {}). This helps prevent accidental variable overwriting and improves code clarity.
-
+```javascript
 if (true) {
   let t = 10;
   alert(t); // Accessible here - Output: 10
 }
 
 alert(t); // Error: t is not defined - t is only accessible within the 'if' block
+```
 However, the presenter suggests that using "use strict"; along with var declarations consistently is often a sufficient approach for managing scope and avoiding confusion, particularly for developers accustomed to that style.
 
 **Conclusion**
