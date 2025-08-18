@@ -1,0 +1,4 @@
+let n = prompt('enter the num :')
+for(let i=1;i<=10;i++){
+    console.log(n + '*' + i + '=' + n*i)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+}
