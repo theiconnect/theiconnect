@@ -1,6 +1,6 @@
 let n = parseInt(prompt('Enter the number value:'));
 debugger;
-let small = 10;  // bigger than any digit
+let small = 9;  // bigger than any digit
 let digit;
 
 while (n !== 0) {
@@ -12,3 +12,4 @@ while (n !== 0) {
 }
 
 console.log("Smallest digit is:", small);
+
