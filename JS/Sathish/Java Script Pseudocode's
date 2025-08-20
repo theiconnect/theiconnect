@@ -1,0 +1,403 @@
+even or odd
+    let x = prompt("enter the input:")
+    if(x % 2 == 0){
+        console.log(x,"is even")
+    }
+    else{
+        console.log(x,"is odd")
+    }
+
+largest of three number
+
+    let a = prompt("enter the first number:")
+    let b = prompt("enter the second number:")
+    let c = prompt("enter the third number:")
+
+    if(a == b && b ==c && c == a){
+        console.log("all are equal")
+    }
+    else{
+        if(a >= b && a >= c){
+            console.log(a,"is a largest Number")
+        }
+        else if(b >= a && b >= c){
+            console.log(b,"is a largest Number")
+        }
+        else if(c >= a && c >= b){
+            console.log(c,"is a largest Number")
+        }
+    }
+
+sum of 1 to N
+
+    let n = prompt("enter the range:")
+    let sum = 0
+    for(let i=0; i <= n ; i++){
+        sum = sum + i
+    }
+    console.log(sum)
+
+factorial of a number
+
+    let f = prompt("Enter the number:")
+    let fact = 1
+    for(let i=1;i <= f ; i++){
+        fact = fact * i
+    }
+    console.log(fact)
+
+prime number
+
+    let r = prompt("enter the number:")
+    let count = 0
+    for(let i = 1; i <= r ; i++){
+        if(r % i == 0){
+            count++
+        }
+    }
+    if(count == 2){
+        console.log(r,"is the prime number")
+    }
+    else{
+        console.log(r,"is not a prime")
+    }
+
+
+multiplication table
+
+    let p = prompt("enter the number:")
+    for(let i=1;i<=10;i++){
+    console.log(p,"X",i ,"=",x*i)
+}
+
+reverse of a number
+
+    let q =prompt("enter the number:")
+    while(isNaN(q)== true){
+        	input = prompt("invalid input please enter the correct input:")
+    }
+    let d= Number(q)
+    let digit,rev=0
+    while( d != 0){
+        digit = d % 10
+        rev = rev * 10 + digit
+        d = Math.floor(d / 10)
+    }
+    console.log(rev,'is the reverse of number')
+
+palinderome
+
+    let m=prompt("Enter a number")
+    while(isNaN(m)==true){
+        input= prompt("invalid inputk please enter the correct input")
+    }
+    input = m
+    let digits,pal=0
+    while(m!=0){
+        digits=m % 10
+        pal=pal*10+digits
+        m= Math.floor(m/10)
+    }
+    if(pal==input){
+        console.log("It is a Palindrome Number")
+    }
+    else{
+        console.log("It is not a Planindrome Number")
+    }
+
+count of given numbers
+    debugger;
+    let a = prompt("enter the number")
+    while (isNaN(a) == true){
+        input = prompt("invalid input please enter the valid input")    
+    }
+    b= Number(a)
+    let digit,count=0
+    while( b != 0 ){
+        digit = b % 10
+        b = Math.floor(b / 10)
+        count++
+    }
+    console.log("Count of given digits =",count)
+
+Fibonacci series
+debugger;
+    let m =0, n=1
+    while(m<100){
+        console.log(m+n);
+        n=m+n;
+        m=n-m;
+    }
+   
+List of even numbers upto given range
+    let e=prompt("enter the number")
+    while(isNaN(e)==true){
+        input=(prompt("invaild input please enter the valid input"))
+    }
+    num = Number(e)
+    for(let i = 0;i<= num;i++){
+        if( i % 2 == 0){
+            console.log(i)
+        }
+    }
+
+Grade calculator
+    let score = prompt("Enter the number")
+    while(isNaN(score)== true){
+        input=(prompt("invalid  input please enter the valid input"))
+    }
+    Marks= Number(score)
+    if (Marks>0 && Marks<101){
+        if(Marks >=90 && Marks<=100){
+            console.log("Grade is A")
+        }
+        else if (Marks>=80 && Marks<=89){
+            console.log("Grade is B")
+        }
+        else if (Marks>=70 && Marks<=79){
+            console.log("Grade is C")
+        } 
+        else if (Marks>=60 && Marks<=69){
+            console.log("Grade id D")
+        }
+        else if(Marks<60){
+            console.log("Grade is Fail")
+        }
+    }
+    else{
+        console.log("Enter the number range betweeen the range of 0 to 100")
+    }
+
+Guessing Game
+debugger;
+    let G = prompt("select the number between 1 to 10")
+    let num = 6
+    while(isNaN(G)== true){
+        G=prompt("Invalid input please enter the valid input")
+    }
+    while(G>=0 && G<=10 == false){
+        G=prompt("Please enter the number between 1 to 10")
+    }
+    GG= Number(G)
+        if(GG> num ){
+            console.log("Too high")
+        }
+        else if(GG< num){
+            console.log("Too Low")
+        }
+        else{
+            console.log("Your Gussed number is right!")
+        }
+
+Pattern
+    let n = 5
+
+    for (let i=1; i<= n; i++) {
+        let star=""
+        for (let j=1; j<=i; j++) {
+            star += "*"
+        }
+        console.log(star)
+    }
+
+Simple Calculator
+debugger;
+    let n1 = prompt("enter the first number")
+    let n2 = prompt("enter the second number")
+    let oper = prompt("enter the operator")
+    let sol
+    while(isNaN(n1)== true || isNaN(n2)== true){
+        n1=prompt("Invalid input Please enter the valid input(n1)")
+        n2=prompt("Invalid input Please enter the valid input(n2)")
+        oper=prompt("Please enter the valid operator")
+    }
+    let firstnumber =Number(n1)
+    let secondnumber = Number(n2)
+    if (oper =="+"){
+        sol=firstnumber+secondnumber
+        console.log(sol)
+    }
+    else if(oper =="-"){
+        sol=firstnumber-secondnumber
+        console.log(sol)
+    }
+    else if(oper =="*"){
+        sol=firstnumber*secondnumber
+        console.log(sol)
+    }
+    else if(oper=="/"){
+        sol= firstnumber/secondnumber
+        console.log(sol)
+    }
+
+sum of digits until the digit remains one digit
+debugger;
+    let o = prompt("enter the number")
+    while(isNaN(o)==true){
+        o=prompt("Invalid input please enter the valid input")
+    }
+    let x = Number(o)
+    let digit, sum = 0 
+    while(x!= 0){
+        digit = x%10 
+        sum =sum+digit 
+        x = Math.floor(x/10)
+    }
+    let y =Number(sum)
+    let sum1
+    while (y!=0){
+        let digit1 = y%10
+        sum1 = Number(sum1+digit1)
+        y= Math.floor(y/10)
+    }
+    console.log("Sum of all digits number=", sum1)
+
+Count of 3 appears in the given number
+    let a = prompt("enter the number")
+    while (isNaN(a) == true){
+        input = prompt("invalid input please enter the correct input:")
+    }
+    let b = Number(a)
+    let count = 0
+    for (let i=1 ;i <=b ; i++){
+        let digit = i
+        while( digit != 0){
+            if( digit % 10 == 3){ 
+            count ++
+            }
+            digit=Math.floor(digit/ 10)
+        }	
+    }
+    console.log("The count of 3 in the given number=", count)
+
+Product and sum of the digits
+    let p = prompt("enter the number")
+    while (isNaN(p)== true){
+        p=prompt("Invalid input please enter the valid input")
+    }
+    let n= Number(p)
+    let digit, product=1, sum=0
+    while( n!= 0 ){
+        digit = n%10
+        product = product*digit
+        sum = sum + digit
+        n = Math.floor(n/10)
+    }
+    let diff = product - sum
+    console.log("Sum of the digits=",sum, "Product of the digits", product)
+
+sum of even and odd numbers
+    let e = prompt("Enter the number");
+    while (isNaN(e)){
+        e = prompt("Invalid input! Please enter a valid number:")
+    }
+    let num=Number(e)
+    let evensum=0, oddsum = 0
+    while (num>0){
+        let digit=num%10
+        if (digit%2==0) {
+            evensum += digit;
+        } else {
+            oddsum+= digit;
+        }
+        num = Math.floor(num/10)
+    }
+    console.log("Sum of even digits =", evensum)
+    console.log("Sum of odd digits =", oddsum)
+
+Perfect square and even number
+debugger;
+    let s = prompt("enter the number")
+    while (isNaN(s) == true){
+        s=prompt("invalid input please enter the correct input:")
+    }
+    let n = Number(s)
+    if( n%2==0 && Math.sqrt(n)*Math.sqrt(n) == n){
+        console.log('Given is a perfect square and even number')
+    }
+    else{
+        console.log('Given is not valid')
+    }
+
+7. First Digit of a Number Without String Conversion extract the first digit 
+debugger;
+    let r = prompt("Enter the Number:")
+    while (isNaN(r)==true){
+        r=prompt("invalid input please enter the correct input:")
+    }
+    let n = Number(r)
+    let digit,rev = 0
+    while(n!=0){
+        digit = n%10
+        rev=rev*10+digit
+        n=Math.floor(n/10)
+    }
+    let re=rev%10 
+    console.log(re)
+
+Count All Numbers Divisible by 3 or 5 Between A and B
+debugger;
+    let n1 = prompt("enter the starting number")
+    let n2 = prompt("enter the ending number")
+    while (isNaN(n1) == true || isNaN(n2) == true){
+        n1 = prompt("invalid input please enter the correct input:")
+        n2 =prompt("invalid input please enter the correct input:")
+    }
+    let a = Number(n1)
+    let b = Number(n2)
+    let count = 0
+    for(let i=a;i<=b;i++){
+        if( i%3==0 || i%5==0){
+            count++
+        }
+    }
+    console.log(count)
+
+Sum of All Prime Digits in a Number
+debugger;
+    let p = prompt("enter the number:")
+    while (isNaN(p) == true){
+        p = prompt("invalid input please enter the correct input:")
+    }
+    let num = Number(p)
+    let digit,sum = 0
+    while( num != 0 ){
+        digit = num % 10
+        count = 0
+        for( let i = 1; i <= digit ; i++ ){
+            if( digit % i == 0){
+                count ++
+            }
+        }
+        if(count == 2){
+                sum = sum + digit
+            }
+        num = Math.floor(num / 10)
+    }
+    console.log(sum)
+
+3-Digit Number into Its Reverse and Check If It’s Prime
+debugger;
+    let n = prompt("enter the number")
+    while (isNaN(n) == true){
+        input = prompt("invalid input please enter the correct input:")
+    }
+    let p= Number(n)
+    let digit, rev =0 ,count = 0
+    while(p!=0){
+        digit = p%10
+        rev = rev*10+digit
+        p= Math.floor(p/10)
+    }
+        for(let i=0;i<=rev;i++){
+            if(rev%i==0){
+                count++
+            }
+        }
+        if (count==2){
+            console.log(rev,"is the prime number")
+        }
+        else
+        {
+            console.log(rev,"is not a prime number")
+        }
