@@ -1,0 +1,450 @@
+# 📌 Sorting Algorithms (Step 1: Bubble Sort)
+
+### 🔹 Idea:
+
+* Compare adjacent elements.
+* Swap if they’re in the wrong order.
+* Repeat until sorted.
+
+---
+
+## 📝 Pseudocode
+
+```
+procedure bubbleSort(A)
+    n = length(A)
+    repeat (n - 1) times
+        for i = 0 to n-2
+            if A[i] > A[i+1] then
+                swap(A[i], A[i+1])
+```
+
+---
+
+## 🔹 Example Walkthrough: `[5, 3, 8, 4]`
+
+**Pass 1:**
+
+* Compare 5 & 3 → swap → `[3, 5, 8, 4]`
+* Compare 5 & 8 → no swap → `[3, 5, 8, 4]`
+* Compare 8 & 4 → swap → `[3, 5, 4, 8]`
+
+**Pass 2:**
+
+* Compare 3 & 5 → no swap
+* Compare 5 & 4 → swap → `[3, 4, 5, 8]`
+* 8 is already in place
+
+**Pass 3:**
+
+* Array is `[3, 4, 5, 8]` → sorted ✅
+
+---
+
+## 🔹 Code (JavaScript)
+
+```js
+function bubbleSort(arr) {
+  let n = arr.length;
+  for (let pass = 0; pass < n - 1; pass++) {
+    for (let i = 0; i < n - 1 - pass; i++) {
+      if (arr[i] > arr[i + 1]) {
+        // swap
+        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+      }
+    }
+  }
+  return arr;
+}
+
+console.log(bubbleSort([5, 3, 8, 4])); // [3, 4, 5, 8]
+```
+
+---
+
+## 🔹 Complexity
+
+* Worst case: **O(n²)** (nested loops).
+* Best case (already sorted with optimization): **O(n)**.
+* Space: **O(1)** (in-place).
+
+---
+
+✅ Bubble sort is easy to understand but **not efficient**.
+
+---
+
+# 📌 Sorting Algorithms (Step 2: Selection Sort)
+
+### 🔹 Idea:
+
+* Find the **smallest element** in the unsorted part.
+* Swap it with the first element of the unsorted part.
+* Repeat until the array is sorted.
+
+---
+
+## 📝 Pseudocode
+
+```
+procedure selectionSort(A)
+    n = length(A)
+    for i = 0 to n-2
+        minIndex = i
+        for j = i+1 to n-1
+            if A[j] < A[minIndex]
+                minIndex = j
+        swap(A[i], A[minIndex])
+```
+
+---
+
+## 🔹 Example Walkthrough: `[64, 25, 12, 22, 11]`
+
+**Pass 1:**
+
+* Find smallest → `11`
+* Swap with first → `[11, 25, 12, 22, 64]`
+
+**Pass 2:**
+
+* Remaining `[25, 12, 22, 64]`
+* Smallest is `12` → swap with index 1 → `[11, 12, 25, 22, 64]`
+
+**Pass 3:**
+
+* Remaining `[25, 22, 64]`
+* Smallest is `22` → swap with index 2 → `[11, 12, 22, 25, 64]`
+
+**Pass 4:**
+
+* Remaining `[25, 64]`
+* Smallest is `25` → no swap → `[11, 12, 22, 25, 64]`
+
+Sorted ✅
+
+---
+
+## 🔹 Code (JavaScript)
+
+```js
+function selectionSort(arr) {
+  let n = arr.length;
+
+  for (let i = 0; i < n - 1; i++) {
+    let minIndex = i;
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    if (minIndex !== i) {
+      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+    }
+  }
+
+  return arr;
+}
+
+console.log(selectionSort([64, 25, 12, 22, 11]));
+// [11, 12, 22, 25, 64]
+```
+
+---
+
+## 🔹 Complexity
+
+* Always **O(n²)** comparisons, even if sorted.
+* Space: **O(1)** (in-place).
+* Better than bubble sort in terms of fewer swaps.
+
+---
+
+✅ Selection sort is simple but still inefficient for large arrays.
+---
+
+# 📌 Sorting Algorithms (Step 3: Insertion Sort)
+
+### 🔹 Idea:
+
+* Think of how you sort cards in your hand.
+* Take one element at a time and **insert it** into the correct position in the sorted part of the array.
+* Repeat until all elements are in place.
+
+---
+
+## 📝 Pseudocode
+
+```
+procedure insertionSort(A)
+    n = length(A)
+    for i = 1 to n-1
+        key = A[i]
+        j = i - 1
+        while j >= 0 and A[j] > key
+            A[j+1] = A[j]
+            j = j - 1
+        A[j+1] = key
+```
+
+---
+
+## 🔹 Example Walkthrough: `[5, 3, 4, 1, 2]`
+
+**Initial:** `[5, 3, 4, 1, 2]`
+
+* **i=1:** key=3 → compare with 5 → move 5 → `[5, 5, 4, 1, 2]` → insert 3 → `[3, 5, 4, 1, 2]`
+* **i=2:** key=4 → compare with 5 → move 5 → `[3, 5, 5, 1, 2]` → insert 4 → `[3, 4, 5, 1, 2]`
+* **i=3:** key=1 → compare with 5,4,3 → move them → `[3, 4, 5, 5, 2] → [3, 4, 4, 5, 2] → [3, 3, 4, 5, 2]` → insert 1 → `[1, 3, 4, 5, 2]`
+* **i=4:** key=2 → compare with 5,4,3,1 → shift → `[1, 3, 4, 5, 5] → [1, 3, 4, 4, 5] → [1, 3, 3, 4, 5]` → insert 2 → `[1, 2, 3, 4, 5]`
+
+Sorted ✅
+
+---
+
+## 🔹 Code (JavaScript)
+
+```js
+function insertionSort(arr) {
+  let n = arr.length;
+
+  for (let i = 1; i < n; i++) {
+    let key = arr[i];
+    let j = i - 1;
+
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j]; // shift
+      j--;
+    }
+    arr[j + 1] = key; // insert key
+  }
+
+  return arr;
+}
+
+console.log(insertionSort([5, 3, 4, 1, 2]));
+// [1, 2, 3, 4, 5]
+```
+
+---
+
+## 🔹 Complexity
+
+* Worst case: **O(n²)** (reverse sorted).
+* Best case: **O(n)** (already sorted).
+* Space: **O(1)** (in-place).
+
+👉 Much better for **small arrays** or arrays that are already **nearly sorted**.
+
+---
+**Step 4: Merge Sort** — our first **efficient (O(n log n)) sorting algorithm**.
+
+---
+
+# 📌 Sorting Algorithms (Step 4: Merge Sort)
+
+### 🔹 Idea:
+
+* Divide array into halves (recursively).
+* Sort each half.
+* Merge the two sorted halves.
+
+👉 Uses **Divide & Conquer** strategy.
+
+---
+
+## 📝 Pseudocode
+
+```
+procedure mergeSort(A)
+    if length(A) <= 1
+        return A
+    
+    mid = floor(length(A) / 2)
+    left = mergeSort(A[0...mid-1])
+    right = mergeSort(A[mid...end])
+    
+    return merge(left, right)
+
+procedure merge(L, R)
+    result = []
+    while L and R not empty
+        if L[0] <= R[0]
+            append L[0] to result
+            remove L[0]
+        else
+            append R[0] to result
+            remove R[0]
+    append remaining L or R
+    return result
+```
+
+---
+
+## 🔹 Example Walkthrough: `[38, 27, 43, 3, 9, 82, 10]`
+
+1. Split: `[38, 27, 43, 3]` and `[9, 82, 10]`
+2. Split further: `[38, 27]` + `[43, 3]` + `[9, 82]` + `[10]`
+3. Split again: `[38] [27]` + `[43] [3]` + `[9] [82]`
+4. Merge step by step:
+
+   * `[38] [27]` → `[27, 38]`
+   * `[43] [3]` → `[3, 43]`
+   * `[9] [82]` → `[9, 82]`
+5. Merge bigger:
+
+   * `[27, 38] [3, 43]` → `[3, 27, 38, 43]`
+   * `[9, 82] [10]` → `[9, 10, 82]`
+6. Final merge: `[3, 27, 38, 43] [9, 10, 82]` → `[3, 9, 10, 27, 38, 43, 82]`
+
+✅ Sorted!
+
+---
+
+## 🔹 Code (JavaScript)
+
+```js
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  let mid = Math.floor(arr.length / 2);
+  let left = mergeSort(arr.slice(0, mid));
+  let right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  let result = [];
+  let i = 0, j = 0;
+
+  while (i < left.length && j < right.length) {
+    if (left[i] < right[j]) {
+      result.push(left[i]);
+      i++;
+    } else {
+      result.push(right[j]);
+      j++;
+    }
+  }
+
+  return result.concat(left.slice(i)).concat(right.slice(j));
+}
+
+console.log(mergeSort([38, 27, 43, 3, 9, 82, 10]));
+// [3, 9, 10, 27, 38, 43, 82]
+```
+
+---
+
+## 🔹 Complexity
+
+* Worst case: **O(n log n)**
+* Best case: **O(n log n)** (always splits & merges).
+* Space: **O(n)** (not in-place).
+
+👉 Merge sort is **stable** (preserves order of equal elements).
+
+---
+**Step 5: Quick Sort** — one of the most widely used sorting algorithms.
+
+---
+
+# 📌 Sorting Algorithms (Step 5: Quick Sort)
+
+### 🔹 Idea:
+
+* Pick a **pivot** element.
+* Partition array so that:
+
+  * Elements < pivot go left.
+  * Elements > pivot go right.
+* Recursively sort left and right.
+
+👉 Also uses **Divide & Conquer**, but usually faster than merge sort (in-place, less memory).
+
+---
+
+## 📝 Pseudocode
+
+```
+procedure quickSort(A, low, high)
+    if low < high
+        pivotIndex = partition(A, low, high)
+        quickSort(A, low, pivotIndex - 1)
+        quickSort(A, pivotIndex + 1, high)
+
+procedure partition(A, low, high)
+    pivot = A[high]
+    i = low - 1
+    for j = low to high - 1
+        if A[j] <= pivot
+            i++
+            swap A[i], A[j]
+    swap A[i+1], A[high]
+    return i+1
+```
+
+---
+
+## 🔹 Example Walkthrough: `[10, 80, 30, 90, 40, 50, 70]`
+
+1. Pick pivot = `70`.
+2. Partition: rearrange so left < 70, right > 70.
+   → `[10, 30, 40, 50] [70] [90, 80]`
+3. Recursively sort left `[10, 30, 40, 50]`.
+   Pivot = `50` → `[10, 30, 40] [50]`.
+   Continue until base case (single element).
+4. Recursively sort right `[90, 80]`.
+   Pivot = `80` → `[80, 90]`.
+
+Final sorted array: `[10, 30, 40, 50, 70, 80, 90]`. ✅
+
+---
+
+## 🔹 Code (JavaScript)
+
+```js
+function quickSort(arr, low = 0, high = arr.length - 1) {
+  if (low < high) {
+    let pi = partition(arr, low, high);
+    quickSort(arr, low, pi - 1);   // left
+    quickSort(arr, pi + 1, high); // right
+  }
+  return arr;
+}
+
+function partition(arr, low, high) {
+  let pivot = arr[high];
+  let i = low - 1;
+
+  for (let j = low; j < high; j++) {
+    if (arr[j] <= pivot) {
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]]; // swap
+    }
+  }
+
+  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]]; // final swap
+  return i + 1;
+}
+
+console.log(quickSort([10, 80, 30, 90, 40, 50, 70]));
+// [10, 30, 40, 50, 70, 80, 90]
+```
+
+---
+
+## 🔹 Complexity
+
+* Average case: **O(n log n)**
+* Worst case: **O(n²)** (when pivot is always min/max).
+* Space: **O(log n)** (recursive stack).
+* Usually faster than merge sort in practice because it’s **in-place**.
+
+---
+
+✅ Now we’ve covered:
+
+* Bubble, Selection, Insertion (simple but slow).
+* Merge & Quick (efficient O(n log n)).
