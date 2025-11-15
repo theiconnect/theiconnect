@@ -1,0 +1,82 @@
+# .NET build artifacts
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code workspace settings
+.vscode/
+
+# Rider project files
+.idea/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet packages
+*.nupkg
+# NuGet restore
+packages/
+# NuGet v3
+*.snupkg
+
+# Entity Framework migrations
+Migrations/
+
+# DotCover
+*.dotCover
+
+# Logs
+*.log
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Publish output
+publish/
+
+# Auto-generated files
+Generated_Code/
+
+# Others
+*.vspscc
+*.vssscc
+*.dbmdl
+*.pdb
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# VS Code settings
+.vscode/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Local history for Visual Studio
+.localhistory/
+
+# Backup & crash reports
+*.bak
+*.swp
+*.tmp
+
+# IIS Express
+*.vs/
+*.config
+
+# Dotnet environment files
+.env
+
+# JetBrains Rider
+.idea/
+*.sln.iml
