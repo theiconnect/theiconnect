@@ -1,6 +1,6 @@
 ﻿namespace EMS.Models
 {
-    public class ClassModel
+    public class Class1
     {
 
     }
