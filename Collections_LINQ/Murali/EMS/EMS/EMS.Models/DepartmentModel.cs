@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EMS.Models
 {
-    internal class DepartmentModel
+    public class DepartmentModel
     {
     }
 }
