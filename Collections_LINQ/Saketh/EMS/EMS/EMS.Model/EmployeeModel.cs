@@ -33,5 +33,6 @@ public     Date LWD {  get; set; }
         List<DepartmentModel> Departments { get; set; }
         
         List<DesignationLookUpModel> designationLookUpModels { get; set; }  
+        List<EmployeeAddressModel> EmployeeAddresses { get; set; }  
     }
 }

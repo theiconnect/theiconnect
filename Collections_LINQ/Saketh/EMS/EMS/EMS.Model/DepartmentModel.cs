@@ -14,7 +14,7 @@ public   string DepartmentName {  get; set; }
 public string Location {  get; set; }
 public Boolean IsActive {  get; set; }
 
-        List<DepartmentModel> Departments { get; set; } = new List<DepartmentModel>();  
+        List<DepartmentCompanyAddressModel> CompanyAddresses { get; set; } = new List<DepartmentCompanyAddressModel>();  
 
     }
 }

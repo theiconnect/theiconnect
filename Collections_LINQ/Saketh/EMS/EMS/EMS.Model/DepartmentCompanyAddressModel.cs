@@ -10,7 +10,9 @@ namespace EMS.Model
     {
       public int  DepartmentCompanyAddressXREFIDPk {  get; set; }
       public DepartmentModel  DepartmentIdFk {  get; set; }                      
-      public CompanyAddressModel CompanyAddressIdFk {  get; set; }             
+      public CompanyAddressModel CompanyAddressIdFk {  get; set; }  
+      
+        
 
     }
 }

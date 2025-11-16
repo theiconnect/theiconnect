@@ -13,7 +13,7 @@ public string Website {  get;set;}
 public string BankAccountNumer {  get;set;}
 public string TAN {  get;set;}
 public string PAN {  get;set;}
-List<CompanyModel> CompanyModels { get; set;}
+List<CompanyAddressModel> Addressess { get; set;}
 
 
 

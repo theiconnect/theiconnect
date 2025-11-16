@@ -15,6 +15,7 @@ public string State {  get; set; }
 public string City {  get; set; }
 public string PinCode {  get; set; }
 public CompanyAddressModel AddressTypeIdFk {  get; set; }
-        List<DepartmentModel> Departments { get; set; } = new List<DepartmentModel>();
+
+        List<DepartmentCompanyAddressModel> DepartmentCompanyAddresses { get; set; }               
     }
 }
