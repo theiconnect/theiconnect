@@ -4,9 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EMS.Models
+namespace EMS.Model
 {
-    internal class ComapnyAddressTypeModel
+    public enum CompanyAddressTypeModel
     {
+        Corporate = 1,
+        Otheroffice = 2
     }
+
+    public enum EmployeeAddressTypeModel
+    {
+        Permanent = 0,
+        Present = 1
+    }
+
 }

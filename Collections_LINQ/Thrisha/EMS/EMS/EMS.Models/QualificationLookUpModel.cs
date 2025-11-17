@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EMS.Models
+namespace EMS.Model
 {
-    internal class QualificationLookUpModel
+    public class QualificationLookUpModel
     {
+        public int QualificationIdPk { get; set; }
+        public string QualificationCode { get; set; }
+        public string Qualification { get; set; }
+
     }
 }
