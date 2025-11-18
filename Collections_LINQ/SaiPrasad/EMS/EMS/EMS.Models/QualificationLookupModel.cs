@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace EMS.Models
 {
-    internal class QualificationLookupModel
+    public class QualificationLookupModel
     {
+        public int QualificationIdPk { get; set; }
+        public string QualificationCode { get; set; }
 
+        public string Qualification { get; set; }
     }
 }

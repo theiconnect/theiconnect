@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace EMS.Models
 {
-    internal class EmployeeDesignationModel
+    public  class EmployeeDesignationModel
     {
+        public int EmployeeDesignationIdPk { get; set; }
+        public EmployeeModel EmployeeIdFk { get; set; }
+        public DesignationLookupModel DesignationIdFk { get; set; }
+        public DateTime EffectiveFrom { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

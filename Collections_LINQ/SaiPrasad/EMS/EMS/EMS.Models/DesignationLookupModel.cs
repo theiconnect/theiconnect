@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace EMS.Models
 {
-    internal class DesignationLookupModel
+    public class DesignationLookupModel
     {
+        public int DesignationIdPk { get; set; }
+        public string DesignationCode { get; set; }
+        public string Designation { get; set; }
     }
 }

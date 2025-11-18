@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace EMS.Models
 {
-    internal class EmployeeCTCModel
+    public class EmployeeCTCModel
     {
+        public int EmployeeCTCIdPk { get; set; }
+        public EmployeeModel EmployeeIdFk { get; set; }
+        public decimal SalaryCTC { get; set; }
+        public DateTime EffectiveFrom { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }
