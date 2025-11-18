@@ -1,7 +1,8 @@
 ﻿namespace EMS.Models
 {
-    public class Class1
-    {
-
+    public class Company
+    { 
+        public int CompanyId {  get; set; }
+        public string CompanyName { get; set; }
     }
 }
