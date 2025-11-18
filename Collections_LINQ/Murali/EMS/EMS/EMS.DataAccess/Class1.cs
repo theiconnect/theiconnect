@@ -6,7 +6,6 @@ namespace EMS.DataAccess
     {
         class2 obj = new class2();
         class3 obj2 = new ns1.class3();
-        ClassModel obj3 = new ClassModel();
     }
 
     public class class2 { }
