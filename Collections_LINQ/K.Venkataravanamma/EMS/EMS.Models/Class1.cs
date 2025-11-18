@@ -1,4 +1,4 @@
-﻿namespace EMS.Client
+﻿namespace EMS.Models
 {
     public class Class1
     {
