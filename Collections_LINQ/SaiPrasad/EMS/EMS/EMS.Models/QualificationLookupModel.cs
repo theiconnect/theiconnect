@@ -8,5 +8,6 @@ namespace EMS.Models
 {
     internal class QualificationLookupModel
     {
+
     }
 }
