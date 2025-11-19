@@ -8,11 +8,8 @@ namespace EMS.Model
 {
     public class DepartmentCompanyAddressModel
     {
-      public int  DepartmentCompanyAddressXREFIDPk {  get; set; }
-      public DepartmentModel  DepartmentIdFk {  get; set; }                      
-      public CompanyAddressModel CompanyAddressIdFk {  get; set; }  
-      
-        
-
+        public int DepartmentCompanyAddressXREFIDPk { get; set; }
+        public int DepartmentIdFk { get; set; }
+        public int CompanyAddressIdFk { get; set; }
     }
 }

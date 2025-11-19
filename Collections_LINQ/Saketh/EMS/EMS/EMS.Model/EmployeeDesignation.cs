@@ -8,11 +8,12 @@ namespace EMS.Model
 {
     public class EmployeeDesignation
     {
-        EmployeeModel EmployeeDesignationIdPk {  get; set; }
-        DesignationLookUpModel DesignationIdFk {  get; set; }
-        int EmployeeIdFk {  get; set; }
-        DateTime    EffectiveFrom {  get; set; } 
-        DateTime    EndDate {  get; set; }
+        public EmployeeModel EmployeeDesignationIdPk {  get; set; }
+        public DesignationLookUpModel DesignationIdFk {  get; set; }
+        public int EmployeeIdFk {  get; set; }
+        public DateTime    EffectiveFrom {  get; set; } 
+        public DateTime    EndDate {  get; set; }
 
+        List<EmployeeDesignation> EmployeeDesignations { get; set; }    
     }
 }

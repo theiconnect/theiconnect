@@ -12,9 +12,11 @@ namespace EMS.Models
         public int CompanyAddressIdPk { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
-        public string State { get; set; }
         public string City { get; set; }
-        public string PinCode { get; set; }
-        public CompanyAddressTypes AddressTypeIdFk { get; set; }
+        public string State { get; set; }
+        public string Pincode { get; set; }
+        public AddressTypes AddressTypeIdFk { get; set; }//enum-Fixed//int-dynamic---> Fixed-> Enum(AddressTypes-> Emp/Comp)
+        public int CompanyIdFk { get; set; }
+
     }
 }
