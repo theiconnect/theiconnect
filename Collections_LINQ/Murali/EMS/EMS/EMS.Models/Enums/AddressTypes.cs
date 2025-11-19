@@ -11,6 +11,7 @@ namespace EMS.Models.Enums
         Corporate = 3,
         Secondary = 4
     }
+
     public enum EmployeeAddressTypes
     {
         Present = 1,
