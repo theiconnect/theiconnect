@@ -155,8 +155,8 @@ namespace EMS.DataAccess
             EmployeeAddressModel employeeAddressModel1 = new EmployeeAddressModel(); 
             employeeAddressModel1.EmployeeAddressModelIdPk = 1;
             employeeAddressModel1.AddressLine1 = "puttapasham [v]";
-            employeeAddressModel1.AddressLine2 = "via near by Kodumur";
-            employeeAddressModel1.City = "kurunool";
+            employeeAddressModel1.AddressLine2 = "via  Kodumur";
+            employeeAddressModel1.City = "kurnool";
             employeeAddressModel1.State = "Andhra Pradesh";
             employeeAddressModel1.Pincode = "518463";
             employeeAddressModel1.AddressTypeIdFk = EmployeeAddressTypes.Permanent;
