@@ -110,7 +110,7 @@ namespace EMS.DataAccess
             emp.EmailId = "saiprasad123@gmail.com";
             emp.PersonEmailId = "ASDF234@gmail.com";
             emp.BloodGroup = "O+";
-            emp.Gender = Gender.Male;
+            emp.Gender = GenderTypes.Male;
             emp.MobileNumber = "7893260089";
             emp.AlternateMobileNumber = "1234567890";
             emp.DepartmentIdFk = DepartmentIdPk;
@@ -131,7 +131,7 @@ namespace EMS.DataAccess
             emp2.EmailId = "Sunkanna950@950@gmail.com";
             emp2.PersonEmailId = "Kuruvasunkanna12@gmail.com";
             emp2.BloodGroup = "A+";
-            emp2.Gender = Gender.Male;
+            emp2.Gender = GenderTypes.Male;
             emp2.MobileNumber = "9505189327";
             emp2.AlternateMobileNumber = "9606581127";
             emp2.DepartmentIdFk = DepartmentIdPk;
