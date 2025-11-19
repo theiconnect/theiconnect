@@ -11,10 +11,17 @@ namespace EMS.Models.Enums
         Corporate = 3,
         Secondary = 4
     }
-
     public enum EmployeeAddressTypes
     {
         Present = 1,
-        Permanent = 2        
+        Permanent = 2
+    }
+    public enum  Gender
+    {
+        Female = 0,
+        Male = 1,
+        Transgender = 2
+
+
     }
 }
