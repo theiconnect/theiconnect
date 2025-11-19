@@ -16,5 +16,12 @@ namespace EMS.Models.Enums
         Present = 1,
         Permanent = 2
     }
+    public enum  Gender
+    {
+        Female = 0,
+        Male = 1,
+        Transgender = 2
 
+
+    }
 }
