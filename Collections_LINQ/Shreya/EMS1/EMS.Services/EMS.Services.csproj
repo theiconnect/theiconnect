@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
-    <ProjectReference Include="..\EMS.Services\EMS.Services.csproj" />
+    <ProjectReference Include="..\EMS.Access\EMS.DataAccess.csproj" />
+    <ProjectReference Include="..\EMS.Model\EMS.Model.csproj" />
   </ItemGroup>
 
 </Project>
