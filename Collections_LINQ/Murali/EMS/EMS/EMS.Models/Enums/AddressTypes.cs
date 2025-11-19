@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EMS.Models.Enums
 {
-    public enum CompanyAddressTypes
+    public enum AddressTypes
     {
-        Corporate = 3,
-        Secondary = 4
-    }
-    public enum EmployeeAddressTypes
-    {
-        Present = 1,
-        Permanent = 2
-    }
-    public enum  Gender
-    {
-        Female = 0,
-        Male = 1,
-        Transgender = 2
-
-
-    }
+        [Description("Corporate Office")]
+        CORP_OFFICE = 1,
+        [Description("Branch Office")]
+        BRANCH_OFFICE = 2,
+        [Description("Present Address")]
+        PRESENT_ADDR = 3,
+        [Description("Permanent Address")]
+        PERM_ADDR = 4
+    }    
 }

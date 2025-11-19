@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace EMS.Models.Enums
 {
-    public enum  DesiginationLookupModel
+    public enum  DesiginationTypes
     {
-        None = 0,
         JuniorDeveloper = 1,
         SeniorDeveloper = 2,
         TeamLead = 3,
         ProjectManager = 4,
         HRManager = 5,
         QAEngineer = 6,
-        DevOpsEngineer = 7,
+        DevOpsEngineer = 7
     }
 }

@@ -1,9 +1,4 @@
 ﻿using EMS.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EMS.Models
 {
@@ -14,8 +9,8 @@ namespace EMS.Models
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public string BloodGroup { get; set; }
-        public Gender Gender { get; set; }
+        public BloodGroups BloodGroup { get; set; }
+        public Genders Gender { get; set; }
         public string EmailId { get; set; }
         public string PersonEmailId { get; set; }
         public string MobileNumber { get; set; }
@@ -23,15 +18,11 @@ namespace EMS.Models
         public int DepartmentIdFk { get; set; } 
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfJoining { get; set; }
-        public int ExpInMonths { get; set; }
-        public QualificationLookupModel QualificationIdFk { get; set; }
-        public DesignationLookupModel DesignationIdFk { get; set; }
-        public decimal SalaryCtc { get; set; }
-        public Boolean IsActive { get; set; }
-        public DateTime LWD { get; set; }
-        List<int> DepartmentModel = new List<int>();
-
-
-
+        public int ExpInMonths { get; set; } = 0;//default value will be zero
+        public int? QualificationIdFk { get; set; }
+        public int? DesignationIdFk { get; set; }
+        public decimal? SalaryCtc { get; set; }
+        public bool IsActive { get; set; } = true;
+        public DateTime? LWD { get; set; }
     }
 }
