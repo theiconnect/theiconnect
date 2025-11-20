@@ -37,7 +37,32 @@ namespace EMS.DataAccess
 
         public List<EmployeeModel> Employees
         {
-            return null;
+            get
+            {
+                var employees = new List<EmployeeModel>();
+                foreach (var d in Company.Departments)
+                {
+                    employees.AddRange(d.Employees);
+                }
+                return employees;
+            }
+        }
+
+        public List<EmployeeAddressModel> EmployeeAddresses
+        {
+            get
+            {
+                var addresses = new List<EmployeeAddressModel>();
+                foreach (var d in Company.Departments)
+                {
+                    foreach(var e in d.Employees)
+                    {
+                        addresses.AddRange(e.Addresses);
+
+                    }
+                }
+                return addresses;
+            }
         }
 
 
@@ -46,8 +71,6 @@ namespace EMS.DataAccess
         {
             Company = GetCompany();
         }
-
-
 
         private CompanyModel GetCompany()
         {
@@ -168,11 +191,15 @@ namespace EMS.DataAccess
 
         private List<EmployeeModel> CreateSampleEmployeeData(int DepartmentId)
         {
+            //Similar to the employee addresses now we have to load sample designations for each employee.
+            //an employee can have multiple designations but only one active designation at a time. which means enddate will be null for active designation.
+            //at the same time the previous designations will have enddate filled.
+            //the active designation id of EmployeeDesignationModel will be mapped to DesignationIdFk of EmployeeModel
             var employees = new List<EmployeeModel>();
 
             switch (DepartmentId)
             {
-                case 1: // HR Department
+                case 1: // HR Department  
                     employees.Add(new EmployeeModel
                     {
                         EmployeeIdPk = 1,
@@ -181,6 +208,7 @@ namespace EMS.DataAccess
                         LastName = "Sharma",
                         Gender = Genders.Male,
                         BloodGroup = BloodGroups.O_Positive,
+                        DesignationIdFk = DesiginationTypes.HRManager,
                         EmailId = "rajesh.sharma@abc.com",
                         MobileNumber = "9876543210",
                         DepartmentIdFk = DepartmentId,
@@ -188,7 +216,10 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2015, 1, 10),
                         ExpInMonths = 120,
                         SalaryCtc = 600000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(1),
+                        Designations = CreateSampleDesignations(1)
+
                     });
                     employees.Add(new EmployeeModel
                     {
@@ -205,7 +236,9 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2018, 3, 5),
                         ExpInMonths = 60,
                         SalaryCtc = 450000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(2),
+                        Designations = CreateSampleDesignations(2)
                     });
                     employees.Add(new EmployeeModel
                     {
@@ -221,14 +254,16 @@ namespace EMS.DataAccess
                         DateOfBirth = new DateTime(1991, 9, 25),
                         DateOfJoining = new DateTime(2019, 4, 15),
                         SalaryCtc = 480000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(3),
+                        Designations = CreateSampleDesignations(3)
                     });
                     break;
 
-                case 2: // Development Department
+                case 2: // Development Department  
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 3,
+                        EmployeeIdPk = 4,
                         Employeecode = "DEV001",
                         FirstName = "Anil",
                         LastName = "Reddy",
@@ -241,11 +276,13 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2017, 7, 15),
                         ExpInMonths = 72,
                         SalaryCtc = 800000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(4),
+                        Designations = CreateSampleDesignations(4)
                     });
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 4,
+                        EmployeeIdPk = 5,
                         Employeecode = "DEV002",
                         FirstName = "Sneha",
                         LastName = "Patil",
@@ -258,14 +295,16 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2020, 2, 1),
                         ExpInMonths = 36,
                         SalaryCtc = 500000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(5),
+                        Designations = CreateSampleDesignations(5)
                     });
                     break;
 
-                case 3: // Marketing Department
+                case 3: // Marketing Department  
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 5,
+                        EmployeeIdPk = 6,
                         Employeecode = "MKT001",
                         FirstName = "Vikram",
                         LastName = "Singh",
@@ -278,11 +317,13 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2016, 6, 10),
                         ExpInMonths = 84,
                         SalaryCtc = 700000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(6),
+                        Designations = CreateSampleDesignations(6)
                     });
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 6,
+                        EmployeeIdPk = 7,
                         Employeecode = "MKT002",
                         FirstName = "Anjali",
                         LastName = "Mehta",
@@ -295,14 +336,16 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2019, 9, 20),
                         ExpInMonths = 48,
                         SalaryCtc = 550000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(7),
+                        Designations = CreateSampleDesignations(7)
                     });
                     break;
 
-                case 4: // Finance Department
+                case 4: // Finance Department  
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 7,
+                        EmployeeIdPk = 8,
                         Employeecode = "FIN001",
                         FirstName = "Manoj",
                         LastName = "Gupta",
@@ -315,11 +358,13 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2014, 4, 25),
                         ExpInMonths = 108,
                         SalaryCtc = 750000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(8),
+                        Designations = CreateSampleDesignations(8)
                     });
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 8,
+                        EmployeeIdPk = 9,
                         Employeecode = "FIN002",
                         FirstName = "Kavita",
                         LastName = "Joshi",
@@ -332,14 +377,16 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2018, 11, 10),
                         ExpInMonths = 60,
                         SalaryCtc = 600000,
-                        IsActive = true
+                        IsActive = true,
+                        Addresses = CreateEmployeeSampleAddresses(9),
+                        Designations = CreateSampleDesignations(9)
                     });
                     break;
 
-                case 5: // Operations Department
+                case 5: // Operations Department  
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 9,
+                        EmployeeIdPk = 10,
                         Employeecode = "OPS001",
                         FirstName = "Suresh",
                         LastName = "Naidu",
@@ -352,11 +399,13 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2015, 8, 5),
                         ExpInMonths = 96,
                         SalaryCtc = 650000,
-                        IsActive = false
+                        IsActive = false,
+                        Addresses = CreateEmployeeSampleAddresses(10),
+                        Designations = CreateSampleDesignations(10)
                     });
                     employees.Add(new EmployeeModel
                     {
-                        EmployeeIdPk = 10,
+                        EmployeeIdPk = 11,
                         Employeecode = "OPS002",
                         FirstName = "Meena",
                         LastName = "Rao",
@@ -369,12 +418,92 @@ namespace EMS.DataAccess
                         DateOfJoining = new DateTime(2020, 1, 15),
                         ExpInMonths = 36,
                         SalaryCtc = 500000,
-                        IsActive = false
+                        IsActive = false,
+                        Addresses = CreateEmployeeSampleAddresses(11),
+                        Designations = CreateSampleDesignations(11)
                     });
                     break;
             }
 
             return employees;
+        }
+        private List<EmployeeAddressModel> CreateEmployeeSampleAddresses(int employeeId)
+        {
+            var random = new Random();
+            var cities = new[] { "New York", "Los Angeles", "Chicago", "Houston", "Phoenix" };
+            var states = new[] { "NY", "CA", "IL", "TX", "AZ" };
+            var streets = new[] { "Main St", "Broadway", "1st Ave", "2nd Ave", "Park Ave" };
+
+            return new List<EmployeeAddressModel>
+            {
+                new EmployeeAddressModel
+                {
+                    EmployeeAddressModelIdPk = employeeId * 10 + 1,
+                    EmployeeIdFk = employeeId,
+                    AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
+                    AddressLine2 = $"Apt {random.Next(1, 100)}",
+                    City = cities[random.Next(cities.Length)],
+                    State = states[random.Next(states.Length)],
+                    Pincode = $"{random.Next(10000, 99999)}",
+                    AddressTypeIdFk = AddressTypes.PRESENT_ADDR,
+                    isActive = true
+                },
+                new EmployeeAddressModel
+                {
+                    EmployeeAddressModelIdPk = employeeId * 10 + 2,
+                    EmployeeIdFk = employeeId,
+                    AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
+                    AddressLine2 = $"Suite {random.Next(1, 100)}",
+                    City = cities[random.Next(cities.Length)],
+                    State = states[random.Next(states.Length)],
+                    Pincode = $"{random.Next(10000, 99999)}",
+                    AddressTypeIdFk = AddressTypes.PERM_ADDR,
+                    isActive = true
+                },
+                new EmployeeAddressModel
+                {
+                    EmployeeAddressModelIdPk = employeeId * 10 + 3,
+                    EmployeeIdFk = employeeId,
+                    AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
+                    AddressLine2 = $"Floor {random.Next(1, 10)}",
+                    City = cities[random.Next(cities.Length)],
+                    State = states[random.Next(states.Length)],
+                    Pincode = $"{random.Next(10000, 99999)}",
+                    AddressTypeIdFk = AddressTypes.PRESENT_ADDR,
+                    isActive = false
+                }
+            };
+        }
+        private List<EmployeeDesignationModel> CreateSampleDesignations(int employeeId)
+        {
+            // Generates unique designations for each employee
+            var random = new Random();
+            var designations = new List<EmployeeDesignationModel>();
+
+            // Generate a random number of designations (between 2 and 4) for each employee
+            int designationCount = random.Next(2, 5);
+
+            DateTime startDate = new DateTime(2015, 1, 1);
+            for (int i = 0; i < designationCount; i++)
+            {
+                var designation = new EmployeeDesignationModel
+                {
+                    EmployeeDesignationIdPk = employeeId * 100 + i + 1,
+                    EmployeeIdFk = employeeId,
+                    DesignationIdFk = (DesiginationTypes)random.Next(1, Enum.GetValues(typeof(DesiginationTypes)).Length + 1),
+                    EffectiveFrom = startDate,
+                    EndDate = i == designationCount - 1 ? null : startDate.AddYears(2) // Last designation is active
+                };
+
+                if (designation.EndDate.HasValue)
+                {
+                    startDate = designation.EndDate.Value.AddDays(1);
+                }
+
+                designations.Add(designation);
+            }
+
+            return designations;
         }
     }
 }

@@ -20,9 +20,12 @@ namespace EMS.Models
         public DateTime DateOfJoining { get; set; }
         public int ExpInMonths { get; set; } = 0;//default value will be zero
         public int? QualificationIdFk { get; set; }
-        public int? DesignationIdFk { get; set; }
+        public DesiginationTypes DesignationIdFk { get; set; }
         public decimal? SalaryCtc { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime? LWD { get; set; }
+
+        public List<EmployeeAddressModel> Addresses { get; set; } = new List<EmployeeAddressModel>();
+        public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>(); 
     }
 }

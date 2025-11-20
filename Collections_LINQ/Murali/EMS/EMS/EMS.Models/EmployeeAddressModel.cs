@@ -15,7 +15,9 @@ namespace EMS.Models
         public string State { get; set; }
         public string City { get; set; }
         public string Pincode { get; set; }
-        public EmployeeAddressTypes AddressTypeIdFk { get; set; }
+        public AddressTypes AddressTypeIdFk { get; set; }
+        public int EmployeeIdFk { get; set; }
+        public bool isActive { get; set; } = true;
 
     }
 }

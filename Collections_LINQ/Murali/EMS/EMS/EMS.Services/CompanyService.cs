@@ -9,10 +9,10 @@ namespace EMS.Services
         {
             EMSDbContext dbContext = new EMSDbContext();
 
-           var companyInfo = dbContext.Company;
-           var addresses=  dbContext.CompanyAddresses;
+            var companyInfo = dbContext.Company;
+            var addresses = dbContext.CompanyAddresses;
             var depts = dbContext.Departments;
-
+            var emps = dbContext.Employees;
 
 
         }

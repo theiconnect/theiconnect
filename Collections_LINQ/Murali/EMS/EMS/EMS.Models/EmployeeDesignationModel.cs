@@ -11,8 +11,8 @@ namespace EMS.Models
     {
         public int EmployeeDesignationIdPk { get; set; }
         public int EmployeeIdFk { get; set; }
-        public DesiginationLookupModel DesignationIdFk { get; set; }
+        public DesiginationTypes DesignationIdFk { get; set; }
         public DateTime EffectiveFrom { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }
