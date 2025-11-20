@@ -13,8 +13,9 @@ namespace EMS.Models
         public string DepartmentName { get; set; }
         public string Location { get; set; }
         public int CompanyIdFk  { get; set; }
-        public bool IsActive { get; set; } 
+        public bool IsActive { get; set; }
 
         public List<EmployeeModel> Employees { get; set; } = new List<EmployeeModel>();
+        public List<CompanyAddressModel> CompanyAddresses { get; set; } = new List<CompanyAddressModel>();
     }
 }

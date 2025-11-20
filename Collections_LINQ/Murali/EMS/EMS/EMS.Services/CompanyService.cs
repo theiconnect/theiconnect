@@ -7,12 +7,12 @@ namespace EMS.Services
     {
         public void test()
         {
-            EMSDbContext dbContext = new EMSDbContext();
+            EMSDbContext dbContext = EMSDbContext.GetInstance();
 
-            var companyInfo = dbContext.Company;
-            var addresses = dbContext.CompanyAddresses;
-            var depts = dbContext.Departments;
-            var emps = dbContext.Employees;
+            //var companyInfo = dbContext.Company;
+            //var addresses = dbContext.CompanyAddresses;
+            //var depts = dbContext.Departments;
+            //var emps = dbContext.Employees;
 
 
         }

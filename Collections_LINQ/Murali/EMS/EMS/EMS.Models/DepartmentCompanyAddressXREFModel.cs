@@ -10,10 +10,7 @@ namespace EMS.Models
     public class DepartmentCompanyAddressXREFModel
     {
         public int DepartmentCompanyAddressXREFIdPk { get; set; }
-        public DepartmentModel DepartmentIdFk { get; set; }
-        public CompanyAddressTypes CompanyAddressIdFk { get; set; }
-
-        List<int> CompanyAddressTypes = new List<int>();
-        List<int> DepartmentModel = new List<int>();
+        public int DepartmentIdFk { get; set; }
+        public int CompanyAddressIdFk { get; set; }
     }
 }

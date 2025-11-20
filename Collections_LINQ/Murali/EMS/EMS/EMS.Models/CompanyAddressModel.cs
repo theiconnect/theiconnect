@@ -18,5 +18,7 @@ namespace EMS.Models
         public AddressTypes AddressTypeIdFk { get; set; }//enum-Fixed//int-dynamic---> Fixed-> Enum(AddressTypes-> Emp/Comp)
         public int CompanyIdFk { get; set; }
 
+        public List<DepartmentModel> Departments { get; set; } = new List<DepartmentModel>();
+
     }
 }

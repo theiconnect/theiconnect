@@ -10,15 +10,29 @@ namespace EMS.DataAccess
 {
     public class EMSDbContext
     {
-        public EMSDbContext()
+        private static EMSDbContext _obj;
+
+        //static EMSDbContext()
+        //{
+        //    _obj = new EMSDbContext();           
+        //}
+
+        private EMSDbContext()
         {
             LoadDB();
         }
 
-
+        public static EMSDbContext GetInstance()
+        {
+            if (_obj == null)
+            {
+                _obj = new EMSDbContext();
+            }
+            return _obj;
+        }
 
         //Table Names as Public Properties
-        public CompanyModel Company { get; set; }
+        public CompanyModel Company { get; set; } = new CompanyModel();
         public List<CompanyAddressModel> CompanyAddresses
         {
             get
@@ -55,7 +69,7 @@ namespace EMS.DataAccess
                 var addresses = new List<EmployeeAddressModel>();
                 foreach (var d in Company.Departments)
                 {
-                    foreach(var e in d.Employees)
+                    foreach (var e in d.Employees)
                     {
                         addresses.AddRange(e.Addresses);
 
@@ -65,7 +79,13 @@ namespace EMS.DataAccess
             }
         }
 
-
+        public List<QualificationLookupModel> QualificationLookups
+        {
+            get
+            {
+                return CreateQualificationLookupModels();
+            }
+        }
 
         private void LoadDB()
         {
@@ -93,6 +113,7 @@ namespace EMS.DataAccess
 
             return company;
         }
+
         private List<CompanyAddressModel> GetCompanyAddresses(int CompanyId)
         {
             return new List<CompanyAddressModel>
@@ -106,7 +127,8 @@ namespace EMS.DataAccess
                     City="Hyd",
                     State="Telangana",
                     Pincode="123456",
-                    AddressTypeIdFk= AddressTypes.CORP_OFFICE
+                    AddressTypeIdFk= AddressTypes.CORP_OFFICE,
+                    //Departments = [Departments[0], Departments[1], Departments[2], Departments[3]]
                 },
                 new() {
                     CompanyAddressIdPk=2,
@@ -116,7 +138,8 @@ namespace EMS.DataAccess
                     City="Vijayawada",
                     State="AP",
                     Pincode="654321",
-                    AddressTypeIdFk= AddressTypes.BRANCH_OFFICE
+                    AddressTypeIdFk= AddressTypes.BRANCH_OFFICE,
+                    //Departments = [Departments[0], Departments[4], Departments[2], Departments[3]]
                 },
                 new CompanyAddressModel
                 {
@@ -127,7 +150,8 @@ namespace EMS.DataAccess
                     City="Chennai",
                     State="Tamil Nadu",
                     Pincode="789123",
-                    AddressTypeIdFk= AddressTypes.BRANCH_OFFICE
+                    AddressTypeIdFk= AddressTypes.BRANCH_OFFICE,
+                    //Departments = [Departments[0], Departments[4]]
                 }
             };
         }
@@ -144,7 +168,8 @@ namespace EMS.DataAccess
                     Location = "Head Office",
                     CompanyIdFk = CompanyId,
                     IsActive = true,
-                    Employees = CreateSampleEmployeeData(1)
+                    Employees = CreateSampleEmployeeData(1),
+                    //CompanyAddresses = [CompanyAddresses[1], CompanyAddresses[2]]
                 },
                 new DepartmentModel
                 {
@@ -154,7 +179,9 @@ namespace EMS.DataAccess
                     Location = "Tech Park",
                     CompanyIdFk = CompanyId,
                     IsActive = true,
-                    Employees = CreateSampleEmployeeData(2)
+                    Employees = CreateSampleEmployeeData(2),
+                   // CompanyAddresses = [CompanyAddresses[0], CompanyAddresses[2]]
+
                 },
                 new DepartmentModel
                 {
@@ -164,7 +191,8 @@ namespace EMS.DataAccess
                     Location = "Corporate Office",
                     CompanyIdFk = CompanyId,
                     IsActive = true,
-                    Employees = CreateSampleEmployeeData(3)
+                    Employees = CreateSampleEmployeeData(3),
+                    //CompanyAddresses = [CompanyAddresses[1], CompanyAddresses[2]]
                 },
                 new DepartmentModel
                 {
@@ -174,7 +202,9 @@ namespace EMS.DataAccess
                     Location = "Head Office",
                     CompanyIdFk = CompanyId,
                     IsActive = true,
-                    Employees = CreateSampleEmployeeData(4)
+                    Employees = CreateSampleEmployeeData(4),
+                    //CompanyAddresses = [CompanyAddresses[0], CompanyAddresses[2]]
+
                 },
                 new DepartmentModel
                 {
@@ -184,7 +214,8 @@ namespace EMS.DataAccess
                     Location = "Regional Office",
                     CompanyIdFk = CompanyId,
                     IsActive = false,
-                    Employees = CreateSampleEmployeeData(5)
+                    Employees = CreateSampleEmployeeData(5),
+                    //CompanyAddresses = [CompanyAddresses[0], CompanyAddresses[1], CompanyAddresses[2]]
                 }
             };
         }
@@ -427,6 +458,7 @@ namespace EMS.DataAccess
 
             return employees;
         }
+
         private List<EmployeeAddressModel> CreateEmployeeSampleAddresses(int employeeId)
         {
             var random = new Random();
@@ -474,6 +506,7 @@ namespace EMS.DataAccess
                 }
             };
         }
+
         private List<EmployeeDesignationModel> CreateSampleDesignations(int employeeId)
         {
             // Generates unique designations for each employee
@@ -504,6 +537,24 @@ namespace EMS.DataAccess
             }
 
             return designations;
+        }
+
+        private List<QualificationLookupModel> CreateQualificationLookupModels()
+        {
+            return new List<QualificationLookupModel>
+            {
+                new QualificationLookupModel(1, "BSc", "Bachelor of Science"),
+                new QualificationLookupModel(2, "BA", "Bachelor of Arts"),
+                new QualificationLookupModel(3, "BCom", "Bachelor of Commerce"),
+                new QualificationLookupModel(4, "MSc", "Master of Science"),
+                new QualificationLookupModel(5, "MA", "Master of Arts"),
+                new QualificationLookupModel(6, "MCom", "Master of Commerce"),
+                new QualificationLookupModel(7, "PhD", "Doctor of Philosophy"),
+                new QualificationLookupModel(8, "MBA", "Master of Business Administration"),
+                new QualificationLookupModel(9, "BTech", "Bachelor of Technology"),
+                new QualificationLookupModel(10, "MTech", "Master of Technology"),
+                new(11, "Diploma", "Diploma in various fields")
+            };
         }
     }
 }
