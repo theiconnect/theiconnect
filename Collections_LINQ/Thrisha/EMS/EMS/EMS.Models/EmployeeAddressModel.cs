@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EMS.Model.Enums;
+using static EMS.Models.ComapnyAddressTypeModel;
 
-namespace EMS.Model
+namespace EMS.Models
 {
-    public class CompanyAddressModel
+    public class EmployeeAddressModel
     {
-        public int CompanyAddressIdPk { get; set; }
+        public int EmployeeAddressIdPk { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public string PinCode { get; set; }
-        public CompanyAddressTypes AddressTypeIdFk { get; set; }
+        public EmployeeAddressTypeModel AddressTypeIdFk { get; set; }
 
-        public int CompanyIdFk { get; set; }
-
-        List<DepartmentCompanyAddressModel> DepartmentCompanyAddresses { get; set; }
+        List<EmployeeAddressModel> Employees { get; set; }
     }
 }

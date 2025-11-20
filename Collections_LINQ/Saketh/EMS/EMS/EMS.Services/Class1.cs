@@ -1,4 +1,4 @@
-﻿namespace EMS.client
+﻿namespace EMS.Services
 {
     public class Class1
     {

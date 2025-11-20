@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EMS.Model.Enums;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace EMS.Model
+namespace EMS.Models
 {
     public class EmployeeModel
     {
@@ -21,22 +20,21 @@ namespace EMS.Model
         public string PersonalEmailId { get; set; }
         public string MobileNumber { get; set; }
         public string AlternateMobileNumber { get; set; }
-        public int DeptIdFk { get; set; }
+        public DepartmentModel DepartmentIdFk { get; set; }
         public DateTime DOJ { get; set; }
         public int ExpInMonths { get; set; }
         public DateTime DOB { get; set; }
-        public QualificationLookUpModel QualificationIdFk { get; set; }
+        public int QualificationIdFk { get; set; }
         public int DesignationIdFk { get; set; }
         public decimal SalaryCTC { get; set; }
         public System.Boolean IsActive { get; set; }
-        public Date LWD { get; set; }
+        public DateTime? LWD { get; set; }
+
+       
         List<QualificationLookUpModel> Qualifications { get; set; } = new List<QualificationLookUpModel>();
+        List<DepartmentModel> Departments { get; set; }
 
         List<DesignationLookUpModel> designationLookUpModels { get; set; }
-
-        List<EmployeeDesignation> EmployeeDesignations { get; set; }
         List<EmployeeAddressModel> EmployeeAddresses { get; set; }
-
-        List<EmployeeCTC> EmployeeCTCs { get; set; }
     }
 }

@@ -110,7 +110,7 @@ namespace EMS.DataAccess
             emp.EmailId = "saiprasad123@gmail.com";
             emp.PersonEmailId = "ASDF234@gmail.com";
             emp.BloodGroup = "O+";
-            emp.Gender = Gender.Male;
+            emp.Gender = GenderTypes.Male;
             emp.MobileNumber = "7893260089";
             emp.AlternateMobileNumber = "1234567890";
             emp.DepartmentIdFk = DepartmentIdPk;
@@ -131,7 +131,7 @@ namespace EMS.DataAccess
             emp2.EmailId = "Sunkanna950@950@gmail.com";
             emp2.PersonEmailId = "Kuruvasunkanna12@gmail.com";
             emp2.BloodGroup = "A+";
-            emp2.Gender = Gender.Male;
+            emp2.Gender = GenderTypes.Male;
             emp2.MobileNumber = "9505189327";
             emp2.AlternateMobileNumber = "9606581127";
             emp2.DepartmentIdFk = DepartmentIdPk;
@@ -155,8 +155,8 @@ namespace EMS.DataAccess
             EmployeeAddressModel employeeAddressModel1 = new EmployeeAddressModel(); 
             employeeAddressModel1.EmployeeAddressModelIdPk = 1;
             employeeAddressModel1.AddressLine1 = "puttapasham [v]";
-            employeeAddressModel1.AddressLine2 = "via near by Kodumur";
-            employeeAddressModel1.City = "kurunool";
+            employeeAddressModel1.AddressLine2 = "via  Kodumur";
+            employeeAddressModel1.City = "kurnool";
             employeeAddressModel1.State = "Andhra Pradesh";
             employeeAddressModel1.Pincode = "518463";
             employeeAddressModel1.AddressTypeIdFk = EmployeeAddressTypes.Permanent;
