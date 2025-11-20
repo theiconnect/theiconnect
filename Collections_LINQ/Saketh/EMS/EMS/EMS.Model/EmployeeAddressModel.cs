@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EMS.Model.Enums;
 
 namespace EMS.Model
 {
@@ -14,8 +15,6 @@ namespace EMS.Model
         public string State {  get; set; }               
         public string City {  get; set; }               
         public string PinCode {  get; set; }             
-        public EmployeeAddressTypeModel AddressTypeIdFk {  get; set; }
-
-        List<EmployeeAddressModel> Employees { get; set; } 
+        public EmployeeAddressTypes AddressTypeIdFk {  get; set; }
     }
 }

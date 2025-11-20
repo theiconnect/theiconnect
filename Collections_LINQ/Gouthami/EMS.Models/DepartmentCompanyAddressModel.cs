@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EMS.Model
+namespace EMS.Models
 {
     public class DepartmentCompanyAddressModel
     {
-        public int DepartmentCompanyAddressXREFIDPk { get; set; }
+        public int DepartmentCompanyAddressIdPk { get; set; }
+        public  int CompanyAddressIdFk { get; set; }
         public int DepartmentIdFk { get; set; }
-        public int CompanyAddressIdFk { get; set; }
     }
 }
