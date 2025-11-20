@@ -88,3 +88,48 @@ var a4 = dbContext.Departments.FirstOrDefault(d=> d.IsActive == true && d.Locati
 
 var a5 = dbContext.Departments.Single(d => d.IsActive == true && d.Location == "Head Office" && d.DepartmentName == "IT");
 var a6 = dbContext.Departments.SingleOrDefault(d => d.IsActive == true && d.Location == "Head Office" && d.DepartmentName == "IT");
+
+
+List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+IEnumerable<int> evenNumbers = numbers.Where(numbers => numbers % 2 == 0);
+
+List<string> names = new List<string> { "Alice", "Bob", "Carol", "David" };
+
+IEnumerable<string> namesStartingWithC = names.Where(name => name.StartsWith("C"));
+
+// Aggregation operations example -
+var maxScore = dbContext.Employees.Max(e => e.SalaryCtc);
+var minScore = dbContext.Employees.Min(e => e.SalaryCtc);
+var averageScore = dbContext.Employees.Average(e => e.SalaryCtc);
+var totalScoreSum = dbContext.Employees.Sum(e => e.SalaryCtc);
+var studentCount = dbContext.Employees.Count(e => e.Gender == EMS.Models.Enums.Genders.Female);
+
+
+// Set operations example
+var firstNames = new string[] { "John", "Jane", "Jim", "Jane" };
+var lastNames = new string[] { "Doe", "Smith", "Adams", "John" };
+
+var distinctFirstNames = firstNames.Distinct(); // "John", "Jane", "Jim"
+var unionNames = firstNames.Union(lastNames); // "John", "Jane", "Jim", "Doe", "Smith", "Adams"
+var intersectNames = firstNames.Intersect(lastNames); // "John"
+
+
+// Pagination example
+int pageNumber = 1;
+int pageSize = 5;
+
+var page = dbContext.Employees
+    .Skip(10)
+    .Take(15);
+
+// Conversion operator example
+var studentDictionary = dbContext.Employees
+    .Where(student => student.SalaryCtc > 18)
+    .ToDictionary(student => student.EmployeeIdPk, student => student.Employeecode);
+
+// Conversion operator example
+var abc = dbContext.Employees
+    .Where(student => student.SalaryCtc > 18)
+    .Select(student => new { a = student.EmployeeIdPk, b = student.Employeecode });
+
+
