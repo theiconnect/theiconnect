@@ -15,7 +15,7 @@ public string TAN {  get;set;}
 public string PAN {  get;set;}
 List<CompanyAddressModel> Addressess { get; set;}
 
-
+List<DepartmentModel> Departments { get; set; }
 
     }
 }

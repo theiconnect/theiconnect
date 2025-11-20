@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EMS.Models
+﻿namespace EMS.Models
 {
     public class CompanyModel
     {
@@ -14,11 +8,11 @@ namespace EMS.Models
         public string Email { get; set; }
         public DateTime? RegistrationDate { get; set; }
         public string Website { get; set; }
-        public string BankAccountNumer { get; set; }
-        public string TAN { get; set; }
+        public string BankAccountNumber { get; set; }
+        public string TIN { get; set; }
         public string PAN { get; set; }
 
-        public List<CompanyAddressModel> CompanyAddresses { get; set; }
+        public List<CompanyAddressModel> Addresses { get; set; } = new List<CompanyAddressModel>();
         public List<DepartmentModel> Departments { get; set; }
     }
 }
