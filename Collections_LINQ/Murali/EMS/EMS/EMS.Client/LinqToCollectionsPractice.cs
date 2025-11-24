@@ -9,10 +9,22 @@ namespace EMS.Client
 {
     internal class LinqToCollectionsPractice
     {
+        internal void PracticeAdvancedLinq()
+        {
+            throw new NotImplementedException();
+        }
+
         internal void PracticeBasicLinq()
         {
+            var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
+            var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
             var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
             // Add more calls to LinqBasicProblems methods as needed  
+        }
+
+        internal void PracticeBeginnerLinq()
+        {
+            throw new NotImplementedException();
         }
 
         internal void PracticeIntermediateLinq()
