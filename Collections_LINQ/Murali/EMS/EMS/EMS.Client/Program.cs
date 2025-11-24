@@ -1,7 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using EMS.Client;
 using EMS.DataAccess;
 using EMS.Models;
 
+
+LinqToCollectionsPractice linqToCollectionsPractice = new LinqToCollectionsPractice();
+linqToCollectionsPractice.PracticeBasicLinq();
+
+return;
 Console.WriteLine("Hello, World!");
 
 EMSDbContext dbContext = EMSDbContext.GetInstance();
