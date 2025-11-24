@@ -16,9 +16,11 @@ namespace EMS.Client
 
         internal void PracticeBasicLinq()
         {
-            var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
-            var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
-            var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
+            //var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
+            //var empList = LinqBasicProblems.GetAllEmployeesAsList();
+          var empsByDeptId = LinqBasicProblems.GetAllDepartmentsAsList();
+           // var empsByDeptEnum = LinqBasicProblems.GetAllDepartmentsAsEnumerable();
+            //var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
             // Add more calls to LinqBasicProblems methods as needed  
         }
 
