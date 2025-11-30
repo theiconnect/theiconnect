@@ -5,9 +5,9 @@ using EMS.Models;
 
 
 LinqToCollectionsPractice linqToCollectionsPractice = new LinqToCollectionsPractice();
-linqToCollectionsPractice.PracticeBasicLinq();
+//linqToCollectionsPractice.PracticeBasicLinq();
 //linqToCollectionsPractice.PracticeBeginnerLinq();
-//linqToCollectionsPractice.PracticeIntermediateLinq();
+linqToCollectionsPractice.PracticeIntermediateLinq();
 //linqToCollectionsPractice.PracticeAdvancedLinq();
 
 return;

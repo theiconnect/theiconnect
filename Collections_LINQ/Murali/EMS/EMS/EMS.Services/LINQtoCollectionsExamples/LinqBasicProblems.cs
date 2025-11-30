@@ -29,7 +29,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
             result1.Add(new DepartmentModel
             {
                 DepartmentIdPk = 6,
-                DepartmentCode = "APS",
+                DepartmentCode = "APS", 
                 DepartmentName = "Operations",
                 Location = "Regional Office",
                 CompanyIdFk = 1 ,
@@ -99,6 +99,7 @@ return result3;
         public static IEnumerable<EmployeeModel> GetActiveEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
+
             return db.Employees.Where(e => e.IsActive);
         }
 
@@ -113,7 +114,13 @@ return result3;
         public static IEnumerable<EmployeeModel> GetEmployeesWithHighSalary()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000);
+            var result10 = db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000);
+            foreach(var emp in result10)
+            {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}, Salary: {emp.SalaryCtc}");
+            }
+           
+            return result10;
         }
 
         // 11. Get all employees with salary > 500000 as IQueryable (NOT recommended)
@@ -128,14 +135,24 @@ return result3;
         public static List<EmployeeModel> GetEmployeesOrderedByFirstName()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.OrderBy(e => e.FirstName).ToList();
+            var result12 = db.Employees.OrderBy(e => e.FirstName).ToList();
+            foreach(var emp in result12)
+                {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}");
+            }
+            return result12;
         }
 
         // 13. Get all employees ordered by salary descending as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesOrderedBySalaryDesc()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
+            var result13 = db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
+            foreach(var emp in result13)
+            {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}, Salary: {emp.SalaryCtc}");
+            }
+            return result13;
         }
 
         // 14. Get all department codes as ICollection<string> (not recommended)
@@ -143,7 +160,12 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             // ICollection is not ideal for LINQ, but List<T> implements ICollection<T>
-            return db.Departments.Select(d => d.DepartmentCode).ToList();
+            var result14 = db.Departments.Select(d => d.DepartmentCode).ToList();
+            foreach(var code in result14)
+            {
+                Console.WriteLine($"Department Code: {code}");
+            }
+            return result14;
         }
 
         // 15. Get all employees as array (not recommended for LINQ chaining)
@@ -151,7 +173,12 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             // Arrays are not ideal for LINQ chaining, prefer IEnumerable/List.
-            return db.Employees.ToArray();
+            var result15 = db.Employees.ToArray();
+            foreach(var emp in result15)
+            {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}");
+            }
+            return result15;
         }
 
         // 16. Get all employees as HashSet (not recommended for ordering)
