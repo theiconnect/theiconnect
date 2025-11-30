@@ -16,7 +16,7 @@ namespace EMS.Model
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string BloodGroup { get; set; }
-        public char Gender { get; set; }
+        public  char Gender { get; set; }
         public string EmailId { get; set; }
         public string PersonalEmailId { get; set; }
         public string MobileNumber { get; set; }
@@ -25,7 +25,7 @@ namespace EMS.Model
         public DateTime DOJ { get; set; }
         public int ExpInMonths { get; set; }
         public DateTime DOB { get; set; }
-        public QualificationLookUpModel QualificationIdFk { get; set; }
+        public QualificationLookUpEnum QualificationIdFk { get; set; }
         public int DesignationIdFk { get; set; }
         public decimal SalaryCTC { get; set; }
         public System.Boolean IsActive { get; set; }
