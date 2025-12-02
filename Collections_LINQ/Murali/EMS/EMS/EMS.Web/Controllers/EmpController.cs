@@ -1,13 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EMS.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
     public class EmpController : Controller
     {
+        private readonly CompanyService objCompSvc;
+        public EmpController(CompanyService obj)
+        {
+            objCompSvc = obj;
+        }
+
         // GET: EmpController
         public ActionResult Registration()
         {
+            objCompSvc.test();
             return View();
         }
 

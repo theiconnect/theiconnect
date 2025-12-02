@@ -2,6 +2,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();//MVC pattern
+                                           //Add EMS.Services and EMS.DataAccess classes as references
+                                           //builder.Services.Add(b
+                                           // Add EMS.DataAccess.EMSDbContext as a singleton service
+
+//builder.Services.AddScoped<EMS.Services.CompanyService>();
+
+builder.Services.AddSingleton<EMS.Services.CompanyService>();
+//builder.Services.AddTransient<EMS.Services.CompanyService>();
+//builder.Services.AddSingleton<EMS.Services.CompanyService>();
+
+
+
 //=======================================================================
 //Middle ware - Request pipeline configuration
 var app = builder.Build();
