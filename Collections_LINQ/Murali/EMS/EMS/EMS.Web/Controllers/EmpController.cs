@@ -13,9 +13,8 @@ namespace EMS.Web.Controllers
         }
 
         // GET: EmpController
-        public ActionResult Registration()
+        public ActionResult Registration([FromServices] CompanyService serviceFromAction)
         {
-            objCompSvc.test();
             return View();
         }
 

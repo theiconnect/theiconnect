@@ -9,22 +9,31 @@ namespace EMS.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly CompanyService objCompSvc;
-        public HomeController(ILogger<HomeController> logger, CompanyService companyService)
+        private readonly CompanyService b;
+        public HomeController(ILogger<HomeController> logger, CompanyService companyService, CompanyService abc )
         {
             _logger = logger;
             objCompSvc = companyService;
+            b = abc;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromServices] CompanyService serviceFromAction)
         {
+            int hashcodeCtor = objCompSvc.GetHashCode();
+            int hashcodeCtor1 = b.GetHashCode();
+            int hashcodeAction = serviceFromAction.GetHashCode();
+
             objCompSvc.test();
             
 
+            //return RedirectToAction("Privacy");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            objCompSvc.test();
+            return RedirectToAction("Registration", "Emp");
             return View();
         }
 

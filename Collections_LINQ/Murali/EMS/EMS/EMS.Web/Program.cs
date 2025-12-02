@@ -6,9 +6,9 @@ builder.Services.AddControllersWithViews();//MVC pattern
                                            //builder.Services.Add(b
                                            // Add EMS.DataAccess.EMSDbContext as a singleton service
 
-//builder.Services.AddScoped<EMS.Services.CompanyService>();
+builder.Services.AddScoped<EMS.Services.CompanyService>();
 
-builder.Services.AddSingleton<EMS.Services.CompanyService>();
+//builder.Services.AddSingleton<EMS.Services.CompanyService>();
 //builder.Services.AddTransient<EMS.Services.CompanyService>();
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
 
@@ -33,8 +33,14 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+//Conventional Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default1",
+    pattern: "iconnect/{action}/{controller}/abc");
 
 app.Run();
