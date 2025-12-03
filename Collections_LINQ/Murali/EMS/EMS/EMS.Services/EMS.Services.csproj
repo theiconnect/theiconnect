@@ -10,5 +10,5 @@
     <ProjectReference Include="..\EMS.DataAccess\EMS.DataAccess.csproj" />
     <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
   </ItemGroup>
-
+	
 </Project>

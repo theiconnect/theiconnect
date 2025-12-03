@@ -11,6 +11,11 @@ namespace EMS.DataAccess
     public class EMSDbContext
     {
         private static EMSDbContext _obj;
+        public string PhoneNumber { get; set; }
+
+        public List<string> PhoneNumbersList { get; set; }
+      
+
 
         //static EMSDbContext()
         //{
@@ -181,7 +186,6 @@ namespace EMS.DataAccess
                     IsActive = true,
                     Employees = CreateSampleEmployeeData(2),
                    // CompanyAddresses = [CompanyAddresses[0], CompanyAddresses[2]]
-
                 },
                 new DepartmentModel
                 {
