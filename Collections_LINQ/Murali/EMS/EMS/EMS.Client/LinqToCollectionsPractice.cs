@@ -16,20 +16,46 @@ namespace EMS.Client
 
         internal void PracticeBasicLinq()
         {
-            var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
-            var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
-            var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
-            // Add more calls to LinqBasicProblems methods as needed  
-        }
+            //var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
+            //var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
+            //var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
+            // var Departments = LinqBasicProblems.GetAllDepartmentAsList();
+            //var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
+            //var sai = LinqBasicProblems.GetAllDepartmentNames();
 
+            //var GetAllEmployeesAsICollection = LinqBasicProblems.GetAllDepartmentCodesAsICollection();
+
+            //var firstnamesEmployees = LinqBasicProblems.GetAllEmployeeFirstNames();
+            //var activeEmployees = LinqBasicProblems.GetActiveEmployeesAsEnumerable();
+            //var GetAllEmployeesAsArray = LinqBasicProblems.GetAllEmployeesAsArray();
+
+            // Add more calls to LinqBasicProblems methods as needed
+            // 
+
+
+        }
         internal void PracticeBeginnerLinq()
         {
-            throw new NotImplementedException();
+
+            // var ActiveEmployeesWithHighSalary = LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();
+            //var GetEmployeesByDepartmentId = LinqBeginnerProblems.GetEmployeesByDepartmentId(2);
+            //var GetEmployeesJoinedInYear = LinqBeginnerProblems.GetEmployeesJoinedInYear(2020);
+            //var x = LinqBeginnerProblems.GetEmployeesWithAlternateMobile();
+            //var y = LinqBeginnerProblems.GetEmployeesFirstNameStartsWithA();
+
+            //LinqBeginnerProblems.GetEmployeesLastNameEndsWithA();
+            //LinqBeginnerProblems.GetEmployeesWithEmailContainingAbc();
+            //LinqBeginnerProblems.GetEmployeesWithSalaryRange();
+            LinqBeginnerProblems.GetEmployeesWithNullQualification();
+            //LinqBeginnerProblems.Getdepartmentnames();
+
         }
 
         internal void PracticeIntermediateLinq()
         {
-            var allEmployees = LinqIntermediateProblems.GetEmployeeCountByBloodGroup();
+            //var allEmployees = LinqIntermediateProblems.GetEmployeeCountByBloodGroup();
+
+            //LinqIntermediateProblems.GetEmployeesGroupedByDepartmentName();
             // Add more calls to LinqBasicProblems methods as needed  
         }
     }

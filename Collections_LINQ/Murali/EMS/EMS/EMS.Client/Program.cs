@@ -5,10 +5,11 @@ using EMS.Models;
 
 
 LinqToCollectionsPractice linqToCollectionsPractice = new LinqToCollectionsPractice();
-linqToCollectionsPractice.PracticeBasicLinq();
-//linqToCollectionsPractice.PracticeBeginnerLinq();
+//linqToCollectionsPractice.PracticeBasicLinq();
+linqToCollectionsPractice.PracticeBeginnerLinq();
 //linqToCollectionsPractice.PracticeIntermediateLinq();
 //linqToCollectionsPractice.PracticeAdvancedLinq();
+//linqToCollectionsPractice.PracticeIntermediateLinq();
 
 return;
 Console.WriteLine("Hello, World!");
