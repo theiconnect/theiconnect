@@ -216,18 +216,18 @@ namespace EMS.DataAccess
         {
             // Implementation goes here
             EmployeeCTC ctc1 = new EmployeeCTC();
-            ctc1.EmployeeCTCIdPk = 1;
+            ctc1.EmployeeCTCPk = 1;
             ctc1.EmployeeIdFk = EmployeeIdPk;
-            ctc1.CTCAmount = 60000.00M;
+            ctc1.SalaryCTC = "60000";
             ctc1.EffectiveFrom = new DateTime(2020, 1, 15);
-            ctc1.EffectiveTo = new DateTime(2021, 12, 31);
+            ctc1.Enddate = new DateTime(2021, 12, 31);
 
             EmployeeCTC ctc2 = new EmployeeCTC();
-            ctc2.EmployeeCTCIdPk = 2;
+            ctc2.EmployeeCTCPk = 2;
             ctc2.EmployeeIdFk = EmployeeIdPk;
-            ctc2.CTCAmount = 75000.00M;
+            ctc2.SalaryCTC = "75000";
             ctc2.EffectiveFrom = new DateTime(2022, 1, 1);
-            ctc2.EffectiveTo = null; // Current CTC
+            ctc2.Enddate = null; // Current CTC
 
             List<EmployeeCTC> ctcs = new List<EmployeeCTC>();
             ctcs.Add(ctc1);
