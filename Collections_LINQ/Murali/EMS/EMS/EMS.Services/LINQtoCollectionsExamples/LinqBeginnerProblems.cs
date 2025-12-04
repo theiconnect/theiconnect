@@ -26,15 +26,15 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetActiveEmployeesOrWithHighSalary()
         {
             var db = EMSDbContext.GetInstance();
-            var result = db.Employees.Where(e => e.IsActive ||(e.SalaryCtc ?? 0) > 400000).ToList();
+            var result = db.Employees.Where(e => e.IsActive || (e.SalaryCtc ?? 0) > 400000).ToList();
             return result;
         }
 
         // 2. Get all employees in a specific department as IEnumerable
-       /* public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
+        public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
         {
             var db = EMSDbContext.GetInstance();
-            var result =  db.Employees.Where(e => e.DepartmentIdFk == departmentId);
+            var result = db.Employees.Where(e => e.DepartmentIdFk == departmentId);
             return result;
         }
 
@@ -58,14 +58,14 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 5. Get all employees who joined in a specific year as IEnumerable
-        public static IEnumerable<EmployeeModel> GetEmployeesJoinedInYear( int year)
+        public static IEnumerable<EmployeeModel> GetEmployeesJoinedInYear(int year)
         {
 
             var db = EMSDbContext.GetInstance();
             var result5 = db.Employees.Where(e => e.DateOfJoining.Year == year);
             return result5;
         }
-        
+
         // 6. Get all employees with more than 5 years of experience as List
         public static List<EmployeeModel> GetEmployeesWithMoreThan5YearsExp()
         {
@@ -83,7 +83,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetEmployeesWithNullQualification()
         {
             var db = EMSDbContext.GetInstance();
-            var result7= db.Employees.Where(e => !e.QualificationIdFk.HasValue);
+            var result7 = db.Employees.Where(e => !e.QualificationIdFk.HasValue);
             return result7;
         }
 
@@ -167,7 +167,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesByDesignation(DesiginationTypes designation)
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.DesignationIdFk == designation).ToList();
+            var result = db.Employees.Where(e => e.DesignationIdFk == designation).ToList();
             return result;
         }
 
@@ -190,7 +190,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetEmployeesWithAtLeastTwoAddresses()
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.Addresses.Count >= 2);
+            var result = db.Employees.Where(e => e.Addresses.Count >= 2);
             return result;
         }
 
@@ -205,4 +205,3 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
     }
 }
-*/

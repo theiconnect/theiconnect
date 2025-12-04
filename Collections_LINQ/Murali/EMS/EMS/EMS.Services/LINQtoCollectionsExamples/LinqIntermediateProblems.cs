@@ -50,8 +50,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
                 .Select(d => (
                     d.DepartmentName,
                     d.Employees.Any() ? d.Employees.Average(e => e.SalaryCtc ?? 0) : 0
-                )).ToList();    
-
+                )).ToList();
+            return result;
         }
 
         // 5. Get the highest paid employee in each department as List of tuples
