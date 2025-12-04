@@ -21,8 +21,12 @@ namespace EMS.Services.LINQtoCollectionsExamples
             return result1;
         }
 
+    }
+}
+
+        
         // 2. Get all employees in a specific department as IEnumerable
-        public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
+       /* public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
         {
             var db = EMSDbContext.GetInstance();
             var result2 = db.Employees.Where(e => e.DepartmentIdFk == departmentId);
@@ -194,3 +198,4 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
     }
 }
+*/
