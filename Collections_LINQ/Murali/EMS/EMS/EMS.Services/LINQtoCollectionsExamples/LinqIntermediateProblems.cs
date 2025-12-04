@@ -25,9 +25,10 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static Dictionary<string, List<EmployeeModel>> GetEmployeesGroupedByDepartmentName()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees
-                .GroupBy(e => db.Departments.First(d => d.DepartmentIdPk == e.DepartmentIdFk).DepartmentName)
+            var a = db.Employees
+                .GroupBy(e => db.Departments.Where(d=> d.DepartmentIdPk == e.DepartmentIdFk).First().DepartmentName)
                 .ToDictionary(g => g.Key, g => g.ToList());
+            return null;
         }
 
         // 3. Get the count of employees per blood group as Dictionary
@@ -47,8 +48,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
                 .Select(d => (
                     d.DepartmentName,
                     d.Employees.Any() ? d.Employees.Average(e => e.SalaryCtc ?? 0) : 0
-                ))
-                .ToList();
+                )).ToList();    
+
         }
 
         // 5. Get the highest paid employee in each department as List of tuples

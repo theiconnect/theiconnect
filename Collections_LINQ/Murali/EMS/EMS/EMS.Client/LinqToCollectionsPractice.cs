@@ -17,34 +17,37 @@ namespace EMS.Client
 
         internal void PracticeBasicLinq()
         {
-            //    var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
-            //    var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
-            // var Active = LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();
-            // var alldepartments = LinqBasicProblems.GetAllDepartmentAsList();
-            //var alldepartmnets = LinqBasicProblems.GetAllDepartmentsAsEnumerable();
-            //var allEmployees = LinqBasicProblems.GetAllEmployeesAsEnumerable();
-         //   var allEmployees = LinqBasicProblems.GetEmployeesOrderedBySalaryDesc();
+            //var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
+            //var empList = LinqBasicProblems.GetAllEmployeesAsList();
+            //var empsByDeptId = LinqBasicProblems.GetAllDepartmentsAsList();
+            // var empsByDeptEnum = LinqBasicProblems.GetAllDepartmentsAsEnumerable();
+            //var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
+            //var emphighsal = LinqBasicProblems.GetEmployeesWithHighSalary();
+            // var empnames = LinqBasicProblems.GetEmployeesOrderedByFirstName();
+            //var empsaldesc = LinqBasicProblems.GetEmployeesOrderedBySalaryDesc();
+            //var deptcodeascol=LinqBasicProblems.GetAllDepartmentCodesAsICollection();
+            //var empasarr=LinqBasicProblems.GetAllEmployeesAsArray();
             // Add more calls to LinqBasicProblems methods as needed  
 
         }
-
         internal void PracticeBeginnerLinq()
         {
+            //var activemphighsal=LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();
+            //var empdept = LinqBeginnerProblems.GetEmployeesByDepartmentId(1);
+            //var empblood=LinqBeginnerProblems.GetEmployeesByBloodGroup(EMS.Models.Enums.BloodGroups.A_Positive);
+            //var empbylastname=LinqBeginnerProblems.GetEmployeesByLastName("Smith");
+            //var empjoinyear=LinqBeginnerProblems.GetEmployeesJoinedInYear(2020);
+            //var empexp=LinqBeginnerProblems.GetEmployeesWithMoreThan5YearsExp();
+            //var empmobile=LinqBeginnerProblems.GetEmployeesWithAlternateMobile();
+            //var empgender=LinqBeginnerProblems.GetEmployeesByGender(EMS.Models.Enums.Genders.Male);
+            // var empqulifi= LinqBeginnerProblems.GetEmployeesWithNullQualification();
+            //var empnameA=LinqBeginnerProblems.GetEmployeesFirstNameStartsWithA();
 
-            //var allemployees = LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();
-            //var allemployees1 = LinqBeginnerProblems.GetActiveEmployeesOrWithHighSalary();
-            //var allemployees2 = LinqBeginnerProblems.GetEmployeesByDepartmentId(1);
-            //var allemployees3 = LinqBeginnerProblems.GetEmployeesByBloodGroup(EMS.Models.Enums.BloodGroups.O_Positive);
-
-            //var allemployees4 = LinqBeginnerProblems.GetEmployeesByLastName("sharma");
-            //var allemployees6 = LinqBeginnerProblems.GetEmployeesJoinedInYear(2000);
-           // var allemployees7 = LinqBeginnerProblems.GetEmployeesWithMoreThan5YearsExp();
-           // var allemployees5 = LinqBeginnerProblems.GetEmployeesByFirstNameStartingWith("A");  
         }
 
         internal void PracticeIntermediateLinq()
         {
-            var allEmployees = LinqIntermediateProblems.GetEmployeeCountByBloodGroup();
+            var twoEmployees = LinqIntermediateProblems.GetDepartmentsWithMoreThan2Employees();
             // Add more calls to LinqBasicProblems methods as needed  
         }
     }
