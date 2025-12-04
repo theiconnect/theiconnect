@@ -1,10 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();//MVC pattern
-                                           //Add EMS.Services and EMS.DataAccess classes as references
-                                           //builder.Services.Add(b
-                                           // Add EMS.DataAccess.EMSDbContext as a singleton service
+builder.Services.AddControllersWithViews();
+
+
+//MVC pattern
+//Add EMS.Services and EMS.DataAccess classes as references
+//builder.Services.Add(b
+// Add EMS.DataAccess.EMSDbContext as a singleton service
 
 builder.Services.AddScoped<EMS.Services.CompanyService>();
 
@@ -37,10 +40,16 @@ app.UseAuthorization();
 //Conventional Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Login}/{action=Index}/{id?}");
+    pattern: "{controller=Employee}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "default1",
-    pattern: "iconnect/{action}/{controller}/abc");
+//app.MapControllerRoute(
+//    name: "default1",
+//    pattern: "iconnect/{action}/{controller}/abc");
 
 app.Run();
+
+
+//locahsot:2323/ Company/a1
+//CompanyController
+//       A1 locahsot:2323 / Company / a1, locahsot: 2323 / iconnect /A1/ Company / abc
+//       A2
