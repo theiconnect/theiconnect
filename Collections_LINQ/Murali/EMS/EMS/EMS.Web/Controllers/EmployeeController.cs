@@ -2,31 +2,38 @@
 
 namespace EMS.Web.Controllers
 {
-    [Route("Emp")]
+    [Route("Employee")]
     public class EmployeeController : Controller
     {
         [Route("getallemployees")]
         [Route("list")]
-        public ViewResult EmployeeList()
+        public IActionResult EmployeeList()
+        {
+            return View("abc");
+        }
+
+        [Route("addemployee")]
+        public IActionResult AddEmployee()
         {
             return View();
         }
 
-        public string Index()
+        [Route("editemployee")]
+        public IActionResult EditEmployee()
         {
-            return "Hello from Index";
+            return View();
         }
 
-        public int Index2()
+        [Route("deleteemployee")]
+        public IActionResult DeleteEmployee()
         {
-            return  100;
+            return View();
         }
 
-
-        [NonAction]
-        public string Index1()
+        [Route("viewemployee")]
+        public IActionResult ViewEmployee()
         {
-            return "Hello from Index1";
+            return View();
         }
     }
 
