@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS.Web", "EMS.Web\EMS.Web.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS.Test1", "EMS.Test1\EMS.Test1.csproj", "{114F97AE-C71B-46F0-BC1D-6FE92325F8E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS.BusinessService", "EMS.BusinessService\EMS.BusinessService.csproj", "{B6354C67-CBE4-467F-BB00-EDA227B5FB89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{114F97AE-C71B-46F0-BC1D-6FE92325F8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{114F97AE-C71B-46F0-BC1D-6FE92325F8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{114F97AE-C71B-46F0-BC1D-6FE92325F8E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6354C67-CBE4-467F-BB00-EDA227B5FB89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6354C67-CBE4-467F-BB00-EDA227B5FB89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6354C67-CBE4-467F-BB00-EDA227B5FB89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6354C67-CBE4-467F-BB00-EDA227B5FB89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
