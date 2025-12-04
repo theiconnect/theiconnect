@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EMS.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
@@ -9,7 +10,17 @@ namespace EMS.Web.Controllers
         [Route("list")]
         public IActionResult EmployeeList()
         {
-            return View("abc");
+            List<EmployeeModel> employees = new List<EmployeeModel>();
+            employees.Add(new EmployeeModel
+            {
+                Addresses = null,
+                Employeecode = "E001",
+                FirstName = "John",
+                LastName = "Doe",
+                DepartmentIdFk = 1
+
+            });
+            return View(employees);
         }
 
         [Route("addemployee")]
