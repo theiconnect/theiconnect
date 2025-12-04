@@ -1,11 +1,9 @@
 using EMS.DataAccess;
 using EMS.Models;
-using EMS.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
-using System.Net.NetworkInformation;
 
 namespace EMS.Services.LINQtoCollectionsExamples
 {
@@ -20,99 +18,44 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetAllEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
-            var result1 = db.Employees.ToList();
+            var result = db.Employees.ToList();
+            return result;
+        }
+        // 1A.Get all depertments as List
+        public static List<DepartmentModel> GetAllDepartmentsAsList()
+        {
+            var db = EMSDbContext.GetInstance();
+            var result1 = db.Departments.ToList();
+            result1.Add(new DepartmentModel
+            {
+                DepartmentIdPk = 6,
+                DepartmentCode = "APS", 
+                DepartmentName = "Operations",
+                Location = "Regional Office",
+                CompanyIdFk = 1 ,
+                IsActive = false
+            });
             return result1;
         }
 
-        public static List<DepartmentModel> GetAllDepartmentAsList()
-        {
-            var db1 = EMSDbContext.GetInstance();
-            var result5 = db1.Departments.ToList();
-            result5.Add(new DepartmentModel
-            {
-                DepartmentIdPk = 6,
-                DepartmentCode = "67141ewtdgh",
-                DepartmentName = "product",
-                Location = "sr nagar",
-                CompanyIdFk = 1,
-                IsActive = true
-            });
-            return result5;
-        }
+
+
         // 2. Get all employees as IEnumerable
         public static IEnumerable<EmployeeModel> GetAllEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
-            var result = db.Employees.ToList();
-            return result;
+            var result2 = db.Employees; 
+            return result2;
         }
 
-        public static List<EmployeeModel> GetAllEmployeeAsList()
+        //Get all departments as IEnumerable
+        public static IEnumerable<DepartmentModel> GetAllDepartmentsAsEnumerable()
         {
-            var empAddr1 = new EmployeeAddressModel();
-            empAddr1.EmployeeAddressModelIdPk = 100;
-            empAddr1.AddressTypeIdFk = AddressTypes.PRESENT_ADDR;
-            empAddr1.AddressLine1 = "asfsdf";
-            empAddr1.AddressLine2 = "sr nagar";
-            empAddr1.City = "HYD";
-            empAddr1.State = "TS";
-            empAddr1.Pincode = "500055";
-            empAddr1.isActive = true;
-            empAddr1.EmployeeIdFk = 12;
-
-            var empAddr2 = new EmployeeAddressModel();
-            empAddr2.EmployeeAddressModelIdPk = 100;
-            empAddr2.AddressTypeIdFk = AddressTypes.PERM_ADDR;
-            empAddr2.AddressLine1 = "asfsdf";
-            empAddr2.AddressLine2 = "Nellore";
-            empAddr2.City = "Nellore";
-            empAddr2.State = "AP";
-            empAddr2.Pincode = "900055";
-            empAddr2.isActive = true;
-            empAddr2.EmployeeIdFk = 12;
-
-            var empAddresses = new List<EmployeeAddressModel>();
-            empAddresses.Add(empAddr1);
-            empAddresses.Add(empAddr2);
-
-            var empDesig1 = new EmployeeDesignationModel();
-            empDesig1.EmployeeDesignationIdPk = 2;
-            empDesig1.EmployeeIdFk = 12;
-            empDesig1.DesignationIdFk = DesiginationTypes.ProjectManager;
-            empDesig1.EffectiveFrom = new DateTime(2022, 1, 14);
-            empDesig1.EndDate = new DateTime(2022, 1, 14);
-
-            var empDesignations = new List<EmployeeDesignationModel>();
-            empDesignations.Add(empDesig1);
-
-            var emp = new EmployeeModel();
-
-            emp.EmployeeIdPk = 12;
-            emp.Employeecode = "ytryw287423";
-            emp.FirstName = "sunitha";
-            emp.LastName = "reddy";
-            emp.Gender = Genders.Female;
-            emp.BloodGroup = BloodGroups.O_Positive;
-            emp.EmailId = "meena.rao@abc.com";
-            emp.MobileNumber = "9876543219";
-            emp.DepartmentIdFk = 1;
-            emp.DateOfBirth = new DateTime(1994, 2, 28);
-            emp.DateOfJoining = new DateTime(2020, 1, 15);
-            emp.ExpInMonths = 36;
-            emp.SalaryCtc = 500000;
-            emp.IsActive = false;
-            emp.Addresses = empAddresses;
-            emp.Designations = empDesignations;
-
-
-
-            var db1 = EMSDbContext.GetInstance();
-            var result6 = db1.Employees.ToList();
-            result6.Add(emp);
-            return result6;
+            var db = EMSDbContext.GetInstance();
+            var result3 = db.Departments;
+            
+return result3;
         }
-
-
         // 3. Get all employees as ICollection (not recommended for LINQ queries)
         public static ICollection<EmployeeModel> GetAllEmployeesAsICollection()
         {
@@ -171,6 +114,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetActiveEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
+
             return db.Employees.Where(e => e.IsActive);
         }
 
@@ -185,7 +129,13 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetEmployeesWithHighSalary()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000);
+            var result10 = db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000);
+            foreach(var emp in result10)
+            {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}, Salary: {emp.SalaryCtc}");
+            }
+           
+            return result10;
         }
 
         // 11. Get all employees with salary > 500000 as IQueryable (NOT recommended)
@@ -200,14 +150,24 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesOrderedByFirstName()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.OrderBy(e => e.FirstName).ToList();
+            var result12 = db.Employees.OrderBy(e => e.FirstName).ToList();
+            foreach(var emp in result12)
+                {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}");
+            }
+            return result12;
         }
 
         // 13. Get all employees ordered by salary descending as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesOrderedBySalaryDesc()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
+            var result13 = db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
+            foreach(var emp in result13)
+            {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}, Salary: {emp.SalaryCtc}");
+            }
+            return result13;
         }
 
         // 14. Get all department codes as ICollection<string> (not recommended)
@@ -215,7 +175,12 @@ namespace EMS.Services.LINQtoCollectionsExamples
         {
             var db = EMSDbContext.GetInstance();
             // ICollection is not ideal for LINQ, but List<T> implements ICollection<T>
-            return db.Departments.Select(d => d.DepartmentCode).ToList();
+            var result14 = db.Departments.Select(d => d.DepartmentCode).ToList();
+            foreach(var code in result14)
+            {
+                Console.WriteLine($"Department Code: {code}");
+            }
+            return result14;
         }
 
         // 15. Get all employees as array (not recommended for LINQ chaining)
@@ -223,7 +188,12 @@ namespace EMS.Services.LINQtoCollectionsExamples
         {
             var db = EMSDbContext.GetInstance();
             // Arrays are not ideal for LINQ chaining, prefer IEnumerable/List.
-            return db.Employees.ToArray();
+            var result15 = db.Employees.ToArray();
+            foreach(var emp in result15)
+            {
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}");
+            }
+            return result15;
         }
 
         // 16. Get all employees as HashSet (not recommended for ordering)

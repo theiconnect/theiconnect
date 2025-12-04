@@ -18,62 +18,38 @@ namespace EMS.Client
 
         internal void PracticeBasicLinq()
         {
-            //var emps = LinqBasicProblems.GetAllEmployeesAsList();
-             //   var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
-            //    var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
-            //    var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
-            //    var allDepartments = LinqBasicProblems.GetAllDepartmentAsList();
-            //    var allEmployees = LinqBasicProblems.GetAllEmployeesAsICollection();
-            //    var alldepartments = LinqBasicProblems.GetAllDepartmentNames();
-            //    var allEmployees = LinqBasicProblems.GetAllEmployeeFirstNames();
-            //    var emp = LinqBasicProblems.GetAllEmployeesAsIList();
-              var emp = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
-
-            //var empnames = LinqBasicProblems.AllEmployeesFullNames();
+            //var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
+            //var empList = LinqBasicProblems.GetAllEmployeesAsList();
+            //var empsByDeptId = LinqBasicProblems.GetAllDepartmentsAsList();
+            // var empsByDeptEnum = LinqBasicProblems.GetAllDepartmentsAsEnumerable();
+            //var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
+            //var emphighsal = LinqBasicProblems.GetEmployeesWithHighSalary();
+            // var empnames = LinqBasicProblems.GetEmployeesOrderedByFirstName();
+            //var empsaldesc = LinqBasicProblems.GetEmployeesOrderedBySalaryDesc();
+            //var deptcodeascol=LinqBasicProblems.GetAllDepartmentCodesAsICollection();
+            //var empasarr=LinqBasicProblems.GetAllEmployeesAsArray();
             // Add more calls to LinqBasicProblems methods as needed  
         }
 
         internal void PracticeBeginnerLinq()
         {
+            //var activemphighsal=LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();
+            //var empdept = LinqBeginnerProblems.GetEmployeesByDepartmentId(1);
+            //var empblood=LinqBeginnerProblems.GetEmployeesByBloodGroup(EMS.Models.Enums.BloodGroups.A_Positive);
+            //var empbylastname=LinqBeginnerProblems.GetEmployeesByLastName("Smith");
+            //var empjoinyear=LinqBeginnerProblems.GetEmployeesJoinedInYear(2020);
+            //var empexp=LinqBeginnerProblems.GetEmployeesWithMoreThan5YearsExp();
+            //var empmobile=LinqBeginnerProblems.GetEmployeesWithAlternateMobile();
+            //var empgender=LinqBeginnerProblems.GetEmployeesByGender(EMS.Models.Enums.Genders.Male);
+            // var empqulifi= LinqBeginnerProblems.GetEmployeesWithNullQualification();
+            //var empnameA=LinqBeginnerProblems.GetEmployeesFirstNameStartsWithA();
 
-            //var employeesWithHighSalary = LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();
-            //var allemployees = LinqBeginnerProblems.GetEmployeesByDepartmentId(1);
-            //var employees = LinqBeginnerProblems.GetEmployeesByBloodGroup(Models.Enums.BloodGroups.AB_Positive);
-            //var allemployees = LinqBeginnerProblems.GetEmployeesByLastName("Reddy");
+        }
 
-            //var allemployeesdates = LinqBeginnerProblems.GetEmployeesJoinedInYear(2015);
-            //var allemployeesyears = LinqBeginnerProblems.GetEmployeesWithMoreThan5YearsExp();
-            //var allemployeesyears = LinqBeginnerProblems.GetEmployeesWithNullQualification();
-            //var allemployeesyears = LinqBeginnerProblems.GetEmployeesWithAlternateMobile();
-            //vqrllemployeesyears = LinqBeginnerProblems.GetEmployeesFirstNameStartsWithA();
-            //var allemployees = LinqBeginnerProblems.GetEmployeesLastNameEndsWithA();
-            //var allemployees = LinqBeginnerProblems.GetEmployeesWithEmailContainingAbc();
-            //var allemployees = LinqBeginnerProblems.GetEmployeesByAddressCity("New York");
-            //var allemployees = LinqBeginnerProblems.GetEmployeesWithAtLeastTwoAddresses();
-
-        }   
-        
-
-
-        internal void practiceintermediatelinq()
+        internal void PracticeIntermediateLinq()
         {
-            //var allemployees = LinqIntermediateProblems.GetEmployeeCountByBloodGroup();
-            var allemployee = LinqIntermediateProblems.GetDepartmentsWithMoreThan2Employees();
-            //var employeedepts = LinqIntermediateProblems.GetEmployeesGroupedByDepartmentName();
-            //var depts = LinqIntermediateProblems.GetDepartmentNameIdGroup();
-            //var depts = LinqIntermediateProblems.GetEmployeeCountByBloodGroup();
-            //var depts = LinqIntermediateProblems.GetOnlyEmployeeNames();
-            //var depts = LinqIntermediateProblems.GetAverageSalaryPerDepartment();
-            //var depts = LinqIntermediateProblems.GetHighestPaidEmployeePerDepartment();
-            //var depts = LinqIntermediateProblems.GetEmployeesWhoWereTeamLeads();
-            //var joiningdate = LinqIntermediateProblems.GetEmployeesJoinedAfter(new DateTime(2020, 1, 1));
-            //var joiningdate = LinqIntermediateProblems.GetEmployeesWithPresentAndPermanentAddresses();
-            //var multipleaddress = LinqIntermediateProblems.GetEmployeesWithMultipleAddresses();
-            // add more calls to linqbasicproblems methods as needed  
-            //var removeemployee = LinqIntermediateProblems.GetEmployeesAndRemoveInactive();
-            //var designation = LinqIntermediateProblems.GetEmployeesWithDesignationInHistory(EMS.Models.Enums.DesiginationTypes.TeamLead);
-            //var genders = LinqIntermediateProblems.GetEmployeesGroupedByGender();
-            //var qualifications = LinqIntermediateProblems.GetEmployeesByQualificationId(1);
+            var twoEmployees = LinqIntermediateProblems.GetDepartmentsWithMoreThan2Employees();
+            // Add more calls to LinqBasicProblems methods as needed  
         }
     }
 }

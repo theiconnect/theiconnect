@@ -4,10 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMS.DataAccess\EMS.DataAccess.csproj" />
+    <ProjectReference Include="..\EMS.DataAccess\EMS.DataAccess.csproj">
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
     <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
   </ItemGroup>
 	
