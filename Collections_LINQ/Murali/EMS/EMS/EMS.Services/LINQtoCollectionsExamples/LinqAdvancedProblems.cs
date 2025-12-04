@@ -14,10 +14,20 @@ namespace EMS.Services.LINQtoCollectionsExamples
     /// </summary>
     public static class LinqAdvancedProblems
     {
+
+        public static void Test()
+        {
+            
+        }
+
+        //where(e=> e.EmployeeId ==0)//Anonymous function
         // 1. Get all employees with the maximum salary in the company as List
         public static List<EmployeeModel> GetEmployeesWithMaxSalary()
         {
             var db = EMSDbContext.GetInstance();
+            var maxEmpId = db.Employees.Max(e => e.EmployeeIdPk);
+            var emp = db.Employees.Where(e => e.EmployeeIdPk == maxEmpId);
+
             var maxSalary = db.Employees.Max(e => e.SalaryCtc ?? 0);
             return db.Employees.Where(e => (e.SalaryCtc ?? 0) == maxSalary).ToList();
         }
@@ -43,6 +53,10 @@ namespace EMS.Services.LINQtoCollectionsExamples
         // 4. Get all employees with at least one inactive address as List
         public static List<EmployeeModel> GetEmployeesWithInactiveAddress()
         {
+            //EMSDbContext.GetInstance()
+            //    .Company
+            //    .Departments.Where(d => d.Employees.Any(e => e.Addresses.Any(a => !a.isActive));
+
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.Addresses.Any(a => !a.isActive)).ToList();
         }
@@ -51,6 +65,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static DepartmentModel GetDepartmentWithMostEmployees()
         {
             var db = EMSDbContext.GetInstance();
+            var result = db.Departments.OrderByDescending(d => d.Employees.Count);
+
             return db.Departments.OrderByDescending(d => d.Employees.Count).FirstOrDefault();
         }
 
@@ -66,6 +82,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e =>
+                e.Addresses.Any() &&
                 e.Addresses.Any(a => a.State == "NY") &&
                 e.Addresses.Any(a => a.State == "CA")
             ).ToList();
@@ -112,6 +129,10 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesWithMostRecentJoiningDate()
         {
             var db = EMSDbContext.GetInstance();
+
+            db.Employees.Where(e => e.DateOfJoining == (db.Employees.Max(e1 => e1.DateOfJoining))).ToList();
+
+
             var maxDate = db.Employees.Max(e => e.DateOfJoining);
             return db.Employees.Where(e => e.DateOfJoining == maxDate).ToList();
         }
@@ -141,7 +162,17 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static void TryRemoveWhereOnICollection()
         {
             var db = EMSDbContext.GetInstance();
-            ICollection<EmployeeModel> employees = db.Employees.ToList();
+            IEnumerable<EmployeeModel> employeesIEnumerable = db.Employees.ToList();
+            ICollection<EmployeeModel> employeesICollection = db.Employees.ToList();
+            List<EmployeeModel> employeesList = db.Employees.ToList();
+
+            employeesList.Add(new EmployeeModel());//possible
+            employeesList.Remove(db.Employees.First());//possible
+
+            //employeesIEnumerable.Add(new EmployeeModel());//not possible
+            //employeesIEnumerable.Remove(db.Employees.First());//not possible
+
+
             // employees.RemoveWhere(e => !e.IsActive); // Not allowed: 'ICollection<T>' does not contain a definition for 'RemoveWhere'
             // Use HashSet<T> for RemoveWhere.
         }
@@ -175,7 +206,16 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesWithAddressInAllStates()
         {
             var db = EMSDbContext.GetInstance();
+            // Get all distinct states from company addresses
             var allStates = db.CompanyAddresses.Select(a => a.State).Distinct().ToList();
+
+            List<int> A = new() { 1, 2, 3, 4, 5 };//List
+            List<int> B = new() { 2, 3 };//List
+
+            // Check if B is subset of A
+            bool isSubset = B.All(b => A.Contains(b));
+
+            //looping through each employee
             return db.Employees.Where(e =>
                 allStates.All(state => e.Addresses.Any(a => a.State == state))
             ).ToList();

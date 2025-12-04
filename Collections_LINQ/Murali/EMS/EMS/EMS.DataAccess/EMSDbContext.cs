@@ -13,7 +13,7 @@ namespace EMS.DataAccess
         private static EMSDbContext _obj;
 
         //static EMSDbContext()
-        //{
+        //{ 
         //    _obj = new EMSDbContext();           
         //}
 
@@ -33,6 +33,20 @@ namespace EMS.DataAccess
 
         //Table Names as Public Properties
         public CompanyModel Company { get; set; } = new CompanyModel();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public List<CompanyAddressModel> CompanyAddresses
         {
             get
@@ -87,7 +101,7 @@ namespace EMS.DataAccess
             }
         }
 
-        private void LoadDB()
+        private void   LoadDB()
         {
             Company = GetCompany();
         }
