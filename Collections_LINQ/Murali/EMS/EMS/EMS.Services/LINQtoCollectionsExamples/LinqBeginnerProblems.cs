@@ -18,84 +18,119 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetActiveEmployeesWithHighSalary()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.IsActive && (e.SalaryCtc ?? 0) > 400000).ToList();
+            
+            var result = db.Employees.Where(e => e.IsActive && (e.SalaryCtc ?? 0) > 400000).ToList();
+            return result;
+           
         }
 
         // 2. Get all employees in a specific department as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.DepartmentIdFk == departmentId);
+            
+            var result= db.Employees.Where(e => e.DepartmentIdFk == departmentId);        
+            return result;
         }
 
         // 3. Get all employees with a specific blood group as List
         public static List<EmployeeModel> GetEmployeesByBloodGroup(BloodGroups bloodGroup)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.BloodGroup == bloodGroup).ToList();
+            var result = db.Employees.Where(e => e.BloodGroup == bloodGroup).ToList();
+            return result;
         }
 
         // 4. Get all employees with a specific last name as ICollection
         public static ICollection<EmployeeModel> GetEmployeesByLastName(string lastName)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.LastName == lastName).ToList();
+            var result= db.Employees.Where(e => e.LastName.ToLower() == lastName.ToLower()).ToList();
+            foreach (var s in result)
+            {
+                Console.WriteLine($"{s.LastName}");
+            }
+            return result;
         }
 
         // 5. Get all employees who joined in a specific year as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesJoinedInYear(int year)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.DateOfJoining.Year == year);
+            var result= db.Employees.Where(e => e.DateOfJoining.Year == year);
+            foreach (var s in result)
+            {
+                Console.WriteLine($"{s.DateOfJoining.Year}");
+            }
+            return result;
         }
 
         // 6. Get all employees with more than 5 years of experience as List
         public static List<EmployeeModel> GetEmployeesWithMoreThan5YearsExp()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.ExpInMonths > 60).ToList();
+            var result = db.Employees.Where(e => e.ExpInMonths > 60).ToList();
+            return result;
         }
 
         // 7. Get all employees with a null qualification as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesWithNullQualification()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => !e.QualificationIdFk.HasValue);
+            var result= db.Employees.Where(e => e.QualificationIdFk.HasValue).ToList();
+            return result;
         }
 
         // 8. Get all employees with a non-null alternate mobile number as List
         public static List<EmployeeModel> GetEmployeesWithAlternateMobile()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => !string.IsNullOrEmpty(e.AlternateMobileNumber)).ToList();
+            var result= db.Employees.Where(e => !string.IsNullOrEmpty(e.AlternateMobileNumber)).ToList();
+            foreach (var s in result)
+            {
+                Console.WriteLine($"{s.AlternateMobileNumber}");
+            }
+            return result;
         }
 
         // 9. Get all employees whose first name starts with 'A' as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesFirstNameStartsWithA()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.FirstName.StartsWith("A", StringComparison.OrdinalIgnoreCase));
+            var result= db.Employees.Where(e => e.FirstName.StartsWith("A", StringComparison.OrdinalIgnoreCase));
+            foreach (var s in result)
+            {
+                Console.WriteLine($"{s.FirstName}");
+            }
+            return result;
         }
 
         // 10. Get all employees whose last name ends with 'a' as List
         public static List<EmployeeModel> GetEmployeesLastNameEndsWithA()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.LastName.EndsWith("a", StringComparison.OrdinalIgnoreCase)).ToList();
+            var result= db.Employees.Where(e => e.LastName.EndsWith("a", StringComparison.OrdinalIgnoreCase)).ToList();
+            foreach(var s in result)
+            {
+                Console.WriteLine($"{s.LastName}");
+            }
+            return result;
         }
 
         // 11. Get all employees with email containing "abc" as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesWithEmailContainingAbc()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.EmailId != null && e.EmailId.Contains("abc", StringComparison.OrdinalIgnoreCase));
+            var result= db.Employees.Where(e => e.EmailId != null && e.EmailId.Contains("abc", StringComparison.OrdinalIgnoreCase));
+            return result;
         }
 
         // 12. Get all employees with salary between 400000 and 700000 as List
         public static List<EmployeeModel> GetEmployeesWithSalaryRange()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => (e.SalaryCtc ?? 0) >= 400000 && (e.SalaryCtc ?? 0) <= 700000).ToList();
+            var result=db.Employees.Where(e => (e.SalaryCtc ?? 0) >= 400000 && (e.SalaryCtc ?? 0) <= 700000).ToList();
+            return result;
         }
 
         // 13. Get all employees as IQueryable and try to use FirstAsync (NOT allowed, will not compile)
@@ -113,6 +148,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         {
             var db = EMSDbContext.GetInstance();
             IEnumerable<EmployeeModel> employees = db.Employees;
+            
             // employees.Remove(new EmployeeModel()); // Not allowed: 'IEnumerable<T>' does not contain a definition for 'Remove'
             // IEnumerable<T> is read-only, you cannot add/remove items.
         }
@@ -123,35 +159,40 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var db = EMSDbContext.GetInstance();
             // IQueryable is not useful for in-memory collections, and EF-only methods like Include() are not available.
             // db.Employees.AsQueryable().Include(e => e.Addresses); // Not allowed: 'IQueryable<EmployeeModel>' does not contain a definition for 'Include'
-            return db.Employees.AsQueryable();
+            var result = db.Employees.AsQueryable();
+            return result;
         }
 
         // 16. Get all employees with a specific designation as List
         public static List<EmployeeModel> GetEmployeesByDesignation(DesiginationTypes designation)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.DesignationIdFk == designation).ToList();
+            var result= db.Employees.Where(e => e.DesignationIdFk == designation).ToList();
+            return result;
         }
 
         // 17. Get all employees with a specific gender as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesByGender(Genders gender)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.Gender == gender);
+            var result=db.Employees.Where(e => e.Gender == gender).ToList();
+            return result;
         }
 
         // 18. Get all employees with a specific city in any address as List
         public static List<EmployeeModel> GetEmployeesByAddressCity(string city)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.Addresses.Any(a => a.City.Equals(city, StringComparison.OrdinalIgnoreCase))).ToList();
+            var result= db.Employees.Where(e => e.Addresses.Any(a => a.City.Equals(city, StringComparison.OrdinalIgnoreCase))).ToList();
+            return result;
         }
 
         // 19. Get all employees with at least two addresses as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesWithAtLeastTwoAddresses()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.Addresses.Count >= 2);
+            var result= db.Employees.Where(e => e.Addresses.Count >= 2).ToList();
+            return result;
         }
 
         // 20. Get all employees as ICollection and try to use LINQ extension (allowed, but not recommended)

@@ -5,13 +5,14 @@ using EMS.Models;
 
 
 LinqToCollectionsPractice linqToCollectionsPractice = new LinqToCollectionsPractice();
-linqToCollectionsPractice.PracticeBasicLinq();
+//linqToCollectionsPractice.PracticeBasicLinq();
 //linqToCollectionsPractice.PracticeBeginnerLinq();
-//linqToCollectionsPractice.PracticeIntermediateLinq();
+linqToCollectionsPractice.PracticeIntermediateLinq();
 //linqToCollectionsPractice.PracticeAdvancedLinq();
+//linqToCollectionsPractice.PracticeBeginnerLinq();
 
 return;
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Hello ,World");
 
 EMSDbContext dbContext = EMSDbContext.GetInstance();
 

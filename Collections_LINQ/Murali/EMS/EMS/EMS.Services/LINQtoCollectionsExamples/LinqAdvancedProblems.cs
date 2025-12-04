@@ -48,15 +48,16 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 5. Get the department with the most employees as DepartmentModel
-        public static DepartmentModel GetDepartmentWithMostEmployees()
-        {
-            var db = EMSDbContext.GetInstance();
-            return db.Departments.OrderByDescending(d => d.Employees.Count).FirstOrDefault();
-        }
+        //public static DepartmentModel GetDepartmentWithMostEmployees()
+       // {
+         //   var db = EMSDbContext.GetInstance();
+           // var result= db.Departments.OrderByDescending(d => d.Employees.Count).FirstOrDefault();
+        //}
 
         // 6. Get all employees who have never been a TeamLead as List
         public static List<EmployeeModel> GetEmployeesNeverTeamLead()
         {
+
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => !e.Designations.Any(d => d.DesignationIdFk == DesiginationTypes.TeamLead)).ToList();
         }
