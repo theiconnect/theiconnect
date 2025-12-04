@@ -28,24 +28,11 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static Dictionary<string, List<EmployeeModel>> GetEmployeesGroupedByDepartmentName()
         {
             var db = EMSDbContext.GetInstance();
-
-            var result= db.Employees
-                .GroupBy(e => db.Departments.First(d => d.DepartmentIdPk == e.DepartmentIdFk)
-                .DepartmentName)
-                .ToDictionary(e => e.Key, e => e.ToList());
-
-            Dictionary<string, List<EmployeeModel>> opbyname = new Dictionary<string, List<EmployeeModel>>();
-            Dictionary<int, List<EmployeeModel>> opbyid = new Dictionary<int, List<EmployeeModel>>();
-
-            foreach (var e in db.Employees)
-            {
-                string deptName = db.Departments.First(d=> d.DepartmentIdPk ==e.DepartmentIdFk).DepartmentName;
-                if (!opbyname.ContainsKey(deptName))
-                {
-                    opbyname.Add(deptName, new List<EmployeeModel>());
-                }
-                opbyname[deptName].Add(e);
-            }
+            var a = db.Employees
+                .GroupBy(e => db.Departments.Where(d=> d.DepartmentIdPk == e.DepartmentIdFk).First().DepartmentName)
+                .ToDictionary(g => g.Key, g => g.ToList());
+            return null;
+        }
 
             return result;
         }
