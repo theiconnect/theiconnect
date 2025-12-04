@@ -50,5 +50,5 @@ namespace EMS.Client
             var twoEmployees = LinqIntermediateProblems.GetDepartmentsWithMoreThan2Employees();
             // Add more calls to LinqBasicProblems methods as needed  
         }
-    }
+}
 }

@@ -113,7 +113,8 @@ return result3;
         public static IEnumerable<string> GetAllDepartmentNames()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Departments.Select(d => d.DepartmentName);
+            var result= db.Departments.Select(d => d.DepartmentName);
+            return result;
         }
 
         // 7. Get all employee first names as List<string>
@@ -128,6 +129,7 @@ return result3;
             return result;
 
         }
+       
 
         // 8. Get all active employees as IEnumerable
         public static IEnumerable<EmployeeModel> GetActiveEmployeesAsEnumerable()
@@ -228,14 +230,16 @@ return result3;
         public static Dictionary<int, EmployeeModel> GetAllEmployeesAsDictionary()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.ToDictionary(e => e.EmployeeIdPk);
+            var result= db.Employees.ToDictionary(e => e.EmployeeIdPk);
+            return result;
         }
 
         // 18. Get all employees as Lookup by DepartmentIdFk
         public static ILookup<int, EmployeeModel> GetEmployeesLookupByDepartmentId()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.ToLookup(e => e.DepartmentIdFk);
+            var result= db.Employees.ToLookup(e => e.DepartmentIdFk);
+            return result;
         }
 
         // 19. Get all employees as IQueryable and try to use ToListAsync (NOT allowed, will not compile)
