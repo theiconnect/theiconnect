@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EMS.Models;
+using System.Security.Cryptography;
 using EMS.DataAccess;
+using EMS.Models;
+using EMS.Models.Enums;
 
 namespace EMS.Services.LINQtoCollectionsExamples
 {
@@ -24,9 +26,63 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetAllEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees;
+            var abc = db.Employees.ToList();
+            return abc;
+
         }
 
+        public static List<EmployeeModel> GetAllEmployeeModelAsList()
+        {
+            var EmpAddr1 = new EmployeeAddressModel();
+            EmpAddr1.EmployeeAddressModelIdPk = 56;
+            EmpAddr1.EmployeeIdFk = 12;
+            EmpAddr1.AddressLine1 = "sr nagar";
+            EmpAddr1.AddressLine2 = "544ryg";
+            EmpAddr1.City = "Hyd = ";
+            EmpAddr1.State = "Telangana";
+            EmpAddr1.Pincode = "442y6y";
+            EmpAddr1.AddressTypeIdFk = AddressTypes.PRESENT_ADDR;
+
+            var EmpAddr2 = new EmployeeAddressModel();
+            EmpAddr2.EmployeeAddressModelIdPk = 56;
+            EmpAddr2.EmployeeIdFk = 12;
+            EmpAddr2.AddressLine1 = "er7iu";
+            EmpAddr2.AddressLine2 = "544ryg";
+            EmpAddr2.City = "Hyd";
+            EmpAddr2.State = "Telangana";
+            EmpAddr2.Pincode = "442y6y";
+            EmpAddr2.AddressTypeIdFk = AddressTypes.PERM_ADDR;
+
+            var EmpAddresses = new List<EmployeeAddressModel>();
+            EmpAddresses.Add(EmpAddr1);
+            EmpAddresses.Add(EmpAddr2);
+
+
+            var Emp = new EmployeeModel();
+                Emp.EmployeeIdPk = 12;
+                Emp.Employeecode = "HR0012";
+                Emp.FirstName = "mihika";
+                Emp.LastName = "Sharma";
+                Emp.Gender = Genders.Female;
+                Emp.BloodGroup = BloodGroups.O_Positive;
+                Emp.DesignationIdFk = DesiginationTypes.HRManager;
+                Emp.EmailId = "mihika.sharma@abc.com";
+                Emp.MobileNumber = "987678910";
+                Emp.DepartmentIdFk = 1;
+                Emp.DateOfBirth = new DateTime(2000, 7, 14);
+                Emp.DateOfJoining = new DateTime(2015, 1, 9);
+                Emp.ExpInMonths = 120;
+                Emp.SalaryCtc = 700000;
+                Emp.IsActive = true;
+                Emp.Addresses = EmpAddresses;
+              
+               var db = EMSDbContext.GetInstance();
+               var abc = db.Employees.ToList();
+               abc.Add(Emp);
+               return abc;
+
+        }
+       
         // 3. Get all employees as ICollection (not recommended for LINQ queries)
         public static ICollection<EmployeeModel> GetAllEmployeesAsICollection()
         {
@@ -56,35 +112,42 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<string> GetAllDepartmentNames()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Departments.Select(d => d.DepartmentName);
+            var result= db.Departments.Select(d => d.DepartmentName);
+            return result;
         }
 
         // 7. Get all employee first names as List<string>
         public static List<string> GetAllEmployeeFirstNames()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Select(e => e.FirstName).ToList();
+            var result = db.Employees.Select(e => e.FirstName).ToList();
+            return result;
+
         }
+       
 
         // 8. Get all active employees as IEnumerable
         public static IEnumerable<EmployeeModel> GetActiveEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.IsActive);
+            var result = db.Employees.Where(e => e.IsActive);
+            return result;
         }
 
         // 9. Get all inactive employees as List
         public static List<EmployeeModel> GetInactiveEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => !e.IsActive).ToList();
+            var result=db.Employees.Where(e => !e.IsActive).ToList();
+            return result;
         }
 
         // 10. Get all employees with salary > 500000 as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesWithHighSalary()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000);
+            var result= db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000);
+            return result;
         }
 
         // 11. Get all employees with salary > 500000 as IQueryable (NOT recommended)
@@ -106,7 +169,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetEmployeesOrderedBySalaryDesc()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
+            var result= db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
+            return result;
         }
 
         // 14. Get all department codes as ICollection<string> (not recommended)
@@ -137,14 +201,16 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static Dictionary<int, EmployeeModel> GetAllEmployeesAsDictionary()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.ToDictionary(e => e.EmployeeIdPk);
+            var result= db.Employees.ToDictionary(e => e.EmployeeIdPk);
+            return result;
         }
 
         // 18. Get all employees as Lookup by DepartmentIdFk
         public static ILookup<int, EmployeeModel> GetEmployeesLookupByDepartmentId()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.ToLookup(e => e.DepartmentIdFk);
+            var result= db.Employees.ToLookup(e => e.DepartmentIdFk);
+            return result;
         }
 
         // 19. Get all employees as IQueryable and try to use ToListAsync (NOT allowed, will not compile)
