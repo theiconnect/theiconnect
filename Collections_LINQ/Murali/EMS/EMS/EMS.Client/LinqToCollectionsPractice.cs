@@ -16,10 +16,11 @@ namespace EMS.Client
 
         internal void PracticeBasicLinq()
         {
-            var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
-            var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
-            var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
-            // Add more calls to LinqBasicProblems methods as needed  
+            //var emps = LinqBasicProblems.GetAllEmployeesAsEnumerable();
+            //var empsByDeptId = LinqBasicProblems.GetEmployeesLookupByDepartmentId();
+            //var allEmployees = LinqBasicProblems.GetAllEmployeesAsList();
+            var allDepartments = LinqBasicProblems.GetAllDepartmentsAsList();
+            //Add more calls to LinqBasicProblems methods as needed  
         }
 
         internal void PracticeBeginnerLinq()
@@ -30,7 +31,7 @@ namespace EMS.Client
         internal void PracticeIntermediateLinq()
         {
             var allEmployees = LinqIntermediateProblems.GetEmployeeCountByBloodGroup();
-            // Add more calls to LinqBasicProblems methods as needed  
+            //Add more calls to LinqBasicProblems methods as needed  
         }
     }
 }

@@ -17,8 +17,26 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetAllEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.ToList();
+            var result = db.Employees.ToList();
+            foreach (var emp in result)
+            {
+                // Just an example of processing each employee
+                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}, DeptId: {emp.DepartmentIdFk}");
+            }
+            return result;
         }
+
+        // 1.1 Get All Departments As List
+
+        public static List<DepartmentModel> GetAllDepartmentsAsList()
+        {
+            var db = EMSDbContext.GetInstance();
+            return db.Departments.ToList();
+        }
+
+
+
+
 
         // 2. Get all employees as IEnumerable
         public static IEnumerable<EmployeeModel> GetAllEmployeesAsEnumerable()

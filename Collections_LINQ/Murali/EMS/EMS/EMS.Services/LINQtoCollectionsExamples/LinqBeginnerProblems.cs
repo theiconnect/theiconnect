@@ -21,8 +21,12 @@ namespace EMS.Services.LINQtoCollectionsExamples
             return db.Employees.Where(e => e.IsActive && (e.SalaryCtc ?? 0) > 400000).ToList();
         }
 
+    }
+}
+
+        
         // 2. Get all employees in a specific department as IEnumerable
-        public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
+       /* public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.DepartmentIdFk == departmentId);
@@ -165,3 +169,4 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
     }
 }
+*/
