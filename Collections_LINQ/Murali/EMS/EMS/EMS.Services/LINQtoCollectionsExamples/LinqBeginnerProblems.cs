@@ -21,29 +21,45 @@ namespace EMS.Services.LINQtoCollectionsExamples
             return db.Employees.Where(e => e.IsActive && (e.SalaryCtc ?? 0) > 400000).ToList();
         }
 
+
+        //1.2 Get All Employees who are active or have salary above 400000 as List
+        public static List<EmployeeModel> GetActiveEmployeesOrWithHighSalary()
+        {
+            var db = EMSDbContext.GetInstance();
+            var result = db.Employees.Where(e => e.IsActive ||(e.SalaryCtc ?? 0) > 400000).ToList();
+            return result;
+        }
+
         // 2. Get all employees in a specific department as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.DepartmentIdFk == departmentId);
+            var result =  db.Employees.Where(e => e.DepartmentIdFk == departmentId);
+            return result;
         }
+
+
+
+
 
         // 3. Get all employees with a specific blood group as List
         public static List<EmployeeModel> GetEmployeesByBloodGroup(BloodGroups bloodGroup)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.BloodGroup == bloodGroup).ToList();
+            var result = db.Employees.Where(e => e.BloodGroup == bloodGroup).ToList();
+            return result;
         }
 
         // 4. Get all employees with a specific last name as ICollection
         public static ICollection<EmployeeModel> GetEmployeesByLastName(string lastName)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.LastName == lastName).ToList();
+            var result= db.Employees.Where(e => e.LastName == lastName).ToList();
+            return result;
         }
 
         // 5. Get all employees who joined in a specific year as IEnumerable
-        public static IEnumerable<EmployeeModel> GetEmployeesJoinedInYear(int year)
+        public static IEnumerable<EmployeeModel> GetEmployeesJoinedInYear( int year)
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.DateOfJoining.Year == year);
