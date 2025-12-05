@@ -50,7 +50,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static Dictionary<BloodGroups, int> GetEmployeeCountByBloodGroup()
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees
+            var result=db.Employees
                 .GroupBy(e => e.BloodGroup)
                 .ToDictionary(g => g.Key, g => g.Count());
             return result;
@@ -69,13 +69,12 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<(string DepartmentName, decimal AverageSalary)> GetAverageSalaryPerDepartment()
         {
             var db = EMSDbContext.GetInstance();
-            var result = db.Departments
+            var result=db.Departments
                 .Select(d => (
                     d.DepartmentName,
                     d.Employees.Any() ? d.Employees.Average(e => e.SalaryCtc ?? 0) : 0
-                ))
-                .ToList();
-            return result;
+                )).ToList();    
+
         }
 
         // 5. Get the highest paid employee in each department as List of tuples
@@ -89,7 +88,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
                 ))
                 .Where(x => x.Item2 != null)
                 .ToList();
-            return result;
+            return result;  
         }
 
         // 6. Get all employees who have ever held the "TeamLead" designation as List
@@ -99,7 +98,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var result= db.Employees
                 .Where(e => e.Designations.Any(des => des.DesignationIdFk == DesiginationTypes.TeamLead))
                 .ToList();
-            return result;
+            return result;  
         }
 
         // 7. Get all employees who joined after a certain date, ordered by joining date as IEnumerable

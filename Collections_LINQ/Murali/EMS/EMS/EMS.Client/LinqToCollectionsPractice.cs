@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using EMS.Models.Enums;
+using EMS.Models;
 using EMS.Services.LINQtoCollectionsExamples;
 
 namespace EMS.Client
@@ -30,7 +30,6 @@ namespace EMS.Client
             //var empasarr=LinqBasicProblems.GetAllEmployeesAsArray();
             // Add more calls to LinqBasicProblems methods as needed  
         }
-
         internal void PracticeBeginnerLinq()
         {
             //var activemphighsal=LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();
@@ -51,5 +50,5 @@ namespace EMS.Client
             var twoEmployees = LinqIntermediateProblems.GetDepartmentsWithMoreThan2Employees();
             // Add more calls to LinqBasicProblems methods as needed  
         }
-    }
+}
 }

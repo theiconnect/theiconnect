@@ -91,7 +91,7 @@ return result3;
         public static IEnumerable<string> GetAllDepartmentNames()
         {
             var db = EMSDbContext.GetInstance();
-            var result = db.Departments.Select(d => d.DepartmentName);
+            var result= db.Departments.Select(d => d.DepartmentName);
             return result;
         }
 
@@ -107,8 +107,14 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             var result = db.Employees.Select(e => e.FirstName).ToList();
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
             return result;
+
         }
+       
 
         // 8. Get all active employees as IEnumerable
         public static IEnumerable<EmployeeModel> GetActiveEmployeesAsEnumerable()
@@ -122,7 +128,8 @@ return result3;
         public static List<EmployeeModel> GetInactiveEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => !e.IsActive).ToList();
+            var result=db.Employees.Where(e => !e.IsActive).ToList();
+            return result;
         }
 
         // 10. Get all employees with salary > 500000 as IEnumerable
@@ -208,14 +215,15 @@ return result3;
         public static Dictionary<int, EmployeeModel> GetAllEmployeesAsDictionary()
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.ToDictionary(e => e.EmployeeIdPk);
+            var result= db.Employees.ToDictionary(e => e.EmployeeIdPk);
+            return result;
         }
 
         // 18. Get all employees as Lookup by DepartmentIdFk
         public static ILookup<int, EmployeeModel> GetEmployeesLookupByDepartmentId()
         {
             var db = EMSDbContext.GetInstance();
-            var result = db.Employees.ToLookup(e => e.DepartmentIdFk);
+            var result= db.Employees.ToLookup(e => e.DepartmentIdFk);
             return result;
         }
 
