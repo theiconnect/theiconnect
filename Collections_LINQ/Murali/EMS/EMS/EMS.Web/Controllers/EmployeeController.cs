@@ -7,9 +7,9 @@ namespace EMS.Web.Controllers
     {
         [Route("getallemployees")]
         [Route("list")]
-        public ViewResult EmployeeList()
+        public string EmployeeList()
         {
-            return View();
+            return "dfgh";
         }
 
         public string Index()
@@ -66,9 +66,10 @@ namespace EMS.Web.Controllers
     [Route("Test")]
     public class TestController : Controller
     {
-        public string A()
+        [Route("Sai")]
+        public IActionResult A()
         {
-            return string.Empty;
+            return View();
         }
         //localhost:234/test
         [Route("test")]
