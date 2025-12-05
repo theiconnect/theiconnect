@@ -20,6 +20,14 @@ namespace EMS.Web.Controllers
                 DepartmentIdFk = 1
 
             });
+            employees.Add(new EmployeeModel
+            {
+                Addresses = null,
+                Employeecode = "E002",
+                FirstName = "Sai",
+                LastName = "Prasad",
+                DepartmentIdFk = 2
+            });
             return View(employees);
         }
 
