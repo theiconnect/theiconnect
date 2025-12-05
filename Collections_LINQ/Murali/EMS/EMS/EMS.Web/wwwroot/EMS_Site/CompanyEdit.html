@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMS - Edit Company</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Main Layout Styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f7f6; /* Light background for body */
+        }
+
+        /* Sidebar Styling */
+        #sidebar-wrapper {
+            width: 250px;
+            transition: margin-left .25s ease-out;
+            background-color: #2c3e50; /* Darker background for EMS theme */
+            position: fixed;
+            height: 100%;
+            z-index: 1000;
+            padding-top: 56px; /* Space for fixed header */
+        }
+
+        /* Content Styling */
+        #page-content-wrapper {
+            flex-grow: 1;
+            padding-left: 250px; /* Space for open sidebar */
+            transition: padding-left .25s ease-out;
+            padding-top: 60px; /* Space for fixed header */
+        }
+        
+        /* State when sidebar is collapsed (toggled) */
+        .toggled #sidebar-wrapper {
+            margin-left: -250px;
+        }
+
+        .toggled #page-content-wrapper {
+            padding-left: 0;
+        }
+
+        /* Sidebar content style */
+        .sidebar-heading {
+            padding: 0.875rem 1.25rem;
+            font-size: 1.1rem;
+            color: #ecf0f1;
+        }
+
+        .list-group-item {
+            background-color: transparent !important;
+            color: #bdc3c7 !important;
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+
+        .list-group-item:hover {
+            background-color: #34495e !important;
+            color: #fff !important;
+        }
+
+        .sidebar-link.active {
+            background-color: #3498db !important; /* EMS Accent Color */
+            color: #fff !important;
+            border-left: 4px solid #f1c40f !important;
+        }
+
+        /* Footer Style */
+        .footer {
+            background-color: #ecf0f1;
+            padding: 1rem 0;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: -250px;
+            }
+            .toggled #sidebar-wrapper {
+                margin-left: 0;
+            }
+            #page-content-wrapper {
+                padding-left: 0;
+            }
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="btn btn-dark" id="sidebarToggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand ms-3" href="#">
+                <i class="fas fa-cubes me-2 text-warning"></i> Employee Management System (EMS)
+            </a>
+
+            <div class="d-flex">
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://i.pravatar.cc/300?img=6" alt="User Avatar" class="rounded-circle border border-2 border-light" width="30" height="30">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex" id="wrapper">
+
+        <div id="sidebar-wrapper">
+            <div class="list-group list-group-flush">
+                <div class="sidebar-heading border-bottom border-secondary text-info">
+                    <i class="fas fa-user-shield me-2"></i> Admin Portal
+                </div>
+
+                <div class="sidebar-heading text-secondary mt-2">
+                    Menu Links
+                </div>
+                <a href="Company.html" class="list-group-item sidebar-link active" data-content="company-view">
+                    <i class="fas fa-building me-2"></i> Company
+                </a>
+                <a href="#" class="list-group-item sidebar-link" data-content="departments-view">
+                    <i class="fas fa-sitemap me-2"></i> Departments
+                </a>
+                <a href="#" class="list-group-item sidebar-link" data-content="employees-view">
+                    <i class="fas fa-users me-2"></i> Employees
+                </a>
+            </div>
+        </div>
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid py-4">
+                
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+                    <h1 class="display-6 mb-0"><i class="fas fa-pen-square me-2 text-warning"></i> Edit Company Information</h1>
+                </div>
+
+                <h3 class="h4 mt-4 mb-3 text-secondary"><i class="fas fa-edit me-2"></i> Update Company Details</h3>
+                <div class="card shadow mb-5">
+                    <div class="card-body">
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="companyName" class="form-label">Company Name *</label>
+                                    <input type="text" class="form-control" id="companyName" value="Innovatech Solutions Pvt. Ltd." disabled>
+                                    <div class="form-text">Company Name is locked for editing.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phoneNumber" value="(555) 123-4567">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" value="info@innovatech.com">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="regDate" class="form-label">Registration Date</label>
+                                    <input type="date" class="form-control" id="regDate" value="2023-01-15">
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="website" class="form-label">Website</label>
+                                    <input type="url" class="form-control" id="website" value="http://www.innovatech.com">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="bankAccount" class="form-label">Bank Account Number</label>
+                                    <input type="text" class="form-control" id="bankAccount" value="98765432101234567890">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="tin" class="form-label">TIN</label>
+                                    <input type="text" class="form-control" id="tin" value="T1234567890">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="pan" class="form-label">PAN</label>
+                                    <input type="text" class="form-control" id="pan" value="PABCDE1234F">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <h3 class="h4 mb-3 text-secondary"><i class="fas fa-map-marked-alt me-2"></i> Manage Company Addresses</h3>
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
+                        <i class="fas fa-plus me-2"></i> Add New Address
+                    </button>
+                </div>
+
+                <div class="table-responsive shadow-sm bg-white border rounded mb-4">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th>Type</th>
+                                <th>Address Line 1</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Pin Code</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Corporate</td>
+                                <td>101 Tech Park Avenue</td>
+                                <td>Metroville</td>
+                                <td>CA</td>
+                                <td>902100</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info me-1"><i class="fas fa-pen"></i> Edit</button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Branch</td>
+                                <td>202 Industrial Drive</td>
+                                <td>Port City</td>
+                                <td>TX</td>
+                                <td>770012</td>
+                                <td>
+                                    <button class="btn btn-sm btn-info me-1"><i class="fas fa-pen"></i> Edit</button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="d-flex justify-content-start mt-4 mb-5">
+                    <a href="Company.html"> <button class="btn btn-primary btn-lg me-3 shadow-sm"><i class="fas fa-save me-2"></i> Save Changes</button></a>
+                    <a href="Company.html"> <button class="btn btn-secondary btn-lg shadow-sm"><i class="fas fa-arrow-left me-2"></i> Back to View</button></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+                <div class="mb-3">
+                    <label for="addressType" class="form-label">Address Type *</label>
+                    <select class="form-select" id="addressType" required>
+                        <option value="">Select Type</option>
+                        <option value="1">Corporate</option>
+                        <option value="2">Branch</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="addressLine1" class="form-label">Address Line 1 *</label>
+                    <input type="text" class="form-control" id="addressLine1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="addressLine2" class="form-label">Address Line 2</label>
+                    <input type="text" class="form-control" id="addressLine2">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="city" class="form-label">City *</label>
+                        <input type="text" class="form-control" id="city" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="state" class="form-label">State *</label>
+                        <input type="text" class="form-control" id="state" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="pinCode" class="form-label">Pin Code *</label>
+                    <input type="text" class="form-control" id="pinCode" required maxlength="6">
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success"><i class="fas fa-plus me-2"></i> Add Address</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <span class="text-muted">© 2024 Employee Management System (EMS) | All Rights Reserved.</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Hamburger Menu Toggle
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            document.getElementById('wrapper').classList.toggle('toggled');
+        });
+    </script>
+</body>
+</html>
