@@ -29,7 +29,6 @@ namespace EMS.Client
             //var empasarr=LinqBasicProblems.GetAllEmployeesAsArray();
             // Add more calls to LinqBasicProblems methods as needed  
         }
-
         internal void PracticeBeginnerLinq()
         {
             //var activemphighsal=LinqBeginnerProblems.GetActiveEmployeesWithHighSalary();

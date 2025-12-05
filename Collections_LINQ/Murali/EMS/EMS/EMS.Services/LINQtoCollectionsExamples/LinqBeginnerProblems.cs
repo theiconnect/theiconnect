@@ -84,6 +84,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
             return result8;
         }
 
+
         // 9. Get all employees whose first name starts with 'A' as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesFirstNameStartsWithA()
         {
@@ -97,31 +98,29 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 10. Get all employees whose last name ends with 'a' as List
-        public static List<EmployeeModel> GetEmployeesLastNameEndsWithA()
-        {
-            var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.LastName.EndsWith("a", StringComparison.OrdinalIgnoreCase)).ToList();
-            foreach(var s in result)
-            {
-                Console.WriteLine($"{s.LastName}");
-            }
-            return result;
-        }
+        //public static List<EmployeeModel> GetEmployeesLastNameEndsWithA()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    var result = db.Employees.Where(e => e.LastName.EndsWith("a")).ToList().Select(e=>e.FirstName);
+        //    foreach (var item in result)
+        //    {
+        //        Console.WriteLine($"{item.FirstName}");
+        //    }
+        //    return result;
+        //}
 
         // 11. Get all employees with email containing "abc" as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesWithEmailContainingAbc()
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.EmailId != null && e.EmailId.Contains("abc", StringComparison.OrdinalIgnoreCase));
-            return result;
+            return db.Employees.Where(e => e.EmailId != null && e.EmailId.Contains("abc"));
         }
 
         // 12. Get all employees with salary between 400000 and 700000 as List
         public static List<EmployeeModel> GetEmployeesWithSalaryRange()
         {
             var db = EMSDbContext.GetInstance();
-            var result=db.Employees.Where(e => (e.SalaryCtc ?? 0) >= 400000 && (e.SalaryCtc ?? 0) <= 700000).ToList();
-            return result;
+            return db.Employees.Where(e => (e.SalaryCtc) >= 400000 && (e.SalaryCtc) <= 700000).ToList();
         }
 
         // 13. Get all employees as IQueryable and try to use FirstAsync (NOT allowed, will not compile)

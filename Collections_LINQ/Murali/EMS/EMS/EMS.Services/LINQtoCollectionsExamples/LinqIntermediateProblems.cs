@@ -54,8 +54,9 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var result= db.Departments
                 .Select(d => (
                     d.DepartmentName,
-                    d.Employees.Any() ? d.Employees.Average(e => e.SalaryCtc ?? 0):0 )).ToList();  
-            return result;
+                    d.Employees.Any() ? d.Employees.Average(e => e.SalaryCtc ?? 0) : 0
+                )).ToList();    
+
         }
 
         public static (string, int) add()

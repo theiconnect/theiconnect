@@ -96,9 +96,13 @@ return result3;
         public static List<string> GetAllEmployeeFirstNames()
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Select(e => e.FirstName).ToList();
+            var result = db.Employees.Select(e => e.FirstName).ToList();
+            foreach (var item in result)
+            {
+                Console.WriteLine(item);
+            }
             return result;
-            
+
         }
 
         // 8. Get all active employees as IEnumerable
