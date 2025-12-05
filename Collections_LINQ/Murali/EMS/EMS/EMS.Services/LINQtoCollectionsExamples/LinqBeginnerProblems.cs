@@ -21,33 +21,40 @@ namespace EMS.Services.LINQtoCollectionsExamples
             return result1;
         }
 
-    }
-}
 
-        
-        // 2. Get all employees in a specific department as IEnumerable
-       /* public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
+        //1.2 Get All Employees who are active or have salary above 400000 as List
+        public static List<EmployeeModel> GetActiveEmployeesOrWithHighSalary()
         {
             var db = EMSDbContext.GetInstance();
-            var result2 = db.Employees.Where(e => e.DepartmentIdFk == departmentId);
-            return result2;
+            var result = db.Employees.Where(e => e.IsActive || (e.SalaryCtc ?? 0) > 400000).ToList();
+            return result;
         }
+
+        // 2. Get all employees in a specific department as IEnumerable
+        public static IEnumerable<EmployeeModel> GetEmployeesByDepartmentId(int departmentId)
+        {
+            var db = EMSDbContext.GetInstance();
+            var result = db.Employees.Where(e => e.DepartmentIdFk == departmentId);
+            return result;
+        }
+
+
+
+
 
         // 3. Get all employees with a specific blood group as List
         public static List<EmployeeModel> GetEmpoyeesByBloodGroup(BloodGroups bloodGroup)
         {
             var db = EMSDbContext.GetInstance();
-            var result3 = db.Employees.Where(e => e.BloodGroup == bloodGroup).ToList();
-            return result3;
-
+            var result = db.Employees.Where(e => e.BloodGroup == bloodGroup).ToList();
+            return result;
         }
 
         // 4. Get all employees with a specific last name as ICollection
         public static ICollection<EmployeeModel> GetEmployeesByLastName(string lastName)
         {
             var db = EMSDbContext.GetInstance();
-            var result4 = db.Employees.Where(e => e.LastName == lastName).ToList();
-            return result4;
+            return db.Employees.Where(e => e.LastName == lastName).ToList();
         }
 
         // 5. Get all employees who joined in a specific year as IEnumerable
@@ -58,7 +65,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var result5 = db.Employees.Where(e => e.DateOfJoining.Year == year);
             return result5;
         }
-        
+
         // 6. Get all employees with more than 5 years of experience as List
         public static List<EmployeeModel> GetEmployeesWithMoreThan5YearsExp()
         {
@@ -76,7 +83,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetEmployeesWithNullQualification()
         {
             var db = EMSDbContext.GetInstance();
-            var result7= db.Employees.Where(e => !e.QualificationIdFk.HasValue);
+            var result7 = db.Employees.Where(e => !e.QualificationIdFk.HasValue);
             return result7;
         }
 
@@ -160,7 +167,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesByDesignation(DesiginationTypes designation)
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.DesignationIdFk == designation).ToList();
+            var result = db.Employees.Where(e => e.DesignationIdFk == designation).ToList();
             return result;
         }
 
@@ -184,7 +191,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetEmployeesWithAtLeastTwoAddresses()
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.Addresses.Count >= 2);
+            var result = db.Employees.Where(e => e.Addresses.Count >= 2);
             return result;
         }
 
@@ -199,4 +206,3 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
     }
 }
-*/

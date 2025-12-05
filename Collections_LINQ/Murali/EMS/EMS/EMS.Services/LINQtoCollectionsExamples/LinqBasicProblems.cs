@@ -18,8 +18,36 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetAllEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
-            var result = db.Employees.ToList();
+            var result =  db.Employees.ToList();
+            result.Add(new EmployeeModel
+            {
+                EmployeeIdPk = 9999,
+                Employeecode = "E9999",
+                FirstName = "Test",
+                LastName = "User",
+                EmailId = "meghana@gmail.com",
+                MobileNumber = "9999999999",
+                DepartmentIdFk = 1,
+                DateOfBirth = new DateTime(1990, 1, 1),
+                DateOfJoining = new DateTime(2020, 1, 1),
+                DesignationIdFk = Models.Enums.DesiginationTypes.QAEngineer,
+                SalaryCtc = 600000
+
+                });
             return result;
+        }
+
+
+        //  1.1 get all departments as list
+
+        public static List<DepartmentModel> GetAllDepartmentAsList()
+        {
+            var db = EMSDbContext.GetInstance();
+         
+            var result1 = db.Departments.ToList();
+           
+            return result1;
+
         }
         // 1A.Get all depertments as List
         public static List<DepartmentModel> GetAllDepartmentsAsList()
@@ -44,8 +72,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetAllEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
-            var result2 = db.Employees; 
-            return result2;
+            return db.Employees;
         }
 
         //Get all departments as IEnumerable
@@ -61,8 +88,8 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             // ICollection is not ideal for LINQ, but List<T> implements ICollection<T>
-            var result = db.Employees.ToList();
-            return result;
+            var result5= db.Employees.ToList();
+            return result5;
         }
 
         // 4. Get all employees as IList (not recommended for LINQ queries)
@@ -124,12 +151,17 @@ return result3;
             return db.Employees.Where(e => e.IsActive);
         }
 
+
+
         // 9. Get all inactive employees as List
         public static List<EmployeeModel> GetInactiveEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
-            var result=db.Employees.Where(e => !e.IsActive).ToList();
-            return result;
+            List<EmployeeModel> employees = db.Employees;
+            IEnumerable<EmployeeModel> activeEmployees = employees.Where(e=> !e.IsActive);
+            List<EmployeeModel> empList = activeEmployees.ToList();
+
+            return db.Employees.Where(e => !e.IsActive).ToList();
         }
 
         // 10. Get all employees with salary > 500000 as IEnumerable
@@ -169,12 +201,7 @@ return result3;
         public static IEnumerable<EmployeeModel> GetEmployeesOrderedBySalaryDesc()
         {
             var db = EMSDbContext.GetInstance();
-            var result13 = db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
-            foreach(var emp in result13)
-            {
-                Console.WriteLine($"Employee: {emp.FirstName} {emp.LastName}, Salary: {emp.SalaryCtc}");
-            }
-            return result13;
+            return db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
         }
 
         // 14. Get all department codes as ICollection<string> (not recommended)

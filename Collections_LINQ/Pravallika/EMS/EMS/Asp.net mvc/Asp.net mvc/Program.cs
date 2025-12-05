@@ -23,8 +23,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapControllerRoute(
-    name: "strong",
-    pattern: "iconnect/{controller
 
 app.Run();
