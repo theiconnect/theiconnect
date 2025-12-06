@@ -1,0 +1,82 @@
+﻿I want you to create a web site for me using HTML, CSS, bootstrap.
+
+Layout should be :
+Header : 
+any logo related to company
+right side user profile avatar
+left side hamburgur icon which can toggle menu bar.
+
+Body: 
+Left side there  is a Menu bar:
+menu bar contents should be 
+Section 1: User Info
+Section 2: Menu links
+1. Company
+2. Departments
+3. Employees
+
+other than menu bar is  the body is page content.
+
+which should have the Page Header
+Page body
+like cards.
+
+Footer:
+standard footer .
+
+
+Lets discuss about Company:
+
+when clicking on company link View Company Page should come.
+
+the db of Company is 
+Company							
+Column Name	DataType	DataType-C#	Required(Yes/No)	Primary Key(Yes/No)	Foregin Key(Yes/No)	UniqueKey(Yes/No)	Identity(Yes/No)
+CompanyIdPk	Int	int	Yes	Yes		Yes	Yes
+CompanyName	Varchar(128)	string	Yes				
+PhoneNumber	Char(10)	string	No				
+Email	Varchar(128)	string	No				
+RegistrationDate	Date	datetime	No				
+Website	Varchar(128)	string	No				
+BankAccountNumer	char(20)	string	No				
+TIN	char(20)	string	No				
+PAN	char(20)	string	No				
+							
+							
+CompanyAddress							
+Column Name	DataType	DataType-C#	Required(Yes/No)	Primary Key(Yes/No)	Foregin Key(Yes/No)	UniqueKey(Yes/No)	Identity(Yes/No)
+CompanyAddressIdPk	Int	int	Yes	Yes		Yes	Yes
+AddressLine1	Varchar(512)	string	Yes			Yes	
+AddressLine2	Varchar(512)	string				Yes	
+State	Varchar(128)	string	Yes				
+City	Varchar(128)	string	Yes				
+PinCode	Char(6)	string	Yes				
+AddressTypeIdFk	Int		Yes		Yes		
+							
+							
+AddressTypeMaster							
+Column Name	DataType	DataType-C#	Required(Yes/No)	Primary Key(Yes/No)	Foregin Key(Yes/No)	UniqueKey(Yes/No)	Identity(Yes/No)
+AddressTypeIdPk	int	int	Yes	Yes		Yes	No
+TypeCode	Varchar(128)	string	Yes				
+Description	Varchar(512)	string	Yes				
+
+so a company has its info as well as multiple addresses >
+
+Addresses Types will be Corporate and Branch
+
+Landing page of Company moduel will be View Company with all links and Edit option(button) Addresses should be in the grid.
+
+create the page with some sample data.
+
+Edit Page: 
+New page-> should have Company edit info
+
+there should be an option to add multiple addresses to the grid.
+with save and back options.
+
+hope you got my point.
+please ignore the pk and fk from db
+please ask if you have any questions. 
+
+
+
