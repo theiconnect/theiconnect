@@ -101,7 +101,7 @@ namespace EMS.DataAccess
             }
         }
 
-        private void LoadDB()
+        private void   LoadDB()
         {
             Company = GetCompany();
         }

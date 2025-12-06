@@ -290,31 +290,32 @@ namespace EMS.DataAccess
         }
 
 
-        public List<EmployeeCTCModel> GetEmployeeCTCModel(int EmployeeIdPk)
+
+        public List<EmployeeCTCModel> GetEmployeeCTCModel(int employeeIdPk)
         {
-            EmployeeCTCModel EmpCTC1= new EmployeeCTCModel();
-            EmpCTC.EmployeeCTCIdPk = 1;
-            EmpCTC.EmployeeIdFk = EmployeeIdPk;
-            EmpCTC.SalaryCTC = "75000";
-            EmpCTC.EffectiveForm = new DateTime(2022, 01, 01);
-            EmpCTC.EndDate = new DateTime(2023, 01, 01);
-
-            EmployeeCTCModel EmpCTC2 = new EmployeeCTCModel();
-            EmpCTC2.EmployeeCTCIdPk = 2;
-            EmpCTC2.EmployeeIdFk = EmployeeIdPk;
-            EmpCTC2.SalaryCTC = "85000";
-            EmpCTC2.EffectiveForm = new DateTime(2023, 02, 01);
-            EmpCTC2.EndDate = new DateTime(2024, 02, 01);
-
-            List<EmployeeCTCModel> EmpCTC = new List<EmployeeCTCModel>();
-            EmpCTC.Add(EmpCTC1);
-            EmpCTC.Add(EmpCTC2);
-
-
-            return EmpCTC;
+            return new List<EmployeeCTCModel>
+        {
+            new EmployeeCTCModel
+            {
+                EmployeeCTCIdPk = 1,
+                EmployeeIdFk = employeeIdPk,
+                SalaryCTC = "75000",
+                EffectiveFrom = new DateTime(2022, 01, 01),
+                EndDate = new DateTime(2023, 01, 01)
+            },
+            new EmployeeCTCModel
+            {
+                EmployeeCTCIdPk = 2,
+                EmployeeIdFk = employeeIdPk,
+                SalaryCTC = "85000",
+                EffectiveFrom = new DateTime(2023, 02, 01),
+                EndDate = new DateTime(2024, 02, 01)
+            }
+        };
         }
 
 
 
-    }   
+
+    }
 }

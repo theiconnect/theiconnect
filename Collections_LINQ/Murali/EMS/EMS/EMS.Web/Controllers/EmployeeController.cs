@@ -1,32 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EMS.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
-    [Route("Emp")]
+    [Route("Employee")]
     public class EmployeeController : Controller
     {
         [Route("getallemployees")]
         [Route("list")]
-        public string EmployeeList()
+        public ViewResult EmployeeList()
         {
             return "dfgh";
         }
 
-        public string Index()
+        [Route("editemployee")]
+        public IActionResult EditEmployee()
         {
-            return "Hello from Index";
+            return View();
         }
 
-        public int Index2()
+        [Route("deleteemployee")]
+        public IActionResult DeleteEmployee()
         {
-            return  100;
+            return View();
         }
 
-
-        [NonAction]
-        public string Index1()
+        [Route("viewemployee")]
+        public IActionResult ViewEmployee()
         {
-            return "Hello from Index1";
+            return View();
         }
     }
 
