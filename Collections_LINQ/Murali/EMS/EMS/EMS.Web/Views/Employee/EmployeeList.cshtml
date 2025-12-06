@@ -5,36 +5,37 @@
 @{
 
 }
-<h1>Employees</h1>
-<table class="table table-border table-hover">
-    <thead class="bg-black text-white">
-        </tr>
-    </thead>
+
+<h2>Employess</h2>
+
+<table class=" table  table-bordered table-hover">
+
+
+	<thead class="bg-dark  text-white">
 		<tr>
 			<th>Address</th>
-			<th>EmployeeCode</th>
 			<th>FirstName</th>
 			<th>LastName</th>
+			<th>Employeecode</th>
 			<th>DepartmentIdFk</th>
-	<tbody>
+        </tr>
+	</thead>
+    <tbody>
+		
 		@foreach (var emp in Model)
 		{
 			<tr>
 				<td>@emp.Addresses</td>
-				<td>@emp.Employeecode</td>
 				<td>@emp.FirstName</td>
 				<td>@emp.LastName</td>
+				<td>@emp.Employeecode</td>
 				<td>@emp.DepartmentIdFk</td>
 			</tr>
-
-			@* <h1>FirstName is : @emp.FirstName</h1>
-			<h1>LastName is :  @emp.LastName</h1>
-			<h1>Employeecode is : @emp.Employeecode</h1> *@
-		
 		}
-
-	</tbody>
+		
+    </tbody>
 </table>
+
 
 
 
