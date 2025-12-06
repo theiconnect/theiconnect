@@ -34,8 +34,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
             return null;
         }
 
-            return result;
-        }
+            //return result;
+       // }
 
         // 3. Get the count of employees per blood group as Dictionary
         public static Dictionary<BloodGroups, int> GetEmployeeCountByBloodGroup()
@@ -48,16 +48,16 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 4. Get the average salary per department as List of tuples
-        public static List<(string DepartmentName, decimal AverageSalary)> GetAverageSalaryPerDepartment()
-        {
-            var db = EMSDbContext.GetInstance();
-            var result= db.Departments
-                .Select(d => (
-                    d.DepartmentName,
-                    d.Employees.Any() ? d.Employees.Average(e => e.SalaryCtc ?? 0) : 0
-                )).ToList();    
+     //   public static List<(string DepartmentName, decimal AverageSalary)> GetAverageSalaryPerDepartment()
+      //  {
+           // var db = EMSDbContext.GetInstance();
+           // var result= db.Departments
+             //   .Select(d => (
+              //      d.DepartmentName,
+              //      d.Employees.Any() ? d.Employees.Average(e => e.SalaryCtc ?? 0) : 0
+              //  )).ToList();    
 
-        }
+       // }
 
         public static (string, int) add()
         {

@@ -2,14 +2,14 @@
 
 namespace EMS.Web.Controllers
 {
-    [Route("Emp")]
+    [Route("Employee")]
     public class EmployeeController : Controller
     {
         [Route("getallemployees")]
         [Route("list")]
-        public ViewResult EmployeeList()
+        public string Index3()
         {
-            return View();
+            return "hi";
         }
 
         public string Index()
@@ -37,12 +37,13 @@ namespace EMS.Web.Controllers
 
         [Route("")]
         [Route("hellobabai")]
-        [Route("hellochicha")]
+      
         [Route("helloKaka")]
         public string Index()
         {
-            return "Employee1Controller - Hello from Index";
+            return "Employee1Controller - Hello from sai ram";
         }
+      
 
         public int Index2()
         {
