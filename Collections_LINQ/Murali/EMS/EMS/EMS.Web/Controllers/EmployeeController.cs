@@ -11,7 +11,7 @@ namespace EMS.Web.Controllers
         [Route("list")]
         public ViewResult EmployeeList()
         {
-            return ;
+            return View(EmployeeList);
         }
 
         [Route("editemployee")]
