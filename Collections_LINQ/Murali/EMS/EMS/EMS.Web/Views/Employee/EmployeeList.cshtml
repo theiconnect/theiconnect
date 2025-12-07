@@ -5,28 +5,39 @@
 @{
 
 }
-<table class="table table-bordered">
-	<thead class="bg-black text-white">
+
+<h2>Employess</h2>
+
+<table class=" table  table-bordered table-hover">
+
+
+	<thead class="bg-dark  text-white">
 		<tr>
-			<th>Addresses</th>
-			<th>Employeecode</th>
+			<th>Address</th>
 			<th>FirstName</th>
 			<th>LastName</th>
+			<th>Employeecode</th>
 			<th>DepartmentIdFk</th>
-			
-		</tr>
+        </tr>
 	</thead>
-	<tbody>
+    <tbody>
+		
 		@foreach (var emp in Model)
 		{
 			<tr>
-			<td>@emp.Addresses</td>
-			<td>@emp.Employeecode</td>
-			<td>@emp.FirstName</td>
-			<td>@emp.LastName</td>	
-			<td>@emp.DepartmentIdFk</td>
+				<td>@emp.Addresses</td>
+				<td>@emp.FirstName</td>
+				<td>@emp.LastName</td>
+				<td>@emp.Employeecode</td>
+				<td>@emp.DepartmentIdFk</td>
 			</tr>
 		}
-	</tbody>
+		
+    </tbody>
 </table>
+
+
+
+
+
 
