@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EMS.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
@@ -7,26 +8,51 @@ namespace EMS.Web.Controllers
     {
         [Route("getallemployees")]
         [Route("list")]
-        public string Index3()
+        public IActionResult EmployeeList()
+        {
+            List<EmployeeModel> employees = new List<EmployeeModel>();
+            employees.Add(new EmployeeModel
+            {
+                Addresses = null,
+                Employeecode = "E001",
+                FirstName = "John",
+                LastName = "Doe",
+                DepartmentIdFk = 1
+
+            });
+            employees.Add(new EmployeeModel
+            {
+                Addresses = null,
+                Employeecode = "E002",
+                FirstName = "Sai",
+                LastName = "Prasad",
+                DepartmentIdFk = 2
+            });
+            return View(employees);
+        }
+
+        [Route("addemployee")]
+        public IActionResult AddEmployee()
         {
             return "hi";
         }
 
-        public string Index()
+        [Route("editemployee")]
+        public IActionResult EditEmployee()
         {
-            return "Hello from Index";
+            return View();
         }
 
-        public int Index2()
+        [Route("deleteemployee")]
+        public IActionResult DeleteEmployee()
         {
-            return  100;
+            return View();
         }
 
-
-        [NonAction]
-        public string Index1()
+        [Route("viewemployee")]
+        public IActionResult ViewEmployee()
         {
-            return "Hello from Index1";
+            return View();
         }
     }
 
