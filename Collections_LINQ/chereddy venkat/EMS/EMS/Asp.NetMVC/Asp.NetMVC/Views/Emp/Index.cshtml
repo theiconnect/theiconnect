@@ -1,10 +1,14 @@
-﻿@model Asp.NetMVC.Models.EmployeeModel
-
+﻿@model Asp.NetMVC.Service.Models.Employee;
 @{
     ViewBag.Title = "Add Employee";
 }
 
 <h2>Add Employee</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
 
 <form asp-action="SaveEmployee" method="post">
 

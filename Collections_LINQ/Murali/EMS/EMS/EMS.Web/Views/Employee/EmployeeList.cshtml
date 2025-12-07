@@ -5,10 +5,28 @@
 @{
 
 }
+<table class="table table-bordered">
+	<thead class="bg-black text-white">
+		<tr>
+			<th>Addresses</th>
+			<th>Employeecode</th>
+			<th>FirstName</th>
+			<th>LastName</th>
+			<th>DepartmentIdFk</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var emp in Model)
+		{
+			<tr>
+			<td>@emp.Addresses</td>
+			<td>@emp.Employeecode</td>
+			<td>@emp.FirstName</td>
+			<td>@emp.LastName</td>	
+			<td>@emp.DepartmentIdFk</td>
+			</tr>
+		}
+	</tbody>
+</table>
 
-@foreach (var emp in Model)
-{
-	<h1>FirstName is : @emp.FirstName</h1>
-	<h1>LastName is :  @emp.LastName</h1>
-	<h1>Employeecode is : @emp.Employeecode</h1>
-})

@@ -1,4 +1,5 @@
 ﻿using EMS.Models;
+using EMS.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
@@ -20,11 +21,32 @@ namespace EMS.Web.Controllers
                 DepartmentIdFk = 1
 
             });
+            employees.Add(new EmployeeModel
+            {
+                Addresses = null,
+                Employeecode = "E002",
+                FirstName = "sai",
+                LastName = "Prasad",
+                DepartmentIdFk = 2
+
+            });
+            employees.Add(new EmployeeModel
+            {
+                Addresses = null,
+                Employeecode = "E003",
+                FirstName = "venky",
+                LastName = "chereddy",
+                DepartmentIdFk = 3
+
+            });
             return View(employees);
         }
 
         [Route("addemployee")]
         public IActionResult AddEmployee()
+
+
+
         {
             return View();
         }
