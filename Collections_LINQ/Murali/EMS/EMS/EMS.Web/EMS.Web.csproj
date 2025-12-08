@@ -7,13 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMS.DataAccess\EMS.DataAccess.csproj" />
     <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
     <ProjectReference Include="..\EMS.Services\EMS.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views\NewFolder\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
 </Project>
