@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Employee | Employee Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <button class="btn btn-dark" id="sidebarToggle" type="button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a class="navbar-brand company-logo mx-3" href="index.html">
+                    <i class="fas fa-building me-2"></i> HR Management
+                </a>
+                <div class="ms-auto d-flex align-items-center">
+                    <div class="user-avatar me-2" title="User Profile">JD</div>
+                    <span class="text-white d-none d-sm-inline">John Doe</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="d-flex" id="wrapper">
+        <div class="border-end bg-dark" id="sidebarMenu">
+            <div class="list-group list-group-flush pt-3">
+                <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">USER INFO</h6>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fas fa-user-circle me-2"></i> My Profile</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fas fa-cog me-2"></i> Settings</a>
+
+                <h6 class="sidebar-heading px-3 mt-4 mb-1 text-muted">MENU LINKS</h6>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fas fa-landmark me-2"></i> Company</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white border-0"><i class="fas fa-sitemap me-2"></i> Departments</a>
+                <a href="employee_list.html" class="list-group-item list-group-item-action bg-dark text-white border-0 active"><i class="fas fa-users me-2"></i> Employees</a>
+            </div>
+        </div>
+
+        <div id="main-content">
+            <div class="container-fluid pt-5 mt-3">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h3"><i class="fas fa-user-plus me-2"></i> Add New Employee</h2>
+                    <a href="employee_list.html" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+
+                <form id="addEmployeeForm" action="employee_list.html">
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5>1. Personal and Contact Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="employeeCode" class="form-label">Employee Code (Auto Generated)</label>
+                                    <input type="text" class="form-control" id="employeeCode" value="EMP006" readonly>
+                                    <div class="form-text">This code will be generated upon successful creation.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="mobile" class="form-label">Mobile</label>
+                                    <input type="tel" class="form-control" id="mobile">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="doj" class="form-label">Date of Joining (DOJ) <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="doj" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="dept" class="form-label">Department <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="dept" required>
+                                        <option value="">Select Department</option>
+                                        <option value="1">IT Services</option>
+                                        <option value="2">Finance</option>
+                                        <option value="3">Human Resources</option>
+                                        <option value="4">Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="ctc" class="form-label">Initial Salary (CTC)</label>
+                                    <input type="number" class="form-control" id="ctc" placeholder="e.g., 75000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5>2. Address Details (Permanent & Present)</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <h6><i class="fas fa-home me-1"></i> Permanent Address</h6>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="pAddressLine1" class="form-label">Address Line 1</label>
+                                    <input type="text" class="form-control" id="pAddressLine1">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="pCity" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="pCity">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="pState" class="form-label">State</label>
+                                    <input type="text" class="form-control" id="pState">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-3">
+                                    <label for="pPinCode" class="form-label">Pin Code</label>
+                                    <input type="text" class="form-control" id="pPinCode">
+                                </div>
+                                <div class="col-md-9 d-flex align-items-end">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="sameAsPermanent">
+                                        <label class="form-check-label" for="sameAsPermanent">
+                                            Present Address is the same as Permanent Address
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6><i class="fas fa-map-marker-alt me-1"></i> Present Address</h6>
+                            <div id="presentAddressFields">
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <label for="tAddressLine1" class="form-label">Address Line 1</label>
+                                        <input type="text" class="form-control" id="tAddressLine1">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="tCity" class="form-label">City</label>
+                                        <input type="text" class="form-control" id="tCity">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="tState" class="form-label">State</label>
+                                        <input type="text" class="form-control" id="tState">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-3">
+                                        <label for="tPinCode" class="form-label">Pin Code</label>
+                                        <input type="text" class="form-control" id="tPinCode">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-5 d-flex justify-content-end">
+                        <button type="reset" class="btn btn-outline-secondary me-2"><i class="fas fa-times me-1"></i> Reset Form</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i> Save Employee</button>
+                    </div>
+
+                </form>
+            </div>
+
+            <footer class="footer mt-auto py-3 bg-light border-top">
+                <div class="container-fluid">
+                    <span class="text-muted">© 2025 HR Management Portal | All Rights Reserved.</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ########### Sidebar Toggle Logic ###########
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            document.getElementById('wrapper').classList.toggle('sidebar-toggled');
+        });
+
+        // ########### Address Copy Logic ###########
+        document.getElementById('sameAsPermanent').addEventListener('change', function () {
+            const isChecked = this.checked;
+            const presentFields = document.getElementById('presentAddressFields');
+
+            if (isChecked) {
+                // Disable and hide present address fields if checked
+                presentFields.querySelectorAll('input').forEach(input => {
+                    input.setAttribute('disabled', 'true');
+                    input.value = ''; // Clear temporary values
+                });
+                presentFields.style.display = 'none';
+            } else {
+                // Enable and show present address fields
+                presentFields.querySelectorAll('input').forEach(input => {
+                    input.removeAttribute('disabled');
+                });
+                presentFields.style.display = 'block';
+            }
+        });
+
+        // ########### Form Submission Logic (Placeholder) ###########
+        document.getElementById('addEmployeeForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const employeeCode = document.getElementById('employeeCode').value;
+            const firstName = document.getElementById('firstName').value;
+
+            alert(`Employee ${firstName} (${employeeCode}) added successfully! Redirecting to list.`);
+
+            // In a real application, you would collect all form data and send it to a backend API.
+            window.location.href = 'employee_list.html';
+        });
+    </script>
+
+</body>
+</html>

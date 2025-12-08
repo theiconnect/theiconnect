@@ -73,6 +73,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         // 6. Get all employees who have never been a TeamLead as List
         public static List<EmployeeModel> GetEmployeesNeverTeamLead()
         {
+
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => !e.Designations.Any(d => d.DesignationIdFk == DesiginationTypes.TeamLead)).ToList();
         }

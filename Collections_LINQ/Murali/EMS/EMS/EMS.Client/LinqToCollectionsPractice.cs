@@ -3,6 +3,7 @@ using EMS.Services.LINQtoCollectionsExamples;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace EMS.Client
     {
         internal void PracticeAdvancedLinq()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         internal void PracticeBasicLinq()

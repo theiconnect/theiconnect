@@ -14,7 +14,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
     /// </summary>
     public static class LinqBasicProblems
     {
-        // 1. Get all employees as List
+        // 1. Get all employees as List                          
         public static List<EmployeeModel> GetAllEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
@@ -97,7 +97,8 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             // IList is not ideal for LINQ, but List<T> implements IList<T>
-            return db.Employees.ToList();
+            var result= db.Employees.ToList();
+            return result;  
         }
 
         // 5. Get all employees as IQueryable (NOT recommended for in-memory collections)
@@ -116,6 +117,13 @@ return result3;
             var result= db.Departments.Select(d => d.DepartmentName);
             return result;
         }
+
+
+        //public static IEnumerable<string> GetAllDepartmentNames()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Departments.Select(d => d.Location);
+        //}
 
         // 7. Get all employee first names as List<string>
         public static List<string> GetAllEmployeeFirstNames()
@@ -171,6 +179,8 @@ return result3;
             var db = EMSDbContext.GetInstance();
             // IQueryable is not useful here, see previous note.
             return db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000).AsQueryable();
+            
+            
         }
 
         // 12. Get all employees ordered by first name as List
@@ -223,7 +233,8 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             // HashSet is not ideal for ordered queries, but can be used for uniqueness.
-            return db.Employees.ToHashSet();
+            var result= db.Employees.ToHashSet();
+            return result;
         }
 
         // 17. Get all employees as Dictionary by EmployeeIdPk
@@ -257,8 +268,20 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             IEnumerable<EmployeeModel> employees = db.Employees;
+            var result= employees.ToList();
+            
             // employees.Add(new EmployeeModel()); // Not allowed: 'IEnumerable<T>' does not contain a definition for 'Add'
             // IEnumerable<T> is read-only, you cannot add/remove items.
         }
+
+
+        //get all employees full names
+
+        //public static List<string> AllEmployeesFullNames()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Employees.Select(e => new{FirstName = e.FirstName,LastName = e.LastName}).ToList();
+             
+        //}
     }
 }
