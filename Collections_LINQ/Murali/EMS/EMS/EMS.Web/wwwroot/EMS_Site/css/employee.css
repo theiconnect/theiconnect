@@ -1,0 +1,118 @@
+/* Custom styles for Employee List page (sketch-driven) */
+
+:root {
+    --sidebar-width: 220px;
+}
+
+/* reset container spacing to match portal */
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: #f7f8fa;
+    color: #212529;
+    margin: 0;
+    padding-top: 56px; /* navbar fixed-top height*/
+}
+
+/* wrapper layout */
+#wrapper {
+    display: flex;
+    min-height: calc(100vh - 56px);
+}
+
+/* sidebar */
+#sidebarMenu {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    transition: width .2s ease;
+    overflow: auto;
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    left: 0;
+    z-index: 1020;
+}
+
+#main-content {
+    margin-left: var(--sidebar-width);
+    transition: margin-left .2s ease;
+    padding-bottom: 60px; /* space for fixed footer */
+}
+
+/* collapsed sidebar state */
+.sidebar-toggled #sidebarMenu {
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.sidebar-toggled #main-content {
+    margin-left: 0;
+}
+
+/* user avatar */
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #0d6efd;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* filters card appearance */
+.card .form-label.small {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+#filterForm .form-control, #filterForm .form-select {
+    min-height: 42px;
+}
+
+/* table tweaks */
+.table thead th {
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+.table td, .table th {
+    padding: 0.75rem 0.9rem;
+    white-space: nowrap;
+}
+
+/* mobile responsiveness */
+@media (max-width: 767.98px) {
+    #sidebarMenu {
+        position: relative;
+        top: 0;
+        width: 100%;
+        min-width: 100%;
+    }
+
+    #main-content {
+        margin-left: 0;
+        padding-top: 15px;
+    }
+
+    .table td, .table th {
+        white-space: normal;
+    }
+}
+
+/* action buttons */
+.table .btn {
+    padding: .32rem .5rem;
+    font-size: .85rem;
+}
+
+/* modal content formatting */
+#viewEmployeeBody dl {
+    margin-bottom: 0;
+}
+
+#viewEmployeeBody dt {
+    font-weight: 600;
+}
