@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Employee Edit</title>
+
+    <!-- jQuery UI CSS (keeps the datepicker styling) -->
+    <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />-->
+
+    <!-- Application CSS (ensure this path matches the file in wwwroot) -->
+    <link rel="stylesheet" href="/EMS_Site/css/employee.css" />
+</head>
+<body class="employee-edit">
+    <h2>Edit Employee</h2>
+
+    <!-- posts to MVC controller route: /Employee/editemployee (adjust action if you use Razor Page) -->
+    <form id="employeeForm" action="/Employee/editemployee" method="post" novalidate>
+        <div class="form-row">
+            <label>Employee ID</label>
+            <input type="text" id="EmployeeId" name="Id" readonly placeholder="(auto)" />
+        </div>
+
+        <div class="form-row">
+            <label>Employee Code</label>
+            <input type="text" id="EmployeeCode" name="EmployeeCode" readonly />
+        </div>
+
+        <div class="form-row">
+            <label for="FirstName">First Name</label>
+            <input type="text" id="FirstName" name="FirstName" autocomplete="given-name" required />
+            <div id="FirstNameError" class="field-error" aria-live="polite"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="LastName">Last Name</label>
+            <input type="text" id="LastName" name="LastName" autocomplete="family-name" required />
+            <div id="LastNameError" class="field-error" aria-live="polite"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="Gender">Gender</label>
+            <select id="Gender" name="Gender" required>
+                <option value="">Female</option>
+                <option value="">Male</option>
+                <option value="">others</option>
+            </select>
+            <div class="field-error"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="BloodGroup">Blood Group</label>
+            <select id="BloodGroup" name="BloodGroup" required>
+                <option value="">A Positive</option>
+                <option value="">A Negative</option>
+                <option value="">B Positive</option>
+                <option value="">B Negative</option>
+                <option value="">O Positive</option>
+                <option value="">O Negative</option>
+                <option value="">AB Positive</option>
+                <option value="">AB Negative</option>
+            </select>
+            <div class="field-error"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="Email">Email Id</label>
+            <input type="email" id="Email" name="Email" required />
+            <div id="EmailError" class="field-error" aria-live="polite"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="MobileNumber">Mobile Number</label>
+            <input type="tel" id="MobileNumber" name="MobileNumber" inputmode="numeric" maxlength="10" required placeholder="10 digits" />
+            <div id="MobileError" class="field-error" aria-live="polite"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="DateOfBirth">Date of Birth (dd/mm/yyyy)</label>
+            <input type="date" id="DateOfBirth" name="DateOfBirthString" class="datepicker" placeholder="dd/mm/yyyy" autocomplete="bday" />
+            <div id="DobError" class="field-error" aria-live="polite"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="DateOfJoining">Date of Joining (dd/mm/yyyy)</label>
+            <input type="date" id="DateOfJoining" name="DateOfJoiningString" class="datepicker" placeholder="dd/mm/yyyy" />
+            <div id="DojError" class="field-error" aria-live="polite"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="ExperienceMonths">Experience (Months)</label>
+            <input type="number" id="ExperienceMonths" name="ExperienceMonths" min="0" max="600" />
+        </div>
+
+        <div class="form-row">
+            <label for="Qualification">Qualification</label>
+            <select id="Qualification" name="Qualification" required>
+                <option value="">B.Tech</option>
+                <option value="">M.Tech</option>
+            </select>
+            <div class="field-error"></div>
+        </div>
+
+        <div class="form-row">
+            <label for="DesignationType">Designation Type</label>
+            <select id="DesignationType" name="DesignationType" required>
+                <option value="">HR Manager</option>
+                <option value="">Junior Developer</option>
+                <option value="">Senior Developer</option>
+            </select>
+            <div class="field-error"></div>
+        </div>
+
+        <div class="actions">
+            <button type="submit">Save</button>
+            <button type="button" id="btnCancel">Cancel</button>
+        </div>
+    </form>
+
+    <!-- jQuery and jQuery UI (employee.js depends on them) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <!-- Application JS -->
+    <script src="/EMS_Site/js/employee.js"></script>
+</body>
+</html>
