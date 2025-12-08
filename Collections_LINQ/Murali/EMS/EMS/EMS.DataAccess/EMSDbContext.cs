@@ -144,7 +144,7 @@ namespace EMS.DataAccess
                     Pincode="123456",
                     AddressTypeIdFk= AddressTypes.CORP_OFFICE,
                     //Departments = [Departments[0], Departments[1], Departments[2], Departments[3]]
-                },3
+                },
 
                 new() {
                     CompanyAddressIdPk=2,
