@@ -11,6 +11,7 @@
     <link href="/EMS_Site/css/department.css" rel="stylesheet" />
 </head>
 <body>
+    <main class="container">
 
     <!-- Header -->
     <header class="site-header d-flex align-items-center justify-content-between px-3 py-2 shadow-sm">
@@ -59,8 +60,19 @@
                                 <button id="btnSave" type="submit" class="btn btn-primary">Save</button>
                                 <a class="btn btn-secondary" href="/EMS_Site/DepartmentsList.html">Back</a>
                             </div>
-                        </form>
 
+            <div id="statusMessage" class="status" aria-live="polite"></div>
+                        </form>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+        <div class="modal-content">
+            <h2 id="confirmTitle">Confirm</h2>
+            <p id="confirmMessage"></p>
+            <div class="modal-actions">
+                <button id="confirmOk" class="btn primary">OK</button>
+                <button id="confirmCancel" class="btn secondary">Cancel</button>
                     </div>
                 </div>
             </div>
