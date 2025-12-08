@@ -1,0 +1,65 @@
+/* Basic styling for the Departments page - meant for beginners to read & modify */
+
+/* Header */
+.site-header {
+    background: #ffffff;
+    height: 56px;
+}
+
+/* Small hamburger icon style */
+.hamburger {
+    font-size: 20px;
+    display: inline-block;
+}
+
+/* Avatar image */
+.avatar {
+    width: 36px;
+    height: 36px;
+}
+
+/* Sidebar */
+.side-menu {
+    width: 220px;
+    min-height: calc(100vh - 56px);
+    transition: width 0.2s ease;
+}
+
+    /* When collapsed we will add class 'collapsed' from JS */
+    .side-menu.collapsed {
+        width: 0;
+        overflow: hidden;
+    }
+
+    /* Menu links */
+    .side-menu .nav-link {
+        color: #333;
+        padding: 6px 0;
+    }
+
+        .side-menu .nav-link.active {
+            font-weight: 600;
+        }
+
+/* Make main content take full width when menu hidden */
+.main-collapsed {
+    margin-left: 0 !important;
+}
+
+/* Card and table tweaks */
+.card {
+    border-radius: 6px;
+}
+
+.table thead th {
+    vertical-align: middle;
+}
+
+/* Small responsive helper */
+@media (max-width: 768px) {
+    .side-menu {
+        position: absolute;
+        z-index: 1000;
+        height: calc(100vh - 56px);
+    }
+}
