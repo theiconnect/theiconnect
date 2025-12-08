@@ -1,4 +1,5 @@
 ﻿using EMS.Models;
+using EMS.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers

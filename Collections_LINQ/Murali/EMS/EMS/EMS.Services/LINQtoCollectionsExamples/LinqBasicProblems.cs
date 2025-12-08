@@ -14,7 +14,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
     /// </summary>
     public static class LinqBasicProblems
     {
-        // 1. Get all employees as List
+        // 1. Get all employees as List                          
         public static List<EmployeeModel> GetAllEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
@@ -117,6 +117,13 @@ return result3;
             var result= db.Departments.Select(d => d.DepartmentName);
             return result;
         }
+
+
+        //public static IEnumerable<string> GetAllDepartmentNames()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Departments.Select(d => d.Location);
+        //}
 
         // 7. Get all employee first names as List<string>
         public static List<string> GetAllEmployeeFirstNames()
@@ -266,5 +273,15 @@ return result3;
             // employees.Add(new EmployeeModel()); // Not allowed: 'IEnumerable<T>' does not contain a definition for 'Add'
             // IEnumerable<T> is read-only, you cannot add/remove items.
         }
+
+
+        //get all employees full names
+
+        //public static List<string> AllEmployeesFullNames()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Employees.Select(e => new{FirstName = e.FirstName,LastName = e.LastName}).ToList();
+             
+        //}
     }
 }

@@ -34,8 +34,19 @@ namespace EMS.Services.LINQtoCollectionsExamples
             return null;
         }
 
-            //return result;
-       // }
+        public static Dictionary<(int Id, string Name), List<DepartmentModel>>
+       GetDepartmentNameIdGroup()
+        {
+            var db = EMSDbContext.GetInstance();
+
+            var result = db.Departments
+                           .GroupBy(d => (d.DepartmentIdPk, d.DepartmentName))
+                           .ToDictionary(
+                                g => g.Key,
+                                g => g.ToList()
+                           );
+            return result;
+        }
 
         // 3. Get the count of employees per blood group as Dictionary
         public static Dictionary<BloodGroups, int> GetEmployeeCountByBloodGroup()
@@ -44,6 +55,15 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var result=db.Employees
                 .GroupBy(e => e.BloodGroup)
                 .ToDictionary(g => g.Key, g => g.Count());
+            return result;
+        }
+
+        // Get the only employees of first names as List
+
+        public static List<string> GetOnlyEmployeeNames()
+        {
+            var db = EMSDbContext.GetInstance();
+            var result = db.Employees.Select(e => e.FirstName).ToList();
             return result;
         }
 
@@ -89,11 +109,10 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IEnumerable<EmployeeModel> GetEmployeesJoinedAfter(DateTime date)
         {
             var db = EMSDbContext.GetInstance();
-            var result=db.Employees
+            var result= db.Employees
                 .Where(e => e.DateOfJoining > date)
                 .OrderBy(e => e.DateOfJoining).ToList();
             return result;
-
         }
 
         // 8. Get all employees with both present and permanent addresses as List
@@ -106,15 +125,15 @@ namespace EMS.Services.LINQtoCollectionsExamples
                     e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)
                 )
                 .ToList();
-            return result;  
+            return result;
         }
 
         // 9. Get all employees with more than one address as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesWithMultipleAddresses()
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.Addresses.Count > 1).ToList();
-            return result;  
+            var result= db.Employees.Where(e => e.Addresses.Count > 1).ToList() ;
+             return result;
         }
 
         // 10. Get all employees with their qualification description (if any) as List of tuples
@@ -155,7 +174,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static IQueryable<EmployeeModel> GetEmployeesAsQueryableWithEFOnlyMethod()
         {
             var db = EMSDbContext.GetInstance();
-            // IQueryable is not useful for in-memory collections, and EF-only methods like ThenInclude() are not available.
+            // IQueryable is not useful for in-memory collections, and EF-only methods like ThenInclude not available.                                          
             // db.Employees.AsQueryable().ThenInclude(e => e.Designations); // Not allowed: 'IQueryable<EmployeeModel>' does not contain a definition for 'ThenInclude'
             return db.Employees.AsQueryable();
         }
@@ -177,15 +196,16 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var result= db.Employees
                 .GroupBy(e => e.Gender)
                 .ToDictionary(g => g.Key, g => g.ToList());
-            return result ;
+            return result;
+
         }
 
         // 16. Get all employees with a specific qualification as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesByQualificationId(int qualificationId)
         {
             var db = EMSDbContext.GetInstance();
-            var result= db.Employees.Where(e => e.QualificationIdFk == qualificationId);
-            return result ;
+            var result= db.Employees.Where(e => e.QualificationIdFk == qualificationId).ToList();
+            return result;
         }
 
         // 17. Get all employees with a specific department name as List
@@ -206,7 +226,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var result= db.Employees
                 .Where(e => e.Designations.Any(d => d.DesignationIdFk == designation))
                 .ToList();
-            return result ;
+            return result;
         }
 
         // 19. Get all employees as ICollection and try to use AddRange (NOT allowed)
@@ -214,7 +234,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         {
             var db = EMSDbContext.GetInstance();
             ICollection<EmployeeModel> employees = db.Employees.ToList();
-            // employees.AddRange(db.Employees); // Not allowed: 'ICollection<T>' does not contain a definition for 'AddRange'
+            // employees.AddRange(db.Employees); // Not allowed: 'ICollection<T>'does not contain a definition for 'AddRange'
             // Use List<T> for AddRange.
         }
 
