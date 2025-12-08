@@ -97,10 +97,10 @@ namespace EMS.Web.Controllers
         {
             return string.Empty;
         }
-
+        [Route("sneha")]
         public string C()
         {
-            return string.Empty;
+            return "Hello hii";
         }
     }
 
