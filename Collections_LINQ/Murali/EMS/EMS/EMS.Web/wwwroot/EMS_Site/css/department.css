@@ -1,122 +1,65 @@
-:root {
-    --bg: #f7f9fb;
-    --card: #ffffff;
-    --accent: #005a9e;
-    --muted: #667085;
-    --success: #1e7e34;
-    --danger: #dc3545;
-    --radius: 6px;
+/* Basic styling for the Departments page - meant for beginners to read & modify */
+
+/* Header */
+.site-header {
+    background: #ffffff;
+    height: 56px;
 }
 
-* { box-sizing: border-box; }
-body {
-    font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    background: linear-gradient(180deg, var(--bg), #eef3f8 60%);
-    margin: 0;
-    padding: 32px;
-    color: #0b1220;
-}
-
-.container {
-    max-width: 720px;
-    margin: 0 auto;
-    background: var(--card);
-    padding: 24px;
-    border-radius: var(--radius);
-    box-shadow: 0 6px 20px rgba(18, 38, 63, 0.08);
-}
-
-h1 {
-    margin: 0 0 18px 0;
+/* Small hamburger icon style */
+.hamburger {
     font-size: 20px;
-    color: var(--accent);
+    display: inline-block;
 }
 
-.form-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 14px;
+/* Avatar image */
+.avatar {
+    width: 36px;
+    height: 36px;
 }
 
-label {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 6px;
+/* Sidebar */
+.side-menu {
+    width: 220px;
+    min-height: calc(100vh - 56px);
+    transition: width 0.2s ease;
 }
 
-input[type="text"], select {
-    padding: 10px 12px;
-    border: 1px solid #d1d9e6;
+    /* When collapsed we will add class 'collapsed' from JS */
+    .side-menu.collapsed {
+        width: 0;
+        overflow: hidden;
+    }
+
+    /* Menu links */
+    .side-menu .nav-link {
+        color: #333;
+        padding: 6px 0;
+    }
+
+        .side-menu .nav-link.active {
+            font-weight: 600;
+        }
+
+/* Make main content take full width when menu hidden */
+.main-collapsed {
+    margin-left: 0 !important;
+}
+
+/* Card and table tweaks */
+.card {
     border-radius: 6px;
-    font-size: 14px;
-    background: #fff;
 }
 
-input[readonly] {
-    background: #f3f6fb;
-    color: #334155;
+.table thead th {
+    vertical-align: middle;
 }
 
-.actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
-}
-
-.btn {
-    padding: 10px 16px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.btn.primary {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 90, 158, 0.12);
-}
-
-.btn.secondary {
-    background: #eef2f7;
-    color: #0b1220;
-}
-
-.status {
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--muted);
-}
-
-/* Modal */
-.modal {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    background: rgba(5, 12, 24, 0.45);
-    z-index: 2000;
-}
-
-.modal.hidden { display: none; }
-
-.modal-content {
-    width: 420px;
-    background: #fff;
-    padding: 18px;
-    border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(7, 12, 26, 0.4);
-}
-
-.modal-content h2 {
-    margin: 0 0 8px 0;
-    color: #0b1220;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 16px;
+/* Small responsive helper */
+@media (max-width: 768px) {
+    .side-menu {
+        position: absolute;
+        z-index: 1000;
+        height: calc(100vh - 56px);
+    }
 }
