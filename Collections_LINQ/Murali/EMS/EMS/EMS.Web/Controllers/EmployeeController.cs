@@ -8,7 +8,7 @@ namespace EMS.Web.Controllers
     {
         [Route("getallemployees")]
         [Route("list")]
-        public ViewResult EmployeeList()
+        public string EmployeeList()
         {
             return "dfgh";
         }
