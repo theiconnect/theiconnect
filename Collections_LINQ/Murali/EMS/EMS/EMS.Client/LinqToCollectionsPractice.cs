@@ -1,9 +1,10 @@
-﻿using System;
+﻿using EMS.Models.Enums;
+using EMS.Services.LINQtoCollectionsExamples;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EMS.Services.LINQtoCollectionsExamples;
 
 namespace EMS.Client
 {
@@ -27,6 +28,7 @@ namespace EMS.Client
             //var deptcodeascol=LinqBasicProblems.GetAllDepartmentCodesAsICollection();
             //var empasarr=LinqBasicProblems.GetAllEmployeesAsArray();
             // Add more calls to LinqBasicProblems methods as needed  
+
         }
         internal void PracticeBeginnerLinq()
         {
@@ -48,5 +50,5 @@ namespace EMS.Client
             var twoEmployees = LinqIntermediateProblems.GetDepartmentsWithMoreThan2Employees();
             // Add more calls to LinqBasicProblems methods as needed  
         }
-    }
+}
 }
