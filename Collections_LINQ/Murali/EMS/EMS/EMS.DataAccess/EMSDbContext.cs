@@ -21,6 +21,7 @@ namespace EMS.DataAccess
         //{ 
         //    _obj = new EMSDbContext();           
         //}
+        
 
         private EMSDbContext()
         {
@@ -149,6 +150,7 @@ namespace EMS.DataAccess
                     AddressTypeIdFk= AddressTypes.CORP_OFFICE,
                     //Departments = [Departments[0], Departments[1], Departments[2], Departments[3]]
                 },
+
                 new() {
                     CompanyAddressIdPk=2,
                     CompanyIdFk=CompanyId,

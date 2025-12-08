@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Edit Department</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Project CSS -->
+    <link href="/EMS_Site/css/department.css" rel="stylesheet" />
+</head>
+<body>
+    <main class="container">
+
+    <!-- Header -->
+    <header class="site-header d-flex align-items-center justify-content-between px-3 py-2 shadow-sm">
+        <div class="d-flex align-items-center">
+            <button id="btnToggleMenu" class="btn btn-link me-2 p-0" title="Toggle menu">
+                <span class="hamburger">&#9776;</span>
+            </button>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <img src="https://via.placeholder.com/36" alt="avatar" class="avatar rounded-circle" />
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="p-4">
+        <div class="container">
+            <div class="mx-auto" style="max-width:720px;">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="cardTitle" class="card-title">Department</h5>
+                        <p class="text-muted small" id="cardHelp">Enter department details. New departments are Active by default.</p>
+
+                        <form id="deptForm" novalidate>
+                            <input type="hidden" id="editingId" />
+
+                            <div class="mb-3">
+                                <label for="deptName" class="form-label">Department Name</label>
+                                <input id="deptName" class="form-control" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="deptLocation" class="form-label">Location</label>
+                                <input id="deptLocation" class="form-control" required />
+                            </div>
+
+                            <!-- Is Active (only for edit) -->
+                            <div class="mb-3" id="isActiveContainer" style="display:none;">
+                                <div class="form-check">
+                                    <input id="deptIsActive" class="form-check-input" type="checkbox" />
+                                    <label class="form-check-label" for="deptIsActive">Is Active</label>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button id="btnSave" type="submit" class="btn btn-primary">Save</button>
+                                <a class="btn btn-secondary" href="/EMS_Site/DepartmentsList.html">Back</a>
+                            </div>
+
+            <div id="statusMessage" class="status" aria-live="polite"></div>
+                        </form>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+        <div class="modal-content">
+            <h2 id="confirmTitle">Confirm</h2>
+            <p id="confirmMessage"></p>
+            <div class="modal-actions">
+                <button id="confirmOk" class="btn primary">OK</button>
+                <button id="confirmCancel" class="btn secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core shared script -->
+    <script src="/EMS_Site/js/department.js"></script>
+
+    <!-- Refactored Inline Script -->
+    <script>
+        (function () {
+            'use strict';
+
+            /* ---------------- Helper Functions ---------------- */
+            const qs = (s) => document.querySelector(s);
+            const getParam = (name) =>
+                new URLSearchParams(window.location.search).get(name);
+            const alertMsg = (msg) => alert(msg);
+
+            const STORAGE_KEY = "ems_departments_v1";
+
+            /* -------- LocalStorage fallback if DepartmentApp not provided -------- */
+            const LocalApp = {
+                load() {
+                    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+                    catch { return []; }
+                },
+                save(list) {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+                },
+
+                addDepartment(payload) {
+                    const list = this.load();
+
+                    const nextId = list.length
+                        ? Math.max(...list.map(d => d.DepartmentIdPk)) + 1
+                        : 1;
+
+                    const maxCode = Math.max(
+                        0,
+                        ...list
+                            .map(d => d.DepartmentCode)
+                            .map(code => parseInt(code?.split("-")[1]) || 0)
+                    );
+
+                    const newDept = {
+                        DepartmentIdPk: nextId,
+                        DepartmentCode: "D-" + String(maxCode + 1).padStart(3, "0"),
+                        DepartmentName: payload.DepartmentName,
+                        Location: payload.Location,
+                        IsActive: !!payload.IsActive
+                    };
+
+                    list.push(newDept);
+                    this.save(list);
+                    return newDept;
+                },
+
+                updateDepartment(id, updates) {
+                    const list = this.load();
+                    const index = list.findIndex(d => d.DepartmentIdPk === id);
+                    if (index === -1) return null;
+                    list[index] = { ...list[index], ...updates };
+                    this.save(list);
+                    return list[index];
+                },
+
+                getDepartmentById(id) {
+                    return this.load().find(d => d.DepartmentIdPk === id) || null;
+                }
+            };
+
+            const App = window.DepartmentApp || LocalApp;
+
+            /* ---------------- DOM Elements ---------------- */
+            const form = qs("#deptForm");
+            const idField = qs("#editingId");
+            const nameField = qs("#deptName");
+            const locationField = qs("#deptLocation");
+            const isActiveCheck = qs("#deptIsActive");
+            const isActiveContainer = qs("#isActiveContainer");
+
+            const pageTitle = qs("#pageTitle");
+            const cardTitle = qs("#cardTitle");
+            const cardHelp = qs("#cardHelp");
+
+            /* ---------------- Determine Mode ---------------- */
+            const deptIdParam = getParam("id");
+            const isEdit = !!deptIdParam;
+
+            /* ---------------- Init Page ---------------- */
+            function initPage() {
+                if (isEdit) loadEditMode();
+                else loadAddMode();
+
+                form.addEventListener("submit", handleSubmit);
+            }
+
+            function loadAddMode() {
+                pageTitle.textContent =
+                    cardTitle.textContent =
+                    cardHelp.textContent =
+                    "Add Department";
+
+                isActiveContainer.style.display = "none";
+                isActiveCheck.checked = true;
+            }
+
+            function loadEditMode() {
+                pageTitle.textContent = "Edit Department";
+                cardTitle.textContent = "Edit Department";
+                cardHelp.textContent = "Modify department details.";
+
+                isActiveContainer.style.display = "";
+
+                const id = parseInt(deptIdParam, 10);
+                const dept = App.getDepartmentById(id);
+
+                if (!dept) {
+                    alertMsg("Department not found.");
+                    returnToList();
+                    return;
+                }
+
+                idField.value = dept.DepartmentIdPk;
+                nameField.value = dept.DepartmentName;
+                locationField.value = dept.Location;
+                isActiveCheck.checked = dept.IsActive;
+            }
+
+            /* ---------------- Submit Handler ---------------- */
+            function handleSubmit(e) {
+                e.preventDefault();
+
+                const name = nameField.value.trim();
+                const location = locationField.value.trim();
+
+                if (!name || !location) {
+                    alertMsg("Please fill Department Name and Location.");
+                    return;
+                }
+
+                if (isEdit) updateDepartment();
+                else addDepartment();
+            }
+
+            /* ---------------- CRUD Operations ---------------- */
+            function addDepartment() {
+                const newDept = App.addDepartment({
+                    DepartmentName: nameField.value.trim(),
+                    Location: locationField.value.trim(),
+                    IsActive: true
+                });
+
+                if (!newDept) {
+                    alertMsg("Failed to add department.");
+                    return;
+                }
+
+                returnToList();
+            }
+
+            function updateDepartment() {
+                const id = parseInt(idField.value, 10);
+
+                const updated = App.updateDepartment(id, {
+                    DepartmentName: nameField.value.trim(),
+                    Location: locationField.value.trim(),
+                    IsActive: isActiveCheck.checked
+                });
+
+                if (!updated) {
+                    alertMsg("Failed to update department.");
+                    return;
+                }
+
+                returnToList();
+            }
+
+            /* ---------------- Navigation ---------------- */
+            function returnToList() {
+                window.location.href = "/EMS_Site/DepartmentsList.html";
+            }
+
+            /* ---------------- Start ---------------- */
+            initPage();
+
+        })();
+    </script>
+
+</body>
+</html>

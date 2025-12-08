@@ -1,101 +1,65 @@
-/* General Body and Layout Styling */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-}
+/* Basic styling for the Departments page - meant for beginners to read & modify */
 
-.container {
+/* Header */
+.site-header {
     background: #ffffff;
-    padding: 35px 45px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    height: 56px;
 }
 
-h1 {
-    text-align: center;
-    color: #1e3a8a;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #3b82f6;
-    padding-bottom: 10px;
+/* Small hamburger icon style */
+.hamburger {
+    font-size: 20px;
+    display: inline-block;
 }
 
-/* Form Row Styling */
-.form-row {
-    margin-bottom: 20px;
+/* Avatar image */
+.avatar {
+    width: 36px;
+    height: 36px;
 }
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #4b5563;
+/* Sidebar */
+.side-menu {
+    width: 220px;
+    min-height: calc(100vh - 56px);
+    transition: width 0.2s ease;
 }
 
-input[type="text"],
-select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-    transition: border-color 0.2s;
-}
-
-    input[type="text"]:focus,
-    select:focus {
-        border-color: #3b82f6;
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    /* When collapsed we will add class 'collapsed' from JS */
+    .side-menu.collapsed {
+        width: 0;
+        overflow: hidden;
     }
 
-/* Read-only field styling for Dept Code */
-input[readonly] {
-    background-color: #e5e7eb;
-    color: #6b7280;
-    font-weight: 500;
-    cursor: default;
-}
-
-/* Button Styling */
-.actions {
-    margin-top: 30px;
-    display: flex;
-    justify-content: flex-end; /* Align the button to the right */
-}
-
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    transition: background-color 0.2s;
-}
-
-/* Secondary Button (GoBack) Styling */
-.secondary {
-    background-color: #6b7280; /* Gray color */
-    color: white;
-}
-
-    .secondary:hover {
-        background-color: #4b5563;
+    /* Menu links */
+    .side-menu .nav-link {
+        color: #333;
+        padding: 6px 0;
     }
 
-/* Status Message Area */
-.status {
-    text-align: center;
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 14px;
+        .side-menu .nav-link.active {
+            font-weight: 600;
+        }
+
+/* Make main content take full width when menu hidden */
+.main-collapsed {
+    margin-left: 0 !important;
+}
+
+/* Card and table tweaks */
+.card {
+    border-radius: 6px;
+}
+
+.table thead th {
+    vertical-align: middle;
+}
+
+/* Small responsive helper */
+@media (max-width: 768px) {
+    .side-menu {
+        position: absolute;
+        z-index: 1000;
+        height: calc(100vh - 56px);
+    }
 }

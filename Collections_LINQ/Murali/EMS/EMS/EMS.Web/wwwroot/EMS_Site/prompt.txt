@@ -19,7 +19,6 @@ other than menu bar is  the body is page content.
 
 which should have the Page Header
 Page body
-like cards.
 
 Footer:
 standard footer .
