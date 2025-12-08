@@ -22,7 +22,7 @@
             margin: 0;
             background-color: var(--background-color);
             min-height: 100vh;
-            display: flex; /* Setup for flex layout for the new header/sidebar/content */
+            display: flex;
             flex-direction: column;
         }
 
@@ -77,14 +77,14 @@
         /* ---------------------- 3. SIDEBAR STYLES ---------------------- */
         .layout {
             display: flex;
-            padding-top: var(--header-height); /* Space below the fixed header */
+            padding-top: var(--header-height);
             flex-grow: 1;
         }
 
         .sidebar {
             width: var(--sidebar-width);
             min-height: calc(100vh - var(--header-height));
-            background-color: #343a40; /* Dark background for sidebar */
+            background-color: #343a40;
             color: #f8f9fa;
             padding: 20px 0;
             position: fixed;
@@ -127,34 +127,31 @@
         /* ---------------------- 4. MAIN CONTENT STYLES ---------------------- */
         .content {
             flex-grow: 1;
-            margin-left: var(--sidebar-width); /* Space for the sidebar */
+            margin-left: var(--sidebar-width);
             padding: 20px;
             transition: margin-left 0.3s ease;
         }
 
-        /* When sidebar is collapsed, content shifts left */
         .sidebar.collapsed ~ .content {
             margin-left: 0;
         }
 
-        /* Container for the page content, centered within the main area */
         .page-container {
             max-width: 960px;
-            margin: 0 auto; /* Center within the main content area */
-            padding: 0; /* Remove padding here as it's added in .content */
+            margin: 0 auto;
+            padding: 0;
         }
 
-        /* Override previous button styling and general utility styles */
         .btn-group-action .btn {
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         /* ---------------------- 5. FOOTER STYLES ---------------------- */
         .site-footer {
-            background-color: #343a40; /* Dark background to match sidebar */
+            background-color: #343a40;
             color: #f8f9fa;
             padding: 15px 0;
-            margin-top: auto; /* Pushes footer to the bottom */
+            margin-top: auto;
             width: 100%;
             flex-shrink: 0;
             text-align: center;
@@ -188,20 +185,20 @@
         /* ---------------------- 6. MEDIA QUERIES (RESPONSIVENESS) ---------------------- */
         @media (max-width: 768px) {
             .sidebar {
-                transform: translateX(calc( -1 * var(--sidebar-width))); /* Start collapsed on mobile */
+                transform: translateX(calc( -1 * var(--sidebar-width)));
             }
 
                 .sidebar.collapsed {
                     transform: translateX(calc( -1 * var(--sidebar-width)));
                 }
 
-                .sidebar.active { /* Show sidebar on mobile when toggled */
+                .sidebar.active {
                     transform: translateX(0);
                     box-shadow: 5px 0 15px rgba(0,0,0,0.2);
                 }
 
             .content {
-                margin-left: 0; /* Content takes full width */
+                margin-left: 0;
             }
 
             .sidebar.collapsed ~ .content {
@@ -212,7 +209,6 @@
                 font-size: 1rem;
             }
 
-            /* Ensure the toggle button is prominent on mobile */
             .menu-btn {
                 z-index: 1001;
             }
@@ -261,7 +257,7 @@
                 <h2 class="h5 mb-3 text-secondary"><i class="fas fa-info-circle me-2"></i> Company Details</h2>
                 <div class="card shadow-sm mb-5 border-0">
                     <div class="card-body p-4">
-                        <form>
+                        <form id="companyDetailsForm">
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="companyName" class="form-label">Company Name *</label>
@@ -386,7 +382,7 @@
                 </div>
 
                 <div class="d-flex justify-content-start mt-4 mb-5 btn-group-action">
-                    <a href="Company.html" class="btn btn-primary btn-lg me-3"><i class="fas fa-save me-2"></i> Save Changes</a>
+                    <a href="Company.html" class="btn btn-primary btn-lg me-3" id="saveChangesButton"><i class="fas fa-save me-2"></i> Save Changes</a>
                     <a href="#" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left me-2"></i> Back to View</a>
                 </div>
 
@@ -530,11 +526,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // --- NEW SIDEBAR TOGGLE LOGIC ---
+        // --- SIDEBAR TOGGLE LOGIC ---
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebarToggle');
 
-        // Initial state: collapsed on mobile, open on desktop (handled by CSS media queries)
         if (window.innerWidth >= 768) {
             sidebar.classList.remove('collapsed');
         } else {
@@ -543,67 +538,144 @@
 
         sidebarToggle.addEventListener('click', function () {
             if (window.innerWidth >= 768) {
-                // Desktop: Toggle collapsed state for shift effect
                 sidebar.classList.toggle('collapsed');
             } else {
-                // Mobile: Toggle active state for slide-in effect
                 sidebar.classList.toggle('active');
             }
         });
 
         // --------------------------------------------------------
-        // --- ADDRESS MANAGEMENT LOGIC ---
+        // --- ADDRESS MANAGEMENT AND PERSISTENCE LOGIC ---
+
         let nextAddressId = 3;
-
-        // 1. Get references to the elements
-        const saveEditButton = document.getElementById('saveEditButton');
-        const addAddressButton = document.getElementById('confirmAddAddressButton');
-        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
         const addressTableBody = document.querySelector('.table tbody');
+        const saveChangesBtn = document.getElementById('saveChangesButton');
+        const addAddressButton = document.getElementById('confirmAddAddressButton');
+        const saveEditButton = document.getElementById('saveEditButton');
+        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
-        // --- COMMON FUNCTIONS ---
+        // --- UTILITY FUNCTIONS ---
+
         // Function to create a new table row HTML structure
         function createNewRowHtml(id, type, line1, city, state, pin) {
             return `
-                        <tr id="address-${id}">
-                            <td data-field="type">${type}</td>
-                            <td data-field="line1">${line1}</td>
-                            <td data-field="city">${city}</td>
-                            <td data-field="state">${state}</td>
-                            <td data-field="pin">${pin}</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editAddressModal"
-                                    data-id="${id}"
-                                    data-type="${type}"
-                                    data-line1="${line1}"
-                                    data-city="${city}"
-                                    data-state="${state}"
-                                    data-pin="${pin}">
-                                    <i class="fas fa-pen"></i> Edit
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteAddressModal"
-                                    data-id="${id}">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </td>
-                        </tr>
-                    `;
+                    <tr id="address-${id}">
+                        <td data-field="type">${type}</td>
+                        <td data-field="line1">${line1}</td>
+                        <td data-field="city">${city}</td>
+                        <td data-field="state">${state}</td>
+                        <td data-field="pin">${pin}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editAddressModal"
+                                data-id="${id}"
+                                data-type="${type}"
+                                data-line1="${line1}"
+                                data-city="${city}"
+                                data-state="${state}"
+                                data-pin="${pin}">
+                                <i class="fas fa-pen"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteAddressModal"
+                                data-id="${id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                `;
         }
 
-        // --- EVENT DELEGATION (Handles Clicks on Edit/Delete Buttons) ---
-        // This ensures the listener works for all buttons, even ones added later.
+        // --- SAVE AND LOAD FUNCTIONS (Local Storage) ---
+
+        function saveAllData() {
+            // 1. Save Company Details (only editable fields)
+            const companyData = {
+                phoneNumber: document.getElementById('phoneNumber').value,
+                email: document.getElementById('email').value,
+                regDate: document.getElementById('regDate').value,
+                website: document.getElementById('website').value,
+                bankAccount: document.getElementById('bankAccount').value,
+                tin: document.getElementById('tin').value,
+                pan: document.getElementById('pan').value,
+            };
+            localStorage.setItem('companyDetails', JSON.stringify(companyData));
+
+            // 2. Save Address Data
+            const addressList = [];
+            const rows = addressTableBody.querySelectorAll('tr');
+            rows.forEach(row => {
+                const editButton = row.querySelector('.edit-address-btn');
+
+                // Collect data from the button's data attributes (which are the source of truth)
+                if (editButton) {
+                    addressList.push({
+                        id: editButton.getAttribute('data-id'),
+                        type: editButton.getAttribute('data-type'),
+                        line1: editButton.getAttribute('data-line1'),
+                        city: editButton.getAttribute('data-city'),
+                        state: editButton.getAttribute('data-state'),
+                        pin: editButton.getAttribute('data-pin')
+                    });
+                }
+            });
+            localStorage.setItem('companyAddresses', JSON.stringify(addressList));
+
+            console.log('Data saved to localStorage successfully.');
+        }
+
+        function loadAllData() {
+            // 1. Load Company Details
+            const savedCompanyData = localStorage.getItem('companyDetails');
+            if (savedCompanyData) {
+                const data = JSON.parse(savedCompanyData);
+                document.getElementById('phoneNumber').value = data.phoneNumber || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('regDate').value = data.regDate || '';
+                document.getElementById('website').value = data.website || '';
+                document.getElementById('bankAccount').value = data.bankAccount || '';
+                document.getElementById('tin').value = data.tin || '';
+                document.getElementById('pan').value = data.pan || '';
+            }
+
+            // 2. Load and Render Address Data
+            const savedAddresses = localStorage.getItem('companyAddresses');
+            if (savedAddresses) {
+                const addresses = JSON.parse(savedAddresses);
+                // Clear existing static rows first
+                addressTableBody.innerHTML = '';
+
+                let maxId = 0;
+
+                if (addresses.length > 0) {
+                    addresses.forEach(addr => {
+                        const rowHtml = createNewRowHtml(addr.id, addr.type, addr.line1, addr.city, addr.state, addr.pin);
+                        addressTableBody.insertAdjacentHTML('beforeend', rowHtml);
+                        maxId = Math.max(maxId, parseInt(addr.id));
+                    });
+
+                    // Update the counter to avoid ID conflicts
+                    nextAddressId = maxId + 1;
+                } else {
+                    // If savedAddresses is empty, reset counter to 1
+                    nextAddressId = 1;
+                }
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Event Delegation for Edit/Delete Buttons
         addressTableBody.addEventListener('click', function (event) {
             let targetButton = event.target.closest('.edit-address-btn, .delete-address-btn');
             if (!targetButton) return;
 
+            const id = targetButton.getAttribute('data-id');
+
             if (targetButton.classList.contains('edit-address-btn')) {
-                // --- FIX APPLIED HERE ---
-                // Read the data directly from the button that was clicked.
-                const id = targetButton.getAttribute('data-id');
+                // Read data directly from the button that was clicked.
                 const type = targetButton.getAttribute('data-type');
                 const line1 = targetButton.getAttribute('data-line1');
                 const city = targetButton.getAttribute('data-city');
@@ -614,49 +686,41 @@
                 document.getElementById('edit-addressId').value = id;
                 document.getElementById('edit-addressType').value = type;
                 document.getElementById('edit-addressLine1').value = line1;
-                // Line 2 is not tracked in data attributes, so we clear it or leave it blank
                 document.getElementById('edit-addressLine2').value = '';
                 document.getElementById('edit-city').value = city;
                 document.getElementById('edit-state').value = state;
                 document.getElementById('edit-pinCode').value = pin;
             } else if (targetButton.classList.contains('delete-address-btn')) {
-                // Populate the Delete modal
-                const id = targetButton.getAttribute('data-id');
                 document.getElementById('delete-addressId').value = id;
             }
         });
 
-        // --- ADD ADDRESS LOGIC ---
+        // Add Address Logic
         addAddressButton.addEventListener('click', function () {
-            // Get data from the 'Add' modal form
             const type = document.getElementById('addressType').value;
             const line1 = document.getElementById('addressLine1').value;
             const city = document.getElementById('city').value;
             const state = document.getElementById('state').value;
             const pin = document.getElementById('pinCode').value;
 
-            // Simple validation check
             if (!type || !line1 || !city || !state || !pin) {
                 alert('Please fill in all required address fields.');
                 return;
             }
 
-            // Create new row using the function with the correct data
+            // Use the current nextAddressId as the ID for the new row
             const newRowHtml = createNewRowHtml(nextAddressId, type, line1, city, state, pin);
             addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
             nextAddressId++;
 
-            // Hide the modal
             const modalElement = document.getElementById('addAddressModal');
             const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modal.hide();
 
-            // Clear form for next use
             document.getElementById('addAddressForm').reset();
         });
 
-
-        // --- SAVE EDIT LOGIC ---
+        // Save Edit Logic
         saveEditButton.addEventListener('click', function () {
             const addressId = document.getElementById('edit-addressId').value;
             const newType = document.getElementById('edit-addressType').value;
@@ -674,7 +738,7 @@
                 row.querySelector('[data-field="state"]').textContent = newState;
                 row.querySelector('[data-field="pin"]').textContent = newPin;
 
-                // 2. Update the data attributes on the EDIT button for future edits
+                // 2. Update the data attributes on the EDIT button (CRITICAL for saving later)
                 const editButton = row.querySelector('.edit-address-btn');
                 editButton.setAttribute('data-type', newType);
                 editButton.setAttribute('data-line1', newLine1);
@@ -683,13 +747,12 @@
                 editButton.setAttribute('data-pin', newPin);
             }
 
-            // Hide the modal after saving
             const modalElement = document.getElementById('editAddressModal');
             const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modal.hide();
         });
 
-        // --- CONFIRM DELETE LOGIC ---
+        // Confirm Delete Logic
         confirmDeleteButton.addEventListener('click', function () {
             const addressIdToDelete = document.getElementById('delete-addressId').value;
             const rowToDelete = document.getElementById('address-' + addressIdToDelete);
@@ -698,11 +761,23 @@
                 rowToDelete.remove();
             }
 
-            // Hide the modal after deleting
             const modalElement = document.getElementById('deleteAddressModal');
             const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
             modal.hide();
         });
+
+        // --- Save Changes Handler ---
+        saveChangesBtn.addEventListener('click', function (e) {
+            e.preventDefault(); // Stop the default link navigation first
+            saveAllData();
+
+            // After saving the data to local storage, navigate to Company.html
+            window.location.href = "Company.html";
+        });
+
+        // --- Load Data on Page Load ---
+        document.addEventListener('DOMContentLoaded', loadAllData);
+
     </script>
 </body>
 </html>
