@@ -3,176 +3,394 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Profile - Edit</title>
+    <title>Employee Management System - Edit Company Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <style>
-        /* 1. Body Styling: Cleaner look, slightly darker background */
-        body {
-            background-color: #f4f7f9;
-            padding-top: 70px; /* Space for fixed header */
+     
+        :root {
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --primary-color: #0d6efd;
+            --text-color: #333;
+            --background-color: #f4f7f9;
         }
-        /* 2. Container: Centered and sized for readability */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex; /* Setup for flex layout for the new header/sidebar/content */
+            flex-direction: column;
+        }
+
+        /* ---------------------- 2. HEADER STYLES ---------------------- */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: #ffffff;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-left: 10px;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            padding: 0;
+            line-height: 1;
+        }
+
+        /* ---------------------- 3. SIDEBAR STYLES ---------------------- */
+        .layout {
+            display: flex;
+            padding-top: var(--header-height); /* Space below the fixed header */
+            flex-grow: 1;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            min-height: calc(100vh - var(--header-height));
+            background-color: #343a40; /* Dark background for sidebar */
+            color: #f8f9fa;
+            padding: 20px 0;
+            position: fixed;
+            left: 0;
+            top: var(--header-height);
+            transition: transform 0.3s ease;
+            z-index: 999;
+        }
+
+            .sidebar.collapsed {
+                transform: translateX(calc( -1 * var(--sidebar-width)));
+            }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .nav-list li a {
+                display: block;
+                padding: 10px 20px;
+                color: #adb5bd;
+                text-decoration: none;
+                transition: background-color 0.2s, color 0.2s;
+            }
+
+                .nav-list li a:hover {
+                    background-color: #495057;
+                    color: #ffffff;
+                }
+
+                .nav-list li a.active {
+                    background-color: var(--primary-color);
+                    color: #ffffff;
+                    border-left: 5px solid #ffc107;
+                    padding-left: 15px;
+                }
+
+        /* ---------------------- 4. MAIN CONTENT STYLES ---------------------- */
+        .content {
+            flex-grow: 1;
+            margin-left: var(--sidebar-width); /* Space for the sidebar */
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* When sidebar is collapsed, content shifts left */
+        .sidebar.collapsed ~ .content {
+            margin-left: 0;
+        }
+
+        /* Container for the page content, centered within the main area */
         .page-container {
             max-width: 960px;
-            margin: auto;
+            margin: 0 auto; /* Center within the main content area */
+            padding: 0; /* Remove padding here as it's added in .content */
         }
-        /* 3. Button Styling: Use shadow for better visual separation */
+
+        /* Override previous button styling and general utility styles */
         .btn-group-action .btn {
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* ---------------------- 5. FOOTER STYLES ---------------------- */
+        .site-footer {
+            background-color: #343a40; /* Dark background to match sidebar */
+            color: #f8f9fa;
+            padding: 15px 0;
+            margin-top: auto; /* Pushes footer to the bottom */
+            width: 100%;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0 15px;
+        }
+
+            .footer-inner span {
+                margin: 5px 15px;
+                font-size: 0.9rem;
+            }
+
+            .footer-inner a {
+                color: #adb5bd;
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+
+                .footer-inner a:hover {
+                    color: #ffffff;
+                }
+
+        /* ---------------------- 6. MEDIA QUERIES (RESPONSIVENESS) ---------------------- */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(calc( -1 * var(--sidebar-width))); /* Start collapsed on mobile */
+            }
+
+                .sidebar.collapsed {
+                    transform: translateX(calc( -1 * var(--sidebar-width)));
+                }
+
+                .sidebar.active { /* Show sidebar on mobile when toggled */
+                    transform: translateX(0);
+                    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+                }
+
+            .content {
+                margin-left: 0; /* Content takes full width */
+            }
+
+            .sidebar.collapsed ~ .content {
+                margin-left: 0;
+            }
+
+            .site-title {
+                font-size: 1rem;
+            }
+
+            /* Ensure the toggle button is prominent on mobile */
+            .menu-btn {
+                z-index: 1001;
+            }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
-        <div class="container-fluid page-container">
-            <a class="navbar-brand" href="#">
-                <i class="fas fa-building me-2"></i> **Company Profile**
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link text-white-50" href="#"><i class="fas fa-user-circle me-1"></i> Admin</a>
+    <header class="site-header">
+        <div class="header-left">
+            <div class="logo" aria-hidden="true">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="24" height="24" rx="4" fill="#0d6efd"></rect>
+                    <path d="M6 12h12M8 8h8M8 16h8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
             </div>
-        </div>
-    </nav>
-
-    <div class="page-container py-4">
-        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h1 class="display-6 mb-0 text-dark">
-                <i class="fas fa-pen-square me-2 text-primary"></i> Edit Company Information
-            </h1>
+            <div class="site-title">Employee Management System</div>
         </div>
 
-        <h2 class="h5 mb-3 text-secondary"><i class="fas fa-info-circle me-2"></i> Company Details</h2>
-        <div class="card shadow-sm mb-5 border-0">
-            <div class="card-body p-4">
-                <form>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="companyName" class="form-label">Company Name *</label>
-                            <input type="text" class="form-control bg-light" id="companyName" value="Innovatech Solutions Pvt. Ltd." readonly>
-                            <div class="form-text">Name cannot be changed here.</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phoneNumber" value="(555) 123-4567">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="info@innovatech.com">
-                        </div>
-                    </div>
+        <div class="header-right">
+            <img class="profile-pic" src="https://i.pravatar.cc/40" alt="Profile" />
+            <button id="sidebarToggle" class="menu-btn" aria-label="Toggle menu">☰</button>
+        </div>
+    </header>
 
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="regDate" class="form-label">Registration Date</label>
-                            <input type="date" class="form-control" id="regDate" value="2023-01-15">
-                        </div>
-                        <div class="col-md-8">
-                            <label for="website" class="form-label">Website</label>
-                            <input type="url" class="form-control" id="website" value="http://www.innovatech.com">
-                        </div>
-                    </div>
+    <div class="layout">
 
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="bankAccount" class="form-label">Bank Account Number</label>
-                            <input type="text" class="form-control" id="bankAccount" value="98765432101234567890">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="tin" class="form-label">TIN</label>
-                            <input type="text" class="form-control" id="tin" value="T1234567890">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="pan" class="form-label">PAN</label>
-                            <input type="text" class="form-control" id="pan" value="PABCDE1234F">
-                        </div>
+        <nav id="sidebar" class="sidebar">
+            <ul class="nav-list">
+                <li><a href="Company.html" class="nav-link active"><i class="fas fa-building me-2"></i> Company</a></li>
+                <li><a href="Employees.html" class="nav-link"><i class="fas fa-users me-2"></i> Employees</a></li>
+                <li><a href="Departments.html" class="nav-link"><i class="fas fa-sitemap me-2"></i> Departments</a></li>
+                <li><a href="Career.html" class="nav-link"><i class="fas fa-briefcase me-2"></i> Career</a></li>
+                <li><a href="AboutUs.html" class="nav-link"><i class="fas fa-info-circle me-2"></i> About Us</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <div class="page-container py-4">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                    <h1 class="display-6 mb-0 text-dark">
+                        <i class="fas fa-pen-square me-2 text-primary"></i> Edit Company Information
+                    </h1>
+                </div>
+
+                <h2 class="h5 mb-3 text-secondary"><i class="fas fa-info-circle me-2"></i> Company Details</h2>
+                <div class="card shadow-sm mb-5 border-0">
+                    <div class="card-body p-4">
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="companyName" class="form-label">Company Name *</label>
+                                    <input type="text" class="form-control bg-light" id="companyName" value="Innovatech Solutions Pvt. Ltd." readonly>
+                                    <div class="form-text">Name cannot be changed here.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phoneNumber" value="(555) 123-4567">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" value="info@innovatech.com">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="regDate" class="form-label">Registration Date</label>
+                                    <input type="date" class="form-control" id="regDate" value="2023-01-15">
+                                </div>
+                                <div class="col-md-8">
+                                    <label for="website" class="form-label">Website</label>
+                                    <input type="url" class="form-control" id="website" value="http://www.innovatech.com">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="bankAccount" class="form-label">Bank Account Number</label>
+                                    <input type="text" class="form-control" id="bankAccount" value="98765432101234567890">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="tin" class="form-label">TIN</label>
+                                    <input type="text" class="form-control" id="tin" value="T1234567890">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="pan" class="form-label">PAN</label>
+                                    <input type="text" class="form-control" id="pan" value="PABCDE1234F">
+                                    </d<d>
+                                </div>
+                        </form>
                     </div>
-                </form>
+                </div>
+
+                <h2 class="h5 mb-3 text-secondary"><i class="fas fa-map-marked-alt me-2"></i> Manage Addresses</h2>
+
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
+                        <i class="fas fa-plus me-2"></i> Add New Address
+                    </button>
+                </div>
+
+                <div class="table-responsive shadow-sm bg-white border rounded mb-4">
+                    <table class="table table-hover table-striped mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Type</th>
+                                <th>Address Line 1</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Pin Code</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="address-1">
+                                <td data-field="type">Corporate</td>
+                                <td data-field="line1">101 Tech Park Avenue</td>
+                                <td data-field="city">Metroville</td>
+                                <td data-field="state">CA</td>
+                                <td data-field="pin">902100</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editAddressModal"
+                                            data-id="1"
+                                            data-type="Corporate"
+                                            data-line1="101 Tech Park Avenue"
+                                            data-city="Metroville"
+                                            data-state="CA"
+                                            data-pin="902100">
+                                        <i class="fas fa-pen"></i> Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteAddressModal"
+                                            data-id="1">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr id="address-2">
+                                <td data-field="type">Branch</td>
+                                <td data-field="line1">202 Industrial Drive</td>
+                                <td data-field="city">Port City</td>
+                                <td data-field="state">TX</td>
+                                <td data-field="pin">770012</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editAddressModal"
+                                            data-id="2"
+                                            data-type="Branch"
+                                            data-line1="202 Industrial Drive"
+                                            data-city="Port City"
+                                            data-state="TX"
+                                            data-pin="770012">
+                                        <i class="fas fa-pen"></i> Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteAddressModal"
+                                            data-id="2">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-start mt-4 mb-5 btn-group-action">
+                    <a href="#" class="btn btn-primary btn-lg me-3"><i class="fas fa-save me-2"></i> Save Changes</a>
+                    <a href="#" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left me-2"></i> Back to View</a>
+                </div>
+
             </div>
-        </div>
-
-        <h2 class="h5 mb-3 text-secondary"><i class="fas fa-map-marked-alt me-2"></i> Manage Addresses</h2>
-
-        <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
-                <i class="fas fa-plus me-2"></i> Add New Address
-            </button>
-        </div>
-
-        <div class="table-responsive shadow-sm bg-white border rounded mb-4">
-            <table class="table table-hover table-striped mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Type</th>
-                        <th>Address Line 1</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Pin Code</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="address-1">
-                        <td data-field="type">Corporate</td>
-                        <td data-field="line1">101 Tech Park Avenue</td>
-                        <td data-field="city">Metroville</td>
-                        <td data-field="state">CA</td>
-                        <td data-field="pin">902100</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editAddressModal"
-                                    data-id="1"
-                                    data-type="Corporate"
-                                    data-line1="101 Tech Park Avenue"
-                                    data-city="Metroville"
-                                    data-state="CA"
-                                    data-pin="902100">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteAddressModal"
-                                    data-id="1">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                    <tr id="address-2">
-                        <td data-field="type">Branch</td>
-                        <td data-field="line1">202 Industrial Drive</td>
-                        <td data-field="city">Port City</td>
-                        <td data-field="state">TX</td>
-                        <td data-field="pin">770012</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editAddressModal"
-                                    data-id="2"
-                                    data-type="Branch"
-                                    data-line1="202 Industrial Drive"
-                                    data-city="Port City"
-                                    data-state="TX"
-                                    data-pin="770012">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteAddressModal"
-                                    data-id="2">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="d-flex justify-content-start mt-4 mb-5 btn-group-action">
-            <a href="/Company/list" class="btn btn-primary btn-lg me-3"><i class="fas fa-save me-2"></i> Save Changes</a>
-            <a href="/Company/list" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left me-2"></i> Back to View</a>
-        </div>
+        </main>
 
     </div>
 
@@ -300,24 +518,53 @@
         </div>
     </div>
 
-    <footer class="bg-white mt-auto py-3 border-top shadow-sm">
-        <div class="page-container text-center">
-            <span class="text-muted small">© 2025 Employee Management System (EMS) | All Rights Reserved.</span>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>📞 +1 (987) 654-3210</span>
+            <span>🌐 <a href="https://www.innovatech.com" target="_blank" rel="noopener">www.innovatech.com</a></span>
+            <span>✉️ <a href="mailto:info@innovatech.com">info@innovatech.com</a></span>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // --- NEW SIDEBAR TOGGLE LOGIC ---
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        // Initial state: collapsed on mobile, open on desktop (handled by CSS media queries)
+        // Add collapsed class initially on desktop to match the default margin-left property
+        if (window.innerWidth >= 768) {
+            sidebar.classList.remove('collapsed');
+        } else {
+            sidebar.classList.add('collapsed');
+        }
+
+        sidebarToggle.addEventListener('click', function () {
+            // Use the 'collapsed' class to manage visibility/positioning on desktop
+            // Use the 'active' class to manage visibility/positioning on mobile (to override the starting collapsed state)
+
+            if (window.innerWidth >= 768) {
+                // Desktop: Toggle collapsed state for shift effect
+                sidebar.classList.toggle('collapsed');
+            } else {
+                // Mobile: Toggle active state for slide-in effect
+                sidebar.classList.toggle('active');
+            }
+        });
+
+        // --------------------------------------------------------
+        // --- EXISTING ADDRESS MANAGEMENT LOGIC ---
         // Track the next available ID for new addresses (starts after existing IDs 1 and 2)
         let nextAddressId = 3;
 
         // 1. Get references to the elements
         const editButtons = document.querySelectorAll('.edit-address-btn');
-        const deleteButtons = document.querySelectorAll('.delete-address-btn'); // NEW: Initial delete buttons
+        const deleteButtons = document.querySelectorAll('.delete-address-btn');
         const saveEditButton = document.getElementById('saveEditButton');
         const addAddressButton = document.getElementById('confirmAddAddressButton');
-        const confirmDeleteButton = document.getElementById('confirmDeleteButton'); // NEW: Confirm Delete button
+        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
         const addressTableBody = document.querySelector('.table tbody');
 
         // --- COMMON FUNCTIONS ---
@@ -372,7 +619,7 @@
             });
         }
 
-        // NEW: Function to attach the delete listener to a single button
+        // Function to attach the delete listener to a single button
         function attachDeleteListener(button) {
             button.addEventListener('click', function () {
                 const id = this.getAttribute('data-id');
@@ -383,7 +630,7 @@
 
         // --- INITIAL ATTACHMENT ---
         editButtons.forEach(attachEditListener);
-        deleteButtons.forEach(attachDeleteListener); // Attach listeners to existing delete buttons
+        deleteButtons.forEach(attachDeleteListener);
 
         // --- SAVE EDIT LOGIC ---
         saveEditButton.addEventListener('click', function () {
@@ -451,7 +698,7 @@
                 if (newEditButton) {
                     attachEditListener(newEditButton);
                 }
-                // NEW: Delete button listener
+                // Delete button listener
                 const newDeleteButton = newRow.querySelector('.delete-address-btn');
                 if (newDeleteButton) {
                     attachDeleteListener(newDeleteButton);
@@ -466,7 +713,7 @@
             modal.hide();
         });
 
-        // --- NEW: DELETE LOGIC ---
+        // --- DELETE LOGIC ---
         confirmDeleteButton.addEventListener('click', function () {
             const addressId = document.getElementById('delete-addressId').value;
             const row = document.getElementById('address-' + addressId);
