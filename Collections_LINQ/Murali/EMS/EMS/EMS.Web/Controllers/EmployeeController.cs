@@ -8,33 +8,9 @@ namespace EMS.Web.Controllers
     {
         [Route("getallemployees")]
         [Route("list")]
-        public IActionResult EmployeeList()
+        public ViewResult EmployeeList()
         {
-            List<EmployeeModel> employees = new List<EmployeeModel>();
-            employees.Add(new EmployeeModel
-            {
-                Addresses = null,
-                Employeecode = "E001",
-                FirstName = "John",
-                LastName = "Doe",
-                DepartmentIdFk = 1
-
-            });
-            employees.Add(new EmployeeModel
-            {
-                Addresses = null,
-                Employeecode = "E002",
-                FirstName = "Sai",
-                LastName = "Prasad",
-                DepartmentIdFk = 2
-            });
-            return View(employees);
-        }
-
-        [Route("addemployee")]
-        public IActionResult AddEmployee()
-        {
-            return View();
+            return "dfgh";
         }
 
         [Route("editemployee")]
@@ -92,9 +68,10 @@ namespace EMS.Web.Controllers
     [Route("Test")]
     public class TestController : Controller
     {
-        public string A()
+        [Route("Sai")]
+        public IActionResult A()
         {
-            return string.Empty;
+            return View();
         }
         //localhost:234/test
         [Route("test")]
@@ -123,10 +100,10 @@ namespace EMS.Web.Controllers
         {
             return string.Empty;
         }
-
+        [Route("sneha")]
         public string C()
         {
-            return string.Empty;
+            return "Hello hii";
         }
     }
 

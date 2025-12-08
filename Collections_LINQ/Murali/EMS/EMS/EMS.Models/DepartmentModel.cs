@@ -11,7 +11,10 @@ namespace EMS.Models
         public int DepartmentIdPk { get; set; }
         public string DepartmentCode { get; set; }
         public string DepartmentName { get; set; }
+        /// <summary>
+        /// 
         public string Location { get; set; }
+        /// </summary>
         public int CompanyIdFk  { get; set; }
         public bool IsActive { get; set; }
 
