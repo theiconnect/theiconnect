@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <style>
-     
+
         :root {
             --sidebar-width: 250px;
             --header-height: 60px;
@@ -303,6 +303,7 @@
                                     <input type="text" class="form-control" id="pan" value="PABCDE1234F">
                                     </d<d>
                                 </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -385,7 +386,7 @@
                 </div>
 
                 <div class="d-flex justify-content-start mt-4 mb-5 btn-group-action">
-                    <a href="#" class="btn btn-primary btn-lg me-3"><i class="fas fa-save me-2"></i> Save Changes</a>
+                    <a href="Company.html" class="btn btn-primary btn-lg me-3"><i class="fas fa-save me-2"></i> Save Changes</a>
                     <a href="#" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left me-2"></i> Back to View</a>
                 </div>
 
@@ -402,7 +403,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form novalidate>
+                    <form id="addAddressForm" novalidate>
                         <div class="mb-3">
                             <label for="addressType" class="form-label">Address Type *</label>
                             <select class="form-select" id="addressType" required>
@@ -520,7 +521,7 @@
 
     <footer class="site-footer">
         <div class="footer-inner">
-            <span>📞 +1 (987) 654-3210</span>
+            <span>📞 +91 7346862992</span>
             <span>🌐 <a href="https://www.innovatech.com" target="_blank" rel="noopener">www.innovatech.com</a></span>
             <span>✉️ <a href="mailto:info@innovatech.com">info@innovatech.com</a></span>
         </div>
@@ -534,7 +535,6 @@
         const sidebarToggle = document.getElementById('sidebarToggle');
 
         // Initial state: collapsed on mobile, open on desktop (handled by CSS media queries)
-        // Add collapsed class initially on desktop to match the default margin-left property
         if (window.innerWidth >= 768) {
             sidebar.classList.remove('collapsed');
         } else {
@@ -542,9 +542,6 @@
         }
 
         sidebarToggle.addEventListener('click', function () {
-            // Use the 'collapsed' class to manage visibility/positioning on desktop
-            // Use the 'active' class to manage visibility/positioning on mobile (to override the starting collapsed state)
-
             if (window.innerWidth >= 768) {
                 // Desktop: Toggle collapsed state for shift effect
                 sidebar.classList.toggle('collapsed');
@@ -555,13 +552,10 @@
         });
 
         // --------------------------------------------------------
-        // --- EXISTING ADDRESS MANAGEMENT LOGIC ---
-        // Track the next available ID for new addresses (starts after existing IDs 1 and 2)
+        // --- ADDRESS MANAGEMENT LOGIC ---
         let nextAddressId = 3;
 
         // 1. Get references to the elements
-        const editButtons = document.querySelectorAll('.edit-address-btn');
-        const deleteButtons = document.querySelectorAll('.delete-address-btn');
         const saveEditButton = document.getElementById('saveEditButton');
         const addAddressButton = document.getElementById('confirmAddAddressButton');
         const confirmDeleteButton = document.getElementById('confirmDeleteButton');
@@ -571,66 +565,96 @@
         // Function to create a new table row HTML structure
         function createNewRowHtml(id, type, line1, city, state, pin) {
             return `
-                    <tr id="address-${id}">
-                        <td data-field="type">${type}</td>
-                        <td data-field="line1">${line1}</td>
-                        <td data-field="city">${city}</td>
-                        <td data-field="state">${state}</td>
-                        <td data-field="pin">${pin}</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editAddressModal"
-                                data-id="${id}"
-                                data-type="${type}"
-                                data-line1="${line1}"
-                                data-city="${city}"
-                                data-state="${state}"
-                                data-pin="${pin}">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#deleteAddressModal"
-                                data-id="${id}">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                `;
+                        <tr id="address-${id}">
+                            <td data-field="type">${type}</td>
+                            <td data-field="line1">${line1}</td>
+                            <td data-field="city">${city}</td>
+                            <td data-field="state">${state}</td>
+                            <td data-field="pin">${pin}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editAddressModal"
+                                    data-id="${id}"
+                                    data-type="${type}"
+                                    data-line1="${line1}"
+                                    data-city="${city}"
+                                    data-state="${state}"
+                                    data-pin="${pin}">
+                                    <i class="fas fa-pen"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteAddressModal"
+                                    data-id="${id}">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    `;
         }
 
-        // Function to attach the edit listener to a single button
-        function attachEditListener(button) {
-            button.addEventListener('click', function () {
-                const id = this.getAttribute('data-id');
-                const type = this.getAttribute('data-type');
-                const line1 = this.getAttribute('data-line1');
-                const city = this.getAttribute('data-city');
-                const state = this.getAttribute('data-state');
-                const pin = this.getAttribute('data-pin');
+        // --- EVENT DELEGATION (Handles Clicks on Edit/Delete Buttons) ---
+        // This ensures the listener works for all buttons, even ones added later.
+        addressTableBody.addEventListener('click', function (event) {
+            let targetButton = event.target.closest('.edit-address-btn, .delete-address-btn');
+            if (!targetButton) return;
 
+            if (targetButton.classList.contains('edit-address-btn')) {
+                // --- FIX APPLIED HERE ---
+                // Read the data directly from the button that was clicked.
+                const id = targetButton.getAttribute('data-id');
+                const type = targetButton.getAttribute('data-type');
+                const line1 = targetButton.getAttribute('data-line1');
+                const city = targetButton.getAttribute('data-city');
+                const state = targetButton.getAttribute('data-state');
+                const pin = targetButton.getAttribute('data-pin');
+
+                // Populate the Edit modal inputs
                 document.getElementById('edit-addressId').value = id;
                 document.getElementById('edit-addressType').value = type;
                 document.getElementById('edit-addressLine1').value = line1;
+                // Line 2 is not tracked in data attributes, so we clear it or leave it blank
+                document.getElementById('edit-addressLine2').value = '';
                 document.getElementById('edit-city').value = city;
                 document.getElementById('edit-state').value = state;
                 document.getElementById('edit-pinCode').value = pin;
-            });
-        }
-
-        // Function to attach the delete listener to a single button
-        function attachDeleteListener(button) {
-            button.addEventListener('click', function () {
-                const id = this.getAttribute('data-id');
-                // Store the ID in the hidden input of the delete modal
+            } else if (targetButton.classList.contains('delete-address-btn')) {
+                // Populate the Delete modal
+                const id = targetButton.getAttribute('data-id');
                 document.getElementById('delete-addressId').value = id;
-            });
-        }
+            }
+        });
 
-        // --- INITIAL ATTACHMENT ---
-        editButtons.forEach(attachEditListener);
-        deleteButtons.forEach(attachDeleteListener);
+        // --- ADD ADDRESS LOGIC ---
+        addAddressButton.addEventListener('click', function () {
+            // Get data from the 'Add' modal form
+            const type = document.getElementById('addressType').value;
+            const line1 = document.getElementById('addressLine1').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const pin = document.getElementById('pinCode').value;
+
+            // Simple validation check
+            if (!type || !line1 || !city || !state || !pin) {
+                alert('Please fill in all required address fields.');
+                return;
+            }
+
+            // Create new row using the function with the correct data
+            const newRowHtml = createNewRowHtml(nextAddressId, type, line1, city, state, pin);
+            addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
+            nextAddressId++;
+
+            // Hide the modal
+            const modalElement = document.getElementById('addAddressModal');
+            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+            modal.hide();
+
+            // Clear form for next use
+            document.getElementById('addAddressForm').reset();
+        });
+
 
         // --- SAVE EDIT LOGIC ---
         saveEditButton.addEventListener('click', function () {
@@ -643,14 +667,14 @@
 
             const row = document.getElementById('address-' + addressId);
             if (row) {
-                // Update the visible <td> cells
+                // 1. Update the visible <td> cells
                 row.querySelector('[data-field="type"]').textContent = newType;
                 row.querySelector('[data-field="line1"]').textContent = newLine1;
                 row.querySelector('[data-field="city"]').textContent = newCity;
                 row.querySelector('[data-field="state"]').textContent = newState;
                 row.querySelector('[data-field="pin"]').textContent = newPin;
 
-                // Update the data attributes on the EDIT button for future edits
+                // 2. Update the data attributes on the EDIT button for future edits
                 const editButton = row.querySelector('.edit-address-btn');
                 editButton.setAttribute('data-type', newType);
                 editButton.setAttribute('data-line1', newLine1);
@@ -665,61 +689,13 @@
             modal.hide();
         });
 
-        // --- ADD LOGIC ---
-        addAddressButton.addEventListener('click', function () {
-            const form = document.getElementById('addAddressModal').querySelector('form');
-
-            // Basic Form Validation Check
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated');
-                return;
-            }
-
-            // Get the new address details
-            const type = document.getElementById('addressType').value;
-            const line1 = document.getElementById('addressLine1').value;
-            const city = document.getElementById('city').value;
-            const state = document.getElementById('state').value;
-            const pin = document.getElementById('pinCode').value;
-
-            // Generate a new ID
-            const newId = nextAddressId;
-            nextAddressId++;
-
-            // Create and append the new row to the table
-            const newRowHtml = createNewRowHtml(newId, type, line1, city, state, pin);
-            addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
-
-            // Attach listeners to the newly created buttons
-            const newRow = document.getElementById(`address-${newId}`);
-            if (newRow) {
-                // Edit button listener
-                const newEditButton = newRow.querySelector('.edit-address-btn');
-                if (newEditButton) {
-                    attachEditListener(newEditButton);
-                }
-                // Delete button listener
-                const newDeleteButton = newRow.querySelector('.delete-address-btn');
-                if (newDeleteButton) {
-                    attachDeleteListener(newDeleteButton);
-                }
-            }
-
-            // Reset the form and hide the modal
-            form.reset();
-            form.classList.remove('was-validated');
-            const modalElement = document.getElementById('addAddressModal');
-            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            modal.hide();
-        });
-
-        // --- DELETE LOGIC ---
+        // --- CONFIRM DELETE LOGIC ---
         confirmDeleteButton.addEventListener('click', function () {
-            const addressId = document.getElementById('delete-addressId').value;
-            const row = document.getElementById('address-' + addressId);
+            const addressIdToDelete = document.getElementById('delete-addressId').value;
+            const rowToDelete = document.getElementById('address-' + addressIdToDelete);
 
-            if (row) {
-                row.remove(); // Remove the table row
+            if (rowToDelete) {
+                rowToDelete.remove();
             }
 
             // Hide the modal after deleting
@@ -728,6 +704,5 @@
             modal.hide();
         });
     </script>
-
 </body>
 </html>
