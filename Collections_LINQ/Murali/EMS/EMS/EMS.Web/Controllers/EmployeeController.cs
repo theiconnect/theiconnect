@@ -18,7 +18,7 @@ namespace EMS.Web.Controllers
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
             // If you want to return a string, change the return type to 'string'.
-            return View();
+            return "View";
         }
 
         // Route: /Employee/editemployee
