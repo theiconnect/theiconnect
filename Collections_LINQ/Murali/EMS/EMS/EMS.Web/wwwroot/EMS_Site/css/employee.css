@@ -1,381 +1,152 @@
-/* Custom styles for Employee List page (sketch-driven) */
-
-:root {
-    --sidebar-width: 220px;
-}
-
-/* reset container spacing to match portal */
-body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: #f7f8fa;
-    color: #212529;
-    margin: 0;
-    padding-top: 56px; /* navbar fixed-top height*/
-}
-
-/* wrapper layout */
-#wrapper {
-    display: flex;
-    min-height: calc(100vh - 56px);
-}
-
-/* sidebar */
-#sidebarMenu {
-    width: var(--sidebar-width);
-    min-width: var(--sidebar-width);
-    transition: width .2s ease;
-    overflow: auto;
-    position: fixed;
-    top: 56px;
-    bottom: 0;
-    left: 0;
-    z-index: 1020;
-}
-
-#main-content {
-    margin-left: var(--sidebar-width);
-    transition: margin-left .2s ease;
-    padding-bottom: 60px; /* space for fixed footer */
-}
-
-/* collapsed sidebar state */
-.sidebar-toggled #sidebarMenu {
-    width: 0;
-    min-width: 0;
-    overflow: hidden;
-}
-
-.sidebar-toggled #main-content {
-    margin-left: 0;
-}
-
-/* user avatar */
-.user-avatar {
-    width: 36px;
-    height: 36px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #0d6efd;
-    color: #fff;
-    font-weight: 600;
-}
-
-/* filters card appearance */
-.card .form-label.small {
-    font-size: 0.8rem;
-    color: #6c757d;
-}
-
-#filterForm .form-control, #filterForm .form-select {
-    min-height: 42px;
-}
-
-/* table tweaks */
-.table thead th {
-    vertical-align: middle;
-    font-weight: 600;
-}
-
-.table td, .table th {
-    padding: 0.75rem 0.9rem;
-    white-space: nowrap;
-}
-
-/* mobile responsiveness */
-@media (max-width: 767.98px) {
-    #sidebarMenu {
-        position: relative;
-        top: 0;
-        width: 100%;
-        min-width: 100%;
-    }
-
-    #main-content {
-        margin-left: 0;
-        padding-top: 15px;
-    }
-
-    .table td, .table th {
-        white-space: normal;
-    }
-}
-
-/* action buttons */
-.table .btn {
-    padding: .32rem .5rem;
-    font-size: .85rem;
-}
-
-/* modal content formatting */
-#viewEmployeeBody dl {
-    margin-bottom: 0;
-}
-
-#viewEmployeeBody dt {
-    font-weight: 600;
-}
-/* style.css
-   Responsive, professional styles for employeeview.html
-   Well-documented and easy to maintain.
-   Place at: wwwroot/emp/style.css
+/* Clean card-style CSS for EmployeeEditpage.html
+   Each field row shows as a small card to emphasize data blocks.
+   Simple and responsive so it's easy to understand for beginners.
 */
 
-/* Theme variables */
-:root {
-    --bg: #f6f8fb;
-    --card: #ffffff;
-    --accent: #283593;
-    --accent-600: #3949ab;
-    --muted: #6b7280;
-    --text: #1f2937;
-    --radius: 10px;
-    --max-w: 1000px;
-    --shadow: 0 8px 24px rgba(19,24,33,0.06);
+/* Page background and font */
+body.employee-edit {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f3f6f9;
+  color: #222;
+  padding: 20px;
 }
 
-/* Base */
-* {
-    box-sizing: border-box
+/* Main form as a centered card */
+#employeeForm {
+  max-width: 880px;
+  margin: 18px auto;
+  padding: 18px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(22, 41, 66, 0.06);
+  border: 1px solid rgba(22, 41, 66, 0.04);
+  box-sizing: border-box;
 }
 
-html, body {
-    height: 100%
+/* Page heading above the form */
+body.employee-edit > h2 {
+  text-align: center;
+  color: #0b3b66;
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
 }
 
-body {
-    margin: 0;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.45;
-    font-size: 16px;
+/* Each form-row presented as a card-like block */
+#employeeForm .form-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #fbfdff;
+  border: 1px solid rgba(10,20,30,0.03);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(10, 20, 30, 0.02);
 }
 
-/* Container */
-.container {
-    width: min(94%, var(--max-w));
-    margin: 20px auto;
-    padding-bottom: 32px;
+/* Label column (fixed width) */
+#employeeForm .form-row > label,
+#employeeForm .form-row label {
+  width: 180px;
+  min-width: 110px;
+  margin: 0;
+  font-weight: 600;
+  color: #233746;
+  font-size: 0.95rem;
 }
 
-/* Header */
-.site-header {
-    background: var(--accent);
-    color: #fff;
-    padding: 20px 0;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+/* Input / select styling (flexible column) */
+#employeeForm .form-row input[type="text"],
+#employeeForm .form-row input[type="email"],
+#employeeForm .form-row input[type="tel"],
+#employeeForm .form-row input[type="number"],
+#employeeForm .form-row select,
+#employeeForm .form-row .datepicker,
+#employeeForm .form-row textarea {
+  flex: 1 1 auto;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #d6e0e6;
+  background: #fff;
+  color: #111;
+  font-size: 0.95rem;
+  box-sizing: border-box;
 }
 
-    .site-header .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px
-    }
-
-    .site-header h1 {
-        margin: 0;
-        font-size: 1.3rem
-    }
-
-.subtitle {
-    opacity: .92;
-    margin: 0;
-    font-size: .95rem
+/* Readonly fields slightly dimmed */
+#employeeForm input[readonly] {
+  background: #f6f8fa;
+  color: #5b6470;
 }
 
-/* Card */
-.card {
-    background: var(--card);
-    padding: 18px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(15,20,30,0.04);
-    margin-bottom: 18px;
+/* Fieldset (addresses) as a larger card block */
+.address-group {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(10,20,30,0.04);
+  box-shadow: 0 6px 16px rgba(10,20,30,0.03);
+  margin-bottom: 12px;
 }
 
-    .card h2 {
-        margin: 0 0 12px;
-        color: var(--accent);
-        font-size: 1.05rem
-    }
-
-/* Grid */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-    gap: 14px;
-    align-items: start;
+/* Legend style */
+.address-group legend {
+  font-weight: 700;
+  padding: 0 6px;
 }
 
-/* Photo column */
-.photo-col {
-    display: flex;
+/* Error message placed under control and visually clear */
+#employeeForm .field-error {
+  color: #b00020;
+  font-size: 0.88rem;
+  margin-top: 8px;
+  display: block;
+  /* align with control column visually */
+  margin-left: 180px;
+}
+
+/* Actions row aligned to right inside card */
+#employeeForm .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Buttons styling */
+#employeeForm .actions button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+#employeeForm .actions button[type="submit"] {
+  background: #0078d4;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0,120,212,0.12);
+}
+
+#btnCancel {
+  background: #6c757d;
+  color: #fff;
+}
+
+/* Responsive: stack label above control on narrow screens */
+@media (max-width: 760px) {
+  #employeeForm .form-row {
     flex-direction: column;
-    align-items: center;
-    gap: 10px
+    align-items: stretch;
+  }
+
+  #employeeForm .form-row > label,
+  #employeeForm .form-row label {
+    width: auto;
+    margin-bottom: 6px;
+  }
+
+     #employeeForm .field-error {
+    margin-left: 0;
+  }
 }
-
-.photo {
-    width: 140px;
-    height: 140px;
-    border-radius: 8px;
-    background: linear-gradient(180deg,#eef2ff,#f8fbff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    font-weight: 600;
-    border: 1px solid rgba(6,8,15,0.04)
-}
-
-    .photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block
-    }
-
-/* Key-value rows */
-.kv {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 8px;
-    align-items: flex-start
-}
-
-    .kv .label {
-        min-width: 120px;
-        color: var(--muted);
-        font-weight: 600;
-        font-size: .95rem
-    }
-
-    .kv .value {
-        color: var(--text);
-        font-size: .96rem;
-        word-break: break-word
-    }
-
-/* Subhead */
-.subhead {
-    margin: 0 0 8px 0;
-    color: var(--accent);
-    font-size: 1rem
-}
-
-/* Buttons */
-.toggle-btn {
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: var(--accent-600);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: .95rem;
-}
-
-    .toggle-btn:hover {
-        background: var(--accent)
-    }
-
-/* Inline form */
-.inline-form {
-    margin-top: 6px
-}
-
-    .inline-form input {
-        padding: 8px 10px;
-        border-radius: 8px;
-        border: 1px solid #e6e9ef;
-        width: 100%;
-        font-size: .95rem;
-        background: #fff
-    }
-
-.form-error {
-    color: #b91c1c;
-    font-size: .9rem;
-    margin-top: 6px;
-    display: none
-}
-
-/* Small notes & utilities */
-.small-note {
-    color: var(--muted);
-    font-size: .95rem
-}
-
-    .small-note.emphasis {
-        font-style: italic
-    }
-
-.sr-only {
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px,1px,1px,1px);
-    white-space: nowrap
-}
-
-.hidden {
-    display: none
-}
-
-/* Footer */
-.footer-note {
-    text-align: center;
-    background: linear-gradient(180deg,rgba(40,53,147,0.96),rgba(32,41,119,0.96));
-    color: #fff;
-    padding: 14px
-}
-
-/* Responsive tweaks */
-@media (max-width:720px) {
-    .grid {
-        grid-template-columns: 1fr
-    }
-
-    .kv .label {
-        min-width: 100px
-    }
-
-    .photo {
-        width: 120px;
-        height: 120px
-    }
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #0078D4;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-    button:hover {
-        background-color: #005A9E;
-    }
-
-/* Prefer reduced motion */
-@media (prefers-reduced-motion:reduce) {
-    * {
-        transition: none !important;
-        animation: none !important
-    }
-}
-
