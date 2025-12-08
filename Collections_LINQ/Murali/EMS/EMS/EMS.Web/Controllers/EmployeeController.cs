@@ -13,12 +13,12 @@ namespace EMS.Web.Controllers
         // Route: /Employee/getallemployees or /Employee/list
         [Route("getallemployees")]
         [Route("list")]
-        public string EmployeeList()
+        public IActionResult EmployeeList()
         {
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
             // If you want to return a string, change the return type to 'string'.
-            return "View";
+            return View();
         }
 
         // Route: /Employee/editemployee
