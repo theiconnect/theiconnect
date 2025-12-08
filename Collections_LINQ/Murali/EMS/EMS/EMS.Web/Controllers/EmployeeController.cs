@@ -52,12 +52,13 @@ namespace EMS.Web.Controllers
         // Route: /e, /e/hellobabai, /e/hellochicha, /e/helloKaka
         [Route("")]
         [Route("hellobabai")]
-        [Route("hellochicha")]
+      
         [Route("helloKaka")]
         public string Index()
         {
-            return "Employee1Controller - Hello from Index";
+            return "Employee1Controller - Hello from sai ram";
         }
+      
 
         // Route: /e/Index2 (Implicit default routing)
         public int Index2()

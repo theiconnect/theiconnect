@@ -12,4 +12,8 @@
     <ProjectReference Include="..\EMS.Services\EMS.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\NewFolder\" />
+  </ItemGroup>
+
 </Project>

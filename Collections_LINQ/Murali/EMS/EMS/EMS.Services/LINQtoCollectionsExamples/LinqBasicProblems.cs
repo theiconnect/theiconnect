@@ -97,12 +97,8 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             // IList is not ideal for LINQ, but List<T> implements IList<T>
-            var x = db.Employees.ToList();
-            foreach (var X1 in x)
-            {
-                Console.WriteLine(X1.EmployeeIdPk);
-            }
-            return x;
+            var result= db.Employees.ToList();
+            return result;  
         }
 
         // 5. Get all employees as IQueryable (NOT recommended for in-memory collections)
@@ -183,6 +179,8 @@ return result3;
             var db = EMSDbContext.GetInstance();
             // IQueryable is not useful here, see previous note.
             return db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000).AsQueryable();
+            
+            
         }
 
         // 12. Get all employees ordered by first name as List
@@ -235,7 +233,8 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             // HashSet is not ideal for ordered queries, but can be used for uniqueness.
-            return db.Employees.ToHashSet();
+            var result= db.Employees.ToHashSet();
+            return result;
         }
 
         // 17. Get all employees as Dictionary by EmployeeIdPk
@@ -269,6 +268,8 @@ return result3;
         {
             var db = EMSDbContext.GetInstance();
             IEnumerable<EmployeeModel> employees = db.Employees;
+            var result= employees.ToList();
+            
             // employees.Add(new EmployeeModel()); // Not allowed: 'IEnumerable<T>' does not contain a definition for 'Add'
             // IEnumerable<T> is read-only, you cannot add/remove items.
         }

@@ -4,6 +4,8 @@ using System.Linq;
 using EMS.Models;
 using EMS.DataAccess;
 using EMS.Models.Enums;
+using System.Reflection.Metadata.Ecma335;
+using System.Xml;
 
 namespace EMS.Services.LINQtoCollectionsExamples
 {
@@ -84,6 +86,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var result= db.Departments
                 .Select(d => (
                     d.DepartmentName,
+                    //d.DepartmentCode,
+                    //d.Employees.OrderByDescending(e => e.Gender == Genders.Male).FirstOrDefault(),
                     d.Employees.OrderByDescending(e => e.SalaryCtc ?? 0).FirstOrDefault()
                 ))
                 .Where(x => x.Item2 != null)
@@ -115,8 +119,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesWithPresentAndPermanentAddresses()
         {
             var db = EMSDbContext.GetInstance();
-
-             var result=db.Employees
+            var result= db.Employees
                 .Where(e =>
                     e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PRESENT_ADDR) &&
                     e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)
@@ -138,7 +141,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         {
             var db = EMSDbContext.GetInstance();
             var qualifications = db.QualificationLookups.ToDictionary(q => q.QualificationIdPk, q => q.Qualification);
-            return db.Employees
+            var result= db.Employees
                 .Select(e => (
                     e,
                     e.QualificationIdFk.HasValue && qualifications.ContainsKey(e.QualificationIdFk.Value)
@@ -146,6 +149,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
                         : "N/A"
                 ))
                 .ToList();
+            return result ;
         }
 
         // 11. Get all employees as IQueryable and try to use WhereAsync (NOT allowed, will not compile)
@@ -179,9 +183,10 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesWithAddressInState(string state)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees
+            var result= db.Employees
                 .Where(e => e.Addresses.Any(a => a.State.Equals(state, StringComparison.OrdinalIgnoreCase)))
                 .ToList();
+            return result ;
         }
 
         // 15. Get all employees grouped by gender as Dictionary
@@ -209,7 +214,9 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var db = EMSDbContext.GetInstance();
             var department = db.Departments.FirstOrDefault(d => d.DepartmentName == departmentName);
             if (department == null) return new List<EmployeeModel>();
-            return db.Employees.Where(e => e.DepartmentIdFk == department.DepartmentIdPk).ToList();
+            var result = db.Employees.Where(e => e.DepartmentIdFk == department.DepartmentIdPk).ToList();
+                return result ;
+            //GetEmployeesWithDesignationInHistory(DesiginationTypes.SeniorDeveloper);
         }
 
         // 18. Get all employees with a specific designation in their history as List
@@ -237,7 +244,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var db = EMSDbContext.GetInstance();
             var employees = db.Employees.ToList();
             employees.RemoveAll(e => !e.IsActive); // This is allowed on List<T>
-            return employees;
+            var result= employees.ToList();
+            return result;
         }
     }
 }
