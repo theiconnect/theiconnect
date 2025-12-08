@@ -127,7 +127,7 @@ namespace EMS.Web.Controllers
         // Route: /Test1/C (Implicit default routing)
         public string C()
         {
-            return string.Empty;
+            return "Hello hii";
         }
     }
 
