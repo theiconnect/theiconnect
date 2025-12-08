@@ -199,3 +199,58 @@
         }
     });
 })();
+
+// script.js
+// Lightweight interactivity for employeeview.html
+// - Toggle permanent address
+// - Simple phone validation demo
+// - Keep functions small and well-commented for maintainability
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('toggle-perm');
+    const perm = document.getElementById('permanent-address');
+    const phoneInput = document.getElementById('phone-input');
+    const phoneError = document.getElementById('phone-error');
+
+    // Toggle permanent address visibility with ARIA updates
+    if (toggleBtn && perm) {
+        toggleBtn.addEventListener('click', () => {
+            const isHidden = perm.classList.toggle('hidden');
+            // When class toggled, perm is hidden when it has class 'hidden'
+            const expanded = !perm.classList.contains('hidden');
+            perm.setAttribute('aria-hidden', String(!expanded));
+            toggleBtn.setAttribute('aria-expanded', String(expanded));
+            toggleBtn.textContent = expanded ? 'Hide' : 'Show';
+        });
+    }
+
+    // Minimal phone validation:
+    // - Accepts digits, spaces, parentheses, + and hyphens
+    // - Valid when digit count between 7 and 15
+    if (phoneInput && phoneError) {
+        phoneInput.addEventListener('input', () => {
+            const raw = phoneInput.value || '';
+            const digits = raw.replace(/\D/g, '');
+            if (!raw) {
+                phoneError.style.display = 'none';
+                phoneError.textContent = '';
+                return;
+            }
+            if (digits.length < 7 || digits.length > 15) {
+                phoneError.textContent = 'Phone number looks invalid — include country code or at least 7 digits.';
+                phoneError.style.display = 'block';
+            } else {
+                phoneError.textContent = '';
+                phoneError.style.display = 'none';
+            }
+        });
+    }
+
+}
+    function handleOkClick() {
+        alert("OK button clicked!");
+    }
+
+    // Example helper: copy present address to permanent (if UI grows to include a checkbox)
+    // function copyPresentToPermanent() { ... } // kept as a placeholder for future features
+});
