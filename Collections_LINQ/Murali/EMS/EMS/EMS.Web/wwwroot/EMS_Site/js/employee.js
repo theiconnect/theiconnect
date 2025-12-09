@@ -1,256 +1,245 @@
-/**
- * employee_list.js
- * - seeds storage with sample entries (EMP001 Sai Ram, EMP002 Reju Rama O, EMP003 John Doe)
- * - renders grid with columns per sketch
- * - implements name/gender/designation filters with Search and Clear buttons
- * - actions: View (modal), Edit (link), Delete (confirm + persist)
- * - sidebar toggle
- */
-
-(function () {
+// Client behaviors for Employee Edit page (Razor Pages / static page compatible)
+// - Auto-generate EmployeeId and EmployeeCode (client fallback, server should be authoritative)
+// - Populate selects if empty
+// - Restrict name inputs to letters + spaces (typing & paste & IME-friendly)
+// - Restrict mobile to digits only (max 10)
+// - jQuery UI datepicker (dd/mm/yyyy) with year navigation, show on hover/focus
+// - Light client-side validation and Cancel navigation
+// - Populate form from query string or localStorage.employeeForEdit when opened from EmployeeList edit button
+// - If no source data found, populate form with a sample data object (for testing/demo)
+(function ($) {
     'use strict';
 
-    const STORAGE_KEY = 'employeePortal:employees';
+    var EMP_ID_KEY = 'ems_emp_id_counter';
+    var EMP_CODE_KEY = 'ems_emp_code_counter';
+    var LOCAL_STORAGE_KEY = 'employeeForEdit';
 
-    const sampleData = [
-        {
-            EmployeeIdPk: 1,
-            EmployeeCode: 'EMP001',
-            FirstName: 'Sai',
-            LastName: 'Ram',
-            Group: 'IT',
-            Gender: 'Male',
-            Mobile: '9999000001',
-            Email: 'sairam@example.com',
-            DOJ: '2022-01-10'
-        },
-        {
-            EmployeeIdPk: 2,
-            EmployeeCode: 'EMP002',
-            FirstName: 'Reju',
-            LastName: 'Rama O',
-            Group: 'Finance',
-            Gender: 'Female',
-            Mobile: '9999000002',
-            Email: 'reju@example.com',
-            DOJ: '2021-07-15'
-        },
-        {
-            EmployeeIdPk: 3,
-            EmployeeCode: 'EMP003',
-            FirstName: 'John',
-            LastName: 'Doe',
-            Group: 'HR',
-            Gender: 'Male',
-            Mobile: '9999000003',
-            Email: 'john@example.com',
-            DOJ: '2020-05-20'
-        }
-    ];
-
-    function seedStorageIfNeeded() {
-        if (!localStorage.getItem(STORAGE_KEY)) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(sampleData));
-        }
-    }
-
-    function readStorage() {
+    function nextCounter(key) {
         try {
-            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        } catch {
-            return [];
+            var cur = parseInt(localStorage.getItem(key) || '0', 10) || 0;
+            cur = cur + 1;
+            localStorage.setItem(key, cur.toString());
+            return cur;
+        } catch (e) {
+            return Date.now() % 100000; // fallback
         }
     }
 
-    function writeStorage(list) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(list || []));
+    function generateEmployeeId() {
+        // e.g. numeric id fallback
+        var n = nextCounter(EMP_ID_KEY);
+        return String(n);
     }
 
-    function escapeHtml(s) {
-        if (s == null) return '';
-        return String(s)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
+    function generateEmployeeCode() {
+        // HR001 style using a counter (client fallback)
+        var n = nextCounter(EMP_CODE_KEY);
+        return 'HR' + ('000' + (n % 1000)).slice(-3);
     }
 
-    function buildRow(emp, sno) {
-        const id = emp.EmployeeIdPk;
-        const code = emp.EmployeeCode || '';
-        const first = emp.FirstName || '';
-        const last = emp.LastName || '';
-        const group = emp.Group || '';
-        const gender = emp.Gender || '';
-        const mobile = emp.Mobile || '';
+    function initPopulateSelects() {
+        var genders = ['Male', 'Female', 'Others'];
+        var bloods = ['A positive','A negative','B positive','B negative','O positive','O negative','AB positive','AB negative'];
+        var quals = ['BTech', 'MTech'];
+        var desigs = ['JuniorDeveloper', 'SeniorDeveloper', 'HR Manager'];
 
-        const tr = document.createElement('tr');
-        tr.setAttribute('data-id', id);
-        tr.setAttribute('data-code', String(code).toLowerCase());
-        tr.setAttribute('data-firstname', String(first).toLowerCase());
-        tr.setAttribute('data-lastname', String(last).toLowerCase());
-        tr.setAttribute('data-gender', String(gender).toLowerCase());
-        tr.setAttribute('data-designation', String(group).toLowerCase());
-        tr.setAttribute('data-email', String(emp.Email || '').toLowerCase());
-
-        tr.innerHTML = [
-            `<td>${sno}</td>`,
-            `<td>${escapeHtml(code)}</td>`,
-            `<td>${escapeHtml(first)}</td>`,
-            `<td>${escapeHtml(last)}</td>`,
-            `<td>${escapeHtml(group)}</td>`,
-            `<td>${escapeHtml(gender)}</td>`,
-            `<td>${escapeHtml(mobile)}</td>`,
-            `<td class="text-center">
-                <button class="btn btn-sm btn-outline-info btn-view me-1" data-id="${escapeHtml(id)}" title="View"><i class="fas fa-eye"></i></button>
-                <a class="btn btn-sm btn-outline-primary me-1" href="employee_edit.html?id=${encodeURIComponent(id)}" title="Edit"><i class="fas fa-edit"></i></a>
-                <button class="btn btn-sm btn-outline-danger btn-delete" data-id="${escapeHtml(id)}" title="Delete"><i class="fas fa-trash"></i></button>
-            </td>`
-        ].join('');
-
-        return tr;
-    }
-
-    function renderGrid() {
-        const tbody = document.getElementById('employeeTbody');
-        if (!tbody) return;
-        tbody.innerHTML = '';
-
-        const list = readStorage().slice(); // clone
-        list.sort((a, b) => (Number(a.EmployeeIdPk) || 0) - (Number(b.EmployeeIdPk) || 0));
-
-        let sno = 1;
-        for (const emp of list) {
-            tbody.appendChild(buildRow(emp, sno++));
-        }
-
-        attachHandlers();
-    }
-
-    function attachHandlers() {
-        document.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.removeEventListener('click', onDelete);
-            btn.addEventListener('click', onDelete);
-        });
-        document.querySelectorAll('.btn-view').forEach(btn => {
-            btn.removeEventListener('click', onView);
-            btn.addEventListener('click', onView);
-        });
-    }
-
-    function onDelete(e) {
-        const id = e.currentTarget.getAttribute('data-id');
-        if (!id) return;
-        if (!confirm('Delete employee id ' + id + ' ?')) return;
-
-        let list = readStorage();
-        list = list.filter(it => String(it.EmployeeIdPk) !== String(id));
-        writeStorage(list);
-        renderGrid();
-    }
-
-    function onView(e) {
-        const id = e.currentTarget.getAttribute('data-id');
-        if (!id) return;
-        const list = readStorage();
-        const emp = list.find(it => String(it.EmployeeIdPk) === String(id));
-        if (!emp) return;
-
-        const body = document.getElementById('viewEmployeeBody');
-        const modalEdit = document.getElementById('modalEditLink');
-        if (modalEdit) modalEdit.href = `employee_edit.html?id=${encodeURIComponent(emp.EmployeeIdPk)}`;
-
-        body.innerHTML = `
-            <dl class="row">
-                <dt class="col-sm-3">Employee Code</dt><dd class="col-sm-9">${escapeHtml(emp.EmployeeCode)}</dd>
-                <dt class="col-sm-3">Name</dt><dd class="col-sm-9">${escapeHtml(emp.FirstName)} ${escapeHtml(emp.LastName)}</dd>
-                <dt class="col-sm-3">Group</dt><dd class="col-sm-9">${escapeHtml(emp.Group || '')}</dd>
-                <dt class="col-sm-3">Gender</dt><dd class="col-sm-9">${escapeHtml(emp.Gender || '')}</dd>
-                <dt class="col-sm-3">Mobile</dt><dd class="col-sm-9">${escapeHtml(emp.Mobile || '')}</dd>
-                <dt class="col-sm-3">Email</dt><dd class="col-sm-9">${escapeHtml(emp.Email || '')}</dd>
-                <dt class="col-sm-3">DOJ</dt><dd class="col-sm-9">${escapeHtml(emp.DOJ || '')}</dd>
-            </dl>
-        `;
-
-        const modalEl = document.getElementById('viewEmployeeModal');
-        const bsModal = new bootstrap.Modal(modalEl);
-        bsModal.show();
-    }
-
-    // initialize page
-    document.addEventListener('DOMContentLoaded', function () {
-        seedStorageIfNeeded();
-        renderGrid();
-
-        // optional: wire filter inputs if present (live name filter example)
-        const nameInput = document.getElementById('filterName');
-        if (nameInput) {
-            nameInput.addEventListener('input', function () {
-                const q = (this.value || '').trim().toLowerCase();
-                const rows = Array.from(document.querySelectorAll('#employeeTbody tr'));
-                rows.forEach(r => {
-                    const first = r.getAttribute('data-firstname') || '';
-                    const last = r.getAttribute('data-lastname') || '';
-                    const match = !q || first.includes(q) || last.includes(q);
-                    r.style.display = match ? '' : 'none';
+        function ensure($sel, items) {
+            if (!$sel.length) return;
+            // if only placeholder or empty, populate
+            if ($sel.children('option').length <= 1) {
+                items.forEach(function(it) {
+                    $sel.append($('<option>').val(it).text(it));
                 });
-            });
+            }
         }
-    });
-})();
 
-// script.js
-// Lightweight interactivity for employeeview.html
-// - Toggle permanent address
-// - Simple phone validation demo
-// - Keep functions small and well-commented for maintainability
+        ensure($('#Gender'), genders);
+        ensure($('#BloodGroup'), bloods);
+        ensure($('#Qualification'), quals);
+        ensure($('#DesignationType'), desigs);
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('toggle-perm');
-    const perm = document.getElementById('permanent-address');
-    const phoneInput = document.getElementById('phone-input');
-    const phoneError = document.getElementById('phone-error');
+    function initIdsAndCodes() {
+        var $id = $('#EmployeeId');
+        var $code = $('#EmployeeCode');
+        if ($id.length && !$id.val().trim()) $id.val(generateEmployeeId());
+        if ($code.length && !$code.val().trim()) $code.val(generateEmployeeCode());
+    }
 
-    // Toggle permanent address visibility with ARIA updates
-    if (toggleBtn && perm) {
-        toggleBtn.addEventListener('click', () => {
-            const isHidden = perm.classList.toggle('hidden');
-            // When class toggled, perm is hidden when it has class 'hidden'
-            const expanded = !perm.classList.contains('hidden');
-            perm.setAttribute('aria-hidden', String(!expanded));
-            toggleBtn.setAttribute('aria-expanded', String(expanded));
-            toggleBtn.textContent = expanded ? 'Hide' : 'Show';
+    function initDatepickers() {
+        if (!$.datepicker) return;
+        $('.datepicker').each(function () {
+            var $el = $(this);
+            $el.datepicker({
+                dateFormat: 'dd/mm/yy',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100:+10',
+                showButtonPanel: true
+            });
+            // show on hover and on focus
+            $el.on('mouseenter focus', function () {
+                try { $(this).datepicker('show'); } catch (e) { /* ignore */ }
+            });
         });
     }
 
-    // Minimal phone validation:
-    // - Accepts digits, spaces, parentheses, + and hyphens
-    // - Valid when digit count between 7 and 15
-    if (phoneInput && phoneError) {
-        phoneInput.addEventListener('input', () => {
-            const raw = phoneInput.value || '';
-            const digits = raw.replace(/\D/g, '');
-            if (!raw) {
-                phoneError.style.display = 'none';
-                phoneError.textContent = '';
-                return;
+    // Allow only letters and spaces, robust for typing and paste (keeps IME behavior)
+    function restrictNames(selector) {
+        $(selector).on('input', function () {
+            var val = this.value;
+            var filtered = val.replace(/[^A-Za-z\s\u00C0-\u017F]/g, ''); // allow Latin accents
+            if (filtered !== val) {
+                this.value = filtered;
             }
-            if (digits.length < 7 || digits.length > 15) {
-                phoneError.textContent = 'Phone number looks invalid — include country code or at least 7 digits.';
-                phoneError.style.display = 'block';
-            } else {
-                phoneError.textContent = '';
-                phoneError.style.display = 'none';
+        }).on('keypress', function (e) {
+            var code = e.which || e.keyCode;
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            // allow control keys
+            if (code === 8 || code === 13 || code === 9 || code === 27) return;
+            var ch = String.fromCharCode(code);
+            if (!/^[A-Za-z\s\u00C0-\u017F]$/.test(ch)) {
+                e.preventDefault();
+            }
+        }).on('paste', function (e) {
+            var clipboard = '';
+            var oe = e.originalEvent || {};
+            if (oe.clipboardData && typeof oe.clipboardData.getData === 'function') {
+                clipboard = oe.clipboardData.getData('text') || '';
+            } else if (window.clipboardData && typeof window.clipboardData.getData === 'function') {
+                clipboard = window.clipboardData.getData('Text') || '';
+            }
+            var filtered = clipboard.replace(/[^A-Za-z\s\u00C0-\u017F]/g, '');
+            if (filtered !== clipboard) {
+                e.preventDefault();
+                var el = this;
+                var start = el.selectionStart || 0;
+                var end = el.selectionEnd || 0;
+                var val = el.value;
+                el.value = val.slice(0, start) + filtered + val.slice(end);
+                try { el.setSelectionRange(start + filtered.length, start + filtered.length); } catch (err) {}
+                $(el).trigger('input');
             }
         });
     }
 
-}
-    function handleOkClick() {
-        alert("OK button clicked!");
+    function restrictMobile() {
+        var $m = $('#MobileNumber');
+        if (!$m.length) return;
+        $m.attr('inputmode', 'numeric');
+        $m.on('input', function () {
+            var v = this.value.replace(/\D/g, '').slice(0, 10);
+            if (this.value !== v) this.value = v;
+        }).on('paste', function (e) {
+            var clipboard = '';
+            var oe = e.originalEvent || {};
+            if (oe.clipboardData && typeof oe.clipboardData.getData === 'function') {
+                clipboard = oe.clipboardData.getData('text') || '';
+            } else if (window.clipboardData && typeof window.clipboardData.getData === 'function') {
+                clipboard = window.clipboardData.getData('Text') || '';
+            }
+            var filtered = clipboard.replace(/\D/g, '').slice(0, 10);
+            if (filtered !== clipboard) {
+                e.preventDefault();
+                var el = this;
+                var start = el.selectionStart || 0;
+                var end = el.selectionEnd || 0;
+                var val = el.value;
+                el.value = val.slice(0, start) + filtered + val.slice(end);
+                try { el.setSelectionRange(start + filtered.length, start + filtered.length); } catch (err) {}
+                $(el).trigger('input');
+            }
+        });
     }
 
-    // Example helper: copy present address to permanent (if UI grows to include a checkbox)
-    // function copyPresentToPermanent() { ... } // kept as a placeholder for future features
-});
+    function isValidDateString(txt) {
+        if (!txt) return true;
+        var re = /^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+        if (!re.test(txt)) return false;
+        var parts = txt.split('/');
+        var d = parseInt(parts[0], 10), m = parseInt(parts[1], 10) - 1, y = parseInt(parts[2], 10);
+        var dt = new Date(y, m, d);
+        return dt && dt.getFullYear() === y && dt.getMonth() === m && dt.getDate() === d;
+    }
+
+    function initFormValidation() {
+        var $form = $('#employeeForm');
+        if (!$form.length) return;
+
+        $form.on('submit', function (e) {
+            var ok = true;
+            $('.field-error').text('');
+
+            var first = ($('#FirstName').val() || '').trim();
+            var last = ($('#LastName').val() || '').trim();
+            var email = ($('#Email').val() || '').trim();
+            var mobile = ($('#MobileNumber').val() || '').trim();
+            var dob = ($('#DateOfBirth').val() || '').trim();
+            var doj = ($('#DateOfJoining').val() || '').trim();
+
+            if (!first) { $('#FirstNameError').text('First name is required.'); ok = false; }
+            else if (!/^[A-Za-z\s\u00C0-\u017F]+$/.test(first)) { $('#FirstNameError').text('Only letters and spaces allowed.'); ok = false; }
+
+            if (!last) { $('#LastNameError').text('Last name is required.'); ok = false; }
+            else if (!/^[A-Za-z\s\u00C0-\u017F]+$/.test(last)) { $('#LastNameError').text('Only letters and spaces allowed.'); ok = false; }
+
+            if (!email) { $('#EmailError').text('Email is required.'); ok = false; }
+            else {
+                var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRe.test(email)) { $('#EmailError').text('Enter a valid email.'); ok = false; }
+            }
+
+            if (!/^\d{10}$/.test(mobile)) { $('#MobileError').text('Enter 10 digit mobile number.'); ok = false; }
+
+            if (dob && !isValidDateString(dob)) { $('#DobError').text('DOB must be dd/mm/yyyy.'); ok = false; }
+            if (doj && !isValidDateString(doj)) { $('#DojError').text('DOJ must be dd/mm/yyyy.'); ok = false; }
+
+            if (!ok) {
+                e.preventDefault();
+                var $firstErr = $('.field-error').filter(function () { return $(this).text().trim() !== ''; }).first();
+                if ($firstErr.length) {
+                    var $input = $firstErr.siblings('input,select,textarea').first();
+                    if (!$input.length) $input = $firstErr.prevAll('input,select,textarea').first();
+                    if ($input.length) $input.focus();
+                }
+            }
+        });
+    }
+
+    function initCancel() {
+        $(document).on('click', '#btnCancel, .btn-cancel', function (e) {
+            e.preventDefault();
+            window.location.href = '/Employee/list';
+        });
+    }
+
+    // Parse query string into object
+    function parseQuery() {
+        var q = window.location.search.substring(1);
+        if (!q) return {};
+        return q.split('&').reduce(function (acc, pair) {
+            var parts = pair.split('=');
+            var k = decodeURIComponent(parts[0] || '');
+            var v = decodeURIComponent(parts[1] || '');
+            if (k) acc[k] = v;
+            return acc;
+        }, {});
+    }
+
+    // Read localStorage fallback
+    function getLocalEmployee() {
+        try {
+            var j = localStorage.getItem(LOCAL_STORAGE_KEY);
+            if (!j) return null;
+            return JSON.parse(j);
+        } catch (e) { return null; }
+    }
+
+    // Sample data used when no query/localStorage provided
+    function getSampleData() {
+        return {
+            Id: "1001",
+            EmployeeCode: "HR001",
+            FirstName: "Asha",
+            LastName: "Kumar",
+           

@@ -1,4 +1,5 @@
 ﻿using EMS.Models;
+using EMS.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
@@ -12,7 +13,7 @@ namespace EMS.Web.Controllers
         // Route: /Employee/getallemployees or /Employee/list
         [Route("getallemployees")]
         [Route("list")]
-        public string EmployeeList()
+        public IActionResult EmployeeList()
         {
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
@@ -51,12 +52,13 @@ namespace EMS.Web.Controllers
         // Route: /e, /e/hellobabai, /e/hellochicha, /e/helloKaka
         [Route("")]
         [Route("hellobabai")]
-        [Route("hellochicha")]
+      
         [Route("helloKaka")]
         public string Index()
         {
-            return "Employee1Controller - Hello from Index";
+            return "Employee1Controller - Hello from sai ram";
         }
+      
 
         // Route: /e/Index2 (Implicit default routing)
         public int Index2()
