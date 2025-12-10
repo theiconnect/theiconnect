@@ -353,8 +353,8 @@
             if (isActiveInput) isActiveInput.checked = !!dept.IsActive;
         } else {
             // Add mode
-            if (pageTitle) pageTitle.textContent = 'Add Department';
-            if (cardTitle) cardTitle.textContent = 'ADD Department';
+            if (pageTitle) pageTitle.textContent = 'Edit Department';
+            if (cardTitle) cardTitle.textContent = 'Edit Department';
             if (cardHelp) cardHelp.textContent = 'Enter department details. New departments are Active by default.';
             if (editingIdEl) editingIdEl.value = '';
             if (isActiveContainer) isActiveContainer.style.display = 'none';
