@@ -225,15 +225,12 @@
     </script>
 
     <div class="button-container text-center mb-4">
-        <button type="button" class="btn btn-primary" onclick="toclickok()">OK</button>
+        <button type="button" class="btn btn-primary" onclick="toView()">OK</button>
     </div>
 
-    <div class="text-center">
-        <a asp-controller="Employee" asp-action="EmployeeList" class="btn btn-primary">Back to List</a>
-    </div>
 </main>
 <script>
-    function onclick(){
+    function toView(){
         location.href="/Employee/EmployeeList";
     }
 </script>
