@@ -1,21 +1,27 @@
-/* Basic styling for the Departments page - meant for beginners to read & modify */
+/* Basic styling for the Departments pages - beginner friendly */
 
-/* Header */
+       /* Header */
 .site-header {
     background: #ffffff;
     height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px;
 }
 
 /* Small hamburger icon style */
 .hamburger {
     font-size: 20px;
     display: inline-block;
+    line-height: 1;
 }
 
 /* Avatar image */
 .avatar {
     width: 36px;
     height: 36px;
+    border-radius: 50%;
 }
 
 /* Sidebar */
@@ -23,23 +29,20 @@
     width: 220px;
     min-height: calc(100vh - 56px);
     transition: width 0.2s ease;
+    background: #f8f9fa;
 }
-
-    /* When collapsed we will add class 'collapsed' from JS */
-    .side-menu.collapsed {
-        width: 0;
-        overflow: hidden;
-    }
-
-    /* Menu links */
-    .side-menu .nav-link {
-        color: #333;
-        padding: 6px 0;
-    }
-
-        .side-menu .nav-link.active {
-            font-weight: 600;
-        }
+.side-menu.collapsed {
+    width: 0;
+    overflow: hidden;
+}
+.side-menu .nav-link {
+    color: #333;
+    padding: 6px 0;
+    text-decoration: none;
+}
+.side-menu .nav-link.active {
+    font-weight: 600;
+}
 
 /* Make main content take full width when menu hidden */
 .main-collapsed {
@@ -49,17 +52,170 @@
 /* Card and table tweaks */
 .card {
     border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #e9ecef;
+    background: #fff;
 }
-
 .table thead th {
     vertical-align: middle;
 }
 
-/* Small responsive helper */
+/* Department Edit/Add page - card-like form styling (applies to DepartmentEdit.html) */
+main.container {
+    max-width: 760px;
+    margin: 24px auto;
+    padding: 0 12px;
+}
+main.container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+/* Make the form look like a card so it matches other pages visually */
+#deptForm {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    border: 1px solid #e6e9ee;
+}
+
+/* Form rows and fields */
+#deptForm .form-row {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+}
+#deptForm label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #444;
+    font-size: 0.95rem;
+}
+#deptForm input[type="text"],
+#deptForm input[type="email"],
+#deptForm select,
+#deptForm textarea {
+    padding: 8px 10px;
+    border: 1px solid #ccd0d5;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s;
+}
+#deptForm input[type="text"]:focus,
+#deptForm select:focus,
+#deptForm textarea:focus {
+    border-color: #6c9ef8;
+    box-shadow: 0 0 0 3px rgba(108,158,248,0.12);
+}
+
+/* IsActive row */
+#isActiveContainer {
+    margin-top: 6px;
+}
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.form-check-input {
+    width: 18px;
+    height: 18px;
+}
+
+/* Actions / buttons */
+.actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 16px;
+}
+
+/* Note: page uses `btn primary` / `btn secondary` (not Bootstrap's .btn-primary) */
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+.btn.primary {
+    background-color: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+.btn.primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+.btn.secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border-color: #6c757d;
+}
+.btn.secondary:hover {
+    background-color: #5c636a;
+}
+
+/* Status text */
+.status {
+    color: #0a6;
+    margin-top: 8px;
+    font-size: 0.95rem;
+}
+
+/* Simple custom modal (DepartmentEdit.html uses this markup) */
+.modal.hidden {
+    display: none;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    z-index: 1050;
+    padding: 20px;
+}
+.modal .modal-content {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+.modal .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .side-menu {
         position: absolute;
         z-index: 1000;
         height: calc(100vh - 56px);
+    }
+}
+@media (max-width: 540px) {
+    .actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+    .actions .btn {
+        width: 100%;
     }
 }

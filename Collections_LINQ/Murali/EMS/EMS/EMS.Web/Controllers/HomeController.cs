@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace EMS.Web.Controllers
 {
-    public class HomeController : Controller
+    /*public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly CompanyService objCompSvc;
@@ -42,5 +42,5 @@ namespace EMS.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
+    }*/
 }

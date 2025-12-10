@@ -5,125 +5,152 @@
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
 }
 
-<h1>EditEmployee</h1>
+<h2 class="mb-4">Edit Employee</h2>
 
-<h4>EmployeeModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditEmployee">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="EmployeeIdPk" class="control-label"></label>
-                <input asp-for="EmployeeIdPk" class="form-control" />
-                <span asp-validation-for="EmployeeIdPk" class="text-danger"></span>
+<form id="employeeForm" action="/Employee/editemployee" method="post" novalidate class="employee-form">
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Employee ID</label>
+                    <input class="form-control" type="text" id="EmployeeId" name="Id" readonly placeholder="(auto)" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Employee Code</label>
+                    <input class="form-control" type="text" id="EmployeeCode" name="EmployeeCode" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="FirstName" class="form-label">First Name</label>
+                    <input class="form-control" type="text" id="FirstName" name="FirstName" autocomplete="given-name" required />
+                    <div id="FirstNameError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Gender" class="form-label">Gender</label>
+                    <select class="form-select" id="Gender" name="Gender" required>
+                        <option value="">Select</option>
+                        <option value="F">Female</option>
+                        <option value="M">Male</option>
+                        <option value="O">Other</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email Id</label>
+                    <input class="form-control" type="email" id="Email" name="Email" required />
+                    <div id="EmailError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="DateOfBirth" class="form-label">Date of Birth</label>
+                    <input class="form-control" type="date" id="DateOfBirth" name="DateOfBirthString" autocomplete="bday" />
+                    <div id="DobError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Employeecode" class="control-label"></label>
-                <input asp-for="Employeecode" class="form-control" />
-                <span asp-validation-for="Employeecode" class="text-danger"></span>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="LastName" class="form-label">Last Name</label>
+                    <input class="form-control" type="text" id="LastName" name="LastName" autocomplete="family-name" required />
+                    <div id="LastNameError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="BloodGroup" class="form-label">Blood Group</label>
+                    <select class="form-select" id="BloodGroup" name="BloodGroup" required>
+                        <option value="">Select</option>
+                        <option value="A+">A Positive</option>
+                        <option value="A-">A Negative</option>
+                        <option value="B+">B Positive</option>
+                        <option value="B-">B Negative</option>
+                        <option value="O+">O Positive</option>
+                        <option value="O-">O Negative</option>
+                        <option value="AB+">AB Positive</option>
+                        <option value="AB-">AB Negative</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="MobileNumber" class="form-label">Mobile Number</label>
+                    <input class="form-control" type="tel" id="MobileNumber" name="MobileNumber" inputmode="numeric" maxlength="10" required placeholder="10 digits" />
+                    <div id="MobileError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="DateOfJoining" class="form-label">Date of Joining</label>
+                    <input class="form-control" type="date" id="DateOfJoining" name="DateOfJoiningString" />
+                    <div id="DojError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ExperienceMonths" class="form-label">Experience (Months)</label>
+                    <input class="form-control" type="number" id="ExperienceMonths" name="ExperienceMonths" min="0" max="600" />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="Qualification" class="form-label">Qualification</label>
+                    <select class="form-select" id="Qualification" name="Qualification" required>
+                        <option value="">Select</option>
+                        <option value="BTech">B.Tech</option>
+                        <option value="MTech">M.Tech</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="MiddleName" class="control-label"></label>
-                <input asp-for="MiddleName" class="form-control" />
-                <span asp-validation-for="MiddleName" class="text-danger"></span>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="DesignationType" class="form-label">Designation Type</label>
+                    <select class="form-select" id="DesignationType" name="DesignationType" required>
+                        <option value="">Select</option>
+                        <option value="HRManager">HR Manager</option>
+                        <option value="JuniorDev">Junior Developer</option>
+                        <option value="SeniorDev">Senior Developer</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary me-2">Save</button>
+                <button type="button" id="btnCancel" class="btn btn-secondary">Cancel</button>
+                <a asp-action="Index" class="btn btn-link ms-2">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="BloodGroup" class="control-label"></label>
-                <input asp-for="BloodGroup" class="form-control" />
-                <span asp-validation-for="BloodGroup" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <input asp-for="Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmailId" class="control-label"></label>
-                <input asp-for="EmailId" class="form-control" />
-                <span asp-validation-for="EmailId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PersonEmailId" class="control-label"></label>
-                <input asp-for="PersonEmailId" class="form-control" />
-                <span asp-validation-for="PersonEmailId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MobileNumber" class="control-label"></label>
-                <input asp-for="MobileNumber" class="form-control" />
-                <span asp-validation-for="MobileNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AlternateMobileNumber" class="control-label"></label>
-                <input asp-for="AlternateMobileNumber" class="form-control" />
-                <span asp-validation-for="AlternateMobileNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DepartmentIdFk" class="control-label"></label>
-                <input asp-for="DepartmentIdFk" class="form-control" />
-                <span asp-validation-for="DepartmentIdFk" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfJoining" class="control-label"></label>
-                <input asp-for="DateOfJoining" class="form-control" />
-                <span asp-validation-for="DateOfJoining" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExpInMonths" class="control-label"></label>
-                <input asp-for="ExpInMonths" class="form-control" />
-                <span asp-validation-for="ExpInMonths" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="QualificationIdFk" class="control-label"></label>
-                <input asp-for="QualificationIdFk" class="form-control" />
-                <span asp-validation-for="QualificationIdFk" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DesignationIdFk" class="control-label"></label>
-                <input asp-for="DesignationIdFk" class="form-control" />
-                <span asp-validation-for="DesignationIdFk" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SalaryCtc" class="control-label"></label>
-                <input asp-for="SalaryCtc" class="form-control" />
-                <span asp-validation-for="SalaryCtc" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="LWD" class="control-label"></label>
-                <input asp-for="LWD" class="form-control" />
-                <span asp-validation-for="LWD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Cancel -> go back safely
+        document.getElementById('btnCancel')?.addEventListener('click', function () {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '@Url.Action("Index", "Employee")';
+            }
+        });
+
+        // Basic bootstrap validation feedback hookup
+        (function () {
+            const form = document.getElementById('employeeForm');
+            form?.addEventListener('submit', function (e) {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        })();
+    </script>
 }

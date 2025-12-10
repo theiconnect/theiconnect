@@ -98,12 +98,13 @@
 
             const STORAGE_KEY = "ems_departments_v1";
 
+
             /* -------- LocalStorage fallback if DepartmentApp not provided -------- */
             const LocalApp = {
                 load() {
                     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
                     catch { return []; }
-                },
+                },  
                 save(list) {
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
                 },
@@ -232,7 +233,7 @@
                 });
 
                 +
-                if (!newDept) {
+                    if (!newDept) {
                     alertMsg("Failed to add department.");
                     return;
                 }
@@ -253,6 +254,8 @@
                     alertMsg("Failed to update department.");
                     return;
                 }
+
+
 
                 returnToList();
             }
