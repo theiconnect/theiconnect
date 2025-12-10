@@ -19,5 +19,13 @@ namespace EMS.Web.Controllers
         {
             return View();
         }
+
+        //[Route("list")]
+        //public IActionResult CompanyList()
+        //{
+        //    // Replace with real data retrieval (repository/service) as needed.
+        //    IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
+        //    return View(companies);
+        //}
     }
 }
