@@ -9,14 +9,17 @@ namespace EMS.Web.Controllers
     public class CompanyController : Controller
     {
         [Route("edit")]
-        public IActionResult EditCompany() => View();
-
-        [Route("list")]
-        public IActionResult CompanyList()
+        public IActionResult EditCompany()
         {
-            // Replace with real data retrieval (repository/service) as needed.
-            IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
-            return View(companies);
+            return View();
         }
+
+        //[Route("list")]
+        //public IActionResult CompanyList()
+        //{
+        //    // Replace with real data retrieval (repository/service) as needed.
+        //    IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
+        //    return View(companies);
+        //}
     }
 }
