@@ -5,135 +5,178 @@
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
 }
 
-<h1>ViewEmployee</h1>
+<header class="site-header py-3" role="banner">
+    <div class="container">
+        <h1 class="mb-0">Employee Details</h1>
+        <!-- <p class="subtitle">Clean, responsive display of employee record — unclear handwritten fields are shown as placeholders.</p> -->
+    </div>
+</header>
 
-<div>
-    <h4>EmployeeModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmployeeIdPk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmployeeIdPk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Employeecode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employeecode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BloodGroup)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BloodGroup)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EmailId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EmailId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonEmailId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PersonEmailId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MobileNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MobileNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AlternateMobileNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AlternateMobileNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartmentIdFk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DepartmentIdFk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfJoining)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfJoining)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExpInMonths)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExpInMonths)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QualificationIdFk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QualificationIdFk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DesignationIdFk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DesignationIdFk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SalaryCtc)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SalaryCtc)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LWD)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LWD)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+<main class="container my-4" id="employee-view" role="main">
+    <!-- Personal & contact -->
+    <section class="card mb-4" aria-labelledby="personal-heading">
+        <div class="card-body">
+            <h2 id="personal-heading" class="h5 card-title">Personal & Contact Information</h2>
+
+            <div class="kv mb-3">
+                <div class="label">Employee Code</div>
+                <div class="value" id="employeeCode">EMP-00001</div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="kv">
+                        <div class="label">First Name</div>
+                        <div class="value" id="firstName">Jeevan</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Middle Name</div>
+                        <div class="value" id="middleName">rao</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Last Name</div>
+                        <div class="value" id="lastName">Neredukomma</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Blood Group</div>
+                        <div class="value" id="bloodGroup">O+</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Gender</div>
+                        <div class="value" id="gender">M</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="kv">
+                        <div class="label">Date of Birth</div>
+                        <div class="value" id="dob">2002-11-23</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Primary Mobile</div>
+                        <div class="value" id="mobileNumber">8919959796</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Alternate Mobile</div>
+                        <div class="value" id="altMobile">9959782458</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">EmailId</div>
+                        <div class="value" id="email">john.doe@abc.com</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">PersonalEmailId</div>
+                        <div class="value" id="personalEmail">john.doe@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Employment -->
+    <section class="card mb-4" aria-labelledby="employment-heading">
+        <div class="card-body">
+            <h2 id="employment-heading" class="h5 card-title">Employment Information</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="kv">
+                        <div class="label">Designation</div>
+                        <div class="value" id="designation">Senior Software Engineer</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Department</div>
+                        <div class="value" id="department">Engineering</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Date of Joining</div>
+                        <div class="value" id="doj">2023-05-25</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="kv">
+                        <div class="label">Salary (CTC)</div>
+                        <div class="value" id="salary">7,500.00 USD</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Experience (Months)</div>
+                        <div class="value" id="expInMonths">110</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Addresses (present + permanent) -->
+    <section class="card mb-4" aria-labelledby="addresses-heading">
+        <div class="card-body">
+            <h2 id="addresses-heading" class="h5 card-title">Addresses</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="subhead">Present Address</h3>
+                    <div class="kv">
+                        <div class="label">Line 1</div>
+                        <div class="value" id="present-house">Ameerpet</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Line 2</div>
+                        <div class="value" id="present-road">SR Nagar,7th Line Bahar Cafe</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">City</div>
+                        <div class="value" id="present-ps">Hyderabad</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">State</div>
+                        <div class="value" id="present-po">Telangana</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Pincode</div>
+                        <div class="value" id="present-district">506032</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h3 class="subhead mb-0">Permanent Address</h3>
+                        <button id="toggle-perm" class="btn btn-sm btn-outline-primary toggle-btn" aria-controls="permanent-address" aria-expanded="false">Show</button>
+                    </div>
+
+                    <div id="permanent-address" class="permanent-address hidden" aria-hidden="true">
+                        <div class="kv">
+                            <div class="label">Line 1</div>
+                            <div class="value" id="perm-house">Hanamkonda</div>
+                        </div>
+                        <div class="kv">
+                            <div class="label">Line 2</div>
+                            <div class="value" id="perm-road">KU X Road</div>
+                        </div>
+                        <div class="kv">
+                            <div class="label">City</div>
+                            <div class="value" id="perm-ps">Warangal</div>
+                        </div>
+                        <div class="kv">
+                            <div class="label">State</div>
+                            <div class="value" id="perm-po">Telangana</div>
+                        </div>
+                        <div class="kv">
+                            <div class="label">Pincode</div>
+                            <div class="value" id="perm-district">506143</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="button-container text-center mb-4">
+        <button type="button" class="btn btn-primary" onclick="handleOkClick()">OK</button>
+    </div>
+
+    <div class="text-center">
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "me-2" })
+        <a asp-action="Index" class="btn btn-link">Back to List</a>
+    </div>
+</main>
