@@ -27,15 +27,15 @@
                 <div class="col-md-6">
                     <div class="kv">
                         <div class="label">First Name</div>
-                        <div class="value" id="firstName">Jeevan</div>
+                        <div class="value" id="firstName">John</div>
                     </div>
                     <div class="kv">
                         <div class="label">Middle Name</div>
-                        <div class="value" id="middleName">rao</div>
+                        <div class="value" id="middleName">doe</div>
                     </div>
                     <div class="kv">
                         <div class="label">Last Name</div>
-                        <div class="value" id="lastName">Neredukomma</div>
+                        <div class="value" id="lastName">anne</div>
                     </div>
                     <div class="kv">
                         <div class="label">Blood Group</div>
@@ -141,35 +141,86 @@
                 <div class="col-md-6">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h3 class="subhead mb-0">Permanent Address</h3>
-                        <button id="toggle-perm" class="btn btn-sm btn-outline-primary toggle-btn" aria-controls="permanent-address" aria-expanded="false">Show</button>
+
                     </div>
 
-                    <div id="permanent-address" class="permanent-address hidden" aria-hidden="true">
-                        <div class="kv">
-                            <div class="label">Line 1</div>
-                            <div class="value" id="perm-house">Hanamkonda</div>
-                        </div>
-                        <div class="kv">
-                            <div class="label">Line 2</div>
-                            <div class="value" id="perm-road">KU X Road</div>
-                        </div>
-                        <div class="kv">
-                            <div class="label">City</div>
-                            <div class="value" id="perm-ps">Warangal</div>
-                        </div>
-                        <div class="kv">
-                            <div class="label">State</div>
-                            <div class="value" id="perm-po">Telangana</div>
-                        </div>
-                        <div class="kv">
-                            <div class="label">Pincode</div>
-                            <div class="value" id="perm-district">506143</div>
-                        </div>
+
+                    <div class="kv">
+                        <div class="label">Line 1</div>
+                        <div class="value" id="perm-house">Hanamkonda</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Line 2</div>
+                        <div class="value" id="perm-road">KU X Road</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">City</div>
+                        <div class="value" id="perm-ps">Warangal</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">State</div>
+                        <div class="value" id="perm-po">Telangana</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Pincode</div>
+                        <div class="value" id="perm-district">506143</div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </section>
+    <div class="container">
+        <h3>Employee Address History</h3>
+
+        <table id="addressTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>SNo</th>
+                    <th>Address Line 1</th>
+                    <th>Address Line 2</th>
+                    <th>State</th>
+                    <th>Pincode</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Address Type</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Hanamkonda</td>
+                    <td>KU x Road</td>
+                    <td>Telangana</td>
+                    <td>506143</td>
+                    <td>1-1-2020</td>
+                    <td>1-1-2023</td>
+                    <td>Present</td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        
+            <tbody>
+                <tr>
+                    <td>2</td>
+                    <td>Warangal</td>
+                    <td>Chowrastha</td>
+                    <td>Telangana</td>
+                    <td>506002</td>
+                    <td>1-1-2023</td>
+                    <td>1-1-2025</td>
+                    <td>Permanent</td>
+                    <td>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="script.js"></script>
 
     <div class="button-container text-center mb-4">
         <button type="button" class="btn btn-primary" onclick="handleOkClick()">OK</button>
