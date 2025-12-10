@@ -29,11 +29,6 @@ namespace EMS.Web.Controllers
         }
 
         // Route: /Employee/editemployee
-        [Route("addemployee")]
-        public IActionResult AddEmp()
-        {
-            return View();
-        }
         [Route("editemployee")]
         public IActionResult EditEmployee()
         {
