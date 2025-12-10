@@ -1,4 +1,4 @@
-﻿namespace EMS.DataAccess
+﻿namespace Asp.NetMVC.Service
 {
     public class Class1
     {

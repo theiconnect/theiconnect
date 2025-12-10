@@ -1,4 +1,5 @@
 ﻿using EMS.Models;
+using EMS.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
@@ -12,12 +13,19 @@ namespace EMS.Web.Controllers
         // Route: /Employee/getallemployees or /Employee/list
         [Route("getallemployees")]
         [Route("list")]
-        public ViewResult EmployeeList()
+        public IActionResult EmployeeList()
         {
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
             // If you want to return a string, change the return type to 'string'.
             return View();
+        }
+
+        [Route("addemployee")]
+
+        public IActionResult AddEmployee() { 
+
+            return View(); 
         }
 
         // Route: /Employee/editemployee
@@ -51,12 +59,13 @@ namespace EMS.Web.Controllers
         // Route: /e, /e/hellobabai, /e/hellochicha, /e/helloKaka
         [Route("")]
         [Route("hellobabai")]
-        [Route("hellochicha")]
+      
         [Route("helloKaka")]
         public string Index()
         {
-            return "Employee1Controller - Hello from Index";
+            return "Employee1Controller - Hello from sai ram";
         }
+      
 
         // Route: /e/Index2 (Implicit default routing)
         public int Index2()
@@ -132,24 +141,24 @@ namespace EMS.Web.Controllers
     }
 
     // ==============================================
-    // 5. CompanyController (For your Company Edit Page)
-    // ==============================================
-    [Route("Company")]
-    public class CompanyController : Controller
-    {
-        // Route: /Company/EditCompany or /Company/edit
-        [Route("edit")]
-        public IActionResult EditCompany()
-        {
-            // This returns the view file located at /Views/Company/EditCompany.cshtml
-            return View();
-        }
+    //// 5. CompanyController (For your Company Edit Page)
+    //// ==============================================
+    //[Route("Company")]
+    //public class CompanyController : Controller
+    //{
+    //    // Route: /Company/EditCompany or /Company/edit
+    //    [Route("edit")]
+    //    public IActionResult EditCompany()
+    //    {
+    //        // This returns the view file located at /Views/Company/EditCompany.cshtml
+    //        return View();
+    //    }
 
-        // Route: /Company/list
-        [Route("list")]
-        public IActionResult CompanyList()
-        {
-            return View();
-        }
-    }
+    //    // Route: /Company/list
+    //    [Route("list")]
+    //    public IActionResult CompanyList()
+    //    {
+    //        return View();
+    //    }
+    //}
 }

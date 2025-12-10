@@ -1,4 +1,4 @@
-// department.js
+﻿// department.js
 // Single shared script: storage + list UI + modal + standalone Add/Edit page logic.
 // All page-specific behavior (including standalone DepartmentEdit.html) is handled here.
 

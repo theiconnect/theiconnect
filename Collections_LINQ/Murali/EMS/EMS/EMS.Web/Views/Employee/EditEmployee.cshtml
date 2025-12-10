@@ -1,0 +1,156 @@
+﻿@model EMS.Models.EmployeeModel
+
+@{
+    ViewData["Title"] = "EditEmployee";
+    Layout = "~/Views/Shared/_EMSLayout.cshtml";
+}
+
+<h2 class="mb-4">Edit Employee</h2>
+
+<form id="employeeForm" action="/Employee/editemployee" method="post" novalidate class="employee-form">
+    <div class="container-fluid">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Employee ID</label>
+                    <input class="form-control" type="text" id="EmployeeId" name="Id" readonly placeholder="(auto)" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Employee Code</label>
+                    <input class="form-control" type="text" id="EmployeeCode" name="EmployeeCode" readonly />
+                </div>
+
+                <div class="mb-3">
+                    <label for="FirstName" class="form-label">First Name</label>
+                    <input class="form-control" type="text" id="FirstName" name="FirstName" autocomplete="given-name" required />
+                    <div id="FirstNameError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Gender" class="form-label">Gender</label>
+                    <select class="form-select" id="Gender" name="Gender" required>
+                        <option value="">Select</option>
+                        <option value="F">Female</option>
+                        <option value="M">Male</option>
+                        <option value="O">Other</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email Id</label>
+                    <input class="form-control" type="email" id="Email" name="Email" required />
+                    <div id="EmailError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="DateOfBirth" class="form-label">Date of Birth</label>
+                    <input class="form-control" type="date" id="DateOfBirth" name="DateOfBirthString" autocomplete="bday" />
+                    <div id="DobError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="LastName" class="form-label">Last Name</label>
+                    <input class="form-control" type="text" id="LastName" name="LastName" autocomplete="family-name" required />
+                    <div id="LastNameError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="BloodGroup" class="form-label">Blood Group</label>
+                    <select class="form-select" id="BloodGroup" name="BloodGroup" required>
+                        <option value="">Select</option>
+                        <option value="A+">A Positive</option>
+                        <option value="A-">A Negative</option>
+                        <option value="B+">B Positive</option>
+                        <option value="B-">B Negative</option>
+                        <option value="O+">O Positive</option>
+                        <option value="O-">O Negative</option>
+                        <option value="AB+">AB Positive</option>
+                        <option value="AB-">AB Negative</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="MobileNumber" class="form-label">Mobile Number</label>
+                    <input class="form-control" type="tel" id="MobileNumber" name="MobileNumber" inputmode="numeric" maxlength="10" required placeholder="10 digits" />
+                    <div id="MobileError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="DateOfJoining" class="form-label">Date of Joining</label>
+                    <input class="form-control" type="date" id="DateOfJoining" name="DateOfJoiningString" />
+                    <div id="DojError" class="invalid-feedback" aria-live="polite"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ExperienceMonths" class="form-label">Experience (Months)</label>
+                    <input class="form-control" type="number" id="ExperienceMonths" name="ExperienceMonths" min="0" max="600" />
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="Qualification" class="form-label">Qualification</label>
+                    <select class="form-select" id="Qualification" name="Qualification" required>
+                        <option value="">Select</option>
+                        <option value="BTech">B.Tech</option>
+                        <option value="MTech">M.Tech</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="DesignationType" class="form-label">Designation Type</label>
+                    <select class="form-select" id="DesignationType" name="DesignationType" required>
+                        <option value="">Select</option>
+                        <option value="HRManager">HR Manager</option>
+                        <option value="JuniorDev">Junior Developer</option>
+                        <option value="SeniorDev">Senior Developer</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-primary me-2">Save</button>
+                <button type="button" id="btnCancel" class="btn btn-secondary">Cancel</button>
+                <a asp-action="Index" class="btn btn-link ms-2">Back to List</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Cancel -> go back safely
+        document.getElementById('btnCancel')?.addEventListener('click', function () {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '@Url.Action("Index", "Employee")';
+            }
+        });
+
+        // Basic bootstrap validation feedback hookup
+        (function () {
+            const form = document.getElementById('employeeForm');
+            form?.addEventListener('submit', function (e) {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        })();
+    </script>
+}

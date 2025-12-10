@@ -150,6 +150,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         {
             var db = EMSDbContext.GetInstance();
             IEnumerable<EmployeeModel> employees = db.Employees;
+            
             // employees.Remove(new EmployeeModel()); // Not allowed: 'IEnumerable<T>' does not contain a definition for 'Remove'
             // IEnumerable<T> is read-only, you cannot add/remove items.
         }
@@ -160,7 +161,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
             var db = EMSDbContext.GetInstance();
             // IQueryable is not useful for in-memory collections, and EF-only methods like Include() are not available.
             // db.Employees.AsQueryable().Include(e => e.Addresses); // Not allowed: 'IQueryable<EmployeeModel>' does not contain a definition for 'Include'
-            return db.Employees.AsQueryable();
+            var result = db.Employees.AsQueryable();
+            return result;
         }
 
         // 16. Get all employees with a specific designation as List
@@ -183,7 +185,8 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static List<EmployeeModel> GetEmployeesByAddressCity(string city)
         {
             var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => e.Addresses.Any(a => a.City.Equals(city, StringComparison.OrdinalIgnoreCase))).ToList();
+            var result= db.Employees.Where(e => e.Addresses.Any(a => a.City.Equals(city, StringComparison.OrdinalIgnoreCase))).ToList();
+            return result;
         }
 
         // 19. Get all employees with at least two addresses as IEnumerable
