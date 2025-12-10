@@ -1,0 +1,228 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = "~/Views/Shared/_EMSLayout.cshtml"; 
+}
+<header class="site-header" role="banner">
+    <div class="container">
+        <h1>Employee Details</h1>
+        <!--<p class="subtitle">Clean, responsive display of employee record — unclear handwritten fields are shown as placeholders.</p>-->
+    </div>
+</header>
+
+<main class="container" id="employee-view" role="main">
+    <!-- Personal & contact -->
+    <section class="card" aria-labelledby="personal-heading">
+        <h2 id="personal-heading">Personal & Contact Information</h2>
+
+
+        <div class="kv">
+            <div class="label">Employee Code</div>
+            <div class="value" id="employeeCode">EMP-00001 <!-- placeholder --></div>
+        </div>
+
+        <div>
+            <div class="kv">
+                <div class="label">First Name</div>
+                <div class="value" id="firstName">John</div>
+            </div>
+            <div class="kv">
+                <div class="label">Middle Name</div>
+                <div class="value" id="middleName">doe<!-- placeholder if blank --></div>
+            </div>
+            <div class="kv">
+                <div class="label">Last Name</div>
+                <div class="value" id="lastName">anne</div>
+            </div>
+            <div class="kv">
+                <div class="label">Blood Group</div>
+                <div class="value" id="bloodGroup">O+ <!-- placeholder if unclear --></div>
+            </div>
+            <div class="kv">
+                <div class="label">Gender</div>
+                <div class="value" id="gender">M <!-- use 'M'/'F' as in source; replace if unclear --></div>
+            </div>
+            <div class="kv">
+                <div class="label">Date of Birth</div>
+                <div class="value" id="dob">2002-11-23</div>
+            </div>
+            <div class="kv">
+                <div class="label">Primary Mobile</div>
+                <div class="value" id="mobileNumber">8919959796</div>
+            </div>
+            <div class="kv">
+                <div class="label">Alternate Mobile</div>
+                <div class="value" id="altMobile">9959782458 <!-- placeholder --></div>
+            </div>
+            <div class="kv">
+                <div class="label">EmailId</div>
+                <div class="value" id="email">john.doe@abc.com</div>
+            </div>
+            <div class="kv">
+                <div class="label">PersonalEmailId</div>
+                <div class="value" id="email">john.doe@gmail.com</div>
+            </div>
+        </div>
+        <!-- small inline validation demo -->
+
+    </section>
+
+    <!-- Employment -->
+    <section class="card" aria-labelledby="employment-heading">
+        <h2 id="employment-heading">Employment Information</h2>
+
+        <div class="grid">
+            <div>
+                <div class="kv">
+                    <div class="label">Designation</div>
+                    <div class="value" id="designation">Senior Software Engineer <!-- map from DesignationIdFk if using DB --></div>
+                </div>
+                <div class="kv">
+                    <div class="label">Department</div>
+                    <div class="value" id="department">Engineering</div>
+                </div>
+                <div class="kv">
+                    <div class="label">Date of Joining</div>
+                    <div class="value" id="doj">2023-05-25</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="kv">
+                    <div class="label">Salary (CTC)</div>
+                    <div class="value" id="salary">7,500.00 USD <!-- SalaryCTC (Decimal(10,2)) --></div>
+                </div>
+                <div class="kv">
+                    <div class="label">Experience (Months)</div>
+                    <div class="value" id="expInMonths">110 <!-- ExpInMonths --></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Addresses (present + permanent) -->
+    <section class="card" aria-labelledby="addresses-heading">
+        <h2 id="addresses-heading">Addresses</h2>
+
+        <div class="grid">
+            <div>
+                <h3 class="subhead">Present Address</h3>
+                <div class="kv">
+                    <div class="label">Line 1</div>
+                    <div class="value" id="present-house">Ameerpet</div>
+                </div>
+                <div class="kv">
+                    <div class="label">Line 2</div>
+                    <div class="value" id="present-road">SR Nagar,7th Line Bahar Cafe</div>
+                </div>
+
+                <div class="kv">
+                    <div class="label">City</div>
+                    <div class="value" id="present-ps">Hyderabad</div>
+                </div>
+                <div class="kv">
+                    <div class="label"> State</div>
+                    <div class="value" id="present-po">Telangana</div>
+                </div>
+                <div class="kv">
+                    <div class="label">Pincode</div>
+                    <div class="value" id="present-district">506032</div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <h3 class="subhead">Permanent Address</h3>
+
+                </div>
+
+                <div id="permanent-address" class="permanent-address">
+                    <div class="kv">
+                        <div class="label">Line 1</div>
+                        <div class="value" id="present-house">Hanamkonda</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Line 2</div>
+                        <div class="value" id="present-road">KU X Road</div>
+                    </div>
+
+                    <div class="kv">
+                        <div class="label">City</div>
+                        <div class="value" id="present-ps">Warangal</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label"> State</div>
+                        <div class="value" id="present-po">Telangana</div>
+                    </div>
+                    <div class="kv">
+                        <div class="label">Pincode</div>
+                        <div class="value" id="present-district">506143</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h3>Employee Address History</h3>
+
+            <table id="addressTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>SNo</th>
+                        <th>Address Line 1</th>
+                        <th>Address Line 2</th>
+                        <th>State</th>
+                        <th>Pincode</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Address Type</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hanamkonda</td>
+                        <td>KU x Road</td>
+                        <td>Telangana</td>
+                        <td>506143</td>
+                        <td>1-1-2020</td>
+                        <td>1-1-2023</td>
+                        <td>Present</td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="addressTable">
+                <tbody>
+                    <tr>
+                        <td>2</td>
+                        <td>Warangal</td>
+                        <td>Chowrastha</td>
+                        <td>Telangana</td>
+                        <td>506002</td>
+                        <td>1-1-2023</td>
+                        <td>1-1-2025</td>
+                        <td>Permanent</td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <script src="script.js"></script>
+
+    </section>
+    <div class="button-container">
+        <button type="button" onclick="handleOkClick()">OK</button>
+    </div>
+
+    <!-- <footer class="card footer-note" role="contentinfo">
+      <small>Record extracted from handwritten source — unclear values shown as placeholders. Last updated: 2025-12-08</small>
+    </footer>-->
+</main>

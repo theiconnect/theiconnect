@@ -204,9 +204,12 @@
 // Lightweight interactivity for employeeview.html
 // - Toggle permanent address
 // - Simple phone validation demo
-// - Keep functions small and well-commented for maintainability
+// - Exposes global handleOkClick() for inline OK button
+// Fixed mismatched braces and ensured handlers are registered correctly.
 
 document.addEventListener('DOMContentLoaded', () => {
+    'use strict';
+
     const toggleBtn = document.getElementById('toggle-perm');
     const perm = document.getElementById('permanent-address');
     const phoneInput = document.getElementById('phone-input');
@@ -215,12 +218,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggle permanent address visibility with ARIA updates
     if (toggleBtn && perm) {
         toggleBtn.addEventListener('click', () => {
-            const isHidden = perm.classList.toggle('hidden');
-            // When class toggled, perm is hidden when it has class 'hidden'
-            const expanded = !perm.classList.contains('hidden');
-            perm.setAttribute('aria-hidden', String(!expanded));
-            toggleBtn.setAttribute('aria-expanded', String(expanded));
-            toggleBtn.textContent = expanded ? 'Hide' : 'Show';
+            // Toggle the hidden class
+            perm.classList.toggle('hidden');
+
+            // Determine expanded state based on presence of the hidden class
+            const isExpanded = !perm.classList.contains('hidden');
+
+            // Update ARIA attributes and button label for accessibility
+            perm.setAttribute('aria-hidden', String(!isExpanded));
+            toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+            toggleBtn.textContent = isExpanded ? 'Hide' : 'Show';
         });
     }
 
@@ -245,12 +252,51 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    function addRow() {
+        const table = document.getElementById("addressTable").getElementsByTagName('tbody')[0];
+        const rowCount = table.rows.length;
+        const newRow = table.insertRow();
 
-}
-    function handleOkClick() {
-        alert("OK button clicked!");
+        for (let i = 0; i < 8; i++) {
+            const cell = newRow.insertCell(i);
+            cell.contentEditable = true;
+            cell.innerText = i === 0 ? rowCount + 1 : "";
+        }
+    }
+    function addRow() {
+        const table = document.getElementById("addressTable").getElementsByTagName('tbody')[0];
+        const rowCount = table.rows.length;
+        const newRow = table.insertRow();
+
+        for (let i = 0; i < 9; i++) {
+            const cell = newRow.insertCell(i);
+            if (i === 0) {
+                cell.innerText = rowCount + 1;
+            } else if (i === 7) {
+                cell.innerText = document.getElementById("addressType").value;
+            } else if (i === 8) {
+                cell.innerHTML = `<button onclick="editRow(this)">Edit</button> <button onclick="deleteRow(this)">Delete</button>`;
+            } else {
+                cell.contentEditable = true;
+            }
+        }
     }
 
-    // Example helper: copy present address to permanent (if UI grows to include a checkbox)
-    // function copyPresentToPermanent() { ... } // kept as a placeholder for future features
+    function editRow(button) {
+        const row = button.parentElement.parentElement;
+        for (let i = 1; i <= 7; i++) {
+            row.cells[i].contentEditable = true;
+        }
+    }
+
+    function deleteRow(button) {
+        const row = button.parentElement.parentElement;
+        row.remove();
+    }
+
+    // Expose OK handler globally so inline onclick="handleOkClick()" works
+    window.handleOkClick = function handleOkClick() {
+        // Replace with real submit/confirm logic as needed
+        alert('OK button clicked!');
+    };
 });

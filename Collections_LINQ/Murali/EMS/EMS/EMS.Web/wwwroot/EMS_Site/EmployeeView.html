@@ -33,15 +33,15 @@
             <div>
                 <div class="kv">
                     <div class="label">First Name</div>
-                    <div class="value" id="firstName">Jeevan</div>
+                    <div class="value" id="firstName">John</div>
                 </div>
                 <div class="kv">
                     <div class="label">Middle Name</div>
-                    <div class="value" id="middleName">rao <!-- placeholder if blank --></div>
+                    <div class="value" id="middleName">doe<!-- placeholder if blank --></div>
                 </div>
                 <div class="kv">
                     <div class="label">Last Name</div>
-                    <div class="value" id="lastName">Neredukomma</div>
+                    <div class="value" id="lastName">anne</div>
                 </div>
                 <div class="kv">
                     <div class="label">Blood Group</div>
@@ -144,10 +144,10 @@
                 <div>
                     <div style="display:flex;justify-content:space-between;align-items:center;">
                         <h3 class="subhead">Permanent Address</h3>
-                        <button id="toggle-perm" class="toggle-btn" aria-controls="permanent-address" aria-expanded="false">Show</button>
+
                     </div>
 
-                    <div id="permanent-address" class="permanent-address hidden" aria-hidden="true">
+                    <div id="permanent-address" class="permanent-address">
                         <div class="kv">
                             <div class="label">Line 1</div>
                             <div class="value" id="present-house">Hanamkonda</div>
@@ -172,6 +172,58 @@
                     </div>
                 </div>
             </div>
+            <div class="container">
+                <h3>Employee Address History</h3>
+
+                <table id="addressTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>SNo</th>
+                            <th>Address Line 1</th>
+                            <th>Address Line 2</th>
+                            <th>State</th>
+                            <th>Pincode</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Address Type</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Hanamkonda</td>
+                            <td>KU x Road</td>
+                            <td>Telangana</td>
+                            <td>506143</td>
+                            <td>1-1-2020</td>
+                            <td>1-1-2023</td>
+                            <td>Present</td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="addressTable">
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>Warangal</td>
+                            <td>Chowrastha</td>
+                            <td>Telangana</td>
+                            <td>506002</td>
+                            <td>1-1-2023</td>
+                            <td>1-1-2025</td>
+                            <td>Permanent</td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <script src="script.js"></script>
 
         </section>
         <div class="button-container">
@@ -184,3 +236,6 @@
     </main>
 </body>
 </html>
+
+
+
