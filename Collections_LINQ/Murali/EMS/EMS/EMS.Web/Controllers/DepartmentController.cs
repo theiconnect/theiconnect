@@ -26,17 +26,18 @@ namespace EMS.Web.Controllers
             DepartmentModel departmentModel = new DepartmentModel();
             return View(departmentModel);
         }
-
-        public IActionResult EditDepartment()
-        { 
-  
-        return View("EditDepartment");
+        public IActionResult EditDepartment(int id)
+        {
+            DepartmentService departmentService = new DepartmentService();
+            var department = departmentService.GetAllDepartments().FirstOrDefault(d => d.DepartmentIdPk == id);
+            return View(department);
         }
-
         public IActionResult ViewDepartment()
         {
+            DepartmentModel departmentModel = new DepartmentModel();
+            return View(departmentModel);
 
-            return View("ViewDepartment");
+            
         }
     }
 }
