@@ -133,6 +133,101 @@ body.employee-edit > h2 {
   color: #fff;
 }
 
+/* Employee view specific styles */
+#employee-view {
+  max-width: 980px;
+}
+
+/* Card tweaks */
+.card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.03);
+}
+
+/* Key-value rows */
+.kv {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed rgba(16,24,40,0.04);
+}
+
+.kv:last-child {
+  border-bottom: none;
+}
+
+.kv .label {
+  color: #374151;
+  font-weight: 600;
+  width: 40%;
+}
+
+.kv .value {
+  color: #1f2937;
+  width: 58%;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* Headings */
+.site-header {
+  background: linear-gradient(90deg, #f8fafc, #ffffff);
+  border-bottom: 1px solid rgba(16,24,40,0.04);
+}
+
+.subhead {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Toggle permanent address */
+.permanent-address.hidden {
+  display: none;
+}
+
+.toggle-btn {
+  cursor: pointer;
+}
+
+/* Buttons */
+.button-container button {
+  min-width: 120px;
+}
+
+/* Form / edit view additions */
+
+.employee-form {
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.employee-form .form-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.employee-form .form-control,
+.employee-form .form-select {
+    border-radius: 6px;
+    box-shadow: none;
+    border: 1px solid #d1d5db;
+}
+
+.employee-form .form-control:focus,
+.employee-form .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 0.15rem rgba(37,99,235,0.12);
+}
+
+.employee-form .invalid-feedback {
+    display: block;
+    font-size: 0.875rem;
+    color: #dc2626;
+}
+
 /* Responsive: stack label above control on narrow screens */
 @media (max-width: 760px) {
   #employeeForm .form-row {
@@ -149,4 +244,29 @@ body.employee-edit > h2 {
      #employeeForm .field-error {
     margin-left: 0;
   }
+}
+
+/* Responsive: stack labels above values on small screens */
+@media (max-width: 767.98px) {
+    .kv {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .kv .label,
+    .kv .value {
+        width: 100%;
+        text-align: left;
+    }
+
+    .kv .label {
+        margin-bottom: 0.25rem;
+        color: #111827;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .employee-form {
+        padding: 0 12px;
+    }
 }
