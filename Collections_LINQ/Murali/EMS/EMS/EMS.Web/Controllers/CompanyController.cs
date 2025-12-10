@@ -11,12 +11,21 @@ namespace EMS.Web.Controllers
         [Route("edit")]
         public IActionResult EditCompany() => View();
 
-        [Route("list")]
-        public IActionResult CompanyList()
+        [Route("info")]
+        [Route("")]
+        [Route("view")]
+        [Route("details")]
+       public  IActionResult ViewCompany() 
         {
-            // Replace with real data retrieval (repository/service) as needed.
-            IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
-            return View(companies);
+            return View();
         }
+
+        //[Route("list")]
+        //public IActionResult CompanyList()
+        //{
+        //    // Replace with real data retrieval (repository/service) as needed.
+        //    IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
+        //    return View(companies);
+        //}
     }
 }
