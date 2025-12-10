@@ -1,20 +1,26 @@
 ﻿using EMS.DataAccess;
 using EMS.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace EMS.Services
 {
     public class CompanyService
     {
+        EMSDbContext Dbcontext;
         public CompanyService()
         {
-            x++;
+            Dbcontext = EMSDbContext.GetInstance();
         }
-
-        public int x = 100;
-        public static int y = 100;
-        public void test()
+        
+        public CompanyModel getCompany()
         {
-            EMSDbContext dbContext = EMSDbContext.GetInstance();
+            var company = Dbcontext.Company;
+            return company;
+        }
+        
+        /*public void test()
+        {
+            
 
             return;
             Console.WriteLine("Hello, World!");
@@ -151,5 +157,6 @@ namespace EMS.Services
 
 
         }
+        */
     }
 }

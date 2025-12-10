@@ -5,7 +5,7 @@ namespace EMS.Web.Controllers
 {
     public class ScopedDemoController : Controller
     {
-        private readonly CompanyService _serviceFromCtor;
+        /*private readonly CompanyService _serviceFromCtor;
 
         public ScopedDemoController(CompanyService service)
         {
@@ -37,5 +37,6 @@ namespace EMS.Web.Controllers
             // Return as JSON for easy inspection
             return Json(result);
         }
+        */
     }
 }

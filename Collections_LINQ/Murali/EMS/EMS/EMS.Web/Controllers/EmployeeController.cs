@@ -29,7 +29,12 @@ namespace EMS.Web.Controllers
         }
 
         // Route: /Employee/editemployee
-        [Route("editemployee")] 
+        [Route("addemployee")]
+        public IActionResult AddEmp()
+        {
+            return View();
+        }
+        [Route("editemployee")]
         public IActionResult EditEmployee()
         {
             return View();
@@ -141,24 +146,24 @@ namespace EMS.Web.Controllers
     }
 
     // ==============================================
-    // 5. CompanyController (For your Company Edit Page)
-    // ==============================================
-    [Route("Company")]
-    public class CompanyController : Controller
-    {
-        // Route: /Company/EditCompany or /Company/edit
-        [Route("edit")]
-        public IActionResult EditCompany()
-        {
-            // This returns the view file located at /Views/Company/EditCompany.cshtml
-            return View();
-        }
+    //// 5. CompanyController (For your Company Edit Page)
+    //// ==============================================
+    //[Route("Company")]
+    //public class CompanyController : Controller
+    //{
+    //    // Route: /Company/EditCompany or /Company/edit
+    //    [Route("edit")]
+    //    public IActionResult EditCompany()
+    //    {
+    //        // This returns the view file located at /Views/Company/EditCompany.cshtml
+    //        return View();
+    //    }
 
-        // Route: /Company/list
-        [Route("list")]
-        public IActionResult CompanyList()
-        {
-            return View();
-        }
-    }
+    //    // Route: /Company/list
+    //    [Route("list")]
+    //    public IActionResult CompanyList()
+    //    {
+    //        return View();
+    //    }
+    //}
 }
