@@ -220,14 +220,20 @@
 
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js">
+        
+    </script>
 
     <div class="button-container text-center mb-4">
-        <button type="button" class="btn btn-primary" onclick="handleOkClick()">OK</button>
+        <button type="button" class="btn btn-primary" onclick="toclickok()">OK</button>
     </div>
 
     <div class="text-center">
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "me-2" })
-        <a asp-action="Index" class="btn btn-link">Back to List</a>
+        <a asp-controller="Employee" asp-action="EmployeeList" class="btn btn-primary">Back to List</a>
     </div>
 </main>
+<script>
+    function onclick(){
+        location.href="/Employee/EmployeeList";
+    }
+</script>

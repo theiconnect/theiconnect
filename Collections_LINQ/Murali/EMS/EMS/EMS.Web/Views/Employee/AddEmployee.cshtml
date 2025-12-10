@@ -239,10 +239,16 @@
                 </div>
             </div>
 
-            <div class="mb-5 d-flex justify-content-end">
-                <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList">Save Employee</button>
-                <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList">Cancel</button>
+            <div>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
+                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList">Save Employee</button>
+                        <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
+                    </div>
+               
+                </div>
             </div>
         </form>
     </div>
@@ -262,5 +268,8 @@
                 }, false);
             });
         })();
+        function display(){
+            location.href="/Employee/EmployeeList";
+        }
     </script>
 }

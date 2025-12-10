@@ -244,6 +244,7 @@
             LastName: "Kumar",
         }
     }
-            function display(){
-            alert("Saved Successfully!!");
-            }      
+
+    function toclickok() {
+        location.href = "/Employee/EmployeeList";
+    }

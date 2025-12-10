@@ -40,7 +40,7 @@ app.UseAuthorization();
 //Conventional Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Company}/{action=list}/{id?}");
+    pattern: "{controller=Employee}/{action=EmployeeList}/{id?}");
 
 //app.MapControllerRoute(
 //    name: "default1",
