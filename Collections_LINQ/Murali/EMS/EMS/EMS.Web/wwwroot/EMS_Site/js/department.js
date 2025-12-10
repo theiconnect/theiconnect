@@ -31,9 +31,9 @@
         // Seed sample data when empty
         if (!departments || !departments.length) {
             departments = [
-                { DepartmentIdPk: 1, DepartmentCode: 'D-001', DepartmentName: 'Human Resources', Location: 'New York', IsActive: true },
-                { DepartmentIdPk: 2, DepartmentCode: 'D-002', DepartmentName: 'Finance', Location: 'Chicago', IsActive: true },
-                { DepartmentIdPk: 3, DepartmentCode: 'D-003', DepartmentName: 'Engineering', Location: 'Seattle', IsActive: true }
+                //{ DepartmentIdPk: 1, DepartmentCode: 'D-001', DepartmentName: 'Human Resources', Location: 'New York', IsActive: true },
+                //{ DepartmentIdPk: 2, DepartmentCode: 'D-002', DepartmentName: 'Finance', Location: 'Chicago', IsActive: true },
+                //{ DepartmentIdPk: 3, DepartmentCode: 'D-003', DepartmentName: 'Engineering', Location: 'Seattle', IsActive: true }
             ];
             saveToStorage();
         }
@@ -82,26 +82,26 @@
     }
 
     // Data operations
-    function addDepartment({ DepartmentName, Location, IsActive = true }) {
-        const newDept = {
-            DepartmentIdPk: getNextId(),
-            DepartmentCode: generateDeptCode(),
-            DepartmentName,
-            Location,
-            IsActive: !!IsActive
-        };
-        departments.push(newDept);
-        saveToStorage();
-        return newDept;
-    }
+    //function addDepartment({ DepartmentName, Location, IsActive = true }) {
+    //    const newDept = {
+    //        DepartmentIdPk: getNextId(),
+    //        DepartmentCode: generateDeptCode(),
+    //        DepartmentName,
+    //        Location,
+    //        IsActive: !!IsActive
+    //    };
+    //    departments.push(newDept);
+    //    saveToStorage();
+    //    return newDept;
+    //}
 
-    function updateDepartment(id, updates) {
-        const dept = getDepartmentById(id);
-        if (!dept) return null;
-        Object.assign(dept, updates);
-        saveToStorage();
-        return dept;
-    }
+    //function updateDepartment(id, updates) {
+    //    const dept = getDepartmentById(id);
+    //    if (!dept) return null;
+    //    Object.assign(dept, updates);
+    //    saveToStorage();
+    //    return dept;
+    //}
 
     function deleteDepartment(id) {
         const idx = departments.findIndex(d => d.DepartmentIdPk === id);
@@ -353,8 +353,8 @@
             if (isActiveInput) isActiveInput.checked = !!dept.IsActive;
         } else {
             // Add mode
-            if (pageTitle) pageTitle.textContent = 'Add Department';
-            if (cardTitle) cardTitle.textContent = 'ADD Department';
+            if (pageTitle) pageTitle.textContent = 'Edit Department';
+            if (cardTitle) cardTitle.textContent = 'Edit Department';
             if (cardHelp) cardHelp.textContent = 'Enter department details. New departments are Active by default.';
             if (editingIdEl) editingIdEl.value = '';
             if (isActiveContainer) isActiveContainer.style.display = 'none';
