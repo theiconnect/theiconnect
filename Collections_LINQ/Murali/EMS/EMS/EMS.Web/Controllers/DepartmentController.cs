@@ -20,11 +20,14 @@ namespace EMS.Web.Controllers
             var departments = departmentService.GetAllDepartments();
             return View("DepartmentList", departments);
         }
+          
+
+
 
         public IActionResult CreateDepartment()
         {
-               
-            return View("CreateDepartment");
+            DepartmentModel departmentModel = new DepartmentModel();
+            return View(departmentModel);
         }
         public IActionResult EditDepartment(int id)
         {

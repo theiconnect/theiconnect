@@ -1,66 +1,9 @@
-﻿<!--<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Department Edit</title>
-    <link rel="stylesheet" href="css/department.css">
-</head>
-<body>
-    <main class="container">
-        <h1>Department Edit</h1>
-
-        <form id="deptForm" novalidate>
-            <div class="form-row">
-                <label for="deptCode">Dept Code</label>
-                <input type="text" id="deptCode" name="deptCode" readonly />
-            </div>
-
-            <div class="form-row">
-                <label for="deptName">Dept Name</label>
-                <input type="text" id="deptName" name="deptName" required maxlength="100" />
-            </div>
-
-            <div class="form-row">
-                <label for="deptLocation">Dept Location</label>
-                <select id="deptLocation" name="deptLocation" required>
-                    <option value="">-- Select location --</option>
-                    <option value="Hyderabad">Hyderabad</option>
-                    <option value="Bangalore">Bangalore</option>
-                    <option value="Chennai">Chennai</option>
-                </select>
-            </div>
-
-            <div class="actions">
-                <button type="button" id="btnBack" class="btn secondary">Back</button>
-                <button type="button" id="btnSave" class="btn primary">Save</button>
-            </div>
-
-            <div id="statusMessage" class="status" aria-live="polite"></div>
-        </form>
-    </main>-->
-<!-- Confirmation Modal -->
-<!--<div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
-        <div class="modal-content">
-            <h2 id="confirmTitle">Confirm</h2>
-            <p id="confirmMessage"></p>
-            <div class="modal-actions">
-                <button id="confirmOk" class="btn primary">OK</button>
-                <button id="confirmCancel" class="btn secondary">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/department.js"></script>
-</body>
-</html>-->
-
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>Edit Department</title>
-
+    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -70,71 +13,71 @@
 <body>
     <main class="container">
 
-        <!-- Header -->
-        <header class="site-header d-flex align-items-center justify-content-between px-3 py-2 shadow-sm">
-            <div class="d-flex align-items-center">
-                <button id="btnToggleMenu" class="btn btn-link me-2 p-0" title="Toggle menu">
-                    <span class="hamburger">&#9776;</span>
-                </button>
-            </div>
+    <!-- Header -->
+    <header class="site-header d-flex align-items-center justify-content-between px-3 py-2 shadow-sm">
+        <div class="d-flex align-items-center">
+            <button id="btnToggleMenu" class="btn btn-link me-2 p-0" title="Toggle menu">
+                <span class="hamburger">&#9776;</span>
+            </button>
+        </div>
 
-            <div class="d-flex align-items-center">
-                <img src="https://via.placeholder.com/36" alt="avatar" class="avatar rounded-circle" />
-            </div>
-        </header>
+        <div class="d-flex align-items-center">
+            <img src="https://via.placeholder.com/36" alt="avatar" class="avatar rounded-circle" />
+        </div>
+    </header>
+    
+    <!-- Page Content -->
+    <main class="p-4">
+        <div class="container">
+            <div class="mx-auto" style="max-width:720px;">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 id="cardTitle" class="card-title">Department</h5>
+                        <p class="text-muted small" id="cardHelp">Enter department details. New departments are Active by default.</p>
 
-        <!-- Page Content -->
-        <main class="p-4">
-            <div class="container">
-                <div class="mx-auto" style="max-width:720px;">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 id="cardTitle" class="card-title">Department</h5>
-                            <p class="text-muted small" id="cardHelp">Enter department details. New departments are Active by default.</p>
+                        <form id="deptForm" novalidate>
+                            <input type="hidden" id="editingId" />
 
-                            <form id="deptForm" novalidate>
-                                <input type="hidden" id="editingId" />
+                            <div class="mb-3">
+                                <label for="deptName" class="form-label">Department Name</label>
+                                <input id="deptName" class="form-control" required />
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="deptName" class="form-label">Department Name</label>
-                                    <input id="deptName" class="form-control" required />
+                            <div class="mb-3">
+                                <label for="deptLocation" class="form-label">Location</label>
+                                <input id="deptLocation" class="form-control" required />
+                            </div>
+
+                            <!-- Is Active (only for edit) -->
+                            <div class="mb-3" id="isActiveContainer" style="display:none;">
+                                <div class="form-check">
+                                    <input id="deptIsActive" class="form-check-input" type="checkbox" />
+                                    <label class="form-check-label" for="deptIsActive">Is Active</label>
                                 </div>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="deptLocation" class="form-label">Location</label>
-                                    <input id="deptLocation" class="form-control" required />
-                                </div>
+                            <div class="d-flex gap-2">
+                                <button id="btnSave" type="submit" class="btn btn-primary">Save</button>
+                                <a class="btn btn-secondary" href="/EMS_Site/DepartmentsList.html">Back</a>
+                            </div>
 
-                                <!-- Is Active (only for edit) -->
-                                <div class="mb-3" id="isActiveContainer" style="display:none;">
-                                    <div class="form-check">
-                                        <input id="deptIsActive" class="form-check-input" type="checkbox" />
-                                        <label class="form-check-label" for="deptIsActive">Is Active</label>
-                                    </div>
-                                </div>
+            <div id="statusMessage" class="status" aria-live="polite"></div>
+                        </form>
+    </main>
 
-                                <div class="d-flex gap-2">
-                                    <button id="btnSave" type="submit" class="btn btn-primary">Save</button>
-                                    <a class="btn btn-secondary" href="/EMS_Site/DepartmentsList.html">Back</a>
-                                </div>
-
-                                <div id="statusMessage" class="status" aria-live="polite"></div>
-                            </form>
-        </main>
-
-        <!-- Confirmation Modal -->
-        <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
-            <div class="modal-content">
-                <h2 id="confirmTitle">Confirm</h2>
-                <p id="confirmMessage"></p>
-                <div class="modal-actions">
-                    <button id="confirmOk" class="btn primary">OK</button>
-                    <button id="confirmCancel" class="btn secondary">Cancel</button>
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+        <div class="modal-content">
+            <h2 id="confirmTitle">Confirm</h2>
+            <p id="confirmMessage"></p>
+            <div class="modal-actions">
+                <button id="confirmOk" class="btn primary">OK</button>
+                <button id="confirmCancel" class="btn secondary">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-    </main>e1q
+    </main>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -160,7 +103,7 @@
                 load() {
                     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
                     catch { return []; }
-                },
+                },  
                 save(list) {
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
                 },
@@ -310,6 +253,8 @@
                     alertMsg("Failed to update department.");
                     return;
                 }
+
+
 
                 returnToList();
             }

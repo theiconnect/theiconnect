@@ -20,6 +20,7 @@ namespace EMS.Services
         {
             List<DepartmentModel> departments = dbContext.Departments;
             return departments;
+
         }
     }
 }
