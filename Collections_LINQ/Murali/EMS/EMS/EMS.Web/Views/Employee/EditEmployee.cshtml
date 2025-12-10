@@ -118,9 +118,8 @@
             </div>
 
             <div class="col-12 text-end">
-                <button type="submit" class="btn btn-primary me-2">Save</button>
-                <button type="button" id="btnCancel" class="btn btn-secondary">Cancel</button>
-                <a asp-action="Index" class="btn btn-link ms-2">Back to List</a>
+                <button type="submit" onclick="display" class="btn btn-primary me-2" asp-controller="Employee" asp-action="EmployeeList">Save</button>
+                <a  id="btnCancel" class="btn btn-secondary" asp-controller="Employee" asp-action="EmployeeList">Cancel</a>
             </div>
         </div>
     </div>
@@ -131,26 +130,4 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
-    <script>
-        // Cancel -> go back safely
-        document.getElementById('btnCancel')?.addEventListener('click', function () {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = '@Url.Action("Index", "Employee")';
-            }
-        });
-
-        // Basic bootstrap validation feedback hookup
-        (function () {
-            const form = document.getElementById('employeeForm');
-            form?.addEventListener('submit', function (e) {
-                if (!form.checkValidity()) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        })();
-    </script>
 }

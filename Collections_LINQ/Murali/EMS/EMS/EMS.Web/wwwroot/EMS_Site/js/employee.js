@@ -242,4 +242,8 @@
             EmployeeCode: "HR001",
             FirstName: "Asha",
             LastName: "Kumar",
-           
+        }
+    }
+            function display(){
+            alert("Saved Successfully!!");
+            }      

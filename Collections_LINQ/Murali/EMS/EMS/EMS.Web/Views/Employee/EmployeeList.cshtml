@@ -13,8 +13,8 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="h3"><i class="fas fa-users me-2"></i> Employee List</h2>
             <div>
-                <a href="employee_add.html" id="btnAddEmployee" class="btn btn-success">
-                    <i class="fas fa-user-plus me-1"></i> Add Employee
+                <a id="btnAddEmployee" class="btn btn-success" asp-controller="Employee" asp-action="AddEmployee">
+                    Add Employee
                 </a>
             </div>
         </div>
@@ -91,14 +91,14 @@
                                 <td>+1 (555) 123-4567</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Alice Johnson">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1001" aria-label="View Alice Johnson">
-                                            <i class="fas fa-eye"></i>
+                                        <button onclick="display()" type="button" class="btn btn-sm btn-outline-primary" aria-label="View Alice Johnson">
+                                            View
                                         </button>
-                                        <a href="employee_edit.html?id=1001" class="btn btn-sm btn-outline-secondary" aria-label="Edit Alice Johnson">
-                                            <i class="fas fa-edit"></i>
+                                        <a class="btn btn-sm btn-outline-secondary" aria-label="Edit Alice Johnson" asp-controller="Employee" asp-action="EditEmployee">
+                                            Edit
                                         </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1001" aria-label="Delete Alice Johnson" onclick="if(confirm('Delete employee EMP-1001 - Alice Johnson?')) { /* delete logic */ }">
-                                            <i class="fas fa-trash-alt"></i>
+                                            <i class="fas fa-trash-alt">Delete</i>
                                         </button>
                                     </div>
                                 </td>
@@ -113,14 +113,14 @@
                                 <td>+1 (555) 234-5678</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Bob Smith">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1002" aria-label="View Bob Smith">
-                                            <i class="fas fa-eye"></i>
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1002" aria-label="View Bob Smith">
+                                            <i class="fas fa-eye">View</i>
                                         </button>
-                                        <a href="employee_edit.html?id=1002" class="btn btn-sm btn-outline-secondary" aria-label="Edit Bob Smith">
-                                            <i class="fas fa-edit"></i>
+                                        <a  class="btn btn-sm btn-outline-secondary" aria-label="Edit Bob Smith" asp-controller="Employee" asp-action="EditEmployee">
+                                            <i class="fas fa-edit">Edit</i>
                                         </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1002" aria-label="Delete Bob Smith" onclick="if(confirm('Delete employee EMP-1002 - Bob Smith?')) { /* delete logic */ }">
-                                            <i class="fas fa-trash-alt"></i>
+                                            <i class="fas fa-trash-alt">Delete</i>
                                         </button>
                                     </div>
                                 </td>
@@ -135,14 +135,14 @@
                                 <td>+1 (555) 345-6789</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Carla Lopez">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1003" aria-label="View Carla Lopez">
-                                            <i class="fas fa-eye"></i>
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1003" aria-label="View Carla Lopez">
+                                            <i class="fas fa-eye">View</i>
                                         </button>
-                                        <a href="employee_edit.html?id=1003" class="btn btn-sm btn-outline-secondary" aria-label="Edit Carla Lopez">
-                                            <i class="fas fa-edit"></i>
+                                        <a class="btn btn-sm btn-outline-secondary" aria-label="Edit Carla Lopez" asp-controller="Employee" asp-action="EditEmployee">
+                                            <i class="fas fa-edit">Edit</i>
                                         </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1003" aria-label="Delete Carla Lopez" onclick="if(confirm('Delete employee EMP-1003 - Carla Lopez?')) { /* delete logic */ }">
-                                            <i class="fas fa-trash-alt"></i>
+                                            <i class="fas fa-trash-alt">Delete</i>
                                         </button>
                                     </div>
                                 </td>
@@ -157,14 +157,14 @@
                                 <td>+1 (555) 456-7890</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for David Nguyen">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1004" aria-label="View David Nguyen">
-                                            <i class="fas fa-eye"></i>
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1004" aria-label="View David Nguyen">
+                                            <i class="fas fa-eye">View</i>
                                         </button>
-                                        <a href="employee_edit.html?id=1004" class="btn btn-sm btn-outline-secondary" aria-label="Edit David Nguyen">
-                                            <i class="fas fa-edit"></i>
+                                        <a class="btn btn-sm btn-outline-secondary" aria-label="Edit David Nguyen" asp-controller="Employee" asp-action="EditEmployee">
+                                            <i class="fas fa-edit">Edit</i>
                                         </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1004" aria-label="Delete David Nguyen" onclick="if(confirm('Delete employee EMP-1004 - David Nguyen?')) { /* delete logic */ }">
-                                            <i class="fas fa-trash-alt"></i>
+                                            <i class="fas fa-trash-alt">Delete</i>
                                         </button>
                                     </div>
                                 </td>
@@ -179,14 +179,14 @@
                                 <td>+1 (555) 567-8901</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Eva Martinez">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1005" aria-label="View Eva Martinez">
-                                            <i class="fas fa-eye"></i>
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1005" aria-label="View Eva Martinez">
+                                            <i class="fas fa-eye">View</i>
                                         </button>
-                                        <a href="employee_edit.html?id=1005" class="btn btn-sm btn-outline-secondary" aria-label="Edit Eva Martinez">
-                                            <i class="fas fa-edit"></i>
+                                        <a class="btn btn-sm btn-outline-secondary" aria-label="Edit Eva Martinez" asp-controller="Employee" asp-action="EditEmployee">
+                                            <i class="fas fa-edit">Edit</i>
                                         </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1005" aria-label="Delete Eva Martinez" onclick="if(confirm('Delete employee EMP-1005 - Eva Martinez?')) { /* delete logic */ }">
-                                            <i class="fas fa-trash-alt"></i>
+                                            <i class="fas fa-trash-alt">Delete</i>
                                         </button>
                                     </div>
                                 </td>
@@ -201,14 +201,14 @@
                                 <td>+1 (555) 678-9012</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Frank O'Connor">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1006" aria-label="View Frank O'Connor">
-                                            <i class="fas fa-eye"></i>
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1006" aria-label="View Frank O'Connor">
+                                            <i class="fas fa-eye">View</i>
                                         </button>
-                                        <a href="employee_edit.html?id=1006" class="btn btn-sm btn-outline-secondary" aria-label="Edit Frank O'Connor">
-                                            <i class="fas fa-edit"></i>
+                                        <a class="btn btn-sm btn-outline-secondary" aria-label="Edit Frank O'Connor" asp-controller="Employee" asp-action="EditEmployee">
+                                            <i class="fas fa-edit">Edit</i>
                                         </a>
                                         <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1006" aria-label="Delete Frank O'Connor" onclick="if(confirm('Delete employee EMP-1006 - Frank O\\'Connor?')) { /* delete logic */ }">
-                                            <i class="fas fa-trash-alt"></i>
+                                            <i class="fas fa-trash-alt">Delete</i>
                                         </button>
                                     </div>
                                 </td>
@@ -220,6 +220,12 @@
         </div>
 
     </div>
+    </main>
+    <script>
+        function display() {
+            location.href = '/Employee/ViewEmployee';
+    }
+    </script>
 
 
 
