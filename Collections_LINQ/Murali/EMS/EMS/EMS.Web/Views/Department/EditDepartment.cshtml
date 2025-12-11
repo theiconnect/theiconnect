@@ -145,7 +145,7 @@
                         </div>
 
                         <div class="d-flex gap-2">
-                            <button id="btnSave" type="submit" class="btn btn-primary">Save</button>
+                            <button id="btnSave" type="submit" class="btn btn-primary" asp-controller="Department" asp-action="list">Save</button>
                             <a class="btn btn-secondary" href="/EMS_Site/DepartmentsList.html">Back</a>
                         </div>
 
@@ -163,9 +163,6 @@
         </div>
     </div>
 </div>
-
-
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+}              

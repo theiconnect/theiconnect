@@ -59,7 +59,7 @@
                             <td> 
                                 @Html.ActionLink("Edit", "EditDepartment", "Department")
                                 <a href="/Department/EditDepartment">Delete</a>
-                                <a onclick="goToView()">View</a>
+                                <a onclick="goToView() ">View</a>                           
                             </td>
                         </tr>
                     </tbody>
@@ -76,5 +76,4 @@
 function goToView(){
     location.href= '/department/viewdepartment';
 }
-
 </script>
