@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="d-flex gap-2">
-                            <button id="btnSave" type="submit" class="btn btn-primary" asp-controller="department" asp-action="list">Save</button>
+                            <button id="btnSave" type="submit" class="btn btn-primary" onclick="goToView()">Save</button>
                             <a id="btnCancel" class="btn btn-secondary" href="/EMS_Site/DepartmentsList.html">Cancel</a>
                         </div>
                     </form>
@@ -83,6 +83,11 @@
         </div>
     </div>
 </main>
+<script>
+    function goToView() {
+        window.location.href = '/Department/list';
+    }
+</script>
 
 
 

@@ -37,7 +37,7 @@ namespace EMS.Web.Controllers
         public IActionResult ViewDepartment()
         {
            
-            return View("view");
+            return View();
 
             
         }
