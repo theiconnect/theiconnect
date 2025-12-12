@@ -26,8 +26,8 @@ namespace EMS.Web.Controllers
 
         public IActionResult CreateDepartment()
         {
-            DepartmentModel departmentModel = new DepartmentModel();
-            return View(departmentModel);
+            
+            return View();
         }
         public IActionResult EditDepartment(int id)
         {
@@ -37,7 +37,7 @@ namespace EMS.Web.Controllers
         public IActionResult ViewDepartment()
         {
            
-            return View("view");
+            return View();
 
             
         }
