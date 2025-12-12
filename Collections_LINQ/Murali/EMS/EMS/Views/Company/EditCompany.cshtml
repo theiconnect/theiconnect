@@ -1,0 +1,276 @@
+@model IEnumerable<EMS.Models.CompanyModel>
+
+    @{
+        ViewData["Title"] = "CompanyList";
+        Layout = "~/Views/Shared/_EMSLayout.cshtml";
+        var items = Model ?? Enumerable.Empty<EMS.Models.CompanyModel>();
+    }
+
+    <main class="content">
+        <div class="page-container py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                <h1 class="display-6 mb-0 text-dark">
+                    <i class="fas fa-pen-square me-2 text-primary"></i> Edit Company Information
+                </h1>
+            </div>
+
+            <h2 class="h5 mb-3 text-secondary"><i class="fas fa-info-circle me-2"></i> Company Details</h2>
+            <div class="card shadow-sm mb-5 border-0">
+                <div class="card-body p-4">
+                    <form id="companyDetailsForm">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="companyName" class="form-label">Company Name *</label>
+                                <input type="text" class="form-control bg-light" id="companyName" value="Innovatech Solutions Pvt. Ltd." readonly>
+                                <div class="form-text">Name cannot be changed here.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="phoneNumber" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phoneNumber" value="(555) 123-4567">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" value="info@innovatech.com">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="regDate" class="form-label">Registration Date</label>
+                                <input type="date" class="form-control" id="regDate" value="2023-01-15">
+                            </div>
+                            <div class="col-md-8">
+                                <label for="website" class="form-label">Website</label>
+                                <input type="url" class="form-control" id="website" value="http://www.innovatech.com">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="bankAccount" class="form-label">Bank Account Number</label>
+                                <input type="text" class="form-control" id="bankAccount" value="98765432101234567890">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tin" class="form-label">TIN</label>
+                                <input type="text" class="form-control" id="tin" value="T1234567890">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="pan" class="form-label">PAN</label>
+                                <input type="text" class="form-control" id="pan" value="PABCDE1234F">
+                                </d<d>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <h2 class="h5 mb-3 text-secondary"><i class="fas fa-map-marked-alt me-2"></i> Manage Addresses</h2>
+
+            <div class="d-flex justify-content-end mb-3">
+                <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
+                    <i class="fas fa-plus me-2"></i> Add New Address
+                </button>
+            </div>
+
+            <div class="table-responsive shadow-sm bg-white border rounded mb-4">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Type</th>
+                            <th>Address Line 1</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Pin Code</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="address-1">
+                            <td data-field="type">Corporate</td>
+                            <td data-field="line1">101 Tech Park Avenue</td>
+                            <td data-field="city">Metroville</td>
+                            <td data-field="state">CA</td>
+                            <td data-field="pin">902100</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editAddressModal"
+                                        data-id="1"
+                                        data-type="Corporate"
+                                        data-line1="101 Tech Park Avenue"
+                                        data-city="Metroville"
+                                        data-state="CA"
+                                        data-pin="902100">
+                                    <i class="fas fa-pen"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteAddressModal"
+                                        data-id="1">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr id="address-2">
+                            <td data-field="type">Branch</td>
+                            <td data-field="line1">202 Industrial Drive</td>
+                            <td data-field="city">Port City</td>
+                            <td data-field="state">TX</td>
+                            <td data-field="pin">770012</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editAddressModal"
+                                        data-id="2"
+                                        data-type="Branch"
+                                        data-line1="202 Industrial Drive"
+                                        data-city="Port City"
+                                        data-state="TX"
+                                        data-pin="770012">
+                                    <i class="fas fa-pen"></i> Edit
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteAddressModal"
+                                        data-id="2">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-start mt-4 mb-5 btn-group-action">
+                <a href="Company.html" class="btn btn-primary btn-lg me-3" id="saveChangesButton"><i class="fas fa-save me-2"></i> Save Changes</a>
+                <a href="#" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left me-2"></i> Back to View</a>
+            </div>
+
+        </div>
+    </main>
+
+    </div>
+
+    <div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addAddressForm" novalidate>
+                        <div class="mb-3">
+                            <label for="addressType" class="form-label">Address Type *</label>
+                            <select class="form-select" id="addressType" required>
+                                <option value="" selected disabled>Select Address Type</option>
+                                <option value="Corporate">Corporate Headquarters</option>
+                                <option value="Branch">Branch Office</option>
+                            </select>
+                            <div class="invalid-feedback">Please select an address type.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressLine1" class="form-label">Address Line 1 *</label>
+                            <input type="text" class="form-control" id="addressLine1" required>
+                            <div class="invalid-feedback">Please enter the address line 1.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addressLine2" class="form-label">Address Line 2 (Optional)</label>
+                            <input type="text" class="form-control" id="addressLine2">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="city" class="form-label">City *</label>
+                                <input type="text" class="form-control" id="city" required>
+                                <div class="invalid-feedback">Please enter the city.</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="state" class="form-label">State *</label>
+                                <input type="text" class="form-control" id="state" required>
+                                <div class="invalid-feedback">Please enter the state.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pinCode" class="form-label">Pin Code *</label>
+                            <input type="text" class="form-control" id="pinCode" required maxlength="6">
+                            <div class="invalid-feedback">Please enter a valid pin code.</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" id="confirmAddAddressButton"><i class="fas fa-plus me-2"></i> Add Address</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="editAddressModalLabel"><i class="fas fa-pen me-2"></i> Edit Address Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editAddressForm">
+                        <input type="hidden" id="edit-addressId" value="">
+
+                        <div class="mb-3">
+                            <label for="edit-addressType" class="form-label">Address Type *</label>
+                            <select class="form-select" id="edit-addressType" required>
+                                <option value="" selected disabled>Select Address Type</option>
+                                <option value="Corporate">Corporate Headquarters</option>
+                                <option value="Branch">Branch Office</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-addressLine1" class="form-label">Address Line 1 *</label>
+                            <input type="text" class="form-control" id="edit-addressLine1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-addressLine2" class="form-label">Address Line 2 (Optional)</label>
+                            <input type="text" class="form-control" id="edit-addressLine2">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="edit-city" class="form-label">City *</label>
+                                <input type="text" class="form-control" id="edit-city" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="edit-state" class="form-label">State *</label>
+                                <input type="text" class="form-control" id="edit-state" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-pinCode" class="form-label">Pin Code *</label>
+                            <input type="text" class="form-control" id="edit-pinCode" required maxlength="6">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-info text-white" id="saveEditButton"><i class="fas fa-save me-2"></i> Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteAddressModal" tabindex="-1" aria-labelledby="deleteAddressModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content shadow-lg">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteAddressModalLabel"><i class="fas fa-exclamation-triangle me-2"></i> Confirm Delete</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this address?</p>
+                    <input type="hidden" id="delete-addressId" value="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteButton"><i class="fas fa-trash-alt me-2"></i> Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
