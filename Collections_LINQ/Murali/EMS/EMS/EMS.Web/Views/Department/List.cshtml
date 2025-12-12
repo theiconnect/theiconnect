@@ -27,7 +27,7 @@
             </div>
 
             <div class="mt-3">
-                <button id="btnAddDept" class="btn btn-success" asp-controller="Department" asp-action="CreateDepartment">Add Department</button>
+                <button id="btnAddDept" class="btn btn-success" onclick="goToAdd()">Add Department</button>
             </div>
         </div>
     </div>
@@ -52,14 +52,15 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>njkhj</td>
-                            <td>gfhfg</td>
-                            <td>fghfg</td>
-                            <td>ytrur</td>
+                            <td>D001</td>
+                            <td>HR</td>
+                            <td>Hyderabad</td>
+                            <td>True</td>
                             <td> 
-                                @Html.ActionLink("Edit", "EditDepartment", "Department")
-                                <a href="/Department/EditDepartment">Delete</a>
-                                <a onclick="goToView() ">View</a>                           
+                                @* @Html.ActionLink("Edit", "EditDepartment", "Department") *@
+                                <a class="btn btn-primary" href="/Department/EditDepartment">Edit</a>
+                                <a class="btn btn-danger" href="/Department/EditDepartment">Delete</a>
+                                <button  class="btn btn-info"onclick="goToView()">View</button>
                             </td>
                         </tr>
                     </tbody>
@@ -76,4 +77,10 @@
 function goToView(){
     location.href= '/department/viewdepartment';
 }
+
+function goToAdd(){
+        location.href= '/department/createdepartment';
+
+}
+
 </script>
