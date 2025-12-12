@@ -228,19 +228,20 @@
         <button type="button" class="btn btn-primary" onclick="toView()">OK</button>
     </div>
 
-<<<<<<< HEAD
+
     <div class="text-center">
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }, new { @class = "me-2" })
-        <a asp-action="Index" class="btn btn-link">Back to List</a>
+
+        <a asp-controller="Employee" asp-action="EmployeeList" class="btn btn-link">Back to List</a>
+
     </div>
     
 
 </main>
-=======
-</main>
+
+
 <script>
     function toView(){
         location.href="/Employee/EmployeeList";
     }
 </script>
->>>>>>> e4422cf6bf7b1b8d4ec3fba0d95c6eb11f2e493d
+
