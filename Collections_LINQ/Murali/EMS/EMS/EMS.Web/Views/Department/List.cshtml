@@ -1,9 +1,12 @@
-﻿@model IEnumerable<EMS.Models.DepartmentModel>
+﻿@model List<EMS.Web.Models.DepartmentListViewModel>
 
 @{
     ViewData["Title"] = "List";
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
+    int counter = 0;
 }
+
+
 
 
 <section class="mb-4">
@@ -21,7 +24,7 @@
                 </div>
 
                 <div class="col-md-2 d-flex gap-2">
-                    <button id="btnSearch" class="btn btn-primary" >Search</button>
+                    <button id="btnSearch" class="btn btn-primary">Search</button>
                     <button id="btnClear" class="btn btn-outline-secondary">Clear</button>
                 </div>
             </div>
@@ -38,49 +41,81 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="deptTable" class="table table-striped table-bordered align-middle">
+                <table id="deptTable">
                     <thead class="table-light">
                         <tr>
-                            <th>S.NO</th>
-                            <th>Department Code</th>
-                            <th>Department Name</th>
+                            <th>Sno</th>
+                            <th>Code</th>
+                            <th>Name</th>
                             <th>Location</th>
-                            <th>Is Active</th>
+                            <th>Active</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>D001</td>
-                            <td>HR</td>
-                            <td>Hyderabad</td>
-                            <td>True</td>
-                            <td> 
-                                @* @Html.ActionLink("Edit", "EditDepartment", "Department") *@
-                                <a class="btn btn-primary" href="/Department/EditDepartment">Edit</a>
-                                <a class="btn btn-danger" href="/Department/EditDepartment">Delete</a>
-                                <button  class="btn btn-info"onclick="goToView()">View</button>
-                            </td>
-                        </tr>
+                        @if (Model.Count < 1)
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center">No department(s) found.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var dept in Model)
+                            {
+                                <tr >
+                                    <td style="background-color:@(!dept.IsActive ? "red !important" : "")">@(++counter)</td>
+                                    <td style="background-color:@(!dept.IsActive ? "red !important" : "")">
+                                        <a 
+                                            title="click on this link to view details of @dept.DeptName department"
+                                            asp-route-id="@dept.DepartmentId" 
+                                            asp-controller="Department" 
+                                            asp-action="ViewDepartment">@dept.Code</a>
+                                    </td>
+                                    <td style="background-color:@(!dept.IsActive ? "red !important" : "")">@dept.DeptName</td>
+                                    <td style="background-color:@(!dept.IsActive ? "red !important" : "")">@( string.IsNullOrEmpty(dept.Location) ? "NA": dept.Location)</td>
+                                    <td style="background-color:@(!dept.IsActive ? "red !important" : "")">@(dept.IsActive ? "Yes" : "No")</td>
+                                    <td style="background-color:@(!dept.IsActive ? "red !important" : "")">
+                                        @* @Html.ActionLink("View", "ViewDepartment", "Department", new { @id = dept.DepartmentId })
+                                        @Html.ActionLink("Edit", "EditDepartment", "Department", new { @id = dept.DepartmentId })
+                                        *@
+                                        <a class="btn btn-primary" href="/Department/ViewDepartment/@dept.DepartmentId">View</a>
+                                        <a class="btn btn-primary" href="/Department/EditDepartment/@dept.DepartmentId">Edit</a>
+                                        @if(dept.IsActive)
+                                        {
+                                        <button 
+                                            class="btn btn-danger" 
+                                            onclick="if(confirm('Are you sure you want to deactivate @dept.DeptName-@dept.Code department?')){ alert('successfully deactivated') }">
+                                                Deactivate</button>
+                                        }
+                                        else
+                                        {
+                                            <button 
+                                                class="btn btn-success"
+                                                    onclick="if(confirm('Are you sure you want to activate @dept.DeptName-@dept.Code department?')){ alert('successfully activated') }">
+                                                Activate
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="card-footer text-muted small">
-            Showing departments. Use Search to filter results.
+            Showing departments.Use Search to filter results.
         </div>
     </div>
 </section>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.5/js/dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/2.3.5/css/dataTables.dataTables.min.css" />
+
+@* <script type="text/javascript" src="cdn.datatables.net"></script> *@
 <script type="text/javascript">
- 
-function goToView(){
-    location.href= '/department/viewdepartment';
-}
-
-function goToAdd(){
-        location.href= '/department/createdepartment';
-
-}
+     let table = new DataTable('#deptTable');
 
 </script>
