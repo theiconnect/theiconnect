@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "CompanyList";
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
-    var items = Model ?? Enumerable.Empty<EMS.Models.CompanyModel>();
+    
 }
 
 <main class="content">
@@ -67,7 +67,7 @@
         <h2 class="h5 mb-3 text-secondary"><i class="fas fa-map-marked-alt me-2"></i> Manage Addresses</h2>
 
         <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
+            <button class="btn btn-success shadow-sm" data-bs-toggle="modal" onclick="display()" >
                 <i class="fas fa-plus me-2"></i> Add New Address
             </button>
         </div>
@@ -274,3 +274,8 @@
         </div>
     </div>
 </div>
+<script>
+    function display(){
+        location.href="/Add new "
+    }
+</script>
