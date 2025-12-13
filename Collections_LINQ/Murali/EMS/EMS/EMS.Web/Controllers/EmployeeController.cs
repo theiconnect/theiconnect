@@ -1,5 +1,7 @@
 ﻿using EMS.Models;
 using EMS.Models.Enums;
+using EMS.Services;
+using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
@@ -17,7 +19,36 @@ namespace EMS.Web.Controllers
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
             // If you want to return a string, change the return type to 'string'.
-            return View();
+            var employeesFromDB = EmployeeServices.GetAllEmployees();
+
+            var employeesViewModel = new List<EmployeeViewModel>();
+
+            foreach (var emp in employeesFromDB)
+            {
+                EmployeeListViewModel obj = new EmployeeListViewModel();
+                {
+                   obj.Code = emp.Employeecode;
+                     obj.FirstName = emp.FirstName;
+                        obj.MiddleName = emp.MiddleName;
+                        obj.LastName = emp.LastName;
+                        obj.BloodGroup = emp.BloodGroup;
+                    obj.Gender = emp.Gender;
+                    obj.EmailId = emp.EmailId;
+                    obj.PersonEmailId = emp.PersonEmailId;
+                    obj.MobileNumber = emp.MobileNumber;
+                    obj.AlternateMobileNumber = emp.AlternateMobileNumber;
+                    obj.DateOfBirth = emp.DateOfBirth;
+                    obj.DateOfJoining = emp.DateOfJoining;
+                    obj.ExpInMonths = emp.ExpInMonths;
+                    obj.Salary = emp.SalaryCtc;
+                    obj.IsActive = emp.IsActive;
+
+                }
+                 };
+
+                employeesViewModel.Add(obj);
+
+                return View(employeesViewModel);
         }
 
         
