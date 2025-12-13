@@ -14,7 +14,7 @@
             <h2 class="h3"><i class="fas fa-users me-2"></i> Employee List</h2>
             <div>
                 <a id="btnAddEmployee" class="btn btn-success" asp-controller="Employee" asp-action="AddEmployee">
-                    <i class="fas fa-user-plus me-1"></i> Add Employee
+                    Add Employee
                 </a>
             </div>
         </div>
@@ -55,7 +55,7 @@
 
                     <div class="col-md-2 d-flex gap-2">
                         <button type="button" id="btnSearch" class="btn btn-primary w-100">Search</button>
-                        <button type="button" id="btnClear" class="btn btn-outline-secondary w-100">Clear</button>
+                        <button type="reset" id="btnClear" class="btn btn-outline-secondary w-100">Clear</button>
                     </div>
                 </form>
             </div>
@@ -91,14 +91,13 @@
                                 <td>+1 (555) 123-4567</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Alice Johnson">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1001" aria-label="View Alice Johnson" asp-controller="Employee" asp-action="ViewEmployee">
-                                           View
+                                        <button onclick="display()" type="button" class="btn btn-sm btn-primary" aria-label="View Alice Johnson">
+                                            View
                                         </button>
-
-                                        <a  class="btn btn-sm btn-outline-secondary" aria-label="Edit Alice Johnson" asp-controller="Employee" asp-action="EditEmployee">
+                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Alice Johnson" asp-controller="Employee" asp-action="EditEmployee">
                                             Edit
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1001" aria-label="Delete Alice Johnson" onclick="if(confirm('Delete employee EMP-1001 - Alice Johnson?')) { /* delete logic */ }">
+                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1001" aria-label="Delete Alice Johnson" onclick="if(confirm('Delete employee EMP-1001 - Alice Johnson?')) { /* delete logic */ }">
                                             Delete
                                         </button>
                                     </div>
@@ -114,13 +113,13 @@
                                 <td>+1 (555) 234-5678</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Bob Smith">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1002" aria-label="View Bob Smith" asp-controller="Employee" asp-action="ViewEmployee">
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1002" aria-label="View Bob Smith">
                                             View
                                         </button>
-                                        <a  class="btn btn-sm btn-outline-secondary" aria-label="Edit Bob Smith" asp-controller="Employee" asp-action="EditEmployee">
+                                        <a  class="btn btn-sm btn-secondary" aria-label="Edit Bob Smith" asp-controller="Employee" asp-action="EditEmployee">
                                             Edit
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1002" aria-label="Delete Bob Smith" onclick="if(confirm('Delete employee EMP-1002 - Bob Smith?')) { /* delete logic */ }">
+                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1002" aria-label="Delete Bob Smith" onclick="if(confirm('Delete employee EMP-1002 - Bob Smith?')) { /* delete logic */ }">
                                             Delete
                                         </button>
                                     </div>
@@ -136,13 +135,13 @@
                                 <td>+1 (555) 345-6789</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Carla Lopez">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1003" aria-label="View Carla Lopez" asp-controller="Employee" asp-action="ViewEmployee">
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1003" aria-label="View Carla Lopez">
                                             View
                                         </button>
-                                        <a  class="btn btn-sm btn-outline-secondary" aria-label="Edit Carla Lopez" asp-controller="Employee" asp-action="EditEmployee">
+                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Carla Lopez" asp-controller="Employee" asp-action="EditEmployee">
                                             Edit
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1003" aria-label="Delete Carla Lopez" onclick="if(confirm('Delete employee EMP-1003 - Carla Lopez?')) { /* delete logic */ }">
+                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1003" aria-label="Delete Carla Lopez" onclick="if(confirm('Delete employee EMP-1003 - Carla Lopez?')) { /* delete logic */ }">
                                             Delete
                                         </button>
                                     </div>
@@ -158,18 +157,18 @@
                                 <td>+1 (555) 456-7890</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for David Nguyen">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1004" aria-label="View David Nguyen" asp-controller="Employee" asp-action="ViewEmployee">
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1004" aria-label="View David Nguyen">
                                             View
                                         </button>
-                                        <a  class="btn btn-sm btn-outline-secondary" aria-label="Edit David Nguyen" asp-controller="Employee" asp-action="EditEmployee">
+                                        <a class="btn btn-sm btn-secondary" aria-label="Edit David Nguyen" asp-controller="Employee" asp-action="EditEmployee">
                                             Edit
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1004" aria-label="Delete David Nguyen" onclick="if(confirm('Delete employee EMP-1004 - David Nguyen?')) { /* delete logic */ }">
+                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1004" aria-label="Delete David Nguyen" onclick="if(confirm('Delete employee EMP-1004 - David Nguyen?')) { /* delete logic */ }">
                                             Delete
                                         </button>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr>s
                             <tr>
                                 <td>5</td>
                                 <td>EMP-1005</td>
@@ -180,13 +179,13 @@
                                 <td>+1 (555) 567-8901</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Eva Martinez">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1005" aria-label="View Eva Martinez" asp-controller="Employee" asp-action=" ViewEmployee">
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1005" aria-label="View Eva Martinez">
                                             View
                                         </button>
-                                        <a  class="btn btn-sm btn-outline-secondary" aria-label="Edit Eva Martinez" asp-controller="Employee" asp-action="EditEmployee">
+                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Eva Martinez" asp-controller="Employee" asp-action="EditEmployee">
                                             Edit
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1005" aria-label="Delete Eva Martinez" onclick="if(confirm('Delete employee EMP-1005 - Eva Martinez?')) { /* delete logic */ }">
+                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1005" aria-label="Delete Eva Martinez" onclick="if(confirm('Delete employee EMP-1005 - Eva Martinez?')) { /* delete logic */ }">
                                             Delete
                                         </button>
                                     </div>
@@ -202,13 +201,13 @@
                                 <td>+1 (555) 678-9012</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group" aria-label="Actions for Frank O'Connor">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1006" aria-label="View Frank O'Connor" asp-controller="Employee" asp-action="ViewEmplloyee">
+                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1006" aria-label="View Frank O'Connor">
                                             View
                                         </button>
-                                        <a class="btn btn-sm btn-outline-secondary" aria-label="Edit Frank O'Connor" asp-controller="Employee" asp-action="EditEmployee">
+                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Frank O'Connor" asp-controller="Employee" asp-action="EditEmployee">
                                             Edit
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" data-emp-id="1006" aria-label="Delete Frank O'Connor" onclick="if(confirm('Delete employee EMP-1006 - Frank O\\'Connor?')) { /* delete logic */ }">
+                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1006" aria-label="Delete Frank O'Connor" onclick="if(confirm('Delete employee EMP-1006 - Frank O\\'Connor?')) { /* delete logic */ }">
                                             Delete
                                         </button>
                                     </div>
@@ -222,12 +221,13 @@
 
     </div>
     </main>
-<script>
-    function display() {
-        // Logic to fetch and display employee details in the modal
-         location.href= '/Employee/viewEmployee';
-	}
-</script>
+    <script>
+        function display() {
+            location.href = '/Employee/ViewEmployee';
+    }
+    </script>
+
+
 
 
 

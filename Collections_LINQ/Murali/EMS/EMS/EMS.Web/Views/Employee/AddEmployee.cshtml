@@ -8,8 +8,8 @@
     <div class="container-fluid pt-5 mt-3">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="h3"><i class="fas fa-user-plus me-2"></i> Add New Employee</h2>
-            <a class="btn btn-secondary" asp-controller="Employee" asp-action="Employeelist">
-                <i class="fas fa-arrow-left me-1"></i> Back to List
+            <a class="btn btn-secondary" asp-controller="Employee" asp-action="EmployeeList">
+                Back to List
             </a>
         </div>
 
@@ -239,9 +239,16 @@
                 </div>
             </div>
 
-            <div class="mb-5 d-flex justify-content-end">
-                <button type="reset" class="btn btn-outline-secondary me-2"><i class="fas fa-times me-1"></i> Reset Form</button>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save me-1"></i> Save Employee</button>
+            <div>
+                <div class="row">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
+                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList">Save Employee</button>
+                        <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
+                    </div>
+               
+                </div>
             </div>
         </form>
     </div>
@@ -261,8 +268,8 @@
                 }, false);
             });
         })();
+        function display(){
+            location.href="/Employee/EmployeeList";
+        }
     </script>
 }
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>

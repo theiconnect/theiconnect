@@ -242,4 +242,9 @@
             EmployeeCode: "HR001",
             FirstName: "Asha",
             LastName: "Kumar",
-           
+        }
+    }
+
+    function toclickok() {
+        location.href = "/Employee/EmployeeList";
+    }

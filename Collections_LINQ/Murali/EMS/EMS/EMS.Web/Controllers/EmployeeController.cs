@@ -7,10 +7,12 @@ namespace EMS.Web.Controllers
     // ==============================================
     // 1. EmployeeController
     // ==============================================
-
+   
     public class EmployeeController : Controller
     {
         // Route: /Employee/getallemployees or /Employee/list
+        [Route("getallemployees")]
+        [Route("list")]
         public IActionResult EmployeeList()
         {
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
@@ -33,15 +35,15 @@ namespace EMS.Web.Controllers
             return View();
         }
 
-        // Route: /Employee/deleteemployee
-        
+       
+        [Route("deleteemployee")]
         public IActionResult DeleteEmployee()
         {
             return View();
         }
 
-        // Route: /Employee/viewemployee
-       
+        
+        [Route("viewemployee")]
         public IActionResult ViewEmployee()
         {
             return View();
