@@ -6,12 +6,13 @@ namespace EMS.Web.Controllers
 {
     public class DepartmentController : Controller
     {
+
         public IActionResult List()
         {
-            //EMSDbContext obj = EMSDbContext.GetInstance();
+            //EMSDbContext obj0 = EMSDbContext.GetInstance();
             DepartmentService departmentService = new DepartmentService();
-            var departments = departmentService.GetAllDepartments();
-            return View(departments);
+            var Model = departmentService.GetAllDepartments();
+            return View(Model);
         }
         public IActionResult List1()
         {
