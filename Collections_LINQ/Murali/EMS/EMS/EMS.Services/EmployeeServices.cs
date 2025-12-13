@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EMS.DataAccess;
+using EMS.Models;
 
 namespace EMS.Services
 {
     public class EmployeeServices
     {
-        EMSDbContext dbContext;
+        private EMSDbContext dbContext;
 
         public EmployeeServices()
         {
             dbContext = EMSDbContext.GetInstance();
         }   
 
-        public List<Models.EmployeeModel> GetAllEmployees()
+        public List<EmployeeModel> GetAllEmployees()
         {
-            List<Models.EmployeeModel> employees = dbContext.Employees;
+            List<EmployeeModel> employees = dbContext.Employees;
             return employees;
         }
     }

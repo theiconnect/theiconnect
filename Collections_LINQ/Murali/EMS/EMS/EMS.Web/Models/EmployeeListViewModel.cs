@@ -1,9 +1,11 @@
 ﻿using EMS.Models.Enums;
+using EMS.Models;
 
 namespace EMS.Web.Models
 {   
     public class EmployeeListViewModel
     { 
+        public int EmployeeId { get; set; }
         public string Code { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -11,7 +13,7 @@ namespace EMS.Web.Models
         public BloodGroups BloodGroup { get; set; }
         public Genders Gender { get; set; }
         public string EmailId { get; set; }
-        public string PersonEmailId { get; set; }
+        public string PersonalEmailId { get; set; }
         public string MobileNumber { get; set; }
         public string AlternateMobileNumber { get; set; }
         //1e=> 1dept+history dept

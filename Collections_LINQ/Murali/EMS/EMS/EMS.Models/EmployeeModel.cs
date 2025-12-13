@@ -12,7 +12,7 @@ namespace EMS.Models
         public BloodGroups BloodGroup { get; set; }
         public Genders Gender { get; set; }
         public string EmailId { get; set; }
-        public string PersonEmailId { get; set; }
+        public string PersonalEmailId { get; set; }
         public string MobileNumber { get; set; }
         public string AlternateMobileNumber { get; set; }
         public int DepartmentIdFk { get; set; } //Current department

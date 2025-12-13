@@ -1,4 +1,5 @@
-﻿@model List<EMS.Models.EmployeeListViewModel>
+﻿@model List<EMS.Web.Models.EmployeeListViewModel>
+
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -107,22 +108,21 @@
                                     }
                                     else
                                     {
-                                        int counter = 1;
                                         foreach (var emp in Model)
                                         {
                                             <tr>
                                                 <td>@(++counter)</td>
-                                                <td>@emp.EmployeeCode</td>
+                                                <td>@emp.Code</td>
                                                 <td>@emp.FirstName</td>
                                                 <td>@emp.LastName</td>
                                                 <td>@emp.Gender</td>
                                                 <td>@emp.MobileNumber</td>
-                                                <td>@emp.Email</td>
-                                                <td>@emp.PersonalEmail</td>
+                                                <td>@emp.EmailId</td>
+                                                <td>@emp.PersonalEmailId</td>
                                                 <td>@emp.DateOfBirth.ToString("dd-MM-yyyy")</td>
                                                 <td>@emp.DateOfJoining.ToString("dd-MM-yyyy")</td>
-                                                <td>@emp.ExperienceYears yrs @emp.ExperienceMonths months</td>
-                                                <td>@emp.Salary.ToString("C")</td>
+                                                <td>@emp.ExpInMonths</td>
+                                                <td>@emp.Salary</td>
                                                 <td>@(emp.IsActive ? "Yes" : "No")</td>
                                                 <td class="text-center">
                                                     <a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeId">View</a>

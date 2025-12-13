@@ -10,31 +10,43 @@ namespace EMS.Web.Controllers
     // 1. EmployeeController
     // ==============================================
    
+    [Route("Employee")]
+    [Route("Emp")]
     public class EmployeeController : Controller
     {
         // Route: /Employee/getallemployees or /Employee/list
-        
+        private EmployeeServices employeeServices;
+        public EmployeeController(EmployeeServices _employeeservices)
+        {
+            employeeServices = _employeeservices;
+
+        }
+
+        [Route("getallemployees")]
+        [Route("list")]
         public IActionResult EmployeeList()
         {
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
             // If you want to return a string, change the return type to 'string'.
-            var employeesFromDB = EmployeeServices.GetAllEmployees();
+            
+            var employeesFromDB = employeeServices.GetAllEmployees();
 
-            var employeesViewModel = new List<EmployeeViewModel>();
+            var employeesViewModel = new List<EmployeeListViewModel>();
 
             foreach (var emp in employeesFromDB)
             {
                 EmployeeListViewModel obj = new EmployeeListViewModel();
                 {
-                   obj.Code = emp.Employeecode;
-                     obj.FirstName = emp.FirstName;
-                        obj.MiddleName = emp.MiddleName;
-                        obj.LastName = emp.LastName;
-                        obj.BloodGroup = emp.BloodGroup;
+                    obj.EmployeeId = emp.EmployeeIdPk;
+                    obj.Code = emp.Employeecode;
+                    obj.FirstName = emp.FirstName;
+                    obj.MiddleName = emp.MiddleName;
+                    obj.LastName = emp.LastName;
+                    obj.BloodGroup = emp.BloodGroup;
                     obj.Gender = emp.Gender;
                     obj.EmailId = emp.EmailId;
-                    obj.PersonEmailId = emp.PersonEmailId;
+                    obj.PersonalEmailId = emp.PersonalEmailId;
                     obj.MobileNumber = emp.MobileNumber;
                     obj.AlternateMobileNumber = emp.AlternateMobileNumber;
                     obj.DateOfBirth = emp.DateOfBirth;
@@ -43,10 +55,11 @@ namespace EMS.Web.Controllers
                     obj.Salary = emp.SalaryCtc;
                     obj.IsActive = emp.IsActive;
 
-                }
-                 };
+                    employeesViewModel.Add(obj);
 
-                employeesViewModel.Add(obj);
+                }
+             };
+
 
                 return View(employeesViewModel);
         }
@@ -59,7 +72,7 @@ namespace EMS.Web.Controllers
         }
 
         // Route: /Employee/editemployee
-        
+        [Route("editemployee/{id}")]
         public IActionResult EditEmployee()
         {
             return View();
@@ -73,7 +86,8 @@ namespace EMS.Web.Controllers
         }
 
         // Route: /Employee/viewemployee
-        
+
+        [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee()
         {
             return View();
