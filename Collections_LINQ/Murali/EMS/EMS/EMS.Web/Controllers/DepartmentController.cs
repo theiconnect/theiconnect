@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
-    [Route("Department")]
+    [Route("department")]
+    [Route("dept")]
     public class DepartmentController : Controller
     {
         private DepartmentService departmentService;
