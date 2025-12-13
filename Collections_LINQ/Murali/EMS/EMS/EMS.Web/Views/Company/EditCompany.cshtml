@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "CompanyList";
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
-    
+
 }
 
 <main class="content">
@@ -57,7 +57,6 @@
                         <div class="col-md-4">
                             <label for="pan" class="form-label">PAN</label>
                             <input type="text" class="form-control" id="pan" value="PABCDE1234F">
-                            </d<d>
                         </div>
                     </div>
                 </form>
@@ -67,7 +66,7 @@
         <h2 class="h5 mb-3 text-secondary"><i class="fas fa-map-marked-alt me-2"></i> Manage Addresses</h2>
 
         <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-success shadow-sm" data-bs-toggle="modal" onclick="display()" >
+            <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
                 <i class="fas fa-plus me-2"></i> Add New Address
             </button>
         </div>
@@ -93,20 +92,20 @@
                         <td data-field="pin">902100</td>
                         <td>
                             <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editAddressModal"
-                                    data-id="1"
-                                    data-type="Corporate"
-                                    data-line1="101 Tech Park Avenue"
-                                    data-city="Metroville"
-                                    data-state="CA"
-                                    data-pin="902100">
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target="#editAddressModal"
+                                                      data-id="1"
+                                                      data-type="Corporate"
+                                                      data-line1="101 Tech Park Avenue"
+                                                      data-city="Metroville"
+                                                      data-state="CA"
+                                                      data-pin="902100">
                                 <i class="fas fa-pen"></i> Edit
                             </button>
                             <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteAddressModal"
-                                    data-id="1">
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target="#deleteAddressModal"
+                                                      data-id="1">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
                         </td>
@@ -119,20 +118,20 @@
                         <td data-field="pin">770012</td>
                         <td>
                             <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editAddressModal"
-                                    data-id="2"
-                                    data-type="Branch"
-                                    data-line1="202 Industrial Drive"
-                                    data-city="Port City"
-                                    data-state="TX"
-                                    data-pin="770012">
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target="#editAddressModal"
+                                                      data-id="2"
+                                                      data-type="Branch"
+                                                      data-line1="202 Industrial Drive"
+                                                      data-city="Port City"
+                                                      data-state="TX"
+                                                      data-pin="770012">
                                 <i class="fas fa-pen"></i> Edit
                             </button>
                             <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteAddressModal"
-                                    data-id="2">
+                                                      data-bs-toggle="modal"
+                                                      data-bs-target="#deleteAddressModal"
+                                                      data-id="2">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
                         </td>
@@ -148,8 +147,6 @@
 
     </div>
 </main>
-
-</div>
 
 <div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -187,13 +184,11 @@
                         <div class="col-md-6 mb-3">
                             <label for="state" class="form-label">State *</label>
                             <input type="text" class="form-control" id="state" required>
-                            <div class="invalid-feedback">Please enter the state.</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="pinCode" class="form-label">Pin Code *</label>
                         <input type="text" class="form-control" id="pinCode" required maxlength="6">
-                        <div class="invalid-feedback">Please enter a valid pin code.</div>
                     </div>
                 </form>
             </div>
@@ -274,8 +269,81 @@
         </div>
     </div>
 </div>
-<script>
-    function display(){
-        location.href="/Add new "
-    }
-</script>
+
+@section Scripts {
+    <script>
+        // This assumes jQuery and Bootstrap JS are loaded by your _EMSLayout.cshtml
+        $(document).ready(function () {
+
+            // 1. Logic to populate the Edit Address Modal fields
+            // We listen for the modal's show event, which is triggered by the Edit button click.
+            $('#editAddressModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // The button that triggered the modal
+
+                // Extract data from the data-* attributes on the button
+                var id = button.data('id');
+                var type = button.data('type');
+                var line1 = button.data('line1');
+                var city = button.data('city');
+                var state = button.data('state');
+                var pin = button.data('pin');
+
+                // Reference the modal fields
+                var modal = $(this);
+
+                // Populate the modal inputs
+                modal.find('#edit-addressId').val(id);
+                modal.find('#edit-addressType').val(type); // Sets the selected option
+                modal.find('#edit-addressLine1').val(line1);
+                // Note: addressLine2 data attribute is not in your current button markup,
+                // but the input field is here to support it later: modal.find('#edit-addressLine2').val('');
+                modal.find('#edit-city').val(city);
+                modal.find('#edit-state').val(state);
+                modal.find('#edit-pinCode').val(pin);
+            });
+
+            // 2. Logic to set the ID in the Delete Address Modal
+            $('#deleteAddressModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget); // The button that triggered the modal
+                var id = button.data('id'); // Get the ID to delete
+
+                // Set the ID in the hidden field of the delete modal
+                var modal = $(this);
+                modal.find('#delete-addressId').val(id);
+            });
+
+            // 3. Optional: Add Address Modal - Clear form on close
+            $('#addAddressModal').on('hidden.bs.modal', function () {
+                $('#addAddressForm').trigger('reset');
+                $('#addAddressForm').removeClass('was-validated');
+            });
+
+
+            // 4. Placeholder logic for save/submit buttons (replace these with your actual AJAX calls)
+
+            $('#confirmAddAddressButton').on('click', function () {
+                 // You would put your client-side validation and AJAX POST/submission logic here
+                 alert('Simulating: Adding new address...');
+                 // Example to close modal after assumed success: $('#addAddressModal').modal('hide');
+            });
+
+            $('#saveEditButton').on('click', function () {
+                 // You would put your client-side validation and AJAX PUT/submission logic here
+                 var id = $('#edit-addressId').val();
+                 alert('Simulating: Saving changes for Address ID ' + id + '...');
+                 // Example to close modal after assumed success: $('#editAddressModal').modal('hide');
+            });
+
+            $('#confirmDeleteButton').on('click', function () {
+                // You would put your AJAX DELETE call here
+                var id = $('#delete-addressId').val();
+                alert('Simulating: Deleting Address ID ' + id + '...');
+
+                // Example of how to remove the row visually after a successful delete
+                // $('#address-' + id).remove();
+                // Example to close modal after assumed success: $('#deleteAddressModal').modal('hide');
+            });
+
+        });
+    </script>
+}
