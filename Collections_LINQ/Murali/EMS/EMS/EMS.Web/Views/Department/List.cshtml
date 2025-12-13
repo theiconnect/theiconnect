@@ -79,7 +79,7 @@
                                         @* @Html.ActionLink("View", "ViewDepartment", "Department", new { @id = dept.DepartmentId })
                                         @Html.ActionLink("Edit", "EditDepartment", "Department", new { @id = dept.DepartmentId })
                                         *@
-                                        <a class="btn btn-primary" href="/Department/ViewDepartment/@dept.DepartmentId">View</a>
+                                        <a class="btn btn-primary" href="/Department/View/@dept.DepartmentId">View</a>
                                         <a class="btn btn-primary" href="/Department/EditDepartment/@dept.DepartmentId">Edit</a>
                                         @if(dept.IsActive)
                                         {
