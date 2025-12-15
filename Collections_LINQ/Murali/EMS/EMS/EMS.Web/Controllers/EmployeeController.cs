@@ -46,7 +46,6 @@ namespace EMS.Web.Controllers
                     obj.BloodGroup = emp.BloodGroup;
                     obj.Gender = emp.Gender;
                     obj.EmailId = emp.EmailId;
-                    obj.PersonalEmailId = emp.PersonalEmailId;
                     obj.MobileNumber = emp.MobileNumber;
                     obj.AlternateMobileNumber = emp.AlternateMobileNumber;
                     obj.DateOfBirth = emp.DateOfBirth;
@@ -88,7 +87,7 @@ namespace EMS.Web.Controllers
         // Route: /Employee/viewemployee
 
         [Route("viewemployee/{id}")]
-        public IActionResult ViewEmployee()
+        public IActionResult ViewEmployee(int id)
         {
             return View();
         }
