@@ -55,6 +55,9 @@
 </div> *@
 
 
+
+
+
 <main class="container">
     <h1>Department View</h1>
 
@@ -72,9 +75,13 @@
 
         <div class="form-row">
             <label for="deptLocation">Dept Location</label>
-            <input type="text" id="deptLocation" name="deptLoaction" required maxlength="100" />
-        </div> 
-
+            <select id="deptLocation" name="deptLocation" required>
+                <option value="">-- Select location --</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Chennai">Chennai</option>
+            </select>
+        </div>
         <div class="actions">
             <button type="button" id="btnBack" class="btn secondary" onclick="goToView()">GoBack</button>
             @* <div id="statusMessage" class="status" aria-live="polite"><div> *@
@@ -85,4 +92,4 @@
     function goToView() {
         window.location.href = '/Department/list';
     }
-</script>
+</script> *

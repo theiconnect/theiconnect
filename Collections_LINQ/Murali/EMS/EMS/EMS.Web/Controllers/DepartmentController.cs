@@ -37,7 +37,6 @@ namespace EMS.Web.Controllers
 
                 viewModel.Add(obj);
             }
-
             return View(viewModel);
         }
 
@@ -57,10 +56,9 @@ namespace EMS.Web.Controllers
         [Route("details/{id}")]
         public IActionResult ViewDepartment(int id)
         {
-           
-            return View();
-
-            
+            var deptDB = departmentService.GetAllDepartments();
+                return View();
         }
     }
 }
+
