@@ -17,7 +17,7 @@ namespace EMS.Services
             var company = Dbcontext.Company;
             return company;
         }
-        
+
         /*public void test()
         {
             
@@ -135,7 +135,7 @@ namespace EMS.Services
             var intersectNames = firstNames.Intersect(lastNames); // "John"
 
 
-            // Pagination example
+             //Pagination example
             int pageNumber = 1;
             int pageSize = 5;
 

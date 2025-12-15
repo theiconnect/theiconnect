@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 //builder.Services.Add(b
 // Add EMS.DataAccess.EMSDbContext as a singleton service
 
-builder.Services.AddScoped<EMS.Services.CompanyService>();
+builder.Services.AddScoped<EMS.Services.CompanyService>();  
 builder.Services.AddScoped<EMS.Services.DepartmentService>();
 
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
