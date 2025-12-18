@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using EMS.DataAccess;
 using EMS.Models;
 
-namespace EMS.Services
+namespace EMS.Services.Implementation.TD
 {
-    public class DepartmentService
+    public class DepartmentTDService : IServices.IDepartmentService
     {
         EMSDbContext dbContext;
-        public DepartmentService()
+        public DepartmentTDService()
         {
             dbContext = EMSDbContext.GetInstance();
         }
@@ -40,7 +40,7 @@ namespace EMS.Services
                 //}
                 //department.IsActive = !isDeactivate;
 
-                if(isDeactivate)
+                if (isDeactivate)
                 {
                     department.IsActive = false;
                 }
