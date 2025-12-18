@@ -2,6 +2,7 @@
 using EMS.Services;
 using EMS.IServices;
 using Microsoft.AspNetCore.Mvc;
+using EMS.Web.Models;
 
 namespace EMS.Web.Controllers
 {
@@ -76,6 +77,28 @@ namespace EMS.Web.Controllers
         }
         //BindDataFromControllerToViewUsingPlainHTMLAndJS--End
 
+
+        //GetPostDataUsingModel - Start
+        [HttpGet]
+        public IActionResult GetPostDataUsingModel()
+        {
+            return View(new InvoiceViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult GetPostDataUsingModel(InvoiceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //save to db
+            }
+            else
+            {
+                //go back to view and show error msg
+            }
+            return View();
+        }
+        //GetPostDataUsingModel - End
 
     }
 }
