@@ -46,11 +46,13 @@ namespace EMS.Web.Controllers
             return View("Murali", str);
         }
 
-        public IActionResult BindDataFromControllerToView()
+        //BindDataFromControllerToViewUsingPlainHTMLAndJS--Start
+        public IActionResult BindDataFromControllerToViewUsingPlainHTMLAndJS()
         {
             return View("bind");
         }
 
+        [HttpGet]
         public IActionResult GetEmployeeDetails([FromServices]IDepartmentService departmentService)
         {
             var emp = new EmployeeModel();
@@ -62,9 +64,18 @@ namespace EMS.Web.Controllers
                     emp = depts[0].Employees[0];
                 }
             }
-            return View("EmployeeDetails", emp);
+            return Json(emp);
 
         }
+
+        [HttpPost]
+        public IActionResult SaveEmployeeDetails([FromBody] EmployeeModel model)
+        {
+            //saved logic to the DB
+            return Json(new { IsSuccess = false, errorMessage = "Service not responded" });
+        }
+        //BindDataFromControllerToViewUsingPlainHTMLAndJS--End
+
 
     }
 }
