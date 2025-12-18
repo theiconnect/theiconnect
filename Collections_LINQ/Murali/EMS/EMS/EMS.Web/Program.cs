@@ -44,7 +44,7 @@ app.UseAuthorization();
 //Conventional Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Demo}/{action=BindDataFromControllerToView}/{id?}");
+    pattern: "{controller=Demo}/{action=BindDataFromControllerToViewUsingPlainHTMLAndJS}/{id?}");
 
 //app.MapControllerRoute(
 //    name: "default1",
