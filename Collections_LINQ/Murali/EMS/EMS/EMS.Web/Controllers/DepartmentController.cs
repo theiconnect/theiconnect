@@ -1,5 +1,8 @@
 ﻿using EMS.Models;
 using EMS.Services;
+using EMS.Services.Implementation;
+using EMS.Services.Implementation.EFCore;
+using EMS.IServices;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +12,18 @@ namespace EMS.Web.Controllers
     [Route("dept")]
     public class DepartmentController : Controller
     {
-        private DepartmentService departmentService;
+        private IDepartmentService departmentService;
 
-        public DepartmentController(DepartmentService _departmentService)
+        public DepartmentController(IDepartmentService _departmentService)
         {
             departmentService = _departmentService;
         }
 
         [Route("list")]
         [Route("all")]
+        [HttpGet]
         public IActionResult List()
         {
-            //EMSDbContext obj = EMSDbContext.GetInstance();
-            //DepartmentService departmentService = new DepartmentService();
-
             var departmentsFromDB = departmentService.GetAllDepartments();
 
             var viewModel = new List<DepartmentViewModel>();
@@ -46,12 +47,15 @@ namespace EMS.Web.Controllers
         [Route("add")]
         [Route("create")]
         [Route("new")]
+        [HttpGet]
+
         public IActionResult CreateDepartment()
         {            
             return View();
         }
 
         [Route("savedepartment")]
+        [HttpPost]
         public IActionResult SaveDepartment(DepartmentViewModel model)
         {
             return RedirectToAction("list", "department");
@@ -61,6 +65,7 @@ namespace EMS.Web.Controllers
         [Route("update/{id}")]
         [Route("change/{id}")]
         [Route("modify/{id}")]
+        [HttpGet]
         public IActionResult EditDepartment(int id)
         {
             var deptDB = departmentService.GetAllDepartments().FirstOrDefault(d => d.DepartmentIdPk == id);
@@ -79,6 +84,7 @@ namespace EMS.Web.Controllers
         [Route("view/{id}")]
         [Route("info/{id}")]
         [Route("details/{id}")]
+        [HttpGet]
         public IActionResult ViewDepartment(int id)
         {
             var deptDB = departmentService.GetAllDepartments().FirstOrDefault(d => d.DepartmentIdPk == id);
@@ -95,10 +101,11 @@ namespace EMS.Web.Controllers
         }
 
 
-        [Route("delete/{id}")]
-        public IActionResult DeactivateDepartment(int id)
+        [Route("delete")]
+        [HttpPost]
+        public IActionResult DeactivateDepartment([FromBody] Test t)
         {
-            bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: true, out string responseMessage);
+            bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, out string responseMessage);
             
             //return Json(isSuccess, responseMessage);
 
@@ -106,6 +113,7 @@ namespace EMS.Web.Controllers
         }
 
         [Route("active/{id}")]
+        [HttpGet]
         public IActionResult ActivateDepartment(int id)
         {
             bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: false, out string responseMessage);
@@ -116,5 +124,13 @@ namespace EMS.Web.Controllers
         }
 
 
+    }
+
+    public class Test
+    {
+        public int id { get; set; }
+        public string code { get; set; }
+        public string name { get; set; }
+        public bool active { get; set; }
     }
 }
