@@ -1,0 +1,103 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Bind controls data using plain HTML</h1>
+<h2>Employee Details</h2>
+<input type="text" id="firstName" name="firstname" />
+<input type="text" id="lastName" name="lastName" />
+
+<input type="button" value="Save" onclick="debugger; SaveEmployeeDetails();" />
+
+<br />
+
+<script type="text/javascript">
+    function SaveEmployeeDetails(){
+           var firstName =  document.getElementById('firstName').value;
+           var lastName =  document.getElementById('lastName').value;
+
+           if(firstName == ''){
+               alert('please provide employee firstname');
+               return;
+           }
+
+           if(lastName == ''){
+               alert('employee last name is required.');
+               return;
+           }
+
+           if(firstName.length < 10){
+               alert('firstName cannot be lessthan 10 chars');
+               return;
+           }
+
+           var empObj= {
+               firstName : firstName,
+               lastName : lastName,
+               Addresses:[
+                   {
+                       AddressLine1: "Add1111111111ssLine1",
+                       AddressLine2:"Addr1111111111sLine2"
+                   },
+                   {
+                       AddressLine1: "Add2222222222ssLine1",
+                       AddressLine2:"Addr2222222222sLine2"
+                   },
+                   {
+                       AddressLine1: "Addr333333sLine1",
+                       AddressLine2:"Addre333333Line2"
+                   },
+                   {
+                       AddressLine1: "Addr4444sLine1",
+                       AddressLine2:"Addre4444Line2"
+                   }
+               ]
+           }
+
+           fetch('/demo/SaveEmployeeDetails', {
+               method:"POST", 
+               body: JSON.stringify(empObj),
+               headers: {
+                    'Content-Type': 'application/json' // Inform the server we're sending JSON
+                }
+            })
+           .then(response=>response.json())
+           .then(data=>{
+               debugger;
+               let saveResult = data;
+               if(saveResult.issuccess){
+                   alert('Employee details saved successfully');
+               }else{
+                   alert(saveResult.errorMessage);
+               }
+           })
+
+
+        }
+
+
+    document.addEventListener('DOMContentLoaded', function(){
+        GetEmployeeDetails();
+        function GetEmployeeDetails(){
+            debugger;
+            fetch('/demo/GetEmployeeDetails', {method:"GET"})
+			.then(response => response.json())
+            .then(data=> {
+                debugger;
+                if(!data){
+                    console.log('Data not found');
+                    return;
+                }
+                let employeeDetails = data;
+                document.getElementById('firstName').value = employeeDetails.firstName;
+                document.getElementById('lastName').value = employeeDetails.lastName;
+            })
+            .catch(error=> console.log(error));
+        }
+
+        
+
+    });
+</script>

@@ -1,3 +1,7 @@
+using EMS.Services.Implementation.ADO;
+using EMS.Services.Implementation.TD;
+using EMS.IServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,14 +13,13 @@ builder.Services.AddControllersWithViews();
 //builder.Services.Add(b
 // Add EMS.DataAccess.EMSDbContext as a singleton service
 
-builder.Services.AddScoped<EMS.Services.CompanyService>();
-builder.Services.AddScoped<EMS.Services.DepartmentService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentADOService>();
+builder.Services.AddScoped<ICompanyService, CompanyTDService>();
+
 
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
 //builder.Services.AddTransient<EMS.Services.CompanyService>();
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
-
-
 
 //=======================================================================
 //Middle ware - Request pipeline configuration
@@ -31,24 +34,23 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-
 //Conventional Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Employee}/{action=EmployeeList}/{id?}");
+    pattern: "{controller=Demo}/{action=BindDataFromControllerToViewUsingPlainHTMLAndJS}/{id?}");
 
 //app.MapControllerRoute(
 //    name: "default1",
 //    pattern: "iconnect/{action}/{controller}/abc");
 
 app.Run();
-
 
 //locahsot:2323/ Company/a1
 //CompanyController
