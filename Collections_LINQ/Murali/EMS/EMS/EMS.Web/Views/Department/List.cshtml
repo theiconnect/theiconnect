@@ -5,11 +5,6 @@
 	Layout = "~/Views/Shared/_EMSLayout.cshtml";
 	int counter = 0;
 }
-
-
-
-
-
 <section class="mb-4">
 	<div class="card">
 		<div class="card-body">
@@ -25,8 +20,11 @@
 				</div>
 
 				<div class="col-md-2 d-flex gap-2">
-					<button id="btnSearch" class="btn btn-primary">Search</button>
-					<button id="btnClear" class="btn btn-outline-secondary">Clear</button>
+					<form>
+						<input type="submit" class="btn btn-success" value="reloadpage" />
+						<button id="btnSearch" class="btn btn-primary">Search</button>
+						<button id="btnClear" class="btn btn-outline-secondary">Clear</button>
+					</form>
 				</div>
 			</div>
 
@@ -80,7 +78,6 @@
 										@Html.ActionLink("View", "View", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
 										@Html.ActionLink("Edit", "EditDepartment", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
 
-										@* <a class="btn btn-primary" href="/Department/EditDepartment/@dept.DepartmentId">Edit</a> *@
 										@if (dept.IsActive)
 										{
 											<button class="btn btn-danger"
@@ -91,7 +88,7 @@
 										else
 										{
 											<button class="btn btn-success"
-													onclick="activateDepartment(@dept.DepartmentId, '@(dept.DeptName)');">
+													onclick="activateDepartment(@dept.DepartmentId, '@(dept.DeptName)');">  
 												Activate
 											</button>
 										}
@@ -109,90 +106,134 @@
 		</div>
 	</div>
 </section>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/2.3.5/js/dataTables.min.js"></script>
 <link href="https://cdn.datatables.net/2.3.5/css/dataTables.dataTables.min.css" />
 
 @* <script type="text/javascript" src="cdn.datatables.net"></script> *@
 <script type="text/javascript">
-	function goToAdd(){
-		//location.href = '/dept/new';
-		//location.href = 'new';
-		location.href=  '@Url.Action("CreateDepartment", "Department")';
-	}
-
-	/*function goToEdit(id){
-		location.href=  '@Url.Action("EditDepartment", "Department")' + '/'+ id;
-	}
-
-	function goToView(id){
-		location.href=  '@Url.Action("ViewDepartment", "Department")' + '/'+ id;
-	}*/
-	function deleteDepartment(id, departmentName){
-		var confirmResult  = confirm('Are you sure you want to delete '+ departmentName + ' department?')
-		if(!confirmResult){
-			return;
+		function goToAdd(){
+			//location.href = '/dept/new';
+			//location.href = 'new';
+			location.href=  '@Url.Action("CreateDepartment", "Department")';
 		}
 
-		fetch('@Url.Action("delete", "Department")' + '/'+ id)
-				.then(response =>{
-					debugger;
-					console.log(response)
-					return response.json()
-				})
-				.then(data =>{
-					debugger;
-
-					if(data.success){
-						location.href='';
-						//success
-					}else{
-						alert(data.message);
-						//failed
-					}
-
-					console.log(data)
-				})
-				.catch(error =>{
-					debugger;
-					console.error('Error:', error)
-				});
-
-
-	}
-
-	function activateDepartment(id, departmentName){
-		var confirmResult  = confirm('Are you sure you want to activate '+ departmentName + ' department?')
-		if(!confirmResult){
-			return;
+		/*function goToEdit(id){
+			location.href=  '@Url.Action("EditDepartment", "Department")' + '/'+ id;
 		}
-		fetch('@Url.Action("active", "Department")' + '/'+ id)
-				.then(response =>{
-					debugger;
-					console.log(response)
-					return response.json()
-				})
-				.then(data =>{
-					debugger;
 
-					if(data.success){
-						location.href='';
-						//success
-					}else{
-						alert(data.message);
-						//failed
-					}
+		function goToView(id){
+			location.href=  '@Url.Action("ViewDepartment", "Department")' + '/'+ id;
+		}*/
 
-					console.log(data)
-				})
-				.catch(error =>{
-					debugger;
-					console.error('Error:', error)
-				});
+		//Calling Delete endpoint using AJAX
+		//AJAX - posting the data to the server with out refreshing the page content.
+		function deleteDepartment(id, departmentName){
+			var confirmResult  = confirm('Are you sure you want to delete '+ departmentName + ' department?')
+			if(!confirmResult){
+				return;
+			}
 
-	}
+			const myHeaders = new Headers();
+			myHeaders.append("Content-Type", "application/json");
+
+			const myRequest = new Request('@Url.Action("delete", "Department")', {
+			  method: "POST",
+			  body: JSON.stringify({ id: id, code : "code1", name: "name1", active:false }),
+			  headers: myHeaders,
+			});
+
+			debugger;
+
+			fetch(myRequest)
+					.then(response =>{
+						debugger;
+						console.log(response)
+						return response.json()
+					})
+					.then(data =>{
+						debugger;
+
+						if(data.success){
+							location.href='';
+							//success
+						}else{
+							alert(data.message);
+							//failed
+						}
+
+						console.log(data)
+					})
+					.catch(error =>{
+						debugger;
+						console.error('Error:', error)
+					});
 
 
-	 let table = new DataTable('#deptTable');
+					return;
+	///////////////////////OLD code//////////////////////
+
+			fetch('@Url.Action("delete", "Department")/' +id)
+					.then(response =>{
+						debugger;
+						console.log(response)
+						return response.json()
+					})
+					.then(data =>{
+						debugger;
+
+						if(data.success){
+							location.href='';
+							//success
+						}else{
+							alert(data.message);
+							//failed
+						}
+
+						console.log(data)
+					})
+					.catch(error =>{
+						debugger;
+						console.error('Error:', error)
+					});
+		///////////////////////OLD code//////////////////////
+
+
+		}
+
+		function activateDepartment(id, departmentName){
+			var confirmResult  = confirm('Are you sure you want to activate '+ departmentName + ' department?')
+			if(!confirmResult){
+				return;
+			}
+			fetch('@Url.Action("active", "Department")' + '/'+ id)
+					.then(response =>{
+						debugger;
+						console.log(response)
+						return response.json()
+					})
+					.then(data =>{
+						debugger;
+
+						if(data.success){
+							location.href='';
+							//success
+						}else{
+							alert(data.message);
+							//failed
+						}
+
+						console.log(data)
+					})
+					.catch(error =>{
+						debugger;
+						console.error('Error:', error)
+					});
+
+		}
+
+
+		 let table = new DataTable('#deptTable');
 
 </script>
