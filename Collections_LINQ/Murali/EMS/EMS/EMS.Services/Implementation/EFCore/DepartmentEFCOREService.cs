@@ -55,6 +55,11 @@ namespace EMS.Services.Implementation.EFCore
             responseMessage = "Department not found";
             return false;
         }
+
+        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

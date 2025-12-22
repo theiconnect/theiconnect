@@ -22,6 +22,42 @@ namespace EMS.Services.Implementation.TD
             return departments;
         }
 
+        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
+        {
+            responseMessage = "Success";
+            try
+            {
+                if (isNewDepartment)
+                {
+                    inputDepartment.DepartmentIdPk = GenerateNewDepartmentId();
+                    dbContext.Departments.Add(inputDepartment);
+                }
+                else
+                {
+                    var existingDepartment = dbContext.Departments.FirstOrDefault(d => d.DepartmentIdPk == inputDepartment.DepartmentIdPk);
+                    if (existingDepartment != null)
+                    {
+                        existingDepartment.DepartmentCode = inputDepartment.DepartmentCode;
+                        existingDepartment.DepartmentName = inputDepartment.DepartmentName;
+                        existingDepartment.Location = inputDepartment.Location;
+                        existingDepartment.IsActive = inputDepartment.IsActive;
+                    }
+                    else
+                    {
+                        responseMessage = "Department not found";
+                        return false;
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                responseMessage = ex.Message;
+                return false;
+            }
+        }
+
         public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
         {
             responseMessage = "Success";
@@ -53,6 +89,13 @@ namespace EMS.Services.Implementation.TD
 
             responseMessage = "Department not found";
             return false;
+        }
+
+        private int GenerateNewDepartmentId()
+        {
+            if (dbContext.Departments.Count == 0)
+                return 1;
+            return dbContext.Departments.Max(d => d.DepartmentIdPk) + 1;
         }
     }
 }
