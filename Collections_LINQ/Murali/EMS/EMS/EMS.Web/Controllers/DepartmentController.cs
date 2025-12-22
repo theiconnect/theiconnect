@@ -14,6 +14,7 @@ namespace EMS.Web.Controllers
         public DepartmentController(DepartmentService _departmentService)
         {
             departmentService = _departmentService;
+            
         }
 
         [Route("list")]
