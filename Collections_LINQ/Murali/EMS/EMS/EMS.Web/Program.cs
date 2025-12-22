@@ -13,8 +13,8 @@ builder.Services.AddControllersWithViews();
 //builder.Services.Add(b
 // Add EMS.DataAccess.EMSDbContext as a singleton service
 
-builder.Services.AddScoped<EMS.Services.CompanyService>();
-builder.Services.AddScoped<EMS.Services.DepartmentService>();
+builder.Services.AddScoped<ICompanyService, CompanyTDService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentADOService>();
      
 
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
@@ -44,7 +44,7 @@ app.UseAuthorization();
 //Conventional Routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Demo}/{action=BindDataFromControllerToViewUsingPlainHTMLAndJS}/{id?}");
+    pattern: "{controller=Demo}/{action=CascadingDropdowns}/{id?}");
 
 //app.MapControllerRoute(
 //    name: "default1",
