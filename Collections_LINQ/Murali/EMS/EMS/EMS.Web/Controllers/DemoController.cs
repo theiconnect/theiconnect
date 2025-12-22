@@ -1,8 +1,9 @@
-﻿using EMS.Models;
-using EMS.Services;
+﻿using System.Xml.Linq;
 using EMS.IServices;
-using Microsoft.AspNetCore.Mvc;
+using EMS.Models;
+using EMS.Services;
 using EMS.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
@@ -38,12 +39,12 @@ namespace EMS.Web.Controllers
             //b = DateTime.Now;
 
             dynamic a = 20;//type can be changed at runtime.
-           
+
             a = "hello";
             a = Convert.ToString(DateTime.Now);
             a = false;
 
-            
+
             return View("Murali", str);
         }
 
@@ -54,7 +55,7 @@ namespace EMS.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEmployeeDetails([FromServices]IDepartmentService departmentService)
+        public IActionResult GetEmployeeDetails([FromServices] IDepartmentService departmentService)
         {
             var emp = new EmployeeModel();
             var depts = departmentService.GetAllDepartments();
@@ -100,5 +101,15 @@ namespace EMS.Web.Controllers
         }
         //GetPostDataUsingModel - End
 
+        [Route("Sneha")]
+       
+
+        public IActionResult Nickname()
+        {
+            string Name = "Shreya";
+
+
+            return View("Sneha", Name);
+        }
     }
 }
