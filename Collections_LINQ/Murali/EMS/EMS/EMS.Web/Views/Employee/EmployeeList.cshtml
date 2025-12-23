@@ -73,16 +73,10 @@
 							<tr>
 								<th scope="col">S.NO</th>
 								<th scope="col">EmpCode</th>
-								<th scope="col">First Name</th>
-								<th scope="col">Last Name</th>
-								<th scope="col">Blood Group</th>
+								<th scope="col">Name</th>
+								<th scope="col">Mobile No</th>
 								<th scope="col">Gender</th>
 								<th scope="col">Email</th>
-								<th scope="col">Mobile No</th>
-								<th scope="col">Date of Birth</th>
-								<th scope="col">Date of Joining</th>
-								<th scope="col">Experience</th>
-								<th scope="col">Salary</th>
 								<th scope="col">Is Active</th>
 								<th scope="col">Actions</th>
 							</tr>
@@ -103,16 +97,10 @@
 										<tr>
 											<td>@(++counter)</td>
 											<td>@emp.Code</td>
-											<td>@emp.FirstName</td>
-											<td>@emp.LastName</td>
-											<td>@emp.BloodGroup</td>
+											<td>@emp.FirstName @emp.LastName</td>
+											<td>@emp.MobileNumber</td>
 											<td>@emp.Gender</td>
 											<td>@emp.EmailId</td>
-											<td>@emp.MobileNumber</td>
-											<td>@emp.DateOfBirth.ToString("dd-MM-yyyy")</td>
-											<td>@emp.DateOfJoining.ToString("dd-MM-yyyy")</td>
-											<td>@emp.ExpInMonths</td>
-											<td>@emp.Salary</td>
 											<td>@(emp.IsActive ? "Yes" : "No")</td>
 											<td class="text-center">
 												<a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeId">View</a>
