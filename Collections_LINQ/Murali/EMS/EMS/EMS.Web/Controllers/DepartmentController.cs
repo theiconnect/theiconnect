@@ -17,30 +17,34 @@ namespace EMS.Web.Controllers
         public DepartmentController(IDepartmentService _departmentService)
         {
             departmentService = _departmentService;
-            
+
         }
 
         [Route("list")]
         [Route("all")]
-        [Route("Search")]
         [HttpGet]
-        public IActionResult List(string searchName, string searchLocation)
+        public IActionResult List()
         {
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+
+            TempData.Peek("SuccessMessage");
+
             var departmentsFromDB = departmentService.GetAllDepartments();
 
-            if (!string.IsNullOrEmpty(searchName))
-                departmentsFromDB = departmentsFromDB
-                    .Where(d => d.DepartmentName.Contains(searchName, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+            var viewModel = new List<DepartmentViewModel>();
 
-            if (!string.IsNullOrEmpty(searchLocation))
-                departmentsFromDB = departmentsFromDB
-                    .Where(d => d.Location != null && d.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+            foreach (var deptDB in departmentsFromDB)
+            {
+                var obj = new DepartmentViewModel(
+                    _departmentId: deptDB.DepartmentIdPk,
+                    _code: deptDB.DepartmentCode,
+                    _name: deptDB.DepartmentName,
+                    _location: deptDB.Location,
+                    _isActive: deptDB.IsActive
+                    );
 
-            var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel(
-                d.DepartmentIdPk, d.DepartmentCode, d.DepartmentName, d.Location, d.IsActive
-            )).ToList();
+                viewModel.Add(obj);
+            }
 
             return View(viewModel);
         }
@@ -124,7 +128,7 @@ namespace EMS.Web.Controllers
         public IActionResult DeactivateDepartment([FromBody] Test t)
         {
             bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, out string responseMessage);
-            
+
             //return Json(isSuccess, responseMessage);
 
             return Json(new { Success = isSuccess, Message = responseMessage });
