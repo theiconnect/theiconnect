@@ -17,7 +17,7 @@ namespace EMS.Web.Controllers
         //[Route("info")]
         //[Route("")]
         //[Route("view")]
-        //[Route("details")]
+      [Route("details")]
        public  IActionResult ViewCompany() 
         {
             return View();
