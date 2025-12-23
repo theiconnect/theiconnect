@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
 
 }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 <main class="content">
     <div class="page-container py-4">
@@ -69,7 +71,9 @@
             <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
                 <i class="fas fa-plus me-2"></i> Add New Address
             </button>
+
         </div>
+
 
         <div class="table-responsive shadow-sm bg-white border rounded mb-4">
             <table class="table table-hover table-striped mb-0">
@@ -272,130 +276,259 @@
     </div>
 </div>
 
-@section Scripts {
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-        // Ensure the script runs after the document is fully loaded
-        $(document).ready(function () {
 
-            // --- 1. EDIT BUTTON ACTION (Pre-populating the modal when opened) ---
-            // This is the "action" performed when you click an Edit button
-            $('#editAddressModal').on('show.bs.modal', function (event) {
-                // Get the button that opened the modal
-                var button = $(event.relatedTarget);
 
-                // Extract data from the clicked button's data-* attributes
-                var id = button.data('id');
-                var type = button.data('type');
-                var line1 = button.data('line1');
-                var city = button.data('city');
-                var state = button.data('state');
-                var pin = button.data('pin');
+<script>
+    // --- SIDEBAR TOGGLE LOGIC ---
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
 
-                // Find the modal and update its form fields
-                var modal = $(this);
-                modal.find('#edit-addressId').val(id);
-                modal.find('#edit-addressType').val(type); // Selects the correct option
-                modal.find('#edit-addressLine1').val(line1);
-                modal.find('#edit-city').val(city);
-                modal.find('#edit-state').val(state);
-                modal.find('#edit-pinCode').val(pin);
+    if (window.innerWidth >= 768) {
+        sidebar.classList.remove('collapsed');
+    } else {
+        sidebar.classList.add('collapsed');
+    }
 
-                console.log(`Edit Modal opened for Address ID: ${id}. Fields populated.`);
-            });
+    sidebarToggle.addEventListener('click', function () {
+        if (window.innerWidth >= 768) {
+            sidebar.classList.toggle('collapsed');
+        } else {
+            sidebar.classList.toggle('active');
+        }
+    });
 
-            // --- 2. DELETE BUTTON ACTION (Pre-populating the modal when opened) ---
-            $('#deleteAddressModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var id = button.data('id');
+    // --------------------------------------------------------
+    // --- ADDRESS MANAGEMENT AND PERSISTENCE LOGIC ---
 
-                // Set the hidden ID in the modal
-                var modal = $(this);
-                modal.find('#delete-addressId').val(id);
-                console.log(`Delete Modal opened for Address ID: ${id}. ID stored.`);
-            });
+    let nextAddressId = 3;
+    const addressTableBody = document.querySelector('.table tbody');
+    const saveChangesBtn = document.getElementById('saveChangesButton');
+    const addAddressButton = document.getElementById('confirmAddAddressButton');
+    const saveEditButton = document.getElementById('saveEditButton');
+    const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
-            // =================================================================
-            // --- MODAL BUTTON ACTIONS (What happens when you click Confirm) ---
-            // =================================================================
+    // --- UTILITY FUNCTIONS ---
 
-            // --- A. Confirm Add Address Action ---
-            $('#confirmAddAddressButton').on('click', function (e) {
-                e.preventDefault();
+    // Function to create a new table row HTML structure
+    function createNewRowHtml(id, type, line1, city, state, pin) {
+        return `
+                <tr id="address-${id}">
+                    <td data-field="type">${type}</td>
+                    <td data-field="line1">${line1}</td>
+                    <td data-field="city">${city}</td>
+                    <td data-field="state">${state}</td>
+                    <td data-field="pin">${pin}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editAddressModal"
+                            data-id="${id}"
+                            data-type="${type}"
+                            data-line1="${line1}"
+                            data-city="${city}"
+                            data-state="${state}"
+                            data-pin="${pin}">
+                            <i class="fas fa-pen"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteAddressModal"
+                            data-id="${id}">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+            `;
+    }
 
-                // *** CLIENT-SIDE VALIDATION CHECK (Bootstrap 5) ***
-                var form = document.getElementById('addAddressForm');
-                if (form.checkValidity() === false) {
-                    e.stopPropagation();
-                    form.classList.add('was-validated'); // Show validation errors
-                    return; // Stop execution if validation fails
-                }
-                form.classList.add('was-validated');
+    // --- SAVE AND LOAD FUNCTIONS (Local Storage) ---
 
-                // Collect Data
-                var addressData = {
-                    Type: $('#addressType').val(),
-                    Line1: $('#addressLine1').val(),
-                    Line2: $('#addressLine2').val(),
-                    City: $('#city').val(),
-                    State: $('#state').val(),
-                    PinCode: $('#pinCode').val()
-                };
+    function saveAllData() {
+        // 1. Save Company Details (only editable fields)
+        const companyData = {
+            phoneNumber: document.getElementById('phoneNumber').value,
+            email: document.getElementById('email').value,
+            regDate: document.getElementById('regDate').value,
+            website: document.getElementById('website').value,
+            bankAccount: document.getElementById('bankAccount').value,
+            tin: document.getElementById('tin').value,
+            pan: document.getElementById('pan').value,
+        };
+        localStorage.setItem('companyDetails', JSON.stringify(companyData));
 
-                // *** ACTION: Replace this console.log and alert with your AJAX call to the server ***
-                console.log('PERFORMING ADD ADDRESS ACTION:', addressData);
-                alert(`ACTION SUCCESS: New Address (${addressData.Type}) added! (Simulated)`);
+        // 2. Save Address Data
+        const addressList = [];
+        const rows = addressTableBody.querySelectorAll('tr');
+        rows.forEach(row => {
+            const editButton = row.querySelector('.edit-address-btn');
 
-                // Close the modal and reset form on success
-                $('#addAddressModal').modal('hide');
-                $('#addAddressForm').trigger('reset');
-                $('#addAddressForm').removeClass('was-validated');
-            });
-
-            // --- B. Save Edit Changes Action ---
-            $('#saveEditButton').on('click', function (e) {
-                e.preventDefault();
-
-                // *** CLIENT-SIDE VALIDATION CHECK (Bootstrap 5) ***
-                var form = document.getElementById('editAddressForm');
-                if (form.checkValidity() === false) {
-                    e.stopPropagation();
-                    form.classList.add('was-validated'); // Show validation errors
-                    return; // Stop execution if validation fails
-                }
-                form.classList.add('was-validated');
-
-                // Collect Data
-                var updatedData = {
-                    Id: $('#edit-addressId').val(),
-                    Type: $('#edit-addressType').val(),
-                    Line1: $('#edit-addressLine1').val(),
-                    Line2: $('#edit-addressLine2').val(),
-                    // ... other fields
-                };
-
-                // *** ACTION: Replace this console.log and alert with your AJAX call to the server (PUT/POST) ***
-                console.log('PERFORMING EDIT ADDRESS ACTION (Saving Changes):', updatedData);
-                alert(`ACTION SUCCESS: Changes saved for Address ID ${updatedData.Id}! (Simulated)`);
-
-                // Close the modal on success
-                $('#editAddressModal').modal('hide');
-            });
-
-            // --- C. Confirm Delete Action ---
-            $('#confirmDeleteButton').on('click', function () {
-                var addressIdToDelete = $('#delete-addressId').val();
-
-                // *** ACTION: Replace this console.log and alert with your AJAX call to the server (DELETE) ***
-                console.log('PERFORMING DELETE ADDRESS ACTION (ID):', addressIdToDelete);
-                alert(`ACTION SUCCESS: Address ID ${addressIdToDelete} deleted! (Simulated)`);
-
-                // On successful deletion (for a real app, you'd also remove the table row):
-                // $(`#address-${addressIdToDelete}`).remove();
-
-                // Close the modal
-                $('#deleteAddressModal').modal('hide');
-            });
+            // Collect data from the button's data attributes (which are the source of truth)
+            if (editButton) {
+                addressList.push({
+                    id: editButton.getAttribute('data-id'),
+                    type: editButton.getAttribute('data-type'),
+                    line1: editButton.getAttribute('data-line1'),
+                    city: editButton.getAttribute('data-city'),
+                    state: editButton.getAttribute('data-state'),
+                    pin: editButton.getAttribute('data-pin')
+                });
+            }
         });
-    </script>
-}
+        localStorage.setItem('companyAddresses', JSON.stringify(addressList));
+
+        console.log('Data saved to localStorage successfully.');
+    }
+
+    function loadAllData() {
+        // 1. Load Company Details
+        const savedCompanyData = localStorage.getItem('companyDetails');
+        if (savedCompanyData) {
+            const data = JSON.parse(savedCompanyData);
+            document.getElementById('phoneNumber').value = data.phoneNumber || '';
+            document.getElementById('email').value = data.email || '';
+            document.getElementById('regDate').value = data.regDate || '';
+            document.getElementById('website').value = data.website || '';
+            document.getElementById('bankAccount').value = data.bankAccount || '';
+            document.getElementById('tin').value = data.tin || '';
+            document.getElementById('pan').value = data.pan || '';
+        }
+
+        // 2. Load and Render Address Data
+        const savedAddresses = localStorage.getItem('companyAddresses');
+        if (savedAddresses) {
+            const addresses = JSON.parse(savedAddresses);
+            // Clear existing static rows first
+            addressTableBody.innerHTML = '';
+
+            let maxId = 0;
+
+            if (addresses.length > 0) {
+                addresses.forEach(addr => {
+                    const rowHtml = createNewRowHtml(addr.id, addr.type, addr.line1, addr.city, addr.state, addr.pin);
+                    addressTableBody.insertAdjacentHTML('beforeend', rowHtml);
+                    maxId = Math.max(maxId, parseInt(addr.id));
+                });
+
+                // Update the counter to avoid ID conflicts
+                nextAddressId = maxId + 1;
+            } else {
+                // If savedAddresses is empty, reset counter to 1
+                nextAddressId = 1;
+            }
+        }
+    }
+
+    // --- EVENT LISTENERS ---
+
+    // Event Delegation for Edit/Delete Buttons
+    addressTableBody.addEventListener('click', function (event) {
+        let targetButton = event.target.closest('.edit-address-btn, .delete-address-btn');
+        if (!targetButton) return;
+
+        const id = targetButton.getAttribute('data-id');
+
+        if (targetButton.classList.contains('edit-address-btn')) {
+            // Read data directly from the button that was clicked.
+            const type = targetButton.getAttribute('data-type');
+            const line1 = targetButton.getAttribute('data-line1');
+            const city = targetButton.getAttribute('data-city');
+            const state = targetButton.getAttribute('data-state');
+            const pin = targetButton.getAttribute('data-pin');
+
+            // Populate the Edit modal inputs
+            document.getElementById('edit-addressId').value = id;
+            document.getElementById('edit-addressType').value = type;
+            document.getElementById('edit-addressLine1').value = line1;
+            document.getElementById('edit-addressLine2').value = '';
+            document.getElementById('edit-city').value = city;
+            document.getElementById('edit-state').value = state;
+            document.getElementById('edit-pinCode').value = pin;
+        } else if (targetButton.classList.contains('delete-address-btn')) {
+            document.getElementById('delete-addressId').value = id;
+        }
+    });
+
+    // Add Address Logic
+    addAddressButton.addEventListener('click', function () {
+        const type = document.getElementById('addressType').value;
+        const line1 = document.getElementById('addressLine1').value;
+        const city = document.getElementById('city').value;
+        const state = document.getElementById('state').value;
+        const pin = document.getElementById('pinCode').value;
+
+        if (!type || !line1 || !city || !state || !pin) {
+            alert('Please fill in all required address fields.');
+            return;
+        }
+
+        // Use the current nextAddressId as the ID for the new row
+        const newRowHtml = createNewRowHtml(nextAddressId, type, line1, city, state, pin);
+        addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
+        nextAddressId++;
+
+        const modalElement = document.getElementById('addAddressModal');
+        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+
+        document.getElementById('addAddressForm').reset();
+    });
+
+    // Save Edit Logic
+    saveEditButton.addEventListener('click', function () {
+        const addressId = document.getElementById('edit-addressId').value;
+        const newType = document.getElementById('edit-addressType').value;
+        const newLine1 = document.getElementById('edit-addressLine1').value;
+        const newCity = document.getElementById('edit-city').value;
+        const newState = document.getElementById('edit-state').value;
+        const newPin = document.getElementById('edit-pinCode').value;
+
+        const row = document.getElementById('address-' + addressId);
+        if (row) {
+            // 1. Update the visible <td> cells
+            row.querySelector('[data-field="type"]').textContent = newType;
+            row.querySelector('[data-field="line1"]').textContent = newLine1;
+            row.querySelector('[data-field="city"]').textContent = newCity;
+            row.querySelector('[data-field="state"]').textContent = newState;
+            row.querySelector('[data-field="pin"]').textContent = newPin;
+
+            // 2. Update the data attributes on the EDIT button (CRITICAL for saving later)
+            const editButton = row.querySelector('.edit-address-btn');
+            editButton.setAttribute('data-type', newType);
+            editButton.setAttribute('data-line1', newLine1);
+            editButton.setAttribute('data-city', newCity);
+            editButton.setAttribute('data-state', newState);
+            editButton.setAttribute('data-pin', newPin);
+        }
+
+        const modalElement = document.getElementById('editAddressModal');
+        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+    });
+
+    // Confirm Delete Logic
+    confirmDeleteButton.addEventListener('click', function () {
+        const addressIdToDelete = document.getElementById('delete-addressId').value;
+        const rowToDelete = document.getElementById('address-' + addressIdToDelete);
+
+        if (rowToDelete) {
+            rowToDelete.remove();
+        }
+
+        const modalElement = document.getElementById('deleteAddressModal');
+        const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+        modal.hide();
+    });
+
+    // --- Save Changes Handler ---
+    saveChangesBtn.addEventListener('click', function (e) {
+        e.preventDefault(); // Stop the default link navigation first
+        saveAllData();
+
+        // After saving the data to local storage, navigate to Company.html
+        window.location.href = "Company.html";
+    });
+
+    // --- Load Data on Page Load ---
+    document.addEventListener('DOMContentLoaded', loadAllData);
+
+</script>
