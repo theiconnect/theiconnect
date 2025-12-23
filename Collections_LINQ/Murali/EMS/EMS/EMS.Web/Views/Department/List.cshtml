@@ -1,9 +1,16 @@
-﻿@model List<EMS.Web.Models.DepartmentViewModel>
+﻿   @model List<EMS.Web.Models.DepartmentViewModel>
 
 @{
 	ViewData["Title"] = "List";
 	Layout = "~/Views/Shared/_EMSLayout.cshtml";
 	int counter = 0;
+	var msg = ViewBag.SuccessMessage;
+}
+@if (!string.IsNullOrEmpty(msg))
+{
+	<script>
+		alert('@msg');
+	</script>
 }
 <section class="mb-4">
 	<div class="card">
@@ -63,35 +70,35 @@
 							@foreach (var dept in Model)
 							{
 								<tr>
-									<td style="background-color:@(!dept.IsActive ? "red !important" : "")">@(++counter)</td>
-									<td style="background-color:@(!dept.IsActive ? "red !important" : "")">
+									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@(++counter) </td>
+									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>
 										<a title="click on this link to view details of @dept.DeptName department"
 										   asp-route-id="@dept.DepartmentId"
 										   asp-controller="Department"
-										   asp-action="ViewDepartment">@dept.Code</a>
+										   asp-action="ViewDepartment"> @dept.Code </a>
 									</td>
-									<td style="background-color:@(!dept.IsActive ? "red !important" : "")">@dept.DeptName</td>
-									<td style="background-color:@(!dept.IsActive ? "red !important" : "")">@(string.IsNullOrEmpty(dept.Location) ? "NA" : dept.Location)</td>
-									<td style="background-color:@(!dept.IsActive ? "red !important" : "")">@(dept.IsActive ? "Yes" : "No")</td>
-									<td style="background-color:@(!dept.IsActive ? "red !important" : "")">
+									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'> @dept.DeptName </td >
+									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@(string.IsNullOrEmpty(dept.Location) ? "NA" : dept.Location) </td>
+									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@(dept.IsActive ? "Yes" : "No") </td>
+									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>
 
-										@Html.ActionLink("View", "View", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
-										@Html.ActionLink("Edit", "EditDepartment", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
+									@Html.ActionLink("View", "View", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
+									@Html.ActionLink("Edit", "EditDepartment", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
 
-										@if (dept.IsActive)
-										{
+									@if (dept.IsActive)
+									{
 											<button class="btn btn-danger"
 													onclick="deleteDepartment(@dept.DepartmentId, '@(dept.DeptName)');">
 												Deactivate
 											</button>
-										}
-										else
-										{
+									}
+									else
+									{
 											<button class="btn btn-success"
-													onclick="activateDepartment(@dept.DepartmentId, '@(dept.DeptName)');">  
+													onclick="activateDepartment(@dept.DepartmentId, '@(dept.DeptName)');">
 												Activate
 											</button>
-										}
+									}
 									</td>
 								</tr>
 							}
