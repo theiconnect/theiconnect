@@ -12,4 +12,7 @@ namespace EMS.IServices
         List<EmployeeModel> GetAllEmployees();
 
     }
+
 }
+    
+
