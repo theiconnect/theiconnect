@@ -4,139 +4,129 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = "~/Views/Shared/_EMSLayout.cshtml";
-    int counter = 0;
+	Layout = "~/Views/Shared/_EMSLayout.cshtml";
+	int counter = 0;
 
 }
 
 <main id="main-content" class="flex-fill">
-    <div class="container-fluid pt-5 mt-3">
+	<div class="container-fluid pt-5 mt-3">
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="h3"><i class="fas fa-users me-2"></i> Employee List</h2>
-            <div>
-                <a id="btnAddEmployee" class="btn btn-success" asp-controller="Employee" asp-action="AddEmployee">
-                    Add Employee
-                </a>
-            </div>
-        </div>
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h2 class="h3"><i class="fas fa-users me-2"></i> Employee List</h2>
+			<div>
+				<a id="btnAddEmployee" class="btn btn-success" asp-controller="Employee" asp-action="AddEmployee">
+					Add Employee
+				</a>
+			</div>
+		</div>
 
-        <!-- Filters / Search area (matches sketch) -->
-        <div class="card mb-3">
-            <div class="card-body">
-                <form id="filterForm" class="row gy-2 gx-2 align-items-end">
-                    <div class="col-md-4">
-                        <label class="form-label small text-muted">Search by Name</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
-                            <input id="filterName" type="text" class="form-control" placeholder="Search by first or last name..." />
-                        </div>
-                    </div>
+		<!-- Filters / Search area (matches sketch) -->
+		<div class="card mb-3">
+			<div class="card-body">
+				<form id="filterForm" class="row gy-2 gx-2 align-items-end">
+					<div class="col-md-4">
+						<label class="form-label small text-muted">Search by Name</label>
+						<div class="input-group">
+							<span class="input-group-text bg-white"><i class="fas fa-search"></i></span>
+							<input id="filterName" type="text" class="form-control" placeholder="Search by first or last name..." />
+						</div>
+					</div>
 
-                    <div class="col-md-3">
-                        <label class="form-label small text-muted">Gender</label>
-                        <select id="filterGender" class="form-select">
-                            <option value="">All</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
+					<div class="col-md-3">
+						<label class="form-label small text-muted">Gender</label>
+						<select id="filterGender" class="form-select">
+							<option value="">All</option>
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
 
-                    <div class="col-md-3">
-                        <label class="form-label small text-muted">Designation / Group</label>
-                        <select id="filterDesignation" class="form-select">
-                            <option value="">All</option>
-                            <option value="IT">IT</option>
-                            <option value="Finance">Finance</option>
-                            <option value="HR">HR</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Sales">Sales</option>
-                        </select>
-                    </div>
+					<div class="col-md-3">
+						<label class="form-label small text-muted">Designation / Group</label>
+						<select id="filterDesignation" class="form-select">
+							<option value="">All</option>
+							<option value="IT">IT</option>
+							<option value="Finance">Finance</option>
+							<option value="HR">HR</option>
+							<option value="Marketing">Marketing</option>
+							<option value="Sales">Sales</option>
+						</select>
+					</div>
 
-                    <div class="col-md-2 d-flex gap-2">
-                        <button type="button" id="btnSearch" class="btn btn-primary w-100">Search</button>
-                        <button type="reset" id="btnClear" class="btn btn-outline-secondary w-100">Clear</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+					<div class="col-md-2 d-flex gap-2">
+						<button type="button" id="btnSearch" class="btn btn-primary w-100">Search</button>
+						<button type="reset" id="btnClear" class="btn btn-outline-secondary w-100">Clear</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-        <!-- Data Grid -->
-        <div class="card shadow-sm"> 
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped mb-0 align-middle" id="employeeTable" aria-describedby="employeeTableCaption">
-                        <caption id="employeeTableCaption" class="visually-hidden">Employee grid: S.NO, Code, First Name, Last Name, Group, Gender, Mobile, Actions</caption>
-                        <thead class="table-light">
-                            <tr>
-                                <th scope="col">S.NO</th>
-                                <th scope="col">EmpCode</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Blood Group</th>
-                                <th scope="col">Gender</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Mobile No</th>
-                                <th scope="col">Date of Birth</th>
-                                <th scope="col">Date of Joining</th>
-                                <th scope="col">Experience</th>
-                                <th scope="col">Salary</th>
-                                <th scope="col">Is Active</th>
+		<!-- Data Grid -->
+		<div class="card shadow-sm">
+			<div class="card-body p-0">
+				<div class="table-responsive">
+					<table class="table table-hover table-striped mb-0 align-middle" id="employeeTable" aria-describedby="employeeTableCaption">
+						<caption id="employeeTableCaption" class="visually-hidden">Employee grid: S.NO, Code, First Name, Last Name, Group, Gender, Mobile, Actions</caption>
+						<thead class="table-light">
+							<tr>
+								<th scope="col">S.NO</th>
+								<th scope="col">EmpCode</th>
+								<th scope="col">First Name</th>
+								<th scope="col">Last Name</th>
+								<th scope="col">Blood Group</th>
+								<th scope="col">Gender</th>
+								<th scope="col">Email</th>
+								<th scope="col">Mobile No</th>
+								<th scope="col">Date of Birth</th>
+								<th scope="col">Date of Joining</th>
+								<th scope="col">Experience</th>
+								<th scope="col">Salary</th>
+								<th scope="col">Is Active</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody id="employeeTbody">
 
-                            </tr>
-
-                        </thead>
-                        <tbody id="employeeTbody">
-                            <tr>
-                                @{
-                                    if (Model.Count < 1)
-                                    {
-                                        <td colspan="8" class="text-center">No employee(s) found.</td>
-                                    }
-                                    else
-                                    {
-                                        foreach (var emp in Model)
-                                        {
-                                            <tr>
-                                                <td>@(++counter)</td>
-                                                <td>@emp.Code</td>
-                                                <td>@emp.FirstName</td>
-                                                <td>@emp.LastName</td>
-                                                <td>@emp.Gender</td>
-                                                <td>@emp.MobileNumber</td>
-                                                <td>@emp.EmailId</td>
-                                                <td>@emp.DateOfBirth.ToString("dd-MM-yyyy")</td>
-                                                <td>@emp.DateOfJoining.ToString("dd-MM-yyyy")</td>
-                                                <td>@emp.ExpInMonths</td>
-                                                <td>@emp.Salary</td>
-                                                <td>@(emp.IsActive ? "Yes" : "No")</td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeId">View</a>
-                                                    <a class="btn btn-warning btn-sm me-1" asp-controller="Employee" asp-action="EditEmployee" asp-route-id="@emp.EmployeeId">Edit</a>
-                                                    <a class="btn btn-danger btn-sm" asp-controller="Employee" asp-action="DeleteEmployee" asp-route-id="@emp.EmployeeId">Delete</a>
-                                                </td>
-                                            </tr>
-                                          }
-                                    }
-                            }
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    </main>
-    <script>
-        function display() {
-            location.href = '/Employee/ViewEmployee';
-    }
-    </script>
-
-
-
-
-
+							@{
+								if (Model.Count < 1)
+								{
+									<tr>
+										<td colspan="13" class="text-center">No employee(s) found.</td>
+									</tr>
+								}
+								else
+								{
+									foreach (var emp in Model)
+									{
+										<tr>
+											<td>@(++counter)</td>
+											<td>@emp.Code</td>
+											<td>@emp.FirstName</td>
+											<td>@emp.LastName</td>
+											<td>@emp.BloodGroup</td>
+											<td>@emp.Gender</td>
+											<td>@emp.EmailId</td>
+											<td>@emp.MobileNumber</td>
+											<td>@emp.DateOfBirth.ToString("dd-MM-yyyy")</td>
+											<td>@emp.DateOfJoining.ToString("dd-MM-yyyy")</td>
+											<td>@emp.ExpInMonths</td>
+											<td>@emp.Salary</td>
+											<td>@(emp.IsActive ? "Yes" : "No")</td>
+											<td class="text-center">
+												<a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeId">View</a>
+												<a class="btn btn-warning btn-sm me-1" asp-controller="Employee" asp-action="EditEmployee" asp-route-id="@emp.EmployeeId">Edit</a>
+												<a class="btn btn-danger btn-sm" asp-controller="Employee" asp-action="DeleteEmployee" asp-route-id="@emp.EmployeeId">Delete</a>
+											</td>
+										</tr>
+									}
+								}
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
