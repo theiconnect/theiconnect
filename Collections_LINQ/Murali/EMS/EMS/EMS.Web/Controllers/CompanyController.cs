@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
-    
+    [Route("Company")]
     public class CompanyController : Controller
     {
-        //[Route("edit")]
-        public IActionResult EditCompany()
+        [Route("edit")]
+        public IActionResult EditCompany(int id)
         {
             return View();
         }
@@ -17,7 +17,7 @@ namespace EMS.Web.Controllers
         //[Route("info")]
         //[Route("")]
         //[Route("view")]
-        //[Route("details")]
+        [Route("details")]
        public  IActionResult ViewCompany() 
         {
             return View();

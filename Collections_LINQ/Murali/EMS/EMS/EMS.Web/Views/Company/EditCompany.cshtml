@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EMS.Models.CompanyModel>
+﻿
 
 @{
     ViewData["Title"] = "CompanyList";
@@ -90,11 +90,11 @@
                 </thead>
                 <tbody>
                     <tr id="address-1">
-                        <td data-field="type">Corporate</td>
-                        <td data-field="line1">101 Tech Park Avenue</td>
-                        <td data-field="city">Metroville</td>
-                        <td data-field="state">CA</td>
-                        <td data-field="pin">902100</td>
+                        <td data-field="type"></td>
+                        <td data-field="line1"></td>
+                        <td data-field="city"></td>
+                        <td data-field="state"></td>
+                        <td data-field="pin"></td>
                         <td>
                             <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
                                                       data-bs-toggle="modal"
@@ -115,32 +115,7 @@
                             </button>
                         </td>
                     </tr>
-                    <tr id="address-2">
-                        <td data-field="type">Branch</td>
-                        <td data-field="line1">202 Industrial Drive</td>
-                        <td data-field="city">Port City</td>
-                        <td data-field="state">TX</td>
-                        <td data-field="pin">770012</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#editAddressModal"
-                                                      data-id="2"
-                                                      data-type="Branch"
-                                                      data-line1="202 Industrial Drive"
-                                                      data-city="Port City"
-                                                      data-state="TX"
-                                                      data-pin="770012">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#deleteAddressModal"
-                                                      data-id="2">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -472,36 +447,39 @@
         });
 
         // Save Edit Logic
-        saveEditButton.addEventListener('click', function () {
-            const addressId = document.getElementById('edit-addressId').value;
-            const newType = document.getElementById('edit-addressType').value;
-            const newLine1 = document.getElementById('edit-addressLine1').value;
-            const newCity = document.getElementById('edit-city').value;
-            const newState = document.getElementById('edit-state').value;
-            const newPin = document.getElementById('edit-pinCode').value;
+                saveEditButton.addEventListener('click', function () {
+            const id = document.getElementById('edit-addressId').value;
 
-            const row = document.getElementById('address-' + addressId);
-            if (row) {
-                // 1. Update the visible <td> cells
-                row.querySelector('[data-field="type"]').textContent = newType;
-                row.querySelector('[data-field="line1"]').textContent = newLine1;
-                row.querySelector('[data-field="city"]').textContent = newCity;
-                row.querySelector('[data-field="state"]').textContent = newState;
-                row.querySelector('[data-field="pin"]').textContent = newPin;
+            const updatedData = {
+                type: document.getElementById('edit-addressType').value,
+                line1: document.getElementById('edit-addressLine1').value,
+                city: document.getElementById('edit-city').value,
+                state: document.getElementById('edit-state').value,
+                pin: document.getElementById('edit-pinCode').value
+            };
 
-                // 2. Update the data attributes on the EDIT button (CRITICAL for saving later)
-                const editButton = row.querySelector('.edit-address-btn');
-                editButton.setAttribute('data-type', newType);
-                editButton.setAttribute('data-line1', newLine1);
-                editButton.setAttribute('data-city', newCity);
-                editButton.setAttribute('data-state', newState);
-                editButton.setAttribute('data-pin', newPin);
-            }
+            const row = document.getElementById(`address-${id}`);
+            if (!row) return;
 
-            const modalElement = document.getElementById('editAddressModal');
-            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            modal.hide();
+            // 1️ Update table cells
+            row.querySelector('[data-field="type"]').textContent = updatedData.type;
+            row.querySelector('[data-field="line1"]').textContent = updatedData.line1;
+            row.querySelector('[data-field="city"]').textContent = updatedData.city;
+            row.querySelector('[data-field="state"]').textContent = updatedData.state;
+            row.querySelector('[data-field="pin"]').textContent = updatedData.pin;
+
+            // 2️ Update Edit button data attributes (MOST IMPORTANT)
+            const editBtn = row.querySelector('.edit-address-btn');
+            editBtn.dataset.type = updatedData.type;
+            editBtn.dataset.line1 = updatedData.line1;
+            editBtn.dataset.city = updatedData.city;
+            editBtn.dataset.state = updatedData.state;
+            editBtn.dataset.pin = updatedData.pin;
+
+            // 3️ Close modal
+            bootstrap.Modal.getInstance(document.getElementById('editAddressModal')).hide();
         });
+
 
         // Confirm Delete Logic
         confirmDeleteButton.addEventListener('click', function () {
@@ -528,6 +506,15 @@
 
         // --- Load Data on Page Load ---
         document.addEventListener('DOMContentLoaded', loadAllData);
+
+        //         fetch('/CompanyController/EditCompany', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify()
+        // });
+
 
     </script>
 
