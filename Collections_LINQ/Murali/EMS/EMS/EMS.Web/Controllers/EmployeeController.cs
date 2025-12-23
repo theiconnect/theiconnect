@@ -1,6 +1,7 @@
-﻿using EMS.Models;
+﻿using EMS.IServices;
+using EMS.Models;
 using EMS.Models.Enums;
-using EMS.Services;
+using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +16,8 @@ namespace EMS.Web.Controllers
     public class EmployeeController : Controller
     {
         // Route: /Employee/getallemployees or /Employee/list
-        private EmployeeServices employeeServices;
-        public EmployeeController(EmployeeServices _employeeservices)
+        private IEmployeeService employeeServices;
+        public EmployeeController(IEmployeeService _employeeservices)
         {
             employeeServices = _employeeservices;
 

@@ -15,6 +15,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ICompanyService, CompanyTDService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentTDService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeTDServices>();
      
 
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();

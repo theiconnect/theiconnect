@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using EMS.DataAccess;
 using EMS.Models;
 
-namespace EMS.Services
+namespace EMS.Services.Implementation.TD
 {
-    public class EmployeeServices
+    public class EmployeeTDServices : IServices.IEmployeeService
     {
         private EMSDbContext dbContext;
 
-        public EmployeeServices()
+        public EmployeeTDServices()
         {
             dbContext = EMSDbContext.GetInstance();
         }   
