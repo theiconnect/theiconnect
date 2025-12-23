@@ -1,0 +1,139 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Country</h1>
+<select id="country" name="country">
+	<option value="">Select any country</option>
+	@foreach (var country in ViewBag.Countries)
+	{
+		<option value="@country.CountryIdPk">@country.CountryName</option>
+	}
+</select>
+<h1>State:</h1>
+<select id="state" name="state">
+	<option value="">Select any state</option>
+</select>
+<h1>City:</h1>
+<select id="city" name="city">
+	<option value="">Select any city</option>
+</select>
+
+<script type="text/javascript">
+	var ddlCountry = document.getElementById('country');
+	var ddlState = document.getElementById('state');
+	var ddlCity = document.getElementById('city');
+	ddlCountry.addEventListener('change',function(){
+		var selectedCountry = this.value;
+
+		if(!selectedCountry){
+			var options = '<option value="">Select any state</option>';
+			document.getElementById('state').innerHTML = options;
+			ddlCity.innerHTML = '<option value="">Select any city</option>';
+			return;
+		}
+
+		fetch('demo/LoadStates?countryId='+ selectedCountry)
+		.then(response=>response.json())
+		.then(data=> {
+
+			debugger;
+
+			if(!data){
+				console.log('states are empty');
+				ddlState.innerHTML = '<option value="">Select any state</option>';
+				ddlCity.innerHTML = '<option value="">Select any city</option>';
+				return;
+			}
+
+			var options = '<option value="">Select any state</option>';
+			for(let state of data){
+				options+= '<option value="'+ state.stateIdPk +'">'+ state.stateName +'</option>';
+			}
+			document.getElementById('state').innerHTML = options;
+			ddlCity.innerHTML = '<option value="">Select any city</option>';
+
+			if(false){
+				//bind states to states dropdown
+				var ddlState = document.getElementById('state');
+				ddlState.innerHTML= '<option value="">Select any state</option>'; //clear existing items
+				data.forEach(function(state){
+					var option = document.createElement('option');
+					option.value= state.stateIdPk;
+					option.text= state.stateName;
+					ddlState.appendChild(option);
+				});
+			}
+		});//then
+	});//fetch
+
+	ddlState.addEventListener('change', function(){
+		var selectedState = this.value;
+		if(!selectedState){
+			ddlCity.innerHTML = '<option value="">Select any city</option>';
+			return;
+		}
+
+		fetch('/cities/'+selectedState)
+		.then(response=> response.json())
+		.then(data=> {
+			if(!data){
+				ddlCity.innerHTML = '<option value="">Select any city</option>';
+				return;
+			}
+
+			let options = '<option value="">Select any city</option>';
+			for(let city of data){
+				options+= `<option value=${city.cityIdPk}>${city.cityName}</option>`
+			}
+			ddlCity.innerHTML =options;
+		})
+		.catch(err=> console.log(err));
+	});
+
+
+	function dummy(){
+			/*
+			fetch('/demo/LoadStates/'+ selectedCountry, {
+				//method:"GET",
+				//body: JSON.stringify(empObj),
+				// headers: {
+				// 	'Content-Type': 'application/json' // Inform the server we're sending JSON
+				// }
+
+			})*/
+			//fetch('/loadstates/'+ selectedCountry)//=> using route data
+			//query string URL?key1=vlaue1&key2=value2&key3=value3&key4=value4....etc
+			fetch('demo/LoadStates?countryId='+ selectedCountry)
+			.then(response=>response.json())
+			.then(data=> {
+				debugger;
+				if(!data){
+					console.log('states are empty');
+					return;
+				}
+			});
+
+			//////calling using post req
+			var countryObj = {
+				id:selectedCountry,
+			}
+
+			fetch('demo/LoadStates',{
+				method:"POST",
+				body: JSON.stringify(countryObj),
+				headers: {
+					'Content-Type': 'application/json' // Inform the server we're sending JSON
+				}
+			})
+			.then(response=>response.json())
+			.then(data=> {
+				debugger;
+				if(!data){
+					console.log('states are empty');
+					return;
+				}
+			});
+		}
+</script>
