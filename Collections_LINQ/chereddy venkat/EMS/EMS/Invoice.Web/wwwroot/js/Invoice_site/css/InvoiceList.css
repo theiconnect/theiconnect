@@ -1,0 +1,38 @@
+﻿/* Lightweight styling for invoice list */
+body {
+    background: #f8f9fa;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.table thead th {
+    vertical-align: middle;
+}
+
+#tblInvoice tbody td {
+    vertical-align: middle;
+}
+
+.table-responsive {
+    background: #fff;
+    border-radius: 6px;
+    padding: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+/* Small screens: hide manufactured/expiry columns if space is tight */
+@media (max-width: 700px) {
+    th:nth-child(7), th:nth-child(8),
+    td:nth-child(7), td:nth-child(8) {
+        display: none;
+    }
+}
+
+/* Action buttons */
+.action-btn {
+    margin-right: 6px;
+}

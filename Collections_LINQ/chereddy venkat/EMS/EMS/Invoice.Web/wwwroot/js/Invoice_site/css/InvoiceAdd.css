@@ -1,0 +1,29 @@
+﻿
+
+:root{
+  --card-bg: #ffffff;
+  --muted: #6c757d;
+}
+
+body{
+  background: #f4f6f8;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(17, 24, 39, 0.04);
+}
+
+h1.h4 {
+  margin: 0;
+}
+
+/* small adjustments */
+.form-label { font-weight: 500; }
+#totalPrice[readonly] { background-color: #e9ecef; }
+
+@media (max-width: 700px) {
+  .card { padding: 1rem; }
+}

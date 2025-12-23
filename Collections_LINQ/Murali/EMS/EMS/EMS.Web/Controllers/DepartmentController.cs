@@ -10,7 +10,6 @@ namespace EMS.Web.Controllers
     public class DepartmentController : Controller
     {
         private DepartmentService departmentService;
-
         public DepartmentController(DepartmentService _departmentService)
         {
             departmentService = _departmentService;
@@ -20,9 +19,6 @@ namespace EMS.Web.Controllers
         [Route("all")]
         public IActionResult List()
         {
-            //EMSDbContext obj = EMSDbContext.GetInstance();
-            //DepartmentService departmentService = new DepartmentService();
-
             var departmentsFromDB = departmentService.GetAllDepartments();
 
             var viewModel = new List<DepartmentViewModel>();
@@ -36,13 +32,10 @@ namespace EMS.Web.Controllers
                     _location: deptDB.Location,
                     _isActive: deptDB.IsActive
                     );
-
                 viewModel.Add(obj);
             }
-
             return View(viewModel);
         }
-
         [Route("add")]
         [Route("create")]
         [Route("new")]
@@ -99,7 +92,6 @@ namespace EMS.Web.Controllers
         public IActionResult DeactivateDepartment(int id)
         {
             bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: true, out string responseMessage);
-            
             //return Json(isSuccess, responseMessage);
 
             return Json(new { Success = isSuccess, Message = responseMessage });
@@ -114,7 +106,5 @@ namespace EMS.Web.Controllers
 
             return Json(new { Success = isSuccess, Message = responseMessage });
         }
-
-
     }
 }
