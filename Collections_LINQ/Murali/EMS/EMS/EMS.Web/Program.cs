@@ -17,7 +17,7 @@ builder.Services.AddScoped<ICompanyService, CompanyTDService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentTDService>();
      
 
-//builder.Services.AddSingleton<EMS.Services.CompanyService>();
+//builder.Services.AddScoped<IEmployeeService,>();
 //builder.Services.AddTransient<EMS.Services.CompanyService>();
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
 
