@@ -9,7 +9,7 @@ namespace EMS.Web.Controllers
     // ==============================================
     // 1. EmployeeController
     // ==============================================
-   
+
     [Route("Employee")]
     [Route("Emp")]
     public class EmployeeController : Controller
@@ -29,7 +29,7 @@ namespace EMS.Web.Controllers
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
             // If you want to return a string, change the return type to 'string'.
-            
+
             var employeesFromDB = employeeServices.GetAllEmployees();
 
             var employeesViewModel = new List<EmployeeListViewModel>();
@@ -57,17 +57,19 @@ namespace EMS.Web.Controllers
                     employeesViewModel.Add(obj);
 
                 }
-             };
+            }
+            ;
 
 
-                return View(employeesViewModel);
+            return View(employeesViewModel);
         }
 
-        
 
-        public IActionResult AddEmployee() { 
 
-            return View(); 
+        public IActionResult AddEmployee()
+        {
+
+            return View();
         }
 
         // Route: /Employee/editemployee
@@ -78,11 +80,11 @@ namespace EMS.Web.Controllers
         }
 
         // Route: /Employee/deleteemployee
-       
-        public IActionResult DeleteEmployee()
-        {
-            return View();
-        }
+
+        //public IActionResult DeleteEmployee()
+        //{
+        //    return View();
+        //}
 
         // Route: /Employee/viewemployee
 
@@ -92,7 +94,14 @@ namespace EMS.Web.Controllers
             return View();
         }
     }
+}
 
+
+
+
+
+
+    /*
     // ==============================================
     // 2. Employee1Controller
     // ==============================================
@@ -205,3 +214,4 @@ namespace EMS.Web.Controllers
     //    }
     //}
 }
+    */
