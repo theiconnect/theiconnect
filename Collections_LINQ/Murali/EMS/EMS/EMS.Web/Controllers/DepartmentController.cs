@@ -17,6 +17,7 @@ namespace EMS.Web.Controllers
         public DepartmentController(IDepartmentService _departmentService)
         {
             departmentService = _departmentService;
+            
         }
 
         [Route("list")]
@@ -24,6 +25,10 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult List()
         {
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+
+            TempData.Peek("SuccessMessage");
+
             var departmentsFromDB = departmentService.GetAllDepartments();
 
             var viewModel = new List<DepartmentViewModel>();
@@ -48,17 +53,34 @@ namespace EMS.Web.Controllers
         [Route("create")]
         [Route("new")]
         [HttpGet]
-
         public IActionResult CreateDepartment()
-        {            
+        {
             return View();
         }
 
         [Route("savedepartment")]
         [HttpPost]
-        public IActionResult SaveDepartment(DepartmentViewModel model)
+        public IActionResult SaveDepartment(DepartmentViewModel viewModel)
         {
-            return RedirectToAction("list", "department");
+            DepartmentModel departmentModel = new DepartmentModel
+            {
+                DepartmentCode = viewModel.Code,
+                DepartmentName = viewModel.DeptName,
+                Location = viewModel.Location,
+                IsActive = viewModel.IsActive
+            };
+            bool isSuccess = departmentService.SaveDepartment(departmentModel, true, out string message);
+
+            if (isSuccess)
+            {
+                TempData["SuccessMessage"] = $"Department-{viewModel.DeptName} created successfully.";
+                return RedirectToAction("list", "department");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = message;
+                return View("CreateDepartment", viewModel);
+            }
         }
 
         [Route("edit/{id}")]
