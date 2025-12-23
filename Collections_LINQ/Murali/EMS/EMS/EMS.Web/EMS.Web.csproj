@@ -7,19 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\NewFolder\**" />
-    <Content Remove="Views\NewFolder\**" />
-    <EmbeddedResource Remove="Views\NewFolder\**" />
-    <None Remove="Views\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\EMS.IServices\EMS.IServices.csproj" />
     <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
     <ProjectReference Include="..\EMS.Services\EMS.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\EMS_Site\js\NewFolder\" />
   </ItemGroup>
 
 </Project>
