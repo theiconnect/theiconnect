@@ -4,7 +4,28 @@ using EMS.Models;
 namespace EMS.Web.Models
 {   
     public class EmployeeListViewModel
-    { 
+    {
+        public EmployeeListViewModel()
+        {
+        }
+
+        public EmployeeListViewModel(int employeeIdPk, string employeecode, string firstName, string middleName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, string alternateMobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
+        {
+            EmployeeId = employeeIdPk;
+            Code = employeecode;
+            FirstName = firstName;
+            MiddleName = middleName;
+            LastName = lastName;
+            BloodGroup = bloodGroup;
+            Gender = gender;
+            EmailId = emailId;
+            MobileNumber = mobileNumber;
+            AlternateMobileNumber = alternateMobileNumber;
+            DateOfBirth = dateOfBirth;
+            DateOfJoining = dateOfJoining;
+            ExpInMonths = expInMonths;
+            IsActive = isActive;
+        }
         public int EmployeeId { get; set; }
         public string Code { get; set; }
         public string FirstName { get; set; }

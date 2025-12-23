@@ -66,6 +66,26 @@ namespace EMS.Web.Controllers
         }
 
 
+        public IActionResult SaveEmployee([FromBody] EmployeeListViewModel model)
+        {
+            EmployeeModel EmpModel = new EmployeeModel();
+            {
+                EmpModel.FirstName = model.FirstName;
+                EmpModel.MiddleName = model.MiddleName;
+                EmpModel.LastName = model.LastName;
+                EmpModel.BloodGroup = model.BloodGroup;
+                EmpModel.AlternateMobileNumber = model.AlternateMobileNumber;
+                EmpModel.DateOfBirth = model.DateOfBirth;
+                EmpModel.DateOfJoining = model.DateOfJoining;
+                EmpModel.EmailId = model.EmailId;
+                EmpModel.ExpInMonths = model.ExpInMonths;
+                EmpModel.IsActive = model.IsActive;
+            };
+
+            bool isSuccess = employeeServices.SaveEmployeedetails(EmpModel, true, out string responseMessage);
+            return Json(new { Success = isSuccess, Message = responseMessage });    
+        }
+
 
         public IActionResult AddEmployee()
         {
