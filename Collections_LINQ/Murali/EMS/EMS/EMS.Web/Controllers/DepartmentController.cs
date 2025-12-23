@@ -23,28 +23,23 @@ namespace EMS.Web.Controllers
         [Route("list")]
         [Route("all")]
         [HttpGet]
-        public IActionResult List()
+        public IActionResult List(string searchName, string searchLocation)
         {
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
-
-            TempData.Peek("SuccessMessage");
-
             var departmentsFromDB = departmentService.GetAllDepartments();
 
-            var viewModel = new List<DepartmentViewModel>();
+            if (!string.IsNullOrEmpty(searchName))
+                departmentsFromDB = departmentsFromDB
+                    .Where(d => d.DepartmentName.Contains(searchName, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
-            foreach (var deptDB in departmentsFromDB)
-            {
-                var obj = new DepartmentViewModel(
-                    _departmentId: deptDB.DepartmentIdPk,
-                    _code: deptDB.DepartmentCode,
-                    _name: deptDB.DepartmentName,
-                    _location: deptDB.Location,
-                    _isActive: deptDB.IsActive
-                    );
+            if (!string.IsNullOrEmpty(searchLocation))
+                departmentsFromDB = departmentsFromDB
+                    .Where(d => d.Location != null && d.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
-                viewModel.Add(obj);
-            }
+            var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel(
+                d.DepartmentIdPk, d.DepartmentCode, d.DepartmentName, d.Location, d.IsActive
+            )).ToList();
 
             return View(viewModel);
         }
