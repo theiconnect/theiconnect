@@ -12,7 +12,6 @@ namespace EMS.Web.Controllers
         {
 
         }
-
         public IActionResult Index()
         {
 
