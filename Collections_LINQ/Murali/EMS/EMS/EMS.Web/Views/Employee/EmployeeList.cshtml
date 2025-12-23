@@ -1,9 +1,11 @@
-﻿@model List<EMS.Models.EmployeeModel>
+﻿@model List<EMS.Web.Models.EmployeeListViewModel>
+
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
+    int counter = 0;
 
 }
 
@@ -71,148 +73,55 @@
                             <tr>
                                 <th scope="col">S.NO</th>
                                 <th scope="col">EmpCode</th>
-                                <th scope="col">F.Name</th>
-                                <th scope="col">L.Name</th>
-                                <th scope="col">Group</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Blood Group</th>
                                 <th scope="col">Gender</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Mobile No</th>
-                                <th scope="col" class="text-center">Actions</th>
+                                <th scope="col">Date of Birth</th>
+                                <th scope="col">Date of Joining</th>
+                                <th scope="col">Experience</th>
+                                <th scope="col">Salary</th>
+                                <th scope="col">Is Active</th>
+
                             </tr>
 
                         </thead>
                         <tbody id="employeeTbody">
                             <tr>
-                                <td>1</td>
-                                <td>EMP-1001</td>
-                                <td>Alice</td>
-                                <td>Johnson</td>
-                                <td>IT</td>
-                                <td>Female</td>
-                                <td>+1 (555) 123-4567</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Actions for Alice Johnson">
-                                        <button onclick="display()" type="button" class="btn btn-sm btn-primary" aria-label="View Alice Johnson">
-                                            View
-                                        </button>
-                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Alice Johnson" asp-controller="Employee" asp-action="EditEmployee">
-                                            Edit
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1001" aria-label="Delete Alice Johnson" onclick="if(confirm('Delete employee EMP-1001 - Alice Johnson?')) { /* delete logic */ }">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>EMP-1002</td>
-                                <td>Bob</td>
-                                <td>Smith</td>
-                                <td>Finance</td>
-                                <td>Male</td>
-                                <td>+1 (555) 234-5678</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Actions for Bob Smith">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1002" aria-label="View Bob Smith">
-                                            View
-                                        </button>
-                                        <a  class="btn btn-sm btn-secondary" aria-label="Edit Bob Smith" asp-controller="Employee" asp-action="EditEmployee">
-                                            Edit
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1002" aria-label="Delete Bob Smith" onclick="if(confirm('Delete employee EMP-1002 - Bob Smith?')) { /* delete logic */ }">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>EMP-1003</td>
-                                <td>Carla</td>
-                                <td>Lopez</td>
-                                <td>HR</td>
-                                <td>Female</td>
-                                <td>+1 (555) 345-6789</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Actions for Carla Lopez">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1003" aria-label="View Carla Lopez">
-                                            View
-                                        </button>
-                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Carla Lopez" asp-controller="Employee" asp-action="EditEmployee">
-                                            Edit
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1003" aria-label="Delete Carla Lopez" onclick="if(confirm('Delete employee EMP-1003 - Carla Lopez?')) { /* delete logic */ }">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>EMP-1004</td>
-                                <td>David</td>
-                                <td>Nguyen</td>
-                                <td>Marketing</td>
-                                <td>Male</td>
-                                <td>+1 (555) 456-7890</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Actions for David Nguyen">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1004" aria-label="View David Nguyen">
-                                            View
-                                        </button>
-                                        <a class="btn btn-sm btn-secondary" aria-label="Edit David Nguyen" asp-controller="Employee" asp-action="EditEmployee">
-                                            Edit
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1004" aria-label="Delete David Nguyen" onclick="if(confirm('Delete employee EMP-1004 - David Nguyen?')) { /* delete logic */ }">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>s
-                            <tr>
-                                <td>5</td>
-                                <td>EMP-1005</td>
-                                <td>Eva</td>
-                                <td>Martinez</td>
-                                <td>Sales</td>
-                                <td>Female</td>
-                                <td>+1 (555) 567-8901</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Actions for Eva Martinez">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1005" aria-label="View Eva Martinez">
-                                            View
-                                        </button>
-                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Eva Martinez" asp-controller="Employee" asp-action="EditEmployee">
-                                            Edit
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1005" aria-label="Delete Eva Martinez" onclick="if(confirm('Delete employee EMP-1005 - Eva Martinez?')) { /* delete logic */ }">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>EMP-1006</td>
-                                <td>Frank</td>
-                                <td>O'Connor</td>
-                                <td>IT</td>
-                                <td>Male</td>
-                                <td>+1 (555) 678-9012</td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group" aria-label="Actions for Frank O'Connor">
-                                        <button type="button" onclick="display()" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#viewEmployeeModal" data-emp-id="1006" aria-label="View Frank O'Connor">
-                                            View
-                                        </button>
-                                        <a class="btn btn-sm btn-secondary" aria-label="Edit Frank O'Connor" asp-controller="Employee" asp-action="EditEmployee">
-                                            Edit
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-emp-id="1006" aria-label="Delete Frank O'Connor" onclick="if(confirm('Delete employee EMP-1006 - Frank O\\'Connor?')) { /* delete logic */ }">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                @{
+                                    if (Model.Count < 1)
+                                    {
+                                        <td colspan="8" class="text-center">No employee(s) found.</td>
+                                    }
+                                    else
+                                    {
+                                        foreach (var emp in Model)
+                                        {
+                                            <tr>
+                                                <td>@(++counter)</td>
+                                                <td>@emp.Code</td>
+                                                <td>@emp.FirstName</td>
+                                                <td>@emp.LastName</td>
+                                                <td>@emp.Gender</td>
+                                                <td>@emp.MobileNumber</td>
+                                                <td>@emp.EmailId</td>
+                                                <td>@emp.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                                                <td>@emp.DateOfJoining.ToString("dd-MM-yyyy")</td>
+                                                <td>@emp.ExpInMonths</td>
+                                                <td>@emp.Salary</td>
+                                                <td>@(emp.IsActive ? "Yes" : "No")</td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeId">View</a>
+                                                    <a class="btn btn-warning btn-sm me-1" asp-controller="Employee" asp-action="EditEmployee" asp-route-id="@emp.EmployeeId">Edit</a>
+                                                    <a class="btn btn-danger btn-sm" asp-controller="Employee" asp-action="DeleteEmployee" asp-route-id="@emp.EmployeeId">Delete</a>
+                                                </td>
+                                            </tr>
+                                          }
+                                    }
+                            }
+                            
                         </tbody>
                     </table>
                 </div>

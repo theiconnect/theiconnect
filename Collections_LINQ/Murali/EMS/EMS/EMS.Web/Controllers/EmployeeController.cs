@@ -1,5 +1,7 @@
 ﻿using EMS.Models;
 using EMS.Models.Enums;
+using EMS.Services;
+using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
@@ -7,10 +9,19 @@ namespace EMS.Web.Controllers
     // ==============================================
     // 1. EmployeeController
     // ==============================================
-   
+
+    [Route("Employee")]
+    [Route("Emp")]
     public class EmployeeController : Controller
     {
         // Route: /Employee/getallemployees or /Employee/list
+        private EmployeeServices employeeServices;
+        public EmployeeController(EmployeeServices _employeeservices)
+        {
+            employeeServices = _employeeservices;
+
+        }
+
         [Route("getallemployees")]
         [Route("list")]
         public IActionResult EmployeeList()
@@ -18,38 +29,79 @@ namespace EMS.Web.Controllers
             // NOTE: A ViewResult must return a View() or a string that can resolve to a View.
             // Returning "dfgh" as a string is invalid for ViewResult. Changed to View().
             // If you want to return a string, change the return type to 'string'.
+
+            var employeesFromDB = employeeServices.GetAllEmployees();
+
+            var employeesViewModel = new List<EmployeeListViewModel>();
+
+            foreach (var emp in employeesFromDB)
+            {
+                EmployeeListViewModel obj = new EmployeeListViewModel();
+                {
+                    obj.EmployeeId = emp.EmployeeIdPk;
+                    obj.Code = emp.Employeecode;
+                    obj.FirstName = emp.FirstName;
+                    obj.MiddleName = emp.MiddleName;
+                    obj.LastName = emp.LastName;
+                    obj.BloodGroup = emp.BloodGroup;
+                    obj.Gender = emp.Gender;
+                    obj.EmailId = emp.EmailId;
+                    obj.MobileNumber = emp.MobileNumber;
+                    obj.AlternateMobileNumber = emp.AlternateMobileNumber;
+                    obj.DateOfBirth = emp.DateOfBirth;
+                    obj.DateOfJoining = emp.DateOfJoining;
+                    obj.ExpInMonths = emp.ExpInMonths;
+                    obj.Salary = emp.SalaryCtc;
+                    obj.IsActive = emp.IsActive;
+
+                    employeesViewModel.Add(obj);
+
+                }
+            }
+            ;
+
+
+            return View(employeesViewModel);
+        }
+
+
+
+        public IActionResult AddEmployee()
+        {
+
             return View();
         }
 
-        
-
-        public IActionResult AddEmployee() { 
-
-            return View(); 
-        }
-
         // Route: /Employee/editemployee
-        
+        [Route("editemployee/{id}")]
         public IActionResult EditEmployee()
         {
             return View();
         }
 
-       
-        [Route("deleteemployee")]
-        public IActionResult DeleteEmployee()
-        {
-            return View();
-        }
+        // Route: /Employee/deleteemployee
 
-        
-        [Route("viewemployee")]
-        public IActionResult ViewEmployee()
+        //public IActionResult DeleteEmployee()
+        //{
+        //    return View();
+        //}
+
+        // Route: /Employee/viewemployee
+
+        [Route("viewemployee/{id}")]
+        public IActionResult ViewEmployee(int id)
         {
             return View();
         }
     }
+}
 
+
+
+
+
+
+    /*
     // ==============================================
     // 2. Employee1Controller
     // ==============================================
@@ -162,3 +214,4 @@ namespace EMS.Web.Controllers
     //    }
     //}
 }
+    */
