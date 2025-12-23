@@ -1,0 +1,49 @@
+﻿@model System.String
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    int a = 10;
+    string str = "Test String";
+}
+
+@if(a> 10)
+{
+    int b = 20;
+
+    <h2>Hello world - @b</h2>
+}
+else
+{
+    int b1 = 30;
+
+    <h2>Hello India - @b1</h2>
+
+    int b2 = 40;
+
+    <h2>Hello India - @b2</h2>
+
+}
+
+<h1>@a</h1>
+<h1>@str</h1>
+
+<h1>Murali.cshtml</h1>
+<h1>@Model</h1>
+@* <h1>@Model.LastName</h1> *@
+
+<hr />
+<h1>View data values</h1>
+<h2>Value1: @(System.Convert.ToString(ViewData["Value1"]).ToLower())</h2>
+<h2>Value2: @ViewData["Value2"]</h2>
+<h2>Value3: @ViewData["Value3"]</h2>
+<h2>Value4: @ViewData["Value4"]</h2>
+<hr />
+
+<hr />
+<h1>View BAg values</h1>
+<h2>Value5: @(ViewBag.Value5.ToLower())</h2>
+<h2>Value6: @ViewBag.Value6</h2>
+<h2>Value7: @ViewBag.Value7</h2>
+<h2>Value8: @ViewBag.Value8</h2>
+<hr />

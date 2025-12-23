@@ -1,88 +1,69 @@
-﻿@model EMS.Models.DepartmentModel
+﻿@model EMS.Web.Models.DepartmentViewModel
 
 @{
-    ViewData["Title"] = "ViewDepartment";
-    Layout = "~/Views/Shared/_EMSLayout.cshtml";
+	ViewData["Title"] = "ViewDepartment";
+	Layout = "~/Views/Shared/_EMSLayout.cshtml";
 }
 
-<h1>ViewDepartment</h1>
+<div class="container">
+	<h2>View Departmet</h2>
+	<hr />
+	<div class="row">
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Department Code:</label>
+			<label class="form-control-static">@Model.Code</label>
+		</div>
 
-@* <div>
-    <h4>DepartmentModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartmentIdPk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DepartmentIdPk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartmentCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DepartmentCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DepartmentName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompanyIdFk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyIdFk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-    </dl>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Department Name:</label>
+			<label class="form-control-static">@Model.DeptName</label>
+		</div>
+
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Department Name:</label>
+			<label class="form-control-static">@Model.DeptName</label>
+		</div>
+
+
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Location:</label>
+			<label class="form-control-static">@Model.Location</label>
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Active:</label>
+			<label class="form-control-static">@Model.Active</label>
+		</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="col-10">&nbsp;
+		</div>
+		<div class="col-2">
+			<a class="btn btn-secondary" asp-action="list" asp-controller="department">Go Back</a>
+		</div>
+	</div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div> *@
+@* 
+<div class="container">
+	<h2>View Departmet</h2>
+	<div class="row">
+		<div class="form-group col-xs-6">
+			@Html.DisplayNameFor(Model => Model.Code):
+			@Html.DisplayFor(Model => Model.Code)
+		</div>
+		<div class="form-group col-xs-6">
+			@Html.DisplayNameFor(Model => Model.DeptName):
+			@Html.DisplayFor(Model => Model.DeptName)
+		</div>
+		<div class="form-group col-xs-6">
+			@Html.DisplayNameFor(Model => Model.Location):
+			@Html.DisplayFor(Model => Model.Location)
+		</div>
+		<div class="form-group col-xs-6">
+			@Html.DisplayNameFor(Model => Model.Active):
+			@Html.DisplayFor(Model => Model.Active)
+		</div>
 
-
-<main class="container">
-    <h1>Department View</h1>
-
-
-    <form id="deptForm" novalidate>
-        <div class="form-row">
-            <label for="deptCode">Dept Code</label>
-            <input type="text" id="deptCode" name="deptCode" readonly />
-        </div>
-
-        <div class="form-row">
-            <label for="deptName">Dept Name</label>
-            <input type="text" id="deptName" name="deptName" required maxlength="100" />
-        </div>
-
-        <div class="form-row">
-            <label for="deptLocation">Dept Location</label>
-            <input type="text" id="deptLocation" name="deptLoaction" required maxlength="100" />
-        </div> 
-
-        <div class="actions">
-            <button type="button" id="btnBack" class="btn secondary" onclick="goToView()">GoBack</button>
-            @* <div id="statusMessage" class="status" aria-live="polite"><div> *@
-    </form>
-
-</main>
-<script>
-    function goToView() {
-        window.location.href = '/Department/list';
-    }
-</script>
+	</div>
+</div>
+ *@
