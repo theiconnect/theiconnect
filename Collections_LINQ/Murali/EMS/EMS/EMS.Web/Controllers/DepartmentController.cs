@@ -22,6 +22,7 @@ namespace EMS.Web.Controllers
 
         [Route("list")]
         [Route("all")]
+        [Route("Search")]
         [HttpGet]
         public IActionResult List(string searchName, string searchLocation)
         {
