@@ -23,30 +23,12 @@ namespace EMS.Web.Controllers
         [Route("list")]
         [Route("all")]
         [HttpGet]
-        public IActionResult List()
+        public IActionResult List(string searchName, string searchLocation)
         {
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments();
+            
 
-            TempData.Peek("SuccessMessage");
-
-            var departmentsFromDB = departmentService.GetAllDepartments();
-
-            var viewModel = new List<DepartmentViewModel>();
-
-            foreach (var deptDB in departmentsFromDB)
-            {
-                var obj = new DepartmentViewModel(
-                    _departmentId: deptDB.DepartmentIdPk,
-                    _code: deptDB.DepartmentCode,
-                    _name: deptDB.DepartmentName,
-                    _location: deptDB.Location,
-                    _isActive: deptDB.IsActive
-                    );
-
-                viewModel.Add(obj);
-            }
-
-            return View(viewModel);
+            return View();
         }
 
         [Route("add")]
