@@ -16,6 +16,7 @@
 	<div class="card">
 		<div class="card-body">
 			<!-- Search row -->
+			<form asp-action="List" asp-controller="Department" method="get">
 			<div class="row g-3 align-items-end">
 				<div class="col-md-5">
 					<label for="searchName" class="form-label">Name</label>
@@ -28,13 +29,12 @@
 
 				<div class="col-md-2 d-flex gap-2">
 					<form>
-						<input type="submit" class="btn btn-success" value="reloadpage" />
 						<button id="btnSearch" class="btn btn-primary">Search</button>
-						<button id="btnClear" class="btn btn-outline-secondary">Clear</button>
+						<button id="btnClear" class="btn btn-primary">Clear</button>
 					</form>
 				</div>
 			</div>
-
+			</form>
 			<div class="mt-3">
 				<button id="btnAddDept" class="btn btn-success" onclick="goToAdd()">Add Department</button>
 			</div>
