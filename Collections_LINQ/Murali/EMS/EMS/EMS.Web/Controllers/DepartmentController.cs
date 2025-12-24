@@ -103,6 +103,27 @@ namespace EMS.Web.Controllers
             return View(model);
         }
 
+        [Route("UpdatesaveDepartment")]
+        [HttpPost]
+        public IActionResult UpdatesaveDepartment([FromBody]DepartmentViewModel updateModel)
+        {
+
+            DepartmentModel departmentModel = new DepartmentModel
+            {
+                DepartmentIdPk = updateModel.DepartmentId,
+                DepartmentCode = updateModel.Code,
+                DepartmentName = updateModel.DeptName,
+                Location = updateModel.Location,
+                IsActive = updateModel.IsActive
+            };
+            bool IsSuccess = departmentService.EditDepartmentSave(departmentModel, out string responseMessage);
+
+            return Json(new { IsSuccess = IsSuccess, errorMessage = responseMessage });
+
+
+        }
+
+
         [Route("view/{id}")]
         [Route("info/{id}")]
         [Route("details/{id}")]
