@@ -29,30 +29,34 @@ namespace EMS.Web.Controllers
         {
             var employeesFromDB = employeeServices.GetAllEmployees();
 
-            var employeesViewModel = new List<EmployeeListViewModel>();
+            var employeesViewModel = new List<EmployeeViewModel>();
 
             foreach (var emp in employeesFromDB)
             {
-                var obj = new EmployeeListViewModel
+                EmployeeViewModel obj = new EmployeeViewModel();
                 {
-                    EmployeeId = emp.EmployeeIdPk,
-                    Code = emp.Employeecode,
-                    FirstName = emp.FirstName,
-                    MiddleName = emp.MiddleName,
-                    LastName = emp.LastName,
-                    BloodGroup = emp.BloodGroup,
-                    Gender = emp.Gender,
-                    EmailId = emp.EmailId,
-                    MobileNumber = emp.MobileNumber,
-                    AlternateMobileNumber = emp.AlternateMobileNumber,
-                    DateOfBirth = emp.DateOfBirth,
-                    DateOfJoining = emp.DateOfJoining,
-                    ExpInMonths = emp.ExpInMonths,
-                    Salary = emp.SalaryCtc,
-                    IsActive = emp.IsActive
-                };
-                employeesViewModel.Add(obj);
+                    obj.EmployeeIdPK = emp.EmployeeIdPk;
+                    obj.Employeecode = emp.Employeecode;
+                    obj.FirstName = emp.FirstName;
+                    obj.LastName = emp.LastName;
+                    obj.BloodGroup = emp.BloodGroup;
+                    obj.Gender = emp.Gender;
+                    obj.EmailId = emp.EmailId;
+                    obj.MobileNumber = emp.MobileNumber;
+                    obj.DateOfBirth = emp.DateOfBirth;
+                    obj.DateOfJoining = emp.DateOfJoining;
+                    obj.ExpInMonths = emp.ExpInMonths;
+                    obj.SalaryCtc = emp.SalaryCtc;
+                    obj.IsActive = emp.IsActive;
+
+                    employeesViewModel.Add(obj);
+
+                }
             };
+
+            }
+            ;
+
 
             return View(employeesViewModel);
         }
@@ -65,9 +69,36 @@ namespace EMS.Web.Controllers
 
         // Route: /Employee/editemployee
         [Route("editemployee/{id}")]
-        public IActionResult EditEmployee()
+        public IActionResult EditEmployee(int id)
         {
-            return View();
+            var empDB = employeeServices.GetAllEmployees().FirstOrDefault(e => e.EmployeeIdPk == id);
+            var address = employeeServices.GetAllEmployeeAddresses().FirstOrDefault(a => a.EmployeeIdFk == id);
+            var Models = new EmployeeViewModel(
+            empDB.EmployeeIdPk,
+            empDB.Employeecode,
+            empDB.FirstName,
+            empDB.LastName,
+            empDB.BloodGroup,
+            empDB.Gender,
+            empDB.EmailId,
+            empDB.MobileNumber,
+            empDB.DateOfBirth,
+            empDB.DateOfJoining,
+            empDB.ExpInMonths,
+            empDB.SalaryCtc,
+            empDB.IsActive,
+
+
+            address.AddressLine1,
+            address.AddressLine2,
+            address.State,
+            address.City,
+            address.Pincode,
+            address.AddressTypeId,
+            address.EmployeeIdFk,
+            address.isActive);
+        
+            return View(Models);
         }
 
         // Route: /Employee/deleteemployee
