@@ -29,11 +29,11 @@ namespace EMS.Web.Controllers
         {
             var employeesFromDB = employeeServices.GetAllEmployees();
 
-            var employeesViewModel = new List<EmployeeViewModel>();
+            var employeesViewModel = new List<EmployeeModel>();
 
             foreach (var emp in employeesFromDB)
             {
-                EmployeeViewModel obj = new EmployeeViewModel();
+                EmployeeModel obj = new EmployeeModel();
                 {
                     obj.EmployeeIdPK = emp.EmployeeIdPk;
                     obj.Employeecode = emp.Employeecode;
@@ -54,11 +54,9 @@ namespace EMS.Web.Controllers
                 }
             };
 
-            }
-            ;
 
 
-            return View(employeesViewModel);
+            return View(employeeModel);
         }
 
 
@@ -95,7 +93,7 @@ namespace EMS.Web.Controllers
         {
             var empDB = employeeServices.GetAllEmployees().FirstOrDefault(e => e.EmployeeIdPk == id);
             var address = employeeServices.GetAllEmployeeAddresses().FirstOrDefault(a => a.EmployeeIdFk == id);
-            var Models = new EmployeeViewModel(
+            var Models = new EmployeeModel(
             empDB.EmployeeIdPk,
             empDB.Employeecode,
             empDB.FirstName,
