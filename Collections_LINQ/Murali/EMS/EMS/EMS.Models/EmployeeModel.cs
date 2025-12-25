@@ -27,7 +27,7 @@ namespace EMS.Models
         public bool IsActive { get; set; } = true;
         public DateTime? LWD { get; set; }
 
-        public List<EmployeeAddressModel> Addresses { get; set; } = new List<EmployeeAddressModel>();
+        public List<EmployeeAddressViewModel> Addresses { get; set; } = new List<EmployeeAddressViewModel>();
         public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>(); 
     }
 }
