@@ -57,7 +57,7 @@ namespace EMS.Web.Controllers
             return View(employeesViewModel);
         }
 
-
+        [Route("SaveEmp")]
         public IActionResult SaveEmployee([FromBody] EmployeeListViewModel model)
         {
             EmployeeModel EmpModel = new EmployeeModel();
@@ -66,6 +66,8 @@ namespace EMS.Web.Controllers
                 EmpModel.MiddleName = model.MiddleName;
                 EmpModel.LastName = model.LastName;
                 EmpModel.BloodGroup = model.BloodGroup;
+                EmpModel.Gender = model.Gender;
+                EmpModel.MobileNumber = model.MobileNumber;
                 EmpModel.AlternateMobileNumber = model.AlternateMobileNumber;
                 EmpModel.DateOfBirth = model.DateOfBirth;
                 EmpModel.DateOfJoining = model.DateOfJoining;
@@ -79,6 +81,8 @@ namespace EMS.Web.Controllers
         }
 
 
+        [Route("Add")]
+        [Route("Create")]
         public IActionResult AddEmployee()
         {
 
