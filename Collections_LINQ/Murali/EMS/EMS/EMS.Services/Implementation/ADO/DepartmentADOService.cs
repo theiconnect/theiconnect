@@ -60,6 +60,33 @@ namespace EMS.Services.Implementation.ADO
         {
             throw new NotImplementedException();
         }
+
+        public bool EditDepartmentSave(DepartmentModel departmentModel, out string responseMessage)
+        {
+            responseMessage = "Success";
+            try
+            {
+                var existingDepartment = dbContext.Departments.FirstOrDefault(d => d.DepartmentIdPk == departmentModel.DepartmentIdPk);
+                if (existingDepartment != null)
+                {
+                    existingDepartment.DepartmentCode = departmentModel.DepartmentCode;
+                    existingDepartment.DepartmentName = departmentModel.DepartmentName;
+                    existingDepartment.Location = departmentModel.Location;
+                    existingDepartment.IsActive = departmentModel.IsActive;
+                }
+                else
+                {
+                    responseMessage = "Department not found";
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                responseMessage = ex.Message;
+                return false;
+            }
+        }
     }
 }
 

@@ -63,80 +63,58 @@
 			</div>
 		</div>
 
-        <!-- Data Grid -->
-        <div class="card shadow-sm"> 
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped mb-0 align-middle" id="employeeTable" aria-describedby="employeeTableCaption">
-                        <caption id="employeeTableCaption" class="visually-hidden">Employee grid: S.NO, Code, First Name, Last Name, Group, Gender, Mobile, Actions</caption>
-                        <thead class="table-light">
-                            <tr>
-                                <th scope="col">S.NO</th>
-                                <th scope="col">EmpCode</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Blood Group</th>
-                                <th scope="col">Gender</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Mobile No</th>
-                                <th scope="col">Date of Birth</th>
-                                <th scope="col">Date of Joining</th>
-                                <th scope="col">Experience</th>
-                                <th scope="col">Salary</th>
-                                <th scope="col">Is Active</th>
+		<!-- Data Grid -->
+		<div class="card shadow-sm">
+			<div class="card-body p-0">
+				<div class="table-responsive">
+					<table class="table table-hover table-striped mb-0 align-middle" id="employeeTable" aria-describedby="employeeTableCaption">
+						<caption id="employeeTableCaption" class="visually-hidden">Employee grid: S.NO, Code, First Name, Last Name, Group, Gender, Mobile, Actions</caption>
+						<thead class="table-light">
+							<tr>
+								<th scope="col">S.NO</th>
+								<th scope="col">EmpCode</th>
+								<th scope="col">Name</th>
+								<th scope="col">Mobile No</th>
+								<th scope="col">Gender</th>
+								<th scope="col">Email</th>
+								<th scope="col">Is Active</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody id="employeeTbody">
 
-                            </tr>
-
-                        </thead>
-                        <tbody id="employeeTbody">
-                            <tr>
-                                @{
-                                    if (Model.Count < 1)
-                                    {
-                                        <td colspan="8" class="text-center">No employee(s) found.</td>
-                                    }
-                                    else
-                                    {
-                                        foreach (var emp in Model)
-                                        {
-                                            <tr>
-                                                <td>@(++counter)</td>
-                                                <td>@emp.Employeecode</td>
-                                                <td>@emp.FirstName</td>
-                                                <td>@emp.LastName</td>
-                                                <td>@emp.Gender</td>
-                                                <td>@emp.MobileNumber</td>
-                                                <td>@emp.EmailId</td>
-                                                <td>@emp.DateOfBirth.ToString("dd-MM-yyyy")</td>
-                                                <td>@emp.DateOfJoining.ToString("dd-MM-yyyy")</td>
-                                                <td>@emp.ExpInMonths</td>
-                                            <td>@emp.SalaryCtc</td>
-                                                <td>@(emp.IsActive ? "Yes" : "No")</td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeIdPK">View</a>
-                                                <a class="btn btn-warning btn-sm me-1" asp-controller="Employee" asp-action="EditEmployee" asp-route-id="@emp.EmployeeIdPK">Edit</a>
-                                                <a class="btn btn-danger btn-sm" asp-controller="Employee" asp-action="DeleteEmployee" asp-route-id="@emp.EmployeeIdPK">Delete</a>
-                                                </td>
-                                            </tr>
-                                          }
-                                    }
-                            }
-                            
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    </main>
-    <script>
-        function display() {
-            location.href = '/Employee/ViewEmployee';
-    }
-    </script>
-
-
-
-
-
+							@{
+								if (Model.Count < 1)
+								{
+									<tr>
+										<td colspan="13" class="text-center">No employee(s) found.</td>
+									</tr>
+								}
+								else
+								{
+									foreach (var emp in Model)
+									{
+										<tr>
+											<td>@(++counter)</td>
+											<td>@emp.Code</td>
+											<td>@emp.FirstName @emp.LastName</td>
+											<td>@emp.MobileNumber</td>
+											<td>@emp.Gender</td>
+											<td>@emp.EmailId</td>
+											<td>@(emp.IsActive ? "Yes" : "No")</td>
+											<td class="text-center">
+												<a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeId">View</a>
+												<a class="btn btn-warning btn-sm me-1" asp-controller="Employee" asp-action="EditEmployee" asp-route-id="@emp.EmployeeId">Edit</a>
+												<a class="btn btn-danger btn-sm" asp-controller="Employee" asp-action="DeleteEmployee" asp-route-id="@emp.EmployeeId">Delete</a>
+											</td>
+										</tr>
+									}
+								}
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

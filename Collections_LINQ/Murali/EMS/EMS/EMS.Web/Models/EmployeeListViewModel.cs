@@ -3,66 +3,45 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace EMS.Models {
-    public class EmployeeViewModel
+namespace EMS.Web.Models
+{   
+    public class EmployeeListViewModel
     {
-        public EmployeeViewModel()
-        {}
-
-        public EmployeeViewModel(int employeeIdPk, string employeecode, string? firstName, string? lastName, BloodGroups bloodGroup, Genders gender, string? emailId, string? mobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths,decimal? salary,bool isActive)
+        public EmployeeListViewModel()
         {
-            EmployeeIdPK = employeeIdPk;
-            Employeecode = employeecode;
+        }
+
+        public EmployeeListViewModel(int employeeIdPk, string employeecode, string firstName, string middleName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, string alternateMobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
+        {
+            EmployeeId = employeeIdPk;
+            Code = employeecode;
             FirstName = firstName;
+            MiddleName = middleName;
             LastName = lastName;
             BloodGroup = bloodGroup;
             Gender = gender;
             EmailId = emailId;
             MobileNumber = mobileNumber;
+            AlternateMobileNumber = alternateMobileNumber;
             DateOfBirth = dateOfBirth;
             DateOfJoining = dateOfJoining;
             ExpInMonths = expInMonths;
-            SalaryCtc = salary;
             IsActive = isActive;
         }
-
-        public EmployeeViewModel(int employeeIdPk, string employeecode, string? firstName, string? lastName, BloodGroups bloodGroup, Genders gender, string? emailId, string? mobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salary, bool isActive, string addressLine1, string addressLine2, string state, string city, string pincode, AddressTypes addressTypeId, int employeeIdFk, bool isActive1) : this(employeeIdPk, employeecode, firstName, lastName, bloodGroup, gender, emailId, mobileNumber, dateOfBirth, dateOfJoining, expInMonths, salary, isActive)
-        {
-            AddressLine1 = addressLine1;
-            AddressLine2 = addressLine2;
-            State = state;
-            City = city;
-            Pincode = pincode;
-            AddressTypeId = addressTypeId;
-            EmployeeIdFk = employeeIdFk;
-            IsActive1 = isActive1;
-        }
-
-        [DisplayName("Employee Id")]
-        public int EmployeeIdPK { get; set; }
-
-        [DisplayName("Employee Code")]
-        public string? Employeecode { get; set; }
-
-        [DisplayName("First Name")]
-        public string? FirstName { get; set; }
-
-        [DisplayName("Last Name")]
-        public string? LastName { get; set; }
-
-        [DisplayName("Blood Group")]
+        public int EmployeeId { get; set; }
+        public string Code { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
         public BloodGroups BloodGroup { get; set; }
 
         [DisplayName("Gender")]
         public Genders Gender { get; set; }
-
-        [DisplayName("Email Id")]
-        public string? EmailId { get; set; }
-
-        [DisplayName("Mobile Number")]
-        public string? MobileNumber { get; set; }
-
-        [DisplayName("Date Of Birth")]
+        public string EmailId { get; set; }
+        public string MobileNumber { get; set; }
+        public string AlternateMobileNumber { get; set; }
+        //1e=> 1dept+history dept
+        //1d=> m employees
         public DateTime DateOfBirth { get; set; }
 
         [DisplayName("Date Of Joining")]
