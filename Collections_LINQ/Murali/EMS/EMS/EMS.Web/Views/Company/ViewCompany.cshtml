@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EMS.Models.CompanyModel;
+@{
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
 }
 
@@ -56,15 +57,15 @@
                     <tbody>
                         <tr>
                             <th class="label">Company Name</th>
-                            <td>Innovatech Solutions Pvt. Ltd.</td>
+                            <td>@Model.CompanyName</td>
                         </tr>
                         <tr>
                             <th class="label">Registration Date</th>
-                            <td>2023-01-15</td>
+                            <td>@Model.RegistrationDate</td>
                         </tr>
                         <tr>
                             <th class="label">Website</th>
-                            <td><a href="http://www.innovatech.com" target="_blank" rel="noopener">www.innovatech.com</a></td>
+                            <td><a target="_blank" rel="noopener">@Model.Website</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -77,23 +78,23 @@
                     <tbody>
                         <tr>
                             <th class="label">Phone Number</th>
-                            <td>(555) 123-4567</td>
+                            <td>@Model.PhoneNumber</td>
                         </tr>
                         <tr>
                             <th class="label">Email</th>
-                            <td>info@innovatech.com</td>
+                            <td>@Model.Email</td>
                         </tr>
                         <tr>
                             <th class="label">TIN</th>
-                            <td>T1234567890</td>
+                            <td>@Model.TIN</td>
                         </tr>
                         <tr>
                             <th class="label">PAN</th>
-                            <td>PABCDE1234F</td>
+                            <td>@Model.PAN</td>
                         </tr>
                         <tr>
                             <th class="label">Bank A/C No</th>
-                            <td>98765432101234567890</td>
+                            <td>@Model.BankAccountNumber</td>
                         </tr>
                     </tbody>
                 </table>

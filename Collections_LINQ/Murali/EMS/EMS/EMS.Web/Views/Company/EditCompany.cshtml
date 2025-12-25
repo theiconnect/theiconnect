@@ -250,7 +250,7 @@
     </div>
 </div>
 
-@section Scripts {
+
     <script>
         // --- SIDEBAR TOGGLE LOGIC ---
         const sidebar = document.getElementById('sidebar');
@@ -507,15 +507,42 @@
         // --- Load Data on Page Load ---
         document.addEventListener('DOMContentLoaded', loadAllData);
 
-        //         fetch('/CompanyController/EditCompany', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify()
-        // });
+        
+        function goToAdd(){
+            let compName = document.getelementById('companyName').value;
+            let phnNumber = document.getElementById('phoneNumber').value;
+            let email = document.getElementById('email').value;
+            let regdate = document.getElementById('regdate').value;
+            let website = document.getElementById('website').value;
+            let bankAcc = document.getElementById('bankAccount').value;
+            let tin = document.getElementById('tin').value;
+            let pan = document.getElementById('pan').value;
 
+            let companyData = {
+                companyName: compName,
+                phoneNumber: phnNumber,
+                email: email,
+                regDate: regdate,
+                website: website,
+                bankAccount: bankAcc,
+                tin: tin,
+                pan: pan
+            };
+
+                    fetch('/CompanyController/EditCompany', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(CompanyData);
+            
+        });
+        .then(response=>{response.json()})
+        .then(data=>{
+            console.log('Success:', data);
+        }
+        }
 
     </script>
 
-    }
+    
