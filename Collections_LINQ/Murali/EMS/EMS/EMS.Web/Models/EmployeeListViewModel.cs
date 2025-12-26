@@ -1,7 +1,8 @@
-﻿using EMS.Models.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using EMS.Models;
+using EMS.Models.Enums;
 
 namespace EMS.Web.Models
 {   
@@ -34,36 +35,24 @@ namespace EMS.Web.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public BloodGroups BloodGroup { get; set; }
-
-        [DisplayName("Gender")]
         public Genders Gender { get; set; }
         public string EmailId { get; set; }
+        public string PersonalEmailId { get; set; }
         public string MobileNumber { get; set; }
         public string AlternateMobileNumber { get; set; }
+        public int DepartmentIdFk { get; set; } //Current department
         //1e=> 1dept+history dept
         //1d=> m employees
         public DateTime DateOfBirth { get; set; }
-
-        [DisplayName("Date Of Joining")]
         public DateTime DateOfJoining { get; set; }
-
-        [DisplayName("Experience (Months)")]
-        public int ExpInMonths { get; set; } = 0;
-
-        [DisplayName("Salary")]
+        public int ExpInMonths { get; set; } = 0;//default value will be zero
+        public int? QualificationIdFk { get; set; }
+        public DesiginationTypes DesignationIdFk { get; set; }
         public decimal? SalaryCtc { get; set; }
-
-        [DisplayName("Is Active")]
         public bool IsActive { get; set; } = true;
+        public DateTime? LWD { get; set; }
 
         public List<EmployeeAddressViewModel> Addresses { get; set; } = new List<EmployeeAddressViewModel>();
-        public string AddressLine1 { get; }
-        public string AddressLine2 { get; }
-        public string State { get; }
-        public string City { get; }
-        public string Pincode { get; }
-        public AddressTypes AddressTypeId { get; }
-        public int EmployeeIdFk { get; }
-        public bool IsActive1 { get; }
+        public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>();
     }
 }
