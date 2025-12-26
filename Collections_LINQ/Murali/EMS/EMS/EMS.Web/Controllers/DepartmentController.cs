@@ -22,13 +22,62 @@ namespace EMS.Web.Controllers
 
         [Route("list")]
         [Route("all")]
+        public IActionResult List()
+        {
+            var departmentFromDb = departmentService.GetAllDepartments();
+
+            var ViewModel = new List<DepartmentViewModel>();
+            foreach(var model in departmentFromDb)
+            {
+                var obj = new DepartmentViewModel();
+                obj.DepartmentId = model.DepartmentIdPk;
+                obj.Code = model.DepartmentCode;
+                obj.DeptName = model.DepartmentName;
+                obj.IsActive = model.IsActive;
+                ViewModel.Add(obj);
+            }
+            return View(ViewModel);
+
+
+            
+        }
+
+
+
+
+
+
+
+        [Route("search")]
         [HttpGet]
-        public IActionResult List(string searchName, string searchLocation)
+        public IActionResult Searching(string searchName, string searchLocation)
         {
             List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments();
-            
+            var filteredDepartments = departmentsFromDB;
+           
 
-            return View();
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                filteredDepartments = filteredDepartments
+                    .Where(d => d.DepartmentName != null && d.DepartmentName.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(searchLocation))
+            {
+                filteredDepartments = filteredDepartments
+                    .Where(d => d.Location != null && d.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+         var viewModel = filteredDepartments.Select(d => new DepartmentViewModel
+            {
+                DepartmentId = d.DepartmentIdPk,
+                Code = d.DepartmentCode,
+                DeptName = d.DepartmentName,
+                Location = d.Location,
+                IsActive = d.IsActive
+            }).ToList();
+
+
+
+            return View("List", viewModel);
         }
 
         [Route("add")]

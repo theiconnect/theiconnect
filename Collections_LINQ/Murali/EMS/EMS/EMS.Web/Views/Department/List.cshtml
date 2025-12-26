@@ -16,21 +16,21 @@
 	<div class="card">
 		<div class="card-body">
 			<!-- Search row -->
-			<form asp-action="List" asp-controller="Department" method="get">
+			<form asp-action="Searching" asp-controller="Department" method="get">
 			<div class="row g-3 align-items-end">
 				<div class="col-md-5">
 					<label for="searchName" class="form-label">Name</label>
-					<input id="searchName" type="text" class="form-control" placeholder="Search by department name">
+					<input id="searchName" name=" searchName " type="text" class="form-control" placeholder="Search by department name">
 				</div>
 				<div class="col-md-5">
 					<label for="searchLocation" class="form-label">Location</label>
-					<input id="searchLocation" type="text" class="form-control" placeholder="Search by location">
+					<input id="searchLocation" name="searchLocation" type="text" class="form-control" placeholder="Search by location">
 				</div>
 
 				<div class="col-md-2 d-flex gap-2">
 					<form>
-						<button id="btnSearch" class="btn btn-primary">Search</button>
-						<button id="btnClear" class="btn btn-primary">Clear</button>
+						<button id="btnSearch" class="btn btn-primary" type="submit">Search</button>
+						
 					</form>
 				</div>
 			</div>
