@@ -18,7 +18,18 @@ namespace EMS.Services.Implementation.TD
             var company = Dbcontext.Company;
             return company;
         }
+        public bool addAddressCompany(CompanyAddressModel companyAddressModel,bool isPrimary,out String responseMessage)
+        {
+            responseMessage = "Success";
+            if (isPrimary)
+            {
+                // Handle primary address logic
+            }
 
+            Dbcontext.CompanyAddresses.Add(companyAddressModel);
+
+            return true;
+        }
 
 
         /*public void test()

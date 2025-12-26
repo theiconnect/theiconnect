@@ -1,4 +1,5 @@
-﻿
+﻿@model EMS.Models.CompanyModel;
+
 
 @{
     ViewData["Title"] = "CompanyList";
@@ -26,42 +27,42 @@
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="companyName" class="form-label">Company Name *</label>
-                            <input type="text" class="form-control bg-light" id="companyName" value="Innovatech Solutions Pvt. Ltd." readonly>
+                            <input type="text" class="form-control bg-light" id="companyName" value="@Model.CompanyName" readonly>
                             <div class="form-text">Name cannot be changed here.</div>
                         </div>
                         <div class="col-md-4">
                             <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phoneNumber" value="(555) 123-4567" readonly>
+                            <input type="tel" class="form-control" id="phoneNumber" value="@Model.PhoneNumber" readonly>
                         </div>
                         <div class="col-md-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="info@innovatech.com"readonly>
+                            <input type="email" class="form-control" id="email" value="@Model.Email"readonly>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="regDate" class="form-label">Registration Date</label>
-                            <input type="date" class="form-control" id="regDate" value="2023-01-15" readonly>
+                            <input type="date" class="form-control" id="regDate" value="@Model.RegistrationDate?.ToString("yyyy-MM-dd")" readonly>
                         </div>
                         <div class="col-md-8">
                             <label for="website" class="form-label">Website</label>
-                            <input type="url" class="form-control" id="website" value="http://www.innovatech.com" readonly>
+                            <input type="url" class="form-control" id="website" value="@Model.Website" readonly>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <label for="bankAccount" class="form-label">Bank Account Number</label>
-                            <input type="text" class="form-control" id="bankAccount" value="98765432101234567890" readonly>
+                            <input type="text" class="form-control" id="bankAccount" value="@Model.BankAccountNumber" readonly>
                         </div>
                         <div class="col-md-4">
                             <label for="tin" class="form-label">TIN</label>
-                            <input type="text" class="form-control" id="tin" value="T1234567890"readonly>
+                            <input type="text" class="form-control" id="tin" value="@Model.TIN"readonly>
                         </div>
                         <div class="col-md-4">
                             <label for="pan" class="form-label">PAN</label>
-                            <input type="text" class="form-control" id="pan" value="PABCDE1234F"readonly>
+                            <input type="text" class="form-control" id="pan" value="@Model.PAN"readonly>
                         </div>
                     </div>
                 </form>
@@ -286,7 +287,7 @@
         function createNewRowHtml(id, type, line1, city, state, pin) {
             return `
                     <tr id="address-${id}">
-                        <td data-field="type">${type}</td>
+                        <td data-field="type">${type}</td>b
                         <td data-field="line1">${line1}</td>
                         <td data-field="city">${city}</td>
                         <td data-field="state">${state}</td>
@@ -357,13 +358,13 @@
             const savedCompanyData = localStorage.getItem('companyDetails');
             if (savedCompanyData) {
                 const data = JSON.parse(savedCompanyData);
-                document.getElementById('phoneNumber').value = data.phoneNumber || '';
-                document.getElementById('email').value = data.email || '';
-                document.getElementById('regDate').value = data.regDate || '';
-                document.getElementById('website').value = data.website || '';
-                document.getElementById('bankAccount').value = data.bankAccount || '';
-                document.getElementById('tin').value = data.tin || '';
-                document.getElementById('pan').value = data.pan || '';
+                document.getElementById('phoneNumber').value;
+                document.getElementById('email').value;
+                document.getElementById('regDate').value ;
+                document.getElementById('website').value;
+                document.getElementById('bankAccount').value ;
+                document.getElementById('tin').value ;
+                document.getElementById('pan').value ;
             }
 
             // 2. Load and Render Address Data
@@ -423,27 +424,44 @@
 
         // Add Address Logic
         addAddressButton.addEventListener('click', function () {
-            const type = document.getElementById('addressType').value;
-            const line1 = document.getElementById('addressLine1').value;
-            const city = document.getElementById('city').value;
-            const state = document.getElementById('state').value;
-            const pin = document.getElementById('pinCode').value;
+            let type = document.getElementById('addressType').value;
+            let line1 = document.getElementById('addressLine1').value;
+            let city = document.getElementById('city').value;
+            let state = document.getElementById('state').value;
+            let pin = document.getElementById('pinCode').value;
 
             if (!type || !line1 || !city || !state || !pin) {
                 alert('Please fill in all required address fields.');
                 return;
             }
+         fetch('/Company/addAddressCompany', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(CompanyData);
+
+    });
+    .then(response=>{response.json()})
+    .then(data=>{
+        console.log('Success:', data);
+    }
+    }
+    
 
             // Use the current nextAddressId as the ID for the new row
-            const newRowHtml = createNewRowHtml(nextAddressId, type, line1, city, state, pin);
-            addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
-            nextAddressId++;
+            // const newRowHtml = createNewRowHtml(nextAddressId, type, line1, city, state, pin);
+            // addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
+            // nextAddressId++;
 
-            const modalElement = document.getElementById('addAddressModal');
-            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            modal.hide();
+            // const modalElement = document.getElementById('addAddressModal');
+            // const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+            // modal.hide();
 
-            document.getElementById('addAddressForm').reset();
+
+            // document.getElementById('addAddressForm').reset();
+
+
         });
 
         // Save Edit Logic
@@ -529,19 +547,10 @@
                 pan: pan
             };
 
-                    fetch('/CompanyController/EditCompany', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(CompanyData);
-            
-        });
-        .then(response=>{response.json()})
-        .then(data=>{
-            console.log('Success:', data);
-        }
-        }
+
+
+           
+
 
     </script>
 
