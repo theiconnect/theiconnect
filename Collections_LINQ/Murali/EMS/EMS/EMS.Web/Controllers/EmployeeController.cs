@@ -29,14 +29,14 @@ namespace EMS.Web.Controllers
         {
             var employeesFromDB = employeeServices.GetAllEmployees();
 
-            var employeesViewModel = new List<EmployeeModel>();
+            var employeesViewModel = new List<EmployeeListViewModel>();
 
             foreach (var emp in employeesFromDB)
             {
-                EmployeeModel obj = new EmployeeModel();
+                EmployeeListViewModel obj = new EmployeeListViewModel();
                 {
-                    obj.EmployeeIdPk = emp.EmployeeIdPk;
-                    obj.Employeecode = emp.Employeecode;
+                    obj.EmployeeId = emp.EmployeeIdPk;
+                    obj.Code = emp.Employeecode;
                     obj.FirstName = emp.FirstName;
                     obj.LastName = emp.LastName;
                     obj.BloodGroup = emp.BloodGroup;
@@ -56,6 +56,7 @@ namespace EMS.Web.Controllers
             return View(employeesViewModel);
         }
 
+        [HttpPost]
         [Route("SaveEmp")]
         public IActionResult SaveEmployee([FromBody] EmployeeListViewModel model)
         {
@@ -68,8 +69,8 @@ namespace EMS.Web.Controllers
                 EmpModel.Gender = model.Gender;
                 EmpModel.MobileNumber = model.MobileNumber;
                 EmpModel.AlternateMobileNumber = model.AlternateMobileNumber;
-                EmpModel.DateOfBirth = model.DateOfBirth;
-                EmpModel.DateOfJoining = model.DateOfJoining;
+                EmpModel.DateOfBirth = (DateTime) model.DateOfBirth;
+                EmpModel.DateOfJoining = (DateTime) model.DateOfJoining;
                 EmpModel.EmailId = model.EmailId;
                 EmpModel.ExpInMonths = model.ExpInMonths;
                 EmpModel.IsActive = model.IsActive;

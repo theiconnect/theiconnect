@@ -244,8 +244,7 @@
 </div>
 
       <script>
-
-
+          debugger;
         function SaveEmployees(){
         let firstName = document.getElementById('FirstName').value;
     let LastName = document.getElementById('LastName').value;
@@ -292,32 +291,35 @@
             DesignationIdFk: DesignationIdFk,
             SalaryCtc: SalaryCtc,
             IsActive: IsActive,
+            Addresses :{
+
+            }
             
         };
-
-        fetch('/Employee/SaveEmp', {
-            method: "POST",
-            body: JSON.stringify(empObj),
-            headers: {
-                'Content-Type': 'application/json' // Inform the server we're sending JSON
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
+        debugger;
+            fetch('/Employee/SaveEmp', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(empObj)
+    })
+    .then(response => response.json();
+    })
+    .then(data => {
+        if (data.isSuccess) {
             debugger;
-                let saveResult = data;
-                if (saveResult.isSuccess) {
-                    alert('Employee details saved successfully');
-                    location.href="/Employee/EmployeeList";
-                } else {
-                    alert('Failed to save employee details: ' + saveResult.errorMessage);
-            }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-        });
-        alert("Employee Added Successfully");
-          }
+            alert("Employee Added Successfully");
+            location.href = "/Employee/EmployeeList";
+        } else {
+            alert('Failed to save employee details: ' + data.errorMessage);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Something went wrong while saving employee details.");
+    });
+
         // (function () {
         //     'use strict';
         //     const forms = document.querySelectorAll('.needs-validation');

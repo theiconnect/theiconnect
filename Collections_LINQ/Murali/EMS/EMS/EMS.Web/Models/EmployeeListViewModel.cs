@@ -43,8 +43,8 @@ namespace EMS.Web.Models
         public int DepartmentIdFk { get; set; } //Current department
         //1e=> 1dept+history dept
         //1d=> m employees
-        public DateTime DateOfBirth { get; set; }
-        public DateTime DateOfJoining { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateOfJoining { get; set; }
         public int ExpInMonths { get; set; } = 0;//default value will be zero
         public int? QualificationIdFk { get; set; }
         public DesiginationTypes DesignationIdFk { get; set; }
