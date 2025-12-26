@@ -69,8 +69,8 @@ namespace EMS.Web.Controllers
                 EmpModel.Gender = model.Gender;
                 EmpModel.MobileNumber = model.MobileNumber;
                 EmpModel.AlternateMobileNumber = model.AlternateMobileNumber;
-                EmpModel.DateOfBirth = (DateTime) model.DateOfBirth;
-                EmpModel.DateOfJoining = (DateTime) model.DateOfJoining;
+                EmpModel.DateOfBirth = model.DateOfBirth;
+                EmpModel.DateOfJoining = model.DateOfJoining;
                 EmpModel.EmailId = model.EmailId;
                 EmpModel.ExpInMonths = model.ExpInMonths;
                 EmpModel.IsActive = model.IsActive;

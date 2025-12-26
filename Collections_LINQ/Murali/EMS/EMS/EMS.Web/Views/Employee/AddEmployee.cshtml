@@ -233,7 +233,7 @@
                     <div class="col-3"></div>
                     <div class="col-9">
                         <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                        <button type="button" class="btn btn-primary" onclick="debugger; SaveEmployees()">Save Employee</button>
+                        <button type="button" class="btn btn-primary" id="btnSave">Save</button>
                         <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
                     </div>
                
@@ -243,11 +243,12 @@
     </div>
 </div>
 
-      <script>
-          debugger;
+      <script type="text/javascript">
+          
+          document.getElementById("btnSave").addEventListener("click", SaveEmployees);
         function SaveEmployees(){
         let firstName = document.getElementById('FirstName').value;
-    let LastName = document.getElementById('LastName').value;
+        let LastName = document.getElementById('LastName').value;
         let middleName = document.getElementById('MiddleName').value;
         let gender = document.getElementById('Gender').value;
         let BloodGroup = document.getElementById('BloodGroup').value;
@@ -291,9 +292,20 @@
             DesignationIdFk: DesignationIdFk,
             SalaryCtc: SalaryCtc,
             IsActive: IsActive,
-            Addresses :{
-
-            }
+            Addresses:[
+               {
+                   AddressLine1: pAddressLine1.value,
+                   State:pState.value,
+                     City:pCity.value,
+                     PinCode:pPinCode.value
+               },
+               {
+                   AddressLine1: tAddressLine1.value,
+                     State:tState.value,
+                        City:tCity.value,
+                        PinCode:tPinCode.value
+               },
+           ]
             
         };
         debugger;
@@ -304,8 +316,7 @@
         },
         body: JSON.stringify(empObj)
     })
-    .then(response => response.json();
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.isSuccess) {
             debugger;
@@ -319,6 +330,7 @@
         console.error('Error:', error);
         alert("Something went wrong while saving employee details.");
     });
+    }
 
         // (function () {
         //     'use strict';
@@ -337,4 +349,3 @@
             location.href="/Employee/EmployeeList";
         }
     </script>
-}
