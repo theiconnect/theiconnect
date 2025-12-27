@@ -11,7 +11,7 @@ namespace EMS.IServices
     public  interface IEmployeeService
     {
         List<EmployeeModel> GetAllEmployees();
-        List<EmployeeAddressViewModel> GetAllEmployeeAddresses();
+        List<EmployeeAddressModel> GetAllEmployeeAddresses();
 
         bool SaveEmployeedetails(EmployeeModel inputEmployee, bool isNewEmployee, out string responseMessage);
         //bool SaveEmployeedetails(EMS.Web.Models.EmployeeListViewModel empModel, bool v, out string responseMessage);

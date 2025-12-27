@@ -82,11 +82,11 @@ namespace EMS.DataAccess
             }
         }
 
-        public List<EmployeeAddressViewModel> EmployeeAddresses
+        public List<EmployeeAddressModel> EmployeeAddresses
         {
             get
             {
-                var addresses = new List<EmployeeAddressViewModel>();
+                var addresses = new List<EmployeeAddressModel>();
                 foreach (var d in Company.Departments)
                 {
                     foreach (var e in d.Employees)
@@ -479,16 +479,16 @@ namespace EMS.DataAccess
             return employees;
         }
 
-        private List<EmployeeAddressViewModel> CreateEmployeeSampleAddresses(int employeeId)
+        private List<EmployeeAddressModel> CreateEmployeeSampleAddresses(int employeeId)
         {
             var random = new Random();
             var cities = new[] { "New York", "Los Angeles", "Chicago", "Houston", "Phoenix" };
             var states = new[] { "NY", "CA", "IL", "TX", "AZ" };
             var streets = new[] { "Main St", "Broadway", "1st Ave", "2nd Ave", "Park Ave" };
 
-            return new List<EmployeeAddressViewModel>
+            return new List<EmployeeAddressModel>
             {
-                new EmployeeAddressViewModel
+                new EmployeeAddressModel
                 {
                     EmployeeAddressModelIdPk = employeeId * 10 + 1,
                     EmployeeIdFk = employeeId,
@@ -500,7 +500,7 @@ namespace EMS.DataAccess
                     AddressTypeIdFk = AddressTypes.PRESENT_ADDR,
                     isActive = true
                 },
-                new EmployeeAddressViewModel
+                new EmployeeAddressModel
                 {
                     EmployeeAddressModelIdPk = employeeId * 10 + 2,
                     EmployeeIdFk = employeeId,
@@ -512,7 +512,7 @@ namespace EMS.DataAccess
                     AddressTypeIdFk = AddressTypes.PERM_ADDR,
                     isActive = true
                 },
-                new EmployeeAddressViewModel
+                new EmployeeAddressModel
                 {
                     EmployeeAddressModelIdPk = employeeId * 10 + 3,
                     EmployeeIdFk = employeeId,

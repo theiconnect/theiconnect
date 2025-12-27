@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace EMS.Models
 {
-    public  class EmployeeAddressViewModel
+    public  class EmployeeAddressModel
     {
-        public EmployeeAddressViewModel() { }
+        public EmployeeAddressModel() { }
 
-        public EmployeeAddressViewModel(int employeeAddressModelIdPk,string addressLine1, string addressLine2, string state, string city, string pincode, AddressTypes addressTypeId, bool _isActive)
+        public EmployeeAddressModel(int employeeAddressModelIdPk,string addressLine1, string addressLine2, string state, string city, string pincode, AddressTypes addressTypeId, bool _isActive)
         {
             EmployeeAddressModelIdPk = employeeAddressModelIdPk;
             AddressLine1 = addressLine1;

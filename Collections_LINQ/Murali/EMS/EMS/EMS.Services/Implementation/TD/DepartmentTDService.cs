@@ -22,6 +22,15 @@ namespace EMS.Services.Implementation.TD
             return departments;
         }
 
+        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        {
+            List<DepartmentModel> departments = dbContext.Departments
+                .Where(d => string.IsNullOrEmpty(deptName) || d.DepartmentName.ToLower().Contains(deptName.ToLower()))
+                .Where(d => string.IsNullOrEmpty(deptLocation) || d.Location.ToLower().Contains(deptLocation.ToLower()))
+                .ToList();
+            return departments;
+        }
+
         public DepartmentModel GetDepartmentById(int departmentId)
         {
             DepartmentModel department = dbContext.Departments.Where(a => a.DepartmentIdPk == departmentId).FirstOrDefault();
@@ -62,34 +71,6 @@ namespace EMS.Services.Implementation.TD
                 responseMessage = ex.Message;
                 return false;
             }
-        }
-
-        public bool EditDepartmentSave(DepartmentModel departmentModel, out string responseMessage)
-        {
-            responseMessage = "Success";
-            try
-            {
-                var existingDepartment = dbContext.Departments.FirstOrDefault(d => d.DepartmentIdPk == departmentModel.DepartmentIdPk);
-                if (existingDepartment != null)
-                {
-                    existingDepartment.DepartmentCode = departmentModel.DepartmentCode;
-                    existingDepartment.DepartmentName = departmentModel.DepartmentName;
-                    existingDepartment.Location = departmentModel.Location;
-                    existingDepartment.IsActive = departmentModel.IsActive;
-                }
-                else
-                {
-                    responseMessage = "Department not found";
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                responseMessage = ex.Message;
-                return false;
-            }
-            return true;
-
         }
 
         public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)

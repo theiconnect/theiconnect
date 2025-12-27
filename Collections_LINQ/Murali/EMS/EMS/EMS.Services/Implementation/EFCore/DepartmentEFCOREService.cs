@@ -23,6 +23,11 @@ namespace EMS.Services.Implementation.EFCore
             return departments;
         }
 
+        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
         {
             responseMessage = "Success";
@@ -59,40 +64,6 @@ namespace EMS.Services.Implementation.EFCore
         public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
         {
             throw new NotImplementedException();
-        }
-        public bool EditDepartmentSave(DepartmentModel departmentModel, out string responseMessage)
-        {
-            responseMessage = "Success";
-            try
-            {
-                if (departmentModel == null)
-                {
-                    responseMessage = "Invalid department data";
-                    return false;
-                }
-                else
-                {
-                    var existingDepartment = dbContext.Departments.FirstOrDefault(d => d.DepartmentIdPk == departmentModel.DepartmentIdPk);
-                    if (existingDepartment != null)
-                    {
-                        existingDepartment.DepartmentCode = departmentModel.DepartmentCode;
-                        existingDepartment.DepartmentName = departmentModel.DepartmentName;
-                        existingDepartment.Location = departmentModel.Location;
-                        existingDepartment.IsActive = departmentModel.IsActive;
-                    }
-                    else
-                    {
-                        responseMessage = "Department not found";
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                responseMessage = ex.Message;
-                return false;
-            }
-            return true;
         }
 
         public DepartmentModel GetDepartmentById(int departmentId)

@@ -27,9 +27,9 @@ namespace EMS.Services.Implementation.TD
 
             return employees;
         }
-        public List<EmployeeAddressViewModel> GetAllEmployeeAddresses()
+        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
         {
-            List<EmployeeAddressViewModel> addresses = dbContext.EmployeeAddresses;
+            List<EmployeeAddressModel> addresses = dbContext.EmployeeAddresses;
 
             return addresses;
         }

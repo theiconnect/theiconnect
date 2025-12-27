@@ -27,7 +27,7 @@ namespace EMS.Web.Controllers
             var departmentFromDb = departmentService.GetAllDepartments();
 
             var ViewModel = new List<DepartmentViewModel>();
-            foreach(var model in departmentFromDb)
+            foreach (var model in departmentFromDb)
             {
                 var obj = new DepartmentViewModel();
                 obj.DepartmentId = model.DepartmentIdPk;
@@ -37,36 +37,15 @@ namespace EMS.Web.Controllers
                 ViewModel.Add(obj);
             }
             return View(ViewModel);
-
-
-            
         }
-
-
-
-
-
-
 
         [Route("search")]
         [HttpGet]
         public IActionResult Searching(string searchName, string searchLocation)
         {
-            List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments();
-            var filteredDepartments = departmentsFromDB;
-           
-
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                filteredDepartments = filteredDepartments
-                    .Where(d => d.DepartmentName != null && d.DepartmentName.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-            if (!string.IsNullOrEmpty(searchLocation))
-            {
-                filteredDepartments = filteredDepartments
-                    .Where(d => d.Location != null && d.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-         var viewModel = filteredDepartments.Select(d => new DepartmentViewModel
+            List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments(searchName, searchLocation);
+            
+            var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel
             {
                 DepartmentId = d.DepartmentIdPk,
                 Code = d.DepartmentCode,
@@ -74,8 +53,6 @@ namespace EMS.Web.Controllers
                 Location = d.Location,
                 IsActive = d.IsActive
             }).ToList();
-
-
 
             return View("List", viewModel);
         }
@@ -136,7 +113,7 @@ namespace EMS.Web.Controllers
 
         [Route("UpdatesaveDepartment")]
         [HttpPost]
-        public IActionResult UpdatesaveDepartment([FromBody]DepartmentViewModel updateModel)
+        public IActionResult UpdatesaveDepartment([FromBody] DepartmentViewModel updateModel)
         {
 
             DepartmentModel departmentModel = new DepartmentModel
@@ -147,11 +124,9 @@ namespace EMS.Web.Controllers
                 Location = updateModel.Location,
                 IsActive = updateModel.IsActive
             };
-            bool IsSuccess = departmentService.EditDepartmentSave(departmentModel, out string responseMessage);
+            bool IsSuccess = departmentService.SaveDepartment(departmentModel, false, out string responseMessage);
 
             return Json(new { IsSuccess = IsSuccess, errorMessage = responseMessage });
-
-
         }
 
 
