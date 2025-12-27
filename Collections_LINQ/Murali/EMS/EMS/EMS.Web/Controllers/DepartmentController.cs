@@ -90,7 +90,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult EditDepartment(int id)
         {
-            var deptDB = departmentService.GetAllDepartments().FirstOrDefault(d => d.DepartmentIdPk == id);
+            var deptDB = departmentService.GetDepartmentById(id);
 
             var model = new DepartmentViewModel(
                     deptDB.DepartmentIdPk,

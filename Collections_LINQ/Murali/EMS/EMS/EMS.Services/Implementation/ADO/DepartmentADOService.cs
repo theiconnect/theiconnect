@@ -60,6 +60,11 @@ namespace EMS.Services.Implementation.ADO
         {
             throw new NotImplementedException();
         }
+
+        public DepartmentModel GetDepartmentById(int departmentId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

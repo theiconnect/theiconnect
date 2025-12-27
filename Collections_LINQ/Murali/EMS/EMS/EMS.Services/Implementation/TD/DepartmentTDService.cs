@@ -22,6 +22,12 @@ namespace EMS.Services.Implementation.TD
             return departments;
         }
 
+        public DepartmentModel GetDepartmentById(int departmentId)
+        {
+            DepartmentModel department = dbContext.Departments.Where(a => a.DepartmentIdPk == departmentId).FirstOrDefault();
+            return department;
+        }
+
         public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
         {
             responseMessage = "Success";
