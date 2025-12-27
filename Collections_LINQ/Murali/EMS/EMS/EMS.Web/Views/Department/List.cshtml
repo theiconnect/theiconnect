@@ -16,25 +16,25 @@
 	<div class="card">
 		<div class="card-body">
 			<!-- Search row -->
+			<form asp-action="Searching" asp-controller="Department" method="get">
 			<div class="row g-3 align-items-end">
 				<div class="col-md-5">
 					<label for="searchName" class="form-label">Name</label>
-					<input id="searchName" type="text" class="form-control" placeholder="Search by department name">
+					<input id="searchName" name=" searchName " type="text" class="form-control" placeholder="Search by department name">
 				</div>
 				<div class="col-md-5">
 					<label for="searchLocation" class="form-label">Location</label>
-					<input id="searchLocation" type="text" class="form-control" placeholder="Search by location">
+					<input id="searchLocation" name="searchLocation" type="text" class="form-control" placeholder="Search by location">
 				</div>
 
 				<div class="col-md-2 d-flex gap-2">
 					<form>
-						<input type="submit" class="btn btn-success" value="reloadpage" />
-						<button id="btnSearch" class="btn btn-primary">Search</button>
-						<button id="btnClear" class="btn btn-outline-secondary">Clear</button>
+						<button id="btnSearch" class="btn btn-primary" type="submit">Search</button>
+						
 					</form>
 				</div>
 			</div>
-
+			</form>
 			<div class="mt-3">
 				<button id="btnAddDept" class="btn btn-success" onclick="goToAdd()">Add Department</button>
 			</div>

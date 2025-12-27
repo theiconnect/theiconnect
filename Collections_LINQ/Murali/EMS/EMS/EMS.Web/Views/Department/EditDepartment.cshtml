@@ -9,7 +9,7 @@
 <div class="container">
 	<h2>Edit Department</h2>
 	<hr />
-	<form asp-action="savedepartment" asp-controller="department">
+	<form method="post">
 		<div class="row">
 			<div class="form-group col-5">
 				<label class="control-label fw-bold">Department Code:</label>
@@ -38,8 +38,49 @@
 			<div class="col-4">
 				@Html.HiddenFor(m => m.DepartmentId)
 				<a class="btn btn-secondary" asp-action="list" asp-controller="department">Go Back</a>
-				<input type="submit" class="btn btn-primary" value="Submit" />
+				<input type="button" class="btn btn-primary" value="Submit" onclick="goToAdd()" />
 			</div>
 		</div>
 	</form>
 </div>
+
+<script>
+	function goToAdd() {
+		let departmentId = @Model.DepartmentId;  
+		let deptcode = document.getElementById('Code').value;
+		let deptname = document.getElementById('DeptName').value;
+		let deptLocation = document.getElementById('Location').value;
+		let isActive = document.getElementById('IsActive').checked;
+
+		let deptObj = {
+			DepartmentId:departmentId,
+			Code: deptcode,
+			DeptName: deptname,
+			Location: deptLocation,
+			IsActive: isActive
+		};
+		debugger;
+		fetch('/department/UpdatesaveDepartment?DepartmentId=' + departmentId, {
+
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(deptObj)
+		})
+		.then(response => response.json())
+		.then(data => {
+		    debugger;
+			let saveResult = data;
+			if (saveResult.isSuccess) {
+				alert('Department details saved successfully');
+				location.href = '/department/list';
+			} else {
+				alert(saveResult.errorMessage);
+			}
+        })
+
+		
+	}
+
+</script>
