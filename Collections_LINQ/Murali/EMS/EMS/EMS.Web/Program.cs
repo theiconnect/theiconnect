@@ -47,11 +47,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Demo}/{action=CascadingDropdowns}/{id?}");
 
-//app.MapControllerRoute(
-//    name: "default1",
-//    pattern: "iconnect/{action}/{controller}/abc");
+WebApplication app1 = app;
 
-app.Run();
+app1.Run();
 
 //locahsot:2323/ Company/a1
 //CompanyController

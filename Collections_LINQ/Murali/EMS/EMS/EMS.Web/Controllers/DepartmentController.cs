@@ -140,8 +140,6 @@ namespace EMS.Web.Controllers
         {
             bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: false, out string responseMessage);
 
-            //return Json(isSuccess, responseMessage);
-
             return Json(new { Success = isSuccess, Message = responseMessage });
         }
 

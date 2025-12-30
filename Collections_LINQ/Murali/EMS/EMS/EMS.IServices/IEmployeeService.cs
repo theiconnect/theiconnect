@@ -7,12 +7,15 @@ using EMS.Models;
 
 namespace EMS.IServices
 {
-    public  interface IEmployeeService
+    public interface IEmployeeService 
     {
         List<EmployeeModel> GetAllEmployees();
-
+        bool ActivateDeactivateEmployee(int EmployeeId, bool isDeactivate, out string responseMessage);
     }
 
+         
 }
+
+
     
 

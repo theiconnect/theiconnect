@@ -75,7 +75,7 @@
 										<a title="click on this link to view details of @dept.DeptName department"
 										   asp-route-id="@dept.DepartmentId"
 										   asp-controller="Department"
-										   asp-action="ViewDepartment"> @dept.Code </a>
+										   asp-action="ViewDepartment"> @dept.Code </a> 
 									</td>
 									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'> @dept.DeptName </td >
 									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@(string.IsNullOrEmpty(dept.Location) ? "NA" : dept.Location) </td>
@@ -127,12 +127,12 @@
 		}
 
 		/*function goToEdit(id){
-			location.href=  '@Url.Action("EditDepartment", "Department")' + '/'+ id;
-		}
+			location.href=  '@Url.Action("EditDepartment", "Department")' + '/'+ id; 
+		} 
 
 		function goToView(id){
 			location.href=  '@Url.Action("ViewDepartment", "Department")' + '/'+ id;
-		}*/
+		} */ 
 
 		//Calling Delete endpoint using AJAX
 		//AJAX - posting the data to the server with out refreshing the page content.
@@ -179,17 +179,18 @@
 
 
 					return;
+		
 	///////////////////////OLD code//////////////////////
 
-			fetch('@Url.Action("delete", "Department")/' +id)
+			 fetch('@Url.Action("delete", "Department")/' +id)
 					.then(response =>{
 						debugger;
 						console.log(response)
-						return response.json()
+					return response.json()
 					})
 					.then(data =>{
 						debugger;
-
+			
 						if(data.success){
 							location.href='';
 							//success
@@ -207,6 +208,7 @@
 		///////////////////////OLD code//////////////////////
 
 
+
 		}
 
 		function activateDepartment(id, departmentName){
@@ -221,7 +223,7 @@
 						return response.json()
 					})
 					.then(data =>{
-						debugger;
+					debugger;
 
 						if(data.success){
 							location.href='';
@@ -231,7 +233,7 @@
 							//failed
 						}
 
-						console.log(data)
+					console.log(data)
 					})
 					.catch(error =>{
 						debugger;
@@ -241,6 +243,7 @@
 		}
 
 
-		 let table = new DataTable('#deptTable');
+	 let table = new DataTable('#deptTable');
+	
 
-</script>
+</script> 

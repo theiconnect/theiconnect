@@ -15,13 +15,47 @@ namespace EMS.Services.Implementation.TD
         public EmployeeTDServices()
         {
             dbContext = EMSDbContext.GetInstance();
-        }   
+        }
 
         public List<EmployeeModel> GetAllEmployees()
         {
             List<EmployeeModel> employees = dbContext.Employees;
             return employees;
         }
+        public bool ActivateDeactivateEmployee(int EmployeeId, bool isDeactivate, out string responseMessage)
+        {
+            responseMessage = "Success";
+            var employee = dbContext.Employees.FirstOrDefault(d => d.EmployeeIdPk == EmployeeId);
+
+            if (employee != null)
+            {
+                //    employee.IsActive = !isDeactivate;
+                //    return true;
+                //}
+                //else
+                //{
+                //    responseMessage = "Employee not found";
+                //    return false;
+
+                //}
+                if (isDeactivate)
+                {
+                    employee.IsActive = false; 
+                }
+                else
+                {
+                    employee.IsActive = true;
+                }
+                return true;
+            }
+             responseMessage = "Employee not found";
+                return false; 
+        }
+       
+
 
     }
 }
+
+
+
