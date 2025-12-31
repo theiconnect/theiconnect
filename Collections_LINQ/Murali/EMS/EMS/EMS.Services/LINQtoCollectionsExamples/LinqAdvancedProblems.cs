@@ -22,7 +22,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
 
         //where(e=> e.EmployeeId ==0)//Anonymous function
         // 1. Get all employees with the maximum salary in the company as List
-        public static List<EmployeeModel> GetEmployeesWithMaxSalary()
+        public static List<EmployeeViewModel> GetEmployeesWithMaxSalary()
         {
             var db = EMSDbContext.GetInstance();
             var maxEmpId = db.Employees.Max(e => e.EmployeeIdPk);
@@ -40,18 +40,18 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 3. Get all employees who have changed departments (by checking if they have designations in multiple departments)
-        public static List<EmployeeModel> GetEmployeesWithDepartmentChanges()
+        public static List<EmployeeViewModel> GetEmployeesWithDepartmentChanges()
         {
             var db = EMSDbContext.GetInstance();
             // This assumes EmployeeDesignationModel has DepartmentIdFk (not in your model, so this is a logical placeholder)
             // return db.Employees.Where(e => e.Designations.Select(d => d.DepartmentIdFk).Distinct().Count() > 1).ToList();
             // Not allowed: EmployeeDesignationModel does not have DepartmentIdFk
             // Instead, we can check if an employee's DepartmentIdFk ever changed (not possible with current model)
-            return new List<EmployeeModel>(); // Placeholder
+            return new List<EmployeeViewModel>(); // Placeholder
         }
 
         // 4. Get all employees with at least one inactive address as List
-        public static List<EmployeeModel> GetEmployeesWithInactiveAddress()
+        public static List<EmployeeViewModel> GetEmployeesWithInactiveAddress()
         {
             //EMSDbContext.GetInstance()
             //    .Company
@@ -71,7 +71,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 6. Get all employees who have never been a TeamLead as List
-        public static List<EmployeeModel> GetEmployeesNeverTeamLead()
+        public static List<EmployeeViewModel> GetEmployeesNeverTeamLead()
         {
 
             var db = EMSDbContext.GetInstance();
@@ -79,7 +79,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 7. Get all employees with at least one address in both "NY" and "CA" states as List
-        public static List<EmployeeModel> GetEmployeesWithAddressesInNYAndCA()
+        public static List<EmployeeViewModel> GetEmployeesWithAddressesInNYAndCA()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e =>
@@ -90,14 +90,14 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 8. Get all employees with the same first and last name as IEnumerable
-        public static IEnumerable<EmployeeModel> GetEmployeesWithSameFirstAndLastName()
+        public static IEnumerable<EmployeeViewModel> GetEmployeesWithSameFirstAndLastName()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.FirstName == e.LastName);
         }
 
         // 9. Get all employees who have ever had more than one designation at the same time (overlapping periods)
-        public static List<EmployeeModel> GetEmployeesWithOverlappingDesignations()
+        public static List<EmployeeViewModel> GetEmployeesWithOverlappingDesignations()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e =>
@@ -112,14 +112,14 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 10. Get all employees who have never had a permanent address as List
-        public static List<EmployeeModel> GetEmployeesWithoutPermanentAddress()
-        {
-            var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => !e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)).ToList();
-        }
+        //public static List<EmployeeViewModel> GetEmployeesWithoutPermanentAddress()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Employees.Where(static e => !e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)).ToList();
+        //}
 
         // 11. Get all employees as IQueryable and try to use EF navigation property (NOT allowed)
-        public static IQueryable<EmployeeModel> GetEmployeesAsQueryableWithNavigation()
+        public static IQueryable<EmployeeViewModel> GetEmployeesAsQueryableWithNavigation()
         {
             var db = EMSDbContext.GetInstance();
             // db.Employees.AsQueryable().Include(e => e.Department); // Not allowed: 'IQueryable<EmployeeModel>' does not contain a definition for 'Include'
@@ -127,7 +127,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 12. Get all employees with the most recent joining date as List
-        public static List<EmployeeModel> GetEmployeesWithMostRecentJoiningDate()
+        public static List<EmployeeViewModel> GetEmployeesWithMostRecentJoiningDate()
         {
             var db = EMSDbContext.GetInstance();
 
@@ -139,21 +139,21 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 13. Get all employees who have worked in more than one department (NOT possible with current model)
-        public static List<EmployeeModel> GetEmployeesWorkedInMultipleDepartments()
+        public static List<EmployeeViewModel> GetEmployeesWorkedInMultipleDepartments()
         {
             // Not possible: EmployeeModel only has one DepartmentIdFk and no department history
-            return new List<EmployeeModel>();
+            return new List<EmployeeViewModel>();
         }
 
         // 14. Get all employees with at least one address in a city that starts with "New" as List
-        public static List<EmployeeModel> GetEmployeesWithAddressInCityStartingWithNew()
+        public static List<EmployeeViewModel> GetEmployeesWithAddressInCityStartingWithNew()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.Addresses.Any(a => a.City.StartsWith("New", StringComparison.OrdinalIgnoreCase))).ToList();
         }
 
         // 15. Get all employees with at least one inactive designation (has EndDate set) as List
-        public static List<EmployeeModel> GetEmployeesWithInactiveDesignation()
+        public static List<EmployeeViewModel> GetEmployeesWithInactiveDesignation()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.Designations.Any(d => d.EndDate.HasValue)).ToList();
@@ -163,11 +163,11 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static void TryRemoveWhereOnICollection()
         {
             var db = EMSDbContext.GetInstance();
-            IEnumerable<EmployeeModel> employeesIEnumerable = db.Employees.ToList();
-            ICollection<EmployeeModel> employeesICollection = db.Employees.ToList();
-            List<EmployeeModel> employeesList = db.Employees.ToList();
+            IEnumerable<EmployeeViewModel> employeesIEnumerable = db.Employees.ToList();
+            ICollection<EmployeeViewModel> employeesICollection = db.Employees.ToList();
+            List<EmployeeViewModel> employeesList = db.Employees.ToList();
 
-            employeesList.Add(new EmployeeModel());//possible
+            employeesList.Add(new EmployeeViewModel());//possible
             employeesList.Remove(db.Employees.First());//possible
 
             //employeesIEnumerable.Add(new EmployeeModel());//not possible
@@ -179,7 +179,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 17. Get all employees as HashSet and use RemoveWhere (allowed)
-        public static HashSet<EmployeeModel> GetEmployeesAsHashSetAndRemoveInactive()
+        public static HashSet<EmployeeViewModel> GetEmployeesAsHashSetAndRemoveInactive()
         {
             var db = EMSDbContext.GetInstance();
             var set = db.Employees.ToHashSet();
@@ -188,7 +188,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 18. Get all employees with at least one address in a city that contains a space as List
-        public static List<EmployeeModel> GetEmployeesWithAddressInCityWithSpace()
+        public static List<EmployeeViewModel> GetEmployeesWithAddressInCityWithSpace()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.Addresses.Any(a => a.City.Contains(" "))).ToList();
@@ -204,7 +204,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         // }
 
         // 20. Get all employees with at least one address in each state present in the company as List
-        public static List<EmployeeModel> GetEmployeesWithAddressInAllStates()
+        public static List<EmployeeViewModel> GetEmployeesWithAddressInAllStates()
         {
             var db = EMSDbContext.GetInstance();
             // Get all distinct states from company addresses

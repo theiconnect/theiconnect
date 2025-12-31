@@ -12,8 +12,12 @@ namespace EMS.IServices
     {
         List<EmployeeModel> GetAllEmployees();
         List<EmployeeAddressModel> GetAllEmployeeAddresses();
+        EmployeeModel GetEmployeeByID(int empId);
 
-        bool SaveEmployeedetails(EmployeeModel inputEmployee, bool isNewEmployee, out string responseMessage);
+
+        //List<EmployeeAddressModel> GetAllEmployeeAddresses();
+
+        //bool SaveEmployeedetails(EmployeeViewModel inputEmployee, bool isNewEmployee, out string responseMessage);
         //bool SaveEmployeedetails(EMS.Web.Models.EmployeeListViewModel empModel, bool v, out string responseMessage);
         bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage);
         bool ActivateDeactivatEmployee(object id, bool isDeactivate, out string responseMessage);

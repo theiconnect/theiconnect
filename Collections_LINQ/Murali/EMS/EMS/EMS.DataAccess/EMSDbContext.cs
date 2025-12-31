@@ -71,11 +71,11 @@ namespace EMS.DataAccess
             }
         }
 
-        public List<EmployeeModel> Employees
+        public List<EmployeeViewModel> Employees
         {
             get
             {
-                var employees = new List<EmployeeModel>();
+                var employees = new List<EmployeeViewModel>();
                 foreach (var d in Company.Departments)
                 {
                     employees.AddRange(d.Employees);
@@ -242,18 +242,18 @@ namespace EMS.DataAccess
             };
         }
 
-        private List<EmployeeModel> CreateSampleEmployeeData(int DepartmentId)
+        private List<EmployeeViewModel> CreateSampleEmployeeData(int DepartmentId)
         {
             //Similar to the employee addresses now we have to load sample designations for each employee.
             //an employee can have multiple designations but only one active designation at a time. which means enddate will be null for active designation.
             //at the same time the previous designations will have enddate filled.
             //the active designation id of EmployeeDesignationModel will be mapped to DesignationIdFk of EmployeeModel
-            var employees = new List<EmployeeModel>();
+            var employees = new List<EmployeeViewModel>();
 
             switch (DepartmentId)
             {
                 case 1: // HR Department  
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 1,
                         Employeecode = "HR001",
@@ -274,7 +274,7 @@ namespace EMS.DataAccess
                         Designations = CreateSampleDesignations(1)
 
                     });
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 2,
                         Employeecode = "HR002",
@@ -293,7 +293,7 @@ namespace EMS.DataAccess
                         Addresses = CreateEmployeeSampleAddresses(2),
                         Designations = CreateSampleDesignations(2)
                     });
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 3,
                         Employeecode = "HR003",
@@ -314,7 +314,7 @@ namespace EMS.DataAccess
                     break;
 
                 case 2: // Development Department  
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 4,
                         Employeecode = "DEV001",
@@ -333,7 +333,7 @@ namespace EMS.DataAccess
                         Addresses = CreateEmployeeSampleAddresses(4),
                         Designations = CreateSampleDesignations(4)
                     });
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 5,
                         Employeecode = "DEV002",
@@ -355,7 +355,7 @@ namespace EMS.DataAccess
                     break;
 
                 case 3: // Marketing Department  
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 6,
                         Employeecode = "MKT001",
@@ -374,7 +374,7 @@ namespace EMS.DataAccess
                         Addresses = CreateEmployeeSampleAddresses(6),
                         Designations = CreateSampleDesignations(6)
                     });
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 7,
                         Employeecode = "MKT002",
@@ -396,7 +396,7 @@ namespace EMS.DataAccess
                     break;
 
                 case 4: // Finance Department  
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 8,
                         Employeecode = "FIN001",
@@ -415,7 +415,7 @@ namespace EMS.DataAccess
                         Addresses = CreateEmployeeSampleAddresses(8),
                         Designations = CreateSampleDesignations(8)
                     });
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 9,
                         Employeecode = "FIN002",
@@ -437,7 +437,7 @@ namespace EMS.DataAccess
                     break;
 
                 case 5: // Operations Department  
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 10,
                         Employeecode = "OPS001",
@@ -456,7 +456,7 @@ namespace EMS.DataAccess
                         Addresses = CreateEmployeeSampleAddresses(10),
                         Designations = CreateSampleDesignations(10)
                     });
-                    employees.Add(new EmployeeModel
+                    employees.Add(new EmployeeViewModel
                     {
                         EmployeeIdPk = 11,
                         Employeecode = "OPS002",
@@ -499,7 +499,7 @@ namespace EMS.DataAccess
                     City = cities[random.Next(cities.Length)],
                     State = states[random.Next(states.Length)],
                     Pincode = $"{random.Next(10000, 99999)}",
-                    AddressTypeIdFk = AddressTypes.PRESENT_ADDR,
+                    AddressTypeIdFk = (int)AddressTypes.PRESENT_ADDR,
                     isActive = true
                 },
                 new EmployeeAddressModel
@@ -511,7 +511,7 @@ namespace EMS.DataAccess
                     City = cities[random.Next(cities.Length)],
                     State = states[random.Next(states.Length)],
                     Pincode = $"{random.Next(10000, 99999)}",
-                    AddressTypeIdFk = AddressTypes.PERM_ADDR,
+                    AddressTypeIdFk = (int)AddressTypes.PERM_ADDR,
                     isActive = true
                 },
                 new EmployeeAddressModel
@@ -523,7 +523,7 @@ namespace EMS.DataAccess
                     City = cities[random.Next(cities.Length)],
                     State = states[random.Next(states.Length)],
                     Pincode = $"{random.Next(10000, 99999)}",
-                    AddressTypeIdFk = AddressTypes.PRESENT_ADDR,
+                    AddressTypeIdFk = (int)AddressTypes.PRESENT_ADDR,
                     isActive = false
                 }
             };

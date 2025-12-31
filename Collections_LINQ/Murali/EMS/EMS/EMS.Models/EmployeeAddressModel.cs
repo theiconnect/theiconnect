@@ -11,6 +11,7 @@ namespace EMS.Models
     {
         public EmployeeAddressModel() { }
 
+        public EmployeeAddressModel(int employeeAddressModelIdPk,string addressLine1, string addressLine2, string state, string city, string pincode, int addressTypeId, bool _isActive ,int _EmployeeIdFk )
         public EmployeeAddressModel(int employeeAddressModelIdPk,string addressLine1, string addressLine2, string state, string city, string pincode, AddressTypes addressTypeId, bool _isActive)
         {
             EmployeeAddressModelIdPk = employeeAddressModelIdPk;
@@ -20,6 +21,7 @@ namespace EMS.Models
             City = city;
             Pincode = pincode;
             AddressTypeId = addressTypeId;
+            EmployeeIdFk = _EmployeeIdFk;
             isActive = _isActive;
         }
 
@@ -29,10 +31,13 @@ namespace EMS.Models
         public string State { get; set; }
         public string City { get; set; }
         public string Pincode { get; set; }
-        public AddressTypes AddressTypeId { get; set; }
+
         //public int EmployeeIdFk { get; set; }
         public bool isActive { get; set; } = true;
-        public int EmployeeIdFk { get; set; }
-        public AddressTypes AddressTypeIdFk { get; set; }
+        public int EmployeeIdFk { get; set; } 
+        public int AddressTypeId { get; set; }   // 1 = Permanent, 2 = Present
+        //public string AddressTypeText { get; set; }
+        //public int AddressTypeIdFk { get; set; }
+       
     }
 }

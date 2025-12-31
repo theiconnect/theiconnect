@@ -21,20 +21,19 @@ namespace EMS.Services.Implementation.TD
             dbContext = EMSDbContext.GetInstance();
         }
 
+        //public List<EmployeeAddressModel> GetAllEmployeeAddresses()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         public List<EmployeeModel> GetAllEmployees()
         {
             List<EmployeeModel> employees = dbContext.Employees;
 
             return employees;
         }
-        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
-        {
-            List<EmployeeAddressModel> addresses = dbContext.EmployeeAddresses;
 
-            return addresses;
-        }
-
-        public bool SaveEmployeedetails(EmployeeModel inputEmployee, bool isNewEmployee, out string responseMessage)
+        public EmployeeModel GetEmployeeByID(int empId)
         {
             responseMessage = "Success";
             try
@@ -106,6 +105,15 @@ namespace EMS.Services.Implementation.TD
                 }
                 return true;
             }
+            return dbContext.Employees.FirstOrDefault(e => e.EmployeeIdPk == empId);
+        }
+
+
+
+
+        //public List<EmployeeAddressViewModel> GetAllEmployeeAddresses()
+        //{
+        //    List<EmployeeAddressViewModel> addresses = dbContext.EmployeeAddresses;
 
             responseMessage = "Employee not found";
             return false;
@@ -118,6 +126,8 @@ namespace EMS.Services.Implementation.TD
                 return 1;
             return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
         }
+        //    return addresses;
+    }
 
         public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
         {
@@ -129,4 +139,3 @@ namespace EMS.Services.Implementation.TD
             throw new NotImplementedException();
         }
     }
-}
