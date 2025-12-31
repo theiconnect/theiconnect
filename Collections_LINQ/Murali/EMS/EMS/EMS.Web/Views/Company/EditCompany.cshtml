@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="info@innovatech.com">
+                            <input type="email" class="form-control" id="email" value="@Model.Email"readonly>
                         </div>
                     </div>
 
@@ -52,11 +52,11 @@
                         </div>
                         <div class="col-md-4">
                             <label for="tin" class="form-label">TIN</label>
-                            <input type="text" class="form-control" id="tin" value="T1234567890">
+                            <input type="text" class="form-control" id="tin" value="@Model.TIN"readonly>
                         </div>
                         <div class="col-md-4">
                             <label for="pan" class="form-label">PAN</label>
-                            <input type="text" class="form-control" id="pan" value="PABCDE1234F">
+                            <input type="text" class="form-control" id="pan" value="@Model.PAN"readonly>
                         </div>
                     </div>
                 </form>
@@ -92,50 +92,25 @@
                         <td data-field="pin">902100</td>
                         <td>
                             <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#editAddressModal"
-                                                      data-id="1"
-                                                      data-type="Corporate"
-                                                      data-line1="101 Tech Park Avenue"
-                                                      data-city="Metroville"
-                                                      data-state="CA"
-                                                      data-pin="902100">
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editAddressModal"
+                                    data-id="1"
+                                    data-type="Corporate"
+                                    data-line1="101 Tech Park Avenue"
+                                    data-city="Metroville"
+                                    data-state="CA"
+                                    data-pin="902100">
                                 <i class="fas fa-pen"></i> Edit
                             </button>
                             <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#deleteAddressModal"
-                                                      data-id="1">
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteAddressModal"
+                                    data-id="1">
                                 <i class="fas fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>
-                    <tr id="address-2">
-                        <td data-field="type">Branch</td>
-                        <td data-field="line1">202 Industrial Drive</td>
-                        <td data-field="city">Port City</td>
-                        <td data-field="state">TX</td>
-                        <td data-field="pin">770012</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#editAddressModal"
-                                                      data-id="2"
-                                                      data-type="Branch"
-                                                      data-line1="202 Industrial Drive"
-                                                      data-city="Port City"
-                                                      data-state="TX"
-                                                      data-pin="770012">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                                      data-bs-toggle="modal"
-                                                      data-bs-target="#deleteAddressModal"
-                                                      data-id="2">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -228,6 +203,7 @@
                         <input type="text" class="form-control" id="edit-addressLine2">
                     </div>
                     <div class="row">
+                        3+
                         <div class="col-md-6 mb-3">
                             <label for="edit-city" class="form-label">City *</label>
                             <input type="text" class="form-control" id="edit-city" required>
@@ -270,10 +246,11 @@
     </div>
 </div>
 
-@section Scripts {
+
     <script>
-        // This assumes jQuery and Bootstrap JS are loaded by your _EMSLayout.cshtml
-        $(document).ready(function () {
+        // --- SIDEBAR TOGGLE LOGIC ---
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
 
             // 1. Logic to populate the Edit Address Modal fields
             // We listen for the modal's show event, which is triggered by the Edit button click.
@@ -288,36 +265,197 @@
                 var state = button.data('state');
                 var pin = button.data('pin');
 
-                // Reference the modal fields
-                var modal = $(this);
+        // --------------------------------------------------------
+        // --- ADDRESS MANAGEMENT AND PERSISTENCE LOGIC ---
 
-                // Populate the modal inputs
-                modal.find('#edit-addressId').val(id);
-                modal.find('#edit-addressType').val(type); // Sets the selected option
-                modal.find('#edit-addressLine1').val(line1);
-                // Note: addressLine2 data attribute is not in your current button markup,
-                // but the input field is here to support it later: modal.find('#edit-addressLine2').val('');
-                modal.find('#edit-city').val(city);
-                modal.find('#edit-state').val(state);
-                modal.find('#edit-pinCode').val(pin);
+        let nextAddressId = 3;
+        const addressTableBody = document.querySelector('.table tbody');
+        const saveChangesBtn = document.getElementById('saveChangesButton');
+        const addAddressButton = document.getElementById('confirmAddAddressButton');
+        const saveEditButton = document.getElementById('saveEditButton');
+        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+
+        // --- UTILITY FUNCTIONS ---
+
+        // Function to create a new table row HTML structure
+        function createNewRowHtml(id, type, line1, city, state, pin) {
+            return `
+                    <tr id="address-${id}">
+                        <td data-field="type">${type}</td>b
+                        <td data-field="line1">${line1}</td>
+                        <td data-field="city">${city}</td>
+                        <td data-field="state">${state}</td>
+                        <td data-field="pin">${pin}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editAddressModal"
+                                data-id="${id}"
+                                data-type="${type}"
+                                data-line1="${line1}"
+                                data-city="${city}"
+                                data-state="${state}"
+                                data-pin="${pin}">
+                                <i class="fas fa-pen"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteAddressModal"
+                                data-id="${id}">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                `;
+        }
+
+        // --- SAVE AND LOAD FUNCTIONS (Local Storage) ---
+
+        function saveAllData() {
+            // 1. Save Company Details (only editable fields)
+            const companyData = {
+                phoneNumber: document.getElementById('phoneNumber').value,
+                email: document.getElementById('email').value,
+                regDate: document.getElementById('regDate').value,
+                website: document.getElementById('website').value,
+                bankAccount: document.getElementById('bankAccount').value,
+                tin: document.getElementById('tin').value,
+                pan: document.getElementById('pan').value,
+            };
+            localStorage.setItem('companyDetails', JSON.stringify(companyData));
+
+            // 2. Save Address Data
+            const addressList = [];
+            const rows = addressTableBody.querySelectorAll('tr');
+            rows.forEach(row => {
+                const editButton = row.querySelector('.edit-address-btn');
+
+                // Collect data from the button's data attributes (which are the source of truth)
+                if (editButton) {
+                    addressList.push({
+                        id: editButton.getAttribute('data-id'),
+                        type: editButton.getAttribute('data-type'),
+                        line1: editButton.getAttribute('data-line1'),
+                        city: editButton.getAttribute('data-city'),
+                        state: editButton.getAttribute('data-state'),
+                        pin: editButton.getAttribute('data-pin')
+                    });
+                }
             });
+            localStorage.setItem('companyAddresses', JSON.stringify(addressList));
 
             // 2. Logic to set the ID in the Delete Address Modal
             $('#deleteAddressModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget); // The button that triggered the modal
                 var id = button.data('id'); // Get the ID to delete
 
-                // Set the ID in the hidden field of the delete modal
-                var modal = $(this);
-                modal.find('#delete-addressId').val(id);
-            });
+        function loadAllData() {
+            // 1. Load Company Details
+            const savedCompanyData = localStorage.getItem('companyDetails');
+            if (savedCompanyData) {
+                const data = JSON.parse(savedCompanyData);
+                document.getElementById('phoneNumber').value;
+                document.getElementById('email').value;
+                document.getElementById('regDate').value ;
+                document.getElementById('website').value;
+                document.getElementById('bankAccount').value ;
+                document.getElementById('tin').value ;
+                document.getElementById('pan').value ;
+            }
 
-            // 3. Optional: Add Address Modal - Clear form on close
-            $('#addAddressModal').on('hidden.bs.modal', function () {
-                $('#addAddressForm').trigger('reset');
-                $('#addAddressForm').removeClass('was-validated');
-            });
+            // 2. Load and Render Address Data
+            const savedAddresses = localStorage.getItem('companyAddresses');
+            if (savedAddresses) {
+                const addresses = JSON.parse(savedAddresses);
+                // Clear existing static rows first
+                addressTableBody.innerHTML = '';
 
+                let maxId = 0;
+
+                if (addresses.length > 0) {
+                    addresses.forEach(addr => {
+                        const rowHtml = createNewRowHtml(addr.id, addr.type, addr.line1, addr.city, addr.state, addr.pin);
+                        addressTableBody.insertAdjacentHTML('beforeend', rowHtml);
+                        maxId = Math.max(maxId, parseInt(addr.id));
+                    });
+
+                    // Update the counter to avoid ID conflicts
+                    nextAddressId = maxId + 1;
+                } else {
+                    // If savedAddresses is empty, reset counter to 1
+                    nextAddressId = 1;
+                }
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Event Delegation for Edit/Delete Buttons
+        addressTableBody.addEventListener('click', function (event) {
+            let targetButton = event.target.closest('.edit-address-btn, .delete-address-btn');
+            if (!targetButton) return;
+
+            const id = targetButton.getAttribute('data-id');
+
+            if (targetButton.classList.contains('edit-address-btn')) {
+                // Read data directly from the button that was clicked.
+                const type = targetButton.getAttribute('data-type');
+                const line1 = targetButton.getAttribute('data-line1');
+                const city = targetButton.getAttribute('data-city');
+                const state = targetButton.getAttribute('data-state');
+                const pin = targetButton.getAttribute('data-pin');
+
+                // Populate the Edit modal inputs
+                document.getElementById('edit-addressId').value = id;
+                document.getElementById('edit-addressType').value = type;
+                document.getElementById('edit-addressLine1').value = line1;
+                document.getElementById('edit-addressLine2').value = '';
+                document.getElementById('edit-city').value = city;
+                document.getElementById('edit-state').value = state;
+                document.getElementById('edit-pinCode').value = pin;
+            } else if (targetButton.classList.contains('delete-address-btn')) {
+                document.getElementById('delete-addressId').value = id;
+            }
+        });
+
+        // Add Address Logic
+        addAddressButton.addEventListener('click', function () {
+            let type = document.getElementById('addressType').value;
+            let line1 = document.getElementById('addressLine1').value;
+            let city = document.getElementById('city').value;
+            let state = document.getElementById('state').value;
+            let pin = document.getElementById('pinCode').value;
+
+            if (!type || !line1 || !city || !state || !pin) {
+                alert('Please fill in all required address fields.');
+                return;
+            }
+         fetch('/Company/addAddressCompany', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(CompanyData);
+
+    });
+    .then(response=>{response.json()})
+    .then(data=>{
+        console.log('Success:', data);
+    }
+    }
+    
+
+            // Use the current nextAddressId as the ID for the new row
+            // const newRowHtml = createNewRowHtml(nextAddressId, type, line1, city, state, pin);
+            // addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
+            // nextAddressId++;
+
+            // const modalElement = document.getElementById('addAddressModal');
+            // const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+            // modal.hide();
+
+
+            // document.getElementById('addAddressForm').reset();
 
             // 4. Placeholder logic for save/submit buttons (replace these with your actual AJAX calls)
 
@@ -327,23 +465,94 @@
                  // Example to close modal after assumed success: $('#addAddressModal').modal('hide');
             });
 
-            $('#saveEditButton').on('click', function () {
-                 // You would put your client-side validation and AJAX PUT/submission logic here
-                 var id = $('#edit-addressId').val();
-                 alert('Simulating: Saving changes for Address ID ' + id + '...');
-                 // Example to close modal after assumed success: $('#editAddressModal').modal('hide');
-            });
+        // Save Edit Logic
+                saveEditButton.addEventListener('click', function () {
+            const id = document.getElementById('edit-addressId').value;
 
-            $('#confirmDeleteButton').on('click', function () {
-                // You would put your AJAX DELETE call here
-                var id = $('#delete-addressId').val();
-                alert('Simulating: Deleting Address ID ' + id + '...');
+            const updatedData = {
+                type: document.getElementById('edit-addressType').value,
+                line1: document.getElementById('edit-addressLine1').value,
+                city: document.getElementById('edit-city').value,
+                state: document.getElementById('edit-state').value,
+                pin: document.getElementById('edit-pinCode').value
+            };
 
-                // Example of how to remove the row visually after a successful delete
-                // $('#address-' + id).remove();
-                // Example to close modal after assumed success: $('#deleteAddressModal').modal('hide');
-            });
+            const row = document.getElementById(`address-${id}`);
+            if (!row) return;
 
+            // 1️ Update table cells
+            row.querySelector('[data-field="type"]').textContent = updatedData.type;
+            row.querySelector('[data-field="line1"]').textContent = updatedData.line1;
+            row.querySelector('[data-field="city"]').textContent = updatedData.city;
+            row.querySelector('[data-field="state"]').textContent = updatedData.state;
+            row.querySelector('[data-field="pin"]').textContent = updatedData.pin;
+
+            // 2️ Update Edit button data attributes (MOST IMPORTANT)
+            const editBtn = row.querySelector('.edit-address-btn');
+            editBtn.dataset.type = updatedData.type;
+            editBtn.dataset.line1 = updatedData.line1;
+            editBtn.dataset.city = updatedData.city;
+            editBtn.dataset.state = updatedData.state;
+            editBtn.dataset.pin = updatedData.pin;
+
+            // 3️ Close modal
+            bootstrap.Modal.getInstance(document.getElementById('editAddressModal')).hide();
         });
+
+
+        // Confirm Delete Logic
+        confirmDeleteButton.addEventListener('click', function () {
+            const addressIdToDelete = document.getElementById('delete-addressId').value;
+            const rowToDelete = document.getElementById('address-' + addressIdToDelete);
+
+            if (rowToDelete) {
+                rowToDelete.remove();
+            }
+
+            const modalElement = document.getElementById('deleteAddressModal');
+            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+            modal.hide();
+        });
+
+        // --- Save Changes Handler ---
+        saveChangesBtn.addEventListener('click', function (e) {
+            e.preventDefault(); // Stop the default link navigation first
+            saveAllData();
+
+            // After saving the data to local storage, navigate to Company.html
+            window.location.href = "Company.html";
+        });
+
+        // --- Load Data on Page Load ---
+        document.addEventListener('DOMContentLoaded', loadAllData);
+
+        
+        function goToAdd(){
+            let compName = document.getelementById('companyName').value;
+            let phnNumber = document.getElementById('phoneNumber').value;
+            let email = document.getElementById('email').value;
+            let regdate = document.getElementById('regdate').value;
+            let website = document.getElementById('website').value;
+            let bankAcc = document.getElementById('bankAccount').value;
+            let tin = document.getElementById('tin').value;
+            let pan = document.getElementById('pan').value;
+
+            let companyData = {
+                companyName: compName,
+                phoneNumber: phnNumber,
+                email: email,
+                regDate: regdate,
+                website: website,
+                bankAccount: bankAcc,
+                tin: tin,
+                pan: pan
+            };
+
+
+
+           
+
+
     </script>
-}
+
+    
