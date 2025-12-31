@@ -5,6 +5,7 @@ using EMS.Services.Implementation.EFCore;
 using EMS.IServices;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace EMS.Web.Controllers
 {
