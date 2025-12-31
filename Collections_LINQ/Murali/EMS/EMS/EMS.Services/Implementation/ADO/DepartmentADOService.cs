@@ -14,6 +14,7 @@ namespace EMS.Services.Implementation.ADO
     public class DepartmentADOService : IDepartmentService
     {
         public List<DepartmentModel> GetAllDepartments()
+        
         {
             string query = @"SELECT 
 	                            DepartmentIdPk, 
@@ -25,8 +26,55 @@ namespace EMS.Services.Implementation.ADO
 	                            ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
                             FROM dbo.Department
                             Order by LastUpdatedOn DESC";
+            List<DepartmentModel> saiprasad = new List<DepartmentModel>();
+            // Esatblish the SQL connection
+            using (SqlConnection con = new SqlConnection())
+                try
+                {
+                    //1. Sql connection
+                    con.ConnectionString = "Data Source=LAPTOP-9LRGN9NO\\SAIPRASADMSSQL;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
+                    //2. connection open
+                    con.Open();
+                    //3. Sql Command
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        //3.1 pass connection to the command
+                        cmd.Connection = con;
+                        //3.2 pass query to the command
+                        cmd.CommandText = query;
+                        //3.3 pass command type to the command
+                        cmd.CommandType = System.Data.CommandType.Text;
 
-            throw new NotImplementedException();
+                        // 4. Execute command
+                        using SqlDataReader dataReader = cmd.ExecuteReader();//select with multiple rows and columns
+                        
+                        //object x = cmd.ExecuteReader();//select with multiple rows and columns
+                        while(dataReader.Read())
+                        {
+                            DepartmentModel model = new DepartmentModel();
+                            model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
+                            model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
+                            model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
+                            model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
+                            model.Location = Convert.ToString(dataReader["DeptLocation"]);
+                            model.CreatedOn = Convert.ToDateTime(dataReader["CreatedOn"]);
+                            model.LastUpdatedOn = Convert.ToDateTime(dataReader["LastUpdatedOn"]);
+                            saiprasad.Add(model);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string msg = ex.Message;
+                }
+                finally
+                {
+                    //5. close connection
+                    if (con.State == ConnectionState.Open)
+                        con.Close();
+                }
+            return saiprasad;
         }
 
         public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
