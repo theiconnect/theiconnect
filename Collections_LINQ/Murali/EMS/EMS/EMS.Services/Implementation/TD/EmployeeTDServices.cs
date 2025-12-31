@@ -78,6 +78,39 @@ namespace EMS.Services.Implementation.TD
                 return false;
             }
         }
+        public bool ActivateDeactivateEmployeee(int employeeId, bool isDeactivate, out string responseMessage)
+        {
+            responseMessage = "Success";
+            var employee = dbContext.Employees.FirstOrDefault(e => e.EmployeeIdPk == employeeId);
+
+            if (employee != null)
+            {
+                //if (isDeactivate)
+                //{
+                //    if(dbContext.Employees.Any(e => e.DepartmentIdFk == departmentId && e.IsActive))
+                //    {
+
+                //        responseMessage = "Unable to delete department due to Active employees exists in this deapartment!";
+                //        return false;
+                //    }
+                //}
+                //department.IsActive = !isDeactivate;
+
+                if (isDeactivate)
+                {
+                    employee.IsActive = false;
+                }
+                else
+                {
+                    employee.IsActive = true;
+                }
+                return true;
+            }
+
+            responseMessage = "Employee not found";
+            return false;
+        }
+
 
         private int GenerateNewEmpId()
         {
@@ -86,5 +119,14 @@ namespace EMS.Services.Implementation.TD
             return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
         }
 
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ActivateDeactivatEmployee(object id, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -29,34 +29,33 @@ namespace EMS.Web.Controllers
         {
             var employeesFromDB = employeeServices.GetAllEmployees();
 
-            var employeesViewModel = new List<EmployeeModel>();
+            var EmployeeModel = new List<EmployeeListViewModel>();
 
             foreach (var emp in employeesFromDB)
             {
-                //EmployeeModel obj = new EmployeeModel();
-                //{
-                //    obj.EmployeeIdPK = emp.EmployeeIdPk;
-                //    obj.Employeecode = emp.Employeecode;
-                //    obj.FirstName = emp.FirstName;
-                //    obj.LastName = emp.LastName;
-                //    obj.BloodGroup = emp.BloodGroup;
-                //    obj.Gender = emp.Gender;
-                //    obj.EmailId = emp.EmailId;
-                //    obj.MobileNumber = emp.MobileNumber;
-                //    obj.DateOfBirth = emp.DateOfBirth;
-                //    obj.DateOfJoining = emp.DateOfJoining;
-                //    obj.ExpInMonths = emp.ExpInMonths;
-                //    obj.SalaryCtc = emp.SalaryCtc;
-                //    obj.IsActive = emp.IsActive;
+                EmployeeListViewModel obj = new EmployeeListViewModel();
+                {
+                    obj.EmployeeId = emp.EmployeeIdPk;
+                    obj.Code = emp.Employeecode;
+                    obj.FirstName = emp.FirstName;
+                    obj.LastName = emp.LastName;
+                    obj.BloodGroup = emp.BloodGroup;
+                    obj.Gender = emp.Gender;
+                    obj.EmailId = emp.EmailId;
+                    obj.MobileNumber = emp.MobileNumber;
+                    obj.DateOfBirth = emp.DateOfBirth;
+                    obj.DateOfJoining = emp.DateOfJoining;
+                    obj.ExpInMonths = emp.ExpInMonths;
+                    obj.SalaryCtc = emp.SalaryCtc;
+                    obj.IsActive = emp.IsActive;
 
-                //    employeesViewModel.Add(obj);
+                    EmployeeModel.Add(obj);
 
-                //}
-            };
+                }
+            }
+            ;
 
-
-
-            return View(employeesViewModel);
+            return View(EmployeeModel);
         }
 
 
@@ -136,8 +135,31 @@ namespace EMS.Web.Controllers
         {
             return View();
         }
+        [Route("Delete")]
+        [HttpPost]
+        public IActionResult DeleteEmployee([FromBody] EmployeeViewModel model)
+        {
+            bool isSuccess = employeeServices.ActivateDeactivatEmployee(model.id, isDeactivate: true, out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
+
+            return Json(new { Success = isSuccess, Message = responseMessage });
+        }
+
+        [Route("active/{id}")]
+        [HttpGet]
+        public IActionResult ActivateDepartment(int id)
+        {
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
+
+            return Json(new { Success = isSuccess, Message = responseMessage });
+        }
     }
 }
+
+
 
 
 

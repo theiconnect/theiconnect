@@ -11,6 +11,8 @@ namespace EMS.DataAccess
     public class EMSDbContext
     {
         private static EMSDbContext _obj;
+        public object employees;
+
         public string PhoneNumber { get; set; }
 
         public List<string> PhoneNumbersList { get; set; }

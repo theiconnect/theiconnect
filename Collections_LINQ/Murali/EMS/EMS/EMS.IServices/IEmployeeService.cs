@@ -15,7 +15,10 @@ namespace EMS.IServices
 
         bool SaveEmployeedetails(EmployeeModel inputEmployee, bool isNewEmployee, out string responseMessage);
         //bool SaveEmployeedetails(EMS.Web.Models.EmployeeListViewModel empModel, bool v, out string responseMessage);
+        bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage);
+        bool ActivateDeactivatEmployee(object id, bool isDeactivate, out string responseMessage);
     }
+
 
 }
     

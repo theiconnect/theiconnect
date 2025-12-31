@@ -69,6 +69,8 @@ namespace EMS.Web.Models
 
     public class EmployeeViewModel
     {
+        internal object id;
+
         public EmployeeViewModel()
         {
         }
