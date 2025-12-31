@@ -12,7 +12,7 @@ namespace EMS.Web.Models
         {
         }
 
-        public EmployeeListViewModel(int employeeIdPk, string employeecode, string firstName, string middleName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, string alternateMobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
+        public EmployeeListViewModel(int employeeIdPk, string employeecode, string firstName, string middleName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, string alternateMobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive, EmployeeAddressViewModel Addresses)
         {
             EmployeeId = employeeIdPk;
             Code = employeecode;
@@ -28,6 +28,7 @@ namespace EMS.Web.Models
             DateOfJoining = dateOfJoining;
             ExpInMonths = expInMonths;
             IsActive = isActive;
+            Addresses = Addresses;
         }
         public int EmployeeId { get; set; }
         public string Code { get; set; }

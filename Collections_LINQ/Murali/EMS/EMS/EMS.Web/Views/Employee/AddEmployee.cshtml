@@ -247,89 +247,86 @@
           
           document.getElementById("btnSave").addEventListener("click", SaveEmployees);
         function SaveEmployees(){
-        let firstName = document.getElementById('FirstName').value;
-        let LastName = document.getElementById('LastName').value;
-        let middleName = document.getElementById('MiddleName').value;
-        let gender = document.getElementById('Gender').value;
-        let BloodGroup = document.getElementById('BloodGroup').value;
-        let Mobile = document.getElementById('MobileNumber').value;
-        let AlternateMobile = document.getElementById('AlternateMobileNumber').value;
-        let WorkEmail = document.getElementById('EmailId').value;
-        let PersonalEmail = document.getElementById('PersonalEmailId').value;
-        let DateOfBirth = document.getElementById('DateOfBirth').value;
+                    let firstName = document.getElementById('FirstName').value;
+                    let LastName = document.getElementById('LastName').value;
+                    let middleName = document.getElementById('MiddleName').value;
+                    let gender = document.getElementById('Gender').value.;
+                    let BloodGroup = document.getElementById('BloodGroup').value;
+                    let Mobile = document.getElementById('MobileNumber').value;
+                    let AlternateMobile = document.getElementById('AlternateMobileNumber').value;
+                    let WorkEmail = document.getElementById('EmailId').value;
+                    let PersonalEmail = document.getElementById('PersonalEmailId').value;
+                    let DateOfBirth = document.getElementById('DateOfBirth').value;
     
-        let DateOfJoining = document.getElementById('DateOfJoining').value;
+                    let DateOfJoining = document.getElementById('DateOfJoining').value;
     
-        let ExperienceInMonths = document.getElementById('ExpInMonths').value;
+                    let ExperienceInMonths = document.getElementById('ExpInMonths').value;
     
-        let DepartmentIdFk = document.getElementById('DepartmentIdFk').value;
+                    let DepartmentIdFk = document.getElementById('DepartmentIdFk').value;
     
-        let QualificationIdFk = document.getElementById('QualificationIdFk').value;
+                    let QualificationIdFk = document.getElementById('QualificationIdFk').value;
     
-        let DesignationIdFk = document.getElementById('DesignationIdFk').value;
+                    let DesignationIdFk = document.getElementById('DesignationIdFk').value;
     
-        let SalaryCtc = document.getElementById('SalaryCtc').value;
+                    let SalaryCtc = document.getElementById('SalaryCtc').value;
     
-        let IsActive = document.getElementById('IsActive').checked;
-
-
-        let empObj = {
-      
-            FirstName: firstName,
-            LastName: LastName,
-            MiddleName: middleName,
-            Gender:gender,
-            BloodGroup: BloodGroup,
-            MobileNumber: Mobile,
-            AlternateMobileNumber: AlternateMobile,
-            EmailId: WorkEmail,
-            PersonalEmailId: PersonalEmail,
-            DateOfBirth: DateOfBirth,
-            DateOfJoining: DateOfJoining,
-            ExpInMonths: ExperienceInMonths,
-            DepartmentIdFk: DepartmentIdFk,
-            QualificationIdFk: QualificationIdFk,
-            DesignationIdFk: DesignationIdFk,
-            SalaryCtc: SalaryCtc,
-            IsActive: IsActive,
-            Addresses:[
-               {
-                   AddressLine1: pAddressLine1.value,
-                   State:pState.value,
-                     City:pCity.value,
-                     PinCode:pPinCode.value
-               },
-               {
-                   AddressLine1: tAddressLine1.value,
-                     State:tState.value,
-                        City:tCity.value,
-                        PinCode:tPinCode.value
-               },
-           ]
+                    let IsActive = document.getElementById('IsActive').checked;
+                    // let empObj = {
+                    //     FirstName: firstName,
+                    //     LastName: LastName
+                    // };
+                    let empObj = {
+                        FirstName: firstName,
+                        LastName: LastName,
+                        MiddleName: middleName,
+                        Gender:(Gender).Enum.Parse(typeof(Gender),gender),
+                        BloodGroup: (BloodGroup).Enum.Parse(typeof(BloodGroup),BloodGroup),
+                        MobileNumber: int.Prase(Mobile),
+                        AlternateMobileNumber: AlternateMobile,
+                        EmailId: WorkEmail,
+                        PersonalEmailId: PersonalEmail,
+                        DateOfBirth: DateOfBirth,
+                        DateOfJoining: DateOfJoining,
+                        ExpInMonths: ExperienceInMonths,
+                        DepartmentIdFk: DepartmentIdFk,
+                        QualificationIdFk: QualificationIdFk,
+                        DesignationIdFk: DesignationIdFk,
+                        SalaryCtc: SalaryCtc,
+                        IsActive: IsActive,
+                        Addresses:[
+                           {
+                               AddressLine1: pAddressLine1.value,
+                               State:pState.value,
+                                 City:pCity.value,
+                                 PinCode:pPinCode.value
+                           },
+                           {
+                               AddressLine1: tAddressLine1.value,
+                                 State:tState.value,
+                                    City:tCity.value,
+                                    PinCode:tPinCode.value
+                           },
+                       ]
             
-        };
+                    };
         debugger;
-            fetch('/Employee/SaveEmp', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(empObj)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.isSuccess) {
-            debugger;
-            alert("Employee Added Successfully");
-            location.href = "/Employee/EmployeeList";
-        } else {
-            alert('Failed to save employee details: ' + data.errorMessage);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert("Something went wrong while saving employee details.");
-    });
+         fetch('/Employee/SaveEmployee', {
+               method:"POST",
+               body: JSON.stringify(empObj),
+               headers: {
+                    'Content-Type': 'application/json' // Inform the server we're sending JSON
+                }
+            })
+           .then(response=>response.json())
+           .then(data=>{
+               debugger;
+               let saveResult = data;
+               if(saveResult.issuccess){
+                   alert('Employee details saved successfully');
+               }else{
+                   alert(saveResult.errorMessage);
+               }
+           })
     }
 
         // (function () {

@@ -58,13 +58,13 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 5. Get all employees who joined in a specific year as IEnumerable
-        public static IEnumerable<EmployeeModel> GetEmployeesJoinedInYear(int year)
-        {
+        //public static IEnumerable<EmployeeModel> GetEmployeesJoinedInYear(int year)
+        //{
 
-            var db = EMSDbContext.GetInstance();
-            var result5 = db.Employees.Where(e => e.DateOfJoining.Year == year);
-            return result5;
-        }
+        //    var db = EMSDbContext.GetInstance();
+        //    var result5 = db.Employees.Where(e => e.DateOfJoining.Year == year);
+        //    return result5;
+        //}
 
         // 6. Get all employees with more than 5 years of experience as List
         public static List<EmployeeModel> GetEmployeesWithMoreThan5YearsExp()

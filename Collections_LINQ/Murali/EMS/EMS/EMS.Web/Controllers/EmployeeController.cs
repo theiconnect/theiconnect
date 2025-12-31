@@ -11,8 +11,8 @@ namespace EMS.Web.Controllers
     // 1. EmployeeController
     // ==============================================
 
-    [Route("Employee")]
-    [Route("Emp")]
+    //[Route("Employee")]
+    //[Route("Emp")]
     public class EmployeeController : Controller
     {
         // Route: /Employee/getallemployees or /Employee/list
@@ -22,8 +22,8 @@ namespace EMS.Web.Controllers
             employeeServices = _employeeservices;
         }
 
-        [Route("getallemployees")]
-        [Route("list")]
+        //[Route("getallemployees")]
+        //[Route("list")]
         [HttpGet]
         public IActionResult EmployeeList()
         {
@@ -43,8 +43,8 @@ namespace EMS.Web.Controllers
                     obj.Gender = emp.Gender;
                     obj.EmailId = emp.EmailId;
                     obj.MobileNumber = emp.MobileNumber;
-                    obj.DateOfBirth = emp.DateOfBirth;
-                    obj.DateOfJoining = emp.DateOfJoining;
+                    obj.DateOfBirth = (DateTime) emp.DateOfBirth;
+                    obj.DateOfJoining = (DateTime)emp.DateOfJoining;
                     obj.ExpInMonths = emp.ExpInMonths;
                     obj.SalaryCtc = emp.SalaryCtc;
                     obj.IsActive = emp.IsActive;
@@ -57,7 +57,7 @@ namespace EMS.Web.Controllers
         }
 
         [HttpPost]
-        [Route("SaveEmp")]
+        
         public IActionResult SaveEmployee([FromBody] EmployeeListViewModel model)
         {
             EmployeeModel EmpModel = new EmployeeModel();
