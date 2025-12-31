@@ -1,4 +1,4 @@
-﻿@model EMS.Models.EmployeeModel
+﻿@model EMS.Models.EmployeeViewModel
 
 @{
     ViewData["Title"] = "AddEmployee";
@@ -25,7 +25,7 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="Employeecode" class="form-label">Employee Code (Auto Generated)</label>
-                            <input asp-for="Employeecode" class="form-control" id="Employeecode" name="Employeecode" value="@Model?.Employeecode ?? "EMP006"" readonly />
+                            <input asp-for="Code" class="form-control" id="Employeecode" name="Employeecode" value="@Model?.Code ?? "EMP006"" readonly />
                             <div class="form-text">This code will be generated/validated on save.</div>
                         </div>
 
@@ -35,10 +35,7 @@
                             <div class="invalid-feedback">First name is required.</div>
                         </div>
 
-                        <div class="col-md-4">
-                            <label for="MiddleName" class="form-label">Middle Name</label>
-                            <input asp-for="MiddleName" class="form-control" id="MiddleName" name="MiddleName" />
-                        </div>
+                     
 
                         <div class="col-md-4">
                             <label for="LastName" class="form-label">Last Name <span class="text-danger">*</span></label>
@@ -78,10 +75,7 @@
                             <div class="invalid-feedback">Please enter a valid mobile number (10 digits).</div>
                         </div>
 
-                        <div class="col-md-4">
-                            <label for="AlternateMobileNumber" class="form-label">Alternate Mobile</label>
-                            <input asp-for="AlternateMobileNumber" class="form-control" id="AlternateMobileNumber" name="AlternateMobileNumber" maxlength="10" inputmode="numeric" />
-                        </div>
+
 
                         <div class="col-md-4">
                             <label for="EmailId" class="form-label">Work Email <span class="text-danger">*</span></label>
@@ -111,6 +105,7 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
 
             <div class="card shadow-sm mb-4">
@@ -118,7 +113,7 @@
                     <h5 class="mb-0">2. Employment & Compensation</h5>
                 </div>
 
-                <div class="card-body">
+                @* <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="DepartmentIdFk" class="form-label">Department <span class="text-danger">*</span></label>
@@ -170,7 +165,7 @@
                         <div class="col-md-4">
                             <label for="LWD" class="form-label">Last Working Day (if applicable)</label>
                             <input asp-for="LWD" class="form-control" id="LWD" name="LWD" type="date" />
-                        </div>
+                        </div> *@
                     </div>
                 </div>
             </div>
@@ -250,7 +245,7 @@
                
                 </div>
             </div>
-        </form>
+        
     </div>
 </div>
 

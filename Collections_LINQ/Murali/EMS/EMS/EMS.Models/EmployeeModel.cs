@@ -2,8 +2,8 @@
 
 namespace EMS.Models
 {
-    public class EmployeeModel
-    {
+        public class EmployeeModel
+        {
         public int EmployeeIdPk { get; set; }
         public string Employeecode { get; set; }
         public string FirstName { get; set; }
@@ -27,7 +27,8 @@ namespace EMS.Models
         public bool IsActive { get; set; } = true;
         public DateTime? LWD { get; set; }
 
-        public List<EmployeeAddressViewModel> Addresses { get; set; } = new List<EmployeeAddressViewModel>();
-        public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>(); 
+        public List<EmployeeAddressModel> Addresses { get; set; } = new List<EmployeeAddressModel>();
+        public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>();
+
     }
 }
