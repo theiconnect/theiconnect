@@ -13,6 +13,45 @@ namespace EMS.Services.Implementation.ADO
 {
     public class DepartmentADOService : IDepartmentService
     {
+        public List<DepartmentModel> GetAllDepartments()
+        {
+            string query = @"SELECT 
+	                            DepartmentIdPk, 
+	                            DepartmentCode, 
+	                            DepartmentName, 
+	                            IsActive, 
+	                            DeptLocation, 
+	                            CreatedOn,
+	                            ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
+                            FROM dbo.Department
+                            Order by LastUpdatedOn DESC";
+
+            throw new NotImplementedException();
+        }
+
+        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DepartmentModel GetDepartmentById(int departmentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }        
+    }
+
+    public class DepartmentADOService_Practice : IDepartmentService
+    {
         public List<DepartmentModel> GetAllDepartments_InsertUpdateDelete()
         {
             string InsertQuery = @" SET NOCOUNT ON;
