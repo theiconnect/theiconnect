@@ -59,7 +59,7 @@
 
                         <div class="col-md-4">
                             <label for="BloodGroup" class="form-label">Blood Group</label>
-                            <select asp-for="BloodGroup" class="form-select" id="BloodGroup" name="BloodGroup">
+                            <select asp-for="BloodGroup" class="form-select" id="" name="BloodGroup">
                                 <option value="">Select</option>
                                 <option value="APlus">A+</option>
                                 <option value="AMinus">A-</option>
@@ -91,7 +91,7 @@
 
                         <div class="col-md-4">
                             <label for="PersonalEmailId" class="form-label">Personal Email</label>
-                            <input asp-for="PersonalEmailId" class="form-control" id="PersonalEmailId" name="PersonalEmailId" type="email" />
+                            @* <input asp-for="PersonalEmailId" class="form-control" id="PersonalEmailId" name="PersonalEmailId" type="email" /> *@
                         </div>
 
                         <div class="col-md-4">
@@ -244,7 +244,7 @@
                     <div class="col-3"></div>
                     <div class="col-9">
                         <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList">Save Employee</button>
+                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList" onclick="SaveEmployees();">Save Employee</button>
                         <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
                     </div>
                
@@ -255,19 +255,92 @@
 </div>
 
       <script>
-        (function () {
-            'use strict';
-            const forms = document.querySelectorAll('.needs-validation');
-            Array.from(forms).forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        })();
+
+        function SaveEmployees(){
+        let firstName = document.getElementById('FirstName');
+        let LastName = document.getElementById('LastName');
+        let middleName = document.getElementById('MiddleName');
+        let gender = document.getElementById('Gender');
+        let BloodGroup = document.getElementById('BloodGroup');
+        let Mobile = document.getElementById('Mobile');
+        let AlternateMobile = document.getElementById('AlternateMobile');
+        let WorkEmail = document.getElementById('EmailId');
+        let PersonalEmail = document.getElementById('PersonalEmailId');
+        let DateOfBirth = document.getElementById('DateOfBirth');
+    
+        let DateOfJoining = document.getElementById('DateOfJoining');
+    
+        let ExperienceInMonths = document.getElementById('ExpInMonths');
+    
+        let DepartmentIdFk = document.getElementById('DepartmentIdFk');
+    
+        let QualificationIdFk = document.getElementById('QualificationIdFk');
+    
+        let DesignationIdFk = document.getElementById('DesignationIdFk');
+    
+        let SalaryCtc = document.getElementById('SalaryCtc');
+    
+        let IsActive = document.getElementById('IsActive');
+
+        let LWD = document.getElementById('LWD');
+
+        let empObj = {
+      
+            FirstName: firstName.value,
+            LastName: LastName.value,
+            MiddleName: middleName.value,
+            Gender:gender.value,
+            BloodGroup: BloodGroup.value,
+            MobileNumber: Mobile.value,
+            AlternateMobileNumber: AlternateMobile.value,
+            EmailId: WorkEmail.value,
+            PersonalEmailId: PersonalEmail.value,
+            DateOfBirth: DateOfBirth.value,
+            DateOfJoining: DateOfJoining.value,
+            ExpInMonths: ExperienceInMonths.value,
+            DepartmentIdFk: DepartmentIdFk.value,
+            QualificationIdFk: QualificationIdFk.value,
+            DesignationIdFk: DesignationIdFk.value,
+            SalaryCtc: SalaryCtc.value,
+            IsActive: IsActive.checked,
+            LWD: LWD.value
+        };
+
+        fetch('/Employee/SaveEmployees', {
+            method: "POST",
+            body: JSON.stringify(empObj),
+            headers: {
+                'Content-Type': 'application/json' // Inform the server we're sending JSON
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                let saveResult = data;
+                if (saveResult.isSuccess) {
+                    alert('Employee details saved successfully');
+                } else {
+                    alert('Failed to save employee details: ' + saveResult.errorMessage);
+            }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+        });
+        alert("Employee Added Successfully");
+
+          }
+        // (function () {
+        //     'use strict';
+        //     const forms = document.querySelectorAll('.needs-validation');
+        //     Array.from(forms).forEach(function (form) {
+        //         form.addEventListener('submit', function (event) {
+        //             if (!form.checkValidity()) {
+        //                 event.preventDefault();
+        //                 event.stopPropagation();
+        //             }
+        //             form.classList.add('was-validated');
+        //         }, false);
+        //     });
+        // })();
         function display(){
             location.href="/Employee/EmployeeList";
         }

@@ -16,7 +16,7 @@ namespace EMS.Web.Controllers
         public IActionResult Index()
         {
 
-            int a1 = 10;
+           // int a1 = 10;
             EmployeeModel obj = new EmployeeModel();
             obj.FirstName = "iconnect";
             obj.LastName = "Tech solutions";

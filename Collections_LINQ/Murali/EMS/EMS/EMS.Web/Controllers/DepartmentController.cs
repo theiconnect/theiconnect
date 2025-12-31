@@ -17,36 +17,44 @@ namespace EMS.Web.Controllers
         public DepartmentController(IDepartmentService _departmentService)
         {
             departmentService = _departmentService;
-            
+
         }
 
         [Route("list")]
         [Route("all")]
-        [HttpGet]
         public IActionResult List()
         {
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            var departmentFromDb = departmentService.GetAllDepartments();
 
-            TempData.Peek("SuccessMessage");
-
-            var departmentsFromDB = departmentService.GetAllDepartments();
-
-            var viewModel = new List<DepartmentViewModel>();
-
-            foreach (var deptDB in departmentsFromDB)
+            var ViewModel = new List<DepartmentViewModel>();
+            foreach (var model in departmentFromDb)
             {
-                var obj = new DepartmentViewModel(
-                    _departmentId: deptDB.DepartmentIdPk,
-                    _code: deptDB.DepartmentCode,
-                    _name: deptDB.DepartmentName,
-                    _location: deptDB.Location,
-                    _isActive: deptDB.IsActive
-                    );
-
-                viewModel.Add(obj);
+                var obj = new DepartmentViewModel();
+                obj.DepartmentId = model.DepartmentIdPk;
+                obj.Code = model.DepartmentCode;
+                obj.DeptName = model.DepartmentName;
+                obj.IsActive = model.IsActive;
+                ViewModel.Add(obj);
             }
+            return View(ViewModel);
+        }
 
-            return View(viewModel);
+        [Route("search")]
+        [HttpGet]
+        public IActionResult Searching(string searchName, string searchLocation)
+        {
+            List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments(searchName, searchLocation);
+            
+            var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel
+            {
+                DepartmentId = d.DepartmentIdPk,
+                Code = d.DepartmentCode,
+                DeptName = d.DepartmentName,
+                Location = d.Location,
+                IsActive = d.IsActive
+            }).ToList();
+
+            return View("List", viewModel);
         }
 
         [Route("add")]
@@ -90,7 +98,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult EditDepartment(int id)
         {
-            var deptDB = departmentService.GetAllDepartments().FirstOrDefault(d => d.DepartmentIdPk == id);
+            var deptDB = departmentService.GetDepartmentById(id);
 
             var model = new DepartmentViewModel(
                     deptDB.DepartmentIdPk,
@@ -102,6 +110,25 @@ namespace EMS.Web.Controllers
 
             return View(model);
         }
+
+        [Route("UpdatesaveDepartment")]
+        [HttpPost]
+        public IActionResult UpdatesaveDepartment([FromBody] DepartmentViewModel updateModel)
+        {
+
+            DepartmentModel departmentModel = new DepartmentModel
+            {
+                DepartmentIdPk = updateModel.DepartmentId,
+                DepartmentCode = updateModel.Code,
+                DepartmentName = updateModel.DeptName,
+                Location = updateModel.Location,
+                IsActive = updateModel.IsActive
+            };
+            bool IsSuccess = departmentService.SaveDepartment(departmentModel, false, out string responseMessage);
+
+            return Json(new { IsSuccess = IsSuccess, errorMessage = responseMessage });
+        }
+
 
         [Route("view/{id}")]
         [Route("info/{id}")]
@@ -128,7 +155,7 @@ namespace EMS.Web.Controllers
         public IActionResult DeactivateDepartment([FromBody] Test t)
         {
             bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, out string responseMessage);
-            
+
             //return Json(isSuccess, responseMessage);
 
             return Json(new { Success = isSuccess, Message = responseMessage });

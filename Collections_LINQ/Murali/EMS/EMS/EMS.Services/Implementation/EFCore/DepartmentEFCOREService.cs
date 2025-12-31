@@ -23,6 +23,11 @@ namespace EMS.Services.Implementation.EFCore
             return departments;
         }
 
+        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
         {
             responseMessage = "Success";
@@ -57,6 +62,11 @@ namespace EMS.Services.Implementation.EFCore
         }
 
         public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DepartmentModel GetDepartmentById(int departmentId)
         {
             throw new NotImplementedException();
         }

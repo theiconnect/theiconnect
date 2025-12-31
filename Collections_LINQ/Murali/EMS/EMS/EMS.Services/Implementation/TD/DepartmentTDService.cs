@@ -22,6 +22,21 @@ namespace EMS.Services.Implementation.TD
             return departments;
         }
 
+        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        {
+            List<DepartmentModel> departments = dbContext.Departments
+                .Where(d => string.IsNullOrEmpty(deptName) || d.DepartmentName.ToLower().Contains(deptName.ToLower()))
+                .Where(d => string.IsNullOrEmpty(deptLocation) || d.Location.ToLower().Contains(deptLocation.ToLower()))
+                .ToList();
+            return departments;
+        }
+
+        public DepartmentModel GetDepartmentById(int departmentId)
+        {
+            DepartmentModel department = dbContext.Departments.Where(a => a.DepartmentIdPk == departmentId).FirstOrDefault();
+            return department;
+        }
+
         public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
         {
             responseMessage = "Success";
@@ -49,7 +64,7 @@ namespace EMS.Services.Implementation.TD
                     }
                 }
 
-                return false;
+                return true;
             }
             catch (Exception ex)
             {
