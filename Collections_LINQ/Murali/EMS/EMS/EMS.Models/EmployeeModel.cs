@@ -4,6 +4,8 @@ namespace EMS.Models
 {
     public class EmployeeModel
     {
+        public string? AddressLine1;
+
         public int EmployeeIdPk { get; set; }
         public string Employeecode { get; set; }
         public string FirstName { get; set; }
@@ -28,6 +30,12 @@ namespace EMS.Models
         public DateTime? LWD { get; set; }
 
         public List<EmployeeAddressModel> Addresses { get; set; } = new List<EmployeeAddressModel>();
-        public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>(); 
+        public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>();
+        public string? AddressLine2 { get; set; }
+        public string? State { get; set; }
+        public string? City { get; set; }
+        public string? Pincode { get; set; }
+        public int AddressTypeIdFk { get; set; }
+        public int EmployeeIdFk { get; set; }
     }
 }

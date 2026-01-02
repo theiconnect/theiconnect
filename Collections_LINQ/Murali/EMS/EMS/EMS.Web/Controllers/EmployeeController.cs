@@ -4,6 +4,7 @@ using EMS.Models.Enums;
 using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace EMS.Web.Controllers
 {
@@ -33,33 +34,31 @@ namespace EMS.Web.Controllers
 
             var employeesFromDB = employeeServices.GetAllEmployees();
 
-            var employeesViewModel = new List<EmployeeListViewModel>();
+            var employeesViewModel = new List<EmployeeViewModel>();
 
             foreach (var emp in employeesFromDB)
             {
-                EmployeeListViewModel obj = new EmployeeListViewModel();
+                EmployeeViewModel obj = new EmployeeViewModel();
                 {
                     obj.EmployeeId = emp.EmployeeIdPk;
                     obj.Code = emp.Employeecode;
                     obj.FirstName = emp.FirstName;
-                    obj.MiddleName = emp.MiddleName;
                     obj.LastName = emp.LastName;
                     obj.BloodGroup = emp.BloodGroup;
                     obj.Gender = emp.Gender;
                     obj.EmailId = emp.EmailId;
                     obj.MobileNumber = emp.MobileNumber;
-                    obj.AlternateMobileNumber = emp.AlternateMobileNumber;
                     obj.DateOfBirth = emp.DateOfBirth;
                     obj.DateOfJoining = emp.DateOfJoining;
                     obj.ExpInMonths = emp.ExpInMonths;
-                    obj.Salary = emp.SalaryCtc;
+                    obj.SalaryCtc = emp.SalaryCtc;
                     obj.IsActive = emp.IsActive;
 
                     employeesViewModel.Add(obj);
 
                 }
             }
-            ;
+
 
 
             return View(employeesViewModel);
@@ -75,8 +74,18 @@ namespace EMS.Web.Controllers
 
         // Route: /Employee/editemployee
         [Route("editemployee/{id}")]
-        public IActionResult EditEmployee()
+        public IActionResult EditEmployee(int id)
         {
+            var DB = employeeServices.GetAllEmployees().FirstOrDefault(d => d.EmployeeIdPk == id);
+
+            var employeeModel = new EmployeeViewModel
+            {
+                EmployeeId = DB.EmployeeIdPk,
+                Code = DB.Employeecode,
+                FirstName = DB.FirstName,
+                LastName = DB.LastName,
+                BloodGroup = DB.BloodGroup
+            };
             return View();
         }
 
@@ -92,10 +101,56 @@ namespace EMS.Web.Controllers
         [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee(int id)
         {
-            return View();
+
+
+            var empDB = employeeServices
+                .GetAllEmployees()
+                .FirstOrDefault(e => e.EmployeeIdPk == id);
+
+            if (empDB == null)
+                return NotFound();
+
+            var addressList = employeeServices
+                .GetAllEmployeeAddresses()
+                .Where(a => a.EmployeeIdFk == id)
+                .Select(a => new EMS.Models.EmployeeAddressModel
+                {
+                    AddressLine1 = a.AddressLine1,
+                    AddressLine2 = a.AddressLine2,
+                    State = a.State,
+                    City = a.City,
+                    Pincode = a.Pincode,
+                    EmployeeIdFk = a.EmployeeIdFk,
+                    AddressTypeIdFk = a.AddressTypeIdFk,
+                    isActive = a.isActive
+                }).ToList();
+
+            var model = new EmployeeViewModel(
+                empDB.EmployeeIdPk,
+
+
+                empDB.Employeecode,
+                empDB.FirstName,
+                empDB.LastName,
+                empDB.BloodGroup,
+                empDB.Gender,
+                empDB.EmailId,
+                empDB.MobileNumber,
+                empDB.DateOfBirth,
+                empDB.DateOfJoining,
+                empDB.ExpInMonths,
+                empDB.SalaryCtc,
+                empDB.IsActive,
+                addressList
+            );
+            //ViewBag.Address = addressList;
+            return View(model);
         }
     }
 }
+
+
+
 
 
 

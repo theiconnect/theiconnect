@@ -1,247 +1,173 @@
-﻿@model EMS.Models.EmployeeModel
+﻿@model EMS.Web.Models.EmployeeViewModel
 
 @{
     ViewData["Title"] = "ViewEmployee";
-    Layout = "~/Views/Shared/_EMSLayout.cshtml";
-}
-
-<header class="site-header py-3" role="banner">
-    <div class="container">
-        <h1 class="mb-0">Employee Details</h1>
-        <!-- <p class="subtitle">Clean, responsive display of employee record — unclear handwritten fields are shown as placeholders.</p> -->
-    </div>
-</header>
-
-<main class="container my-4" id="employee-view" role="main">
-    <!-- Personal & contact -->
-    <section class="card mb-4" aria-labelledby="personal-heading">
-        <div class="card-body">
-            <h2 id="personal-heading" class="h5 card-title">Personal & Contact Information</h2>
-
-            <div class="kv mb-3">
-                <div class="label">Employee Code</div>
-                <div class="value" id="employeeCode">EMP-00001</div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="kv">
-                        <div class="label">First Name</div>
-                        <div class="value" id="firstName">John</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Middle Name</div>
-                        <div class="value" id="middleName">doe</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Last Name</div>
-                        <div class="value" id="lastName">anne</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Blood Group</div>
-                        <div class="value" id="bloodGroup">O+</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Gender</div>
-                        <div class="value" id="gender">M</div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="kv">
-                        <div class="label">Date of Birth</div>
-                        <div class="value" id="dob">2002-11-23</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Primary Mobile</div>
-                        <div class="value" id="mobileNumber">8919959796</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Alternate Mobile</div>
-                        <div class="value" id="altMobile">9959782458</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">EmailId</div>
-                        <div class="value" id="email">john.doe@abc.com</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">PersonalEmailId</div>
-                        <div class="value" id="personalEmail">john.doe@gmail.com</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Employment -->
-    <section class="card mb-4" aria-labelledby="employment-heading">
-        <div class="card-body">
-            <h2 id="employment-heading" class="h5 card-title">Employment Information</h2>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="kv">
-                        <div class="label">Designation</div>
-                        <div class="value" id="designation">Senior Software Engineer</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Department</div>
-                        <div class="value" id="department">Engineering</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Date of Joining</div>
-                        <div class="value" id="doj">2023-05-25</div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="kv">
-                        <div class="label">Salary (CTC)</div>
-                        <div class="value" id="salary">7,500.00 USD</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Experience (Months)</div>
-                        <div class="value" id="expInMonths">110</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Addresses (present + permanent) -->
-    <section class="card mb-4" aria-labelledby="addresses-heading">
-        <div class="card-body">
-            <h2 id="addresses-heading" class="h5 card-title">Addresses</h2>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="subhead">Present Address</h3>
-                    <div class="kv">
-                        <div class="label">Line 1</div>
-                        <div class="value" id="present-house">Ameerpet</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Line 2</div>
-                        <div class="value" id="present-road">SR Nagar,7th Line Bahar Cafe</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">City</div>
-                        <div class="value" id="present-ps">Hyderabad</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">State</div>
-                        <div class="value" id="present-po">Telangana</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Pincode</div>
-                        <div class="value" id="present-district">506032</div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <h3 class="subhead mb-0">Permanent Address</h3>
-
-                    </div>
-
-
-                    <div class="kv">
-                        <div class="label">Line 1</div>
-                        <div class="value" id="perm-house">Hanamkonda</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Line 2</div>
-                        <div class="value" id="perm-road">KU X Road</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">City</div>
-                        <div class="value" id="perm-ps">Warangal</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">State</div>
-                        <div class="value" id="perm-po">Telangana</div>
-                    </div>
-                    <div class="kv">
-                        <div class="label">Pincode</div>
-                        <div class="value" id="perm-district">506143</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </section>
-    <div class="container">
-        <h3>Employee Address History</h3>
-
-        <table id="addressTable" class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>SNo</th>
-                    <th>Address Line 1</th>
-                    <th>Address Line 2</th>
-                    <th>State</th>
-                    <th>Pincode</th>
-                    <th>From Date</th>
-                    <th>To Date</th>
-                    <th>Address Type</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Hanamkonda</td>
-                    <td>KU x Road</td>
-                    <td>Telangana</td>
-                    <td>506143</td>
-                    <td>1-1-2020</td>
-                    <td>1-1-2023</td>
-                    <td>Present</td>
-                    <td>
-                    </td>
-                </tr>
-            </tbody>
-        
-            <tbody>
-                <tr>
-                    <td>2</td>
-                    <td>Warangal</td>
-                    <td>Chowrastha</td>
-                    <td>Telangana</td>
-                    <td>506002</td>
-                    <td>1-1-2023</td>
-                    <td>1-1-2025</td>
-                    <td>Permanent</td>
-                    <td>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-
-    <script src="script.js">
-        
-    </script>
-
-    <div class="button-container text-center mb-4">
-        <button type="button" class="btn btn-primary" onclick="toView()">OK</button>
-    </div>
-
-
-    <div class="text-center">
-
-        <a asp-controller="Employee" asp-action="EmployeeList" class="btn btn-link">Back to List</a>
-
-    </div>
     
+}
+<div class="container">
+    <h2 class="text-center mb-4">View Employee</h2>
+    <hr />
+    <div class="row">
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">Code:</label>
+            <label class="form-control-static">@Model.Code</label>
+        </div>
 
-</main>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">FirstName:</label>
+            <label class="form-control-static">@Model.FirstName</label>
+        </div>
+
+        @* <div class="form-group col-5">
+            <label class="control-label fw-bold">Middle Name:</label>
+            <label class="form-control-static">@Model.MiddleName</label>
+        </div> *@
 
 
-<script>
-    function toView(){
-        location.href="/Employee/EmployeeList";
-    }
-</script>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">LastName:</label>
+            <label class="form-control-static">@Model.LastName</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">BloodGroup:</label>
+            <label class="form-control-static">@Model.BloodGroup</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">Gender:</label>
+            <label class="form-control-static">@Model.Gender</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">EmailId:</label>
+            <label class="form-control-static">@Model.EmailId</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">MobileNumber:</label>
+            <label class="form-control-static">@Model.MobileNumber</label>
+        </div>
+        @* <div class="form-group col-5">
+            <label class="control-label fw-bold">AltNo</label>
+            <label class="form-control-static">@Model.AlternateMobileNumber</label>
+        </div> *@
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">DOB:</label>
+            <label class="form-control-static">@Model.DateOfBirth</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">DOJ:</label>
+            <label class="form-control-static">@Model.DateOfJoining</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">Experience:</label>
+            <label class="form-control-static">@Model.ExpInMonths</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">salary:</label>
+            <label class="form-control-static">@Model.Salary</label>
+        </div>
+        <div class="form-group col-5">
+            <label class="control-label fw-bold">IsActive</label>
+            <label class="form-control-static">@Model.IsActive</label>
+        </div>
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">2.Address Details</h5>
+            </div>
 
+            
+@if (Model.Addresses != null && Model.Addresses.Any())
+{
+
+    
+        <div class="card mb-3">
+
+                        
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0">@add.AddressTypeText</h6>
+            </div>
+
+            <div class="card-body">
+                <div class="row g-3">
+                      <h4> Permanent Details</h4>
+                                <div class="form-group col-5">
+                                    <label class="control-label fw-bold">Address Line1</label>
+                                    <label class="form-control-static">@add.AddressLine1</label>
+                                </div>
+
+                                <div class="form-group col-5">
+                                    <label class="control-label fw-bold">Address Line2</label>
+                                    <label class="form-control-static">@add.AddressLine2</label>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label class="control-label fw-bold">State</label>
+                                    <label class="form-control-static">@add.State</label>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label class="control-label fw-bold">City</label>
+                                    <label class="form-control-static">@add.City</label>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label class="control-label fw-bold">Pincode</label>
+                                    <label class="form-control-static">@add.Pincode</label>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label class="control-label fw-bold">AddressTypeId</label>
+                                    <label class="form-control-static">@add.AddressTypeId</label>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label class="control-label fw-bold">IsActive</label>
+                                    <label class="form-control-static">@add.IsActive</label>
+                                </div
+                            </div>
+
+                                 <div class="card-body">
+                                    <div class="row g-3">
+                                        <h4> Present Details</h4>
+                                         <div class="form-group col-5">
+                                             <label class="control-label fw-bold">AddressLine1</label>
+                                             <label class="form-control-static">@add.AddressLine1</label>
+                                          </div>
+
+                                       
+
+                                        <div>
+                                            <label class="control-label fw-bold">Address Line2</label>
+                                            <label class="form-control-static">@add.AddressLine2</label>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                            <label class="control-label fw-bold">State</label>
+                                            <label class="form-control-static">@add.State</label>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                            <label class="control-label fw-bold">City</label>
+                                            <label class="form-control-static">@add.City</label>
+                                        </div>
+
+                                        <div class="form-group col-5">
+                                             <label class="control-label fw-bold">Pincode</label>
+                                             <label class="form-control-static">@add.Pincode</label>
+                                        </div>
+                                        <div class="form-group col-5">
+                                             <label class="control-label fw-bold">AddressTypeId</label>
+                                             <label class="form-control-static">@add.AddressTypeId</label>
+                                        </div>
+                                        <div class="form-group col-5">
+                                             <label class="control-label fw-bold">IsActive</label>
+                                             <label class="form-control-static">@add.IsActive</label>
+                                </div>
+   
+
+
+    
+    
+    <div class="row">
+        <div class="col-9">
+            
+        </div>
+        <div class="col-3">
+            <a class="btn btn-Primary" asp-action="list" asp-controller="Employee">Go Back</a>
+        </div>
+    </div>
+</div>
+@* 

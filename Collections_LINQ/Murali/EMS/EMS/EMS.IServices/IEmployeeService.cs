@@ -10,6 +10,7 @@ namespace EMS.IServices
     public  interface IEmployeeService
     {
         List<EmployeeModel> GetAllEmployees();
+        List<EmployeeAddressModel> GetAllEmployeeAddresses();
 
     }
 
