@@ -34,53 +34,34 @@ namespace EMS.Web.Controllers
             var employeesFromDB = employeeServices.GetAllEmployees();
 
             var EmployeeViewModel = new List<EmployeeViewModel>();
-            var EmployeeModel = new List<EmployeeListViewModel>();
 
             foreach (var emp in employeesFromDB)
             {
                 EmployeeViewModel obj = new EmployeeViewModel();
-                obj.EmployeeId = emp.EmployeeIdPk;
-                obj.Code = emp.Employeecode;
+                { 
+                obj.EmployeeIdPk = emp.EmployeeIdPk;
+                obj.Employeecode = emp.Employeecode;
                 obj.FirstName = emp.FirstName;
+                obj.MiddleName = emp.MiddleName;
                 obj.LastName = emp.LastName;
                 obj.BloodGroup = emp.BloodGroup;
                 obj.Gender = emp.Gender;
                 obj.EmailId = emp.EmailId;
                 obj.MobileNumber = emp.MobileNumber;
+                obj.AlternateMobileNumber = emp.AlternateMobileNumber;
                 obj.DateOfBirth = emp.DateOfBirth;
                 obj.DateOfJoining = emp.DateOfJoining;
                 obj.ExpInMonths = emp.ExpInMonths;
                 obj.SalaryCtc = emp.SalaryCtc;
                 obj.IsActive = emp.IsActive;
-                EmployeeListViewModel obj = new EmployeeListViewModel();
-                {
-                    obj.EmployeeId = emp.EmployeeIdPk;
-                    obj.Code = emp.Employeecode;
-                    obj.FirstName = emp.FirstName;
-                    obj.LastName = emp.LastName;
-                    obj.BloodGroup = emp.BloodGroup;
-                    obj.Gender = emp.Gender;
-                    obj.EmailId = emp.EmailId;
-                    obj.MobileNumber = emp.MobileNumber;
-                    obj.DateOfBirth = emp.DateOfBirth;
-                    obj.DateOfJoining = emp.DateOfJoining;
-                    obj.ExpInMonths = emp.ExpInMonths;
-                    obj.SalaryCtc = emp.SalaryCtc;
-                    obj.IsActive = emp.IsActive;
 
                 EmployeeViewModel.Add(obj);
             }
-                    EmployeeModel.Add(obj);
-
-                }
-            }
-            ;
-
-
-
+        }
             return View(EmployeeViewModel);
-            return View(EmployeeModel);
-        }
+    }
+
+        
         public IActionResult AddEmployee()
         {
 
@@ -89,47 +70,43 @@ namespace EMS.Web.Controllers
 
 
 
-        // Route: /Employee/editemployee
-        [Route("editemployee/{employeeid}")]
-        public IActionResult EditEmployee(int employeeid)
-        {
-            var empDB = employeeServices.GetAllEmployees()
-                                          .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
+        //// Route: /Employee/editemployee
+        //[Route("editemployee/{employeeid}")]
+        //public IActionResult EditEmployee(int employeeid)
+        //{
+        //    var empDB = employeeServices.GetAllEmployees()
+        //                                  .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
 
-            if (empDB == null)
-            {
-                
-                return RedirectToAction("list", "Employee");
-            }
-            else
-            {
-                var model = new EmployeeViewModel(
-               empDB.EmployeeIdPk,
-               empDB.Employeecode,
-               empDB.FirstName,
-               empDB.LastName,
-               empDB.BloodGroup,
-               empDB.Gender,
-               empDB.EmailId,
-               empDB.MobileNumber,
-               empDB.DateOfBirth,
-               empDB.DateOfJoining,
-               empDB.ExpInMonths,
-               empDB.SalaryCtc,
-               empDB.IsActive,
-               empDB.Addresses
-   );
-            }
+        //    if (empDB == null)
+        //    {
 
-            permanentaddress = empDB.Addresses
-                 .firstordefault(a =>
-                    a.addresstypeidfk == (int)addresstypes.perm_addr &&
-                    a.isactive);
-        public IActionResult AddEmployee()
-        {
+        //        return RedirectToAction("list", "Employee");
+        //    }
 
-            return View();
-        }
+        //        var model = new EmployeeViewModel(
+        //       empDB.EmployeeIdPk,
+        //       empDB.Employeecode,
+        //       empDB.FirstName,
+        //       empDB.LastName,
+        //       empDB.BloodGroup,
+        //       empDB.Gender,
+        //       empDB.EmailId,
+        //       empDB.MobileNumber,
+        //       empDB.DateOfBirth,
+        //       empDB.DateOfJoining,
+        //       empDB.ExpInMonths,
+        //       empDB.SalaryCtc,
+        //       empDB.IsActive,
+        //       empDB.Addresses
+        //    );
+        //    }
+        //return View();
+        //}
+        //public IActionResult AddEmployee()
+        //{
+
+        //    return View();
+        //}
 
         // Route: /Employee/editemployee
         [Route("editemployee/{id}")]
@@ -137,21 +114,21 @@ namespace EMS.Web.Controllers
         {
             var empDB = employeeServices.GetAllEmployees().FirstOrDefault(e => e.EmployeeIdPk == id);
             //var address = employeeServices.GetAllEmployeeAddresses().FirstOrDefault(a => a.EmployeeIdFk == id);
-            var models = new EmployeeModel();
-            //var Models = new EmployeeModel(
-            //empDB.EmployeeIdPk,
-            //empDB.Employeecode,
-            //empDB.FirstName,
-            //empDB.LastName,
-            //empDB.BloodGroup,
-            //empDB.Gender,
-            //empDB.EmailId,
-            //empDB.MobileNumber,
-            //empDB.DateOfBirth,
-            //empDB.DateOfJoining,
-            //empDB.ExpInMonths,
-            //empDB.SalaryCtc,
-            //empDB.IsActive,
+
+            var Models = new EmployeeViewModel(
+            empDB.EmployeeIdPk,
+            empDB.Employeecode,
+            empDB.FirstName,
+            empDB.LastName,
+            empDB.BloodGroup,
+            empDB.Gender,
+            empDB.EmailId,
+            empDB.MobileNumber,
+            empDB.DateOfBirth,
+            empDB.DateOfJoining,
+            empDB.ExpInMonths,
+            empDB.SalaryCtc,
+            empDB.IsActive);
 
             if (permanentaddress != null)
             {
@@ -167,31 +144,22 @@ namespace EMS.Web.Controllers
                 viewbag.presentaddress = presentaddress;
             }
 
-            return View(model);
-            //address.AddressLine1,
-            //address.AddressLine2,
-            //address.State,
-            //address.City,
-            //address.Pincode,
-            //address.AddressTypeId,
-            //address.EmployeeIdFk,
-            //address.isActive);
-        
             return View(models);
+     
         }
 
 
 
-            // Route: /Employee/deleteemployee
+        // Route: /Employee/deleteemployee
 
-            //public IActionResult DeleteEmployee()
-            //{
-            //    return View();
-            //}
+        //public IActionResult DeleteEmployee()
+        //{
+        //    return View();
+        //}
 
-            // Route: /Employee/viewemployee
+        // Route: /Employee/viewemployee
 
-            [Route("viewemployee/{id}")]
+        [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee(int id)
         {
             return View();

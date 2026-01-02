@@ -36,8 +36,9 @@ namespace EMS.Models
         public bool isActive { get; set; } = true;
         public int EmployeeIdFk { get; set; } 
         public int AddressTypeId { get; set; }   // 1 = Permanent, 2 = Present
+        public int AddressTypeIdFk { get; set; }
         //public string AddressTypeText { get; set; }
         //public int AddressTypeIdFk { get; set; }
-       
+
     }
 }

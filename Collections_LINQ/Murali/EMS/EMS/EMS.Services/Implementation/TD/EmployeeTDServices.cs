@@ -9,7 +9,6 @@ using EMS.IServices;
 using EMS.Models;
 using EMS.IServices;
 
-
 namespace EMS.Services.Implementation.TD
 {
     public class EmployeeTDServices : IEmployeeService
@@ -35,45 +34,7 @@ namespace EMS.Services.Implementation.TD
 
         public EmployeeModel GetEmployeeByID(int empId)
         {
-            responseMessage = "Success";
-            try
-            {
-                if (isNewEmployee)
-                {
-                    inputEmployee.EmployeeIdPk = GenerateNewEmpId();
-                    dbContext.Employees.Add(inputEmployee);
-                }
-                else
-                {
-                    var existingEmployee = dbContext.Employees.FirstOrDefault(e => e.EmployeeIdPk == inputEmployee.EmployeeIdPk);
-                    if (existingEmployee != null)
-                    {
-                        existingEmployee.Employeecode = inputEmployee.Employeecode;
-                        existingEmployee.FirstName = inputEmployee.FirstName;
-                        existingEmployee.MiddleName = inputEmployee.MiddleName;
-                        existingEmployee.LastName = inputEmployee.LastName;
-                        existingEmployee.BloodGroup = inputEmployee.BloodGroup;
-                        existingEmployee.Gender = inputEmployee.Gender;
-                        existingEmployee.EmailId = inputEmployee.EmailId;
-                        existingEmployee.MobileNumber = inputEmployee.MobileNumber;
-                        existingEmployee.AlternateMobileNumber = inputEmployee.AlternateMobileNumber;
-                        existingEmployee.DateOfBirth = inputEmployee.DateOfBirth;
-                        existingEmployee.DateOfJoining = inputEmployee.DateOfJoining;
-                        existingEmployee.ExpInMonths = inputEmployee.ExpInMonths;
-                        existingEmployee.SalaryCtc = inputEmployee.SalaryCtc;
-                        existingEmployee.IsActive = inputEmployee.IsActive;
-                    }
-                    else
-                    {
-                        responseMessage = "Employee not found";
-                        return false;
-                    }
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                responseMessage = ex.Message;
+           
                 return false;
             }
         }
@@ -125,6 +86,21 @@ namespace EMS.Services.Implementation.TD
             if (dbContext.Employees.Count == 0)
                 return 1;
             return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
+        }
+
+        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ActivateDeactivatEmployee(object id, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
         }
         //    return addresses;
     }
