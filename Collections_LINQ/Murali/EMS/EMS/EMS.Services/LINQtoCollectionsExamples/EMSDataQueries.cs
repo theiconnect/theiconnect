@@ -9,7 +9,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
     public static class EMSDataQueries
     {
         // 1. Get all active employees
-        public static List<EmployeeModel> GetAllActiveEmployees()
+        public static List<EmployeeViewModel> GetAllActiveEmployees()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.Where(e => e.IsActive).ToList();
@@ -32,7 +32,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 4. Get all employees grouped by department
-        public static Dictionary<string, List<EmployeeModel>> GetEmployeesGroupedByDepartment()
+        public static Dictionary<string, List<EmployeeViewModel>> GetEmployeesGroupedByDepartment()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees
@@ -41,7 +41,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 5. Get the highest paid employee in each department
-        public static List<(string DepartmentName, EmployeeModel Employee)> GetHighestPaidEmployeePerDepartment()
+        public static List<(string DepartmentName, EmployeeViewModel Employee)> GetHighestPaidEmployeePerDepartment()
         {
             var db = EMSDbContext.GetInstance();
             return db.Departments
@@ -54,7 +54,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 6. Get all employees who have ever held the "TeamLead" designation
-        public static List<EmployeeModel> GetEmployeesWhoWereTeamLeads()
+        public static List<EmployeeViewModel> GetEmployeesWhoWereTeamLeads()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees
@@ -83,7 +83,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 9. Get all employees who joined after a certain date, ordered by joining date
-        public static List<EmployeeModel> GetEmployeesJoinedAfter(DateTime date)
+        public static List<EmployeeViewModel> GetEmployeesJoinedAfter(DateTime date)
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees
@@ -93,7 +93,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 10. Get all inactive departments and their employees
-        public static List<(DepartmentModel Department, List<EmployeeModel> Employees)> GetInactiveDepartmentsWithEmployees()
+        public static List<(DepartmentModel Department, List<EmployeeViewModel> Employees)> GetInactiveDepartmentsWithEmployees()
         {
             var db = EMSDbContext.GetInstance();
             return db.Departments
@@ -103,7 +103,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 11. Get all employees with more than one address
-        public static List<EmployeeModel> GetEmployeesWithMultipleAddresses()
+        public static List<EmployeeViewModel> GetEmployeesWithMultipleAddresses()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees
@@ -112,7 +112,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 12. Get all employees whose current designation is "HRManager"
-        public static List<EmployeeModel> GetCurrentHRManagers()
+        public static List<EmployeeViewModel> GetCurrentHRManagers()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees
@@ -132,20 +132,20 @@ namespace EMS.Services.LINQtoCollectionsExamples
                 .ToList();
         }
 
-        // 14. Get all employees who have both present and permanent addresses
-        public static List<EmployeeModel> GetEmployeesWithPresentAndPermanentAddresses()
-        {
-            var db = EMSDbContext.GetInstance();
-            return db.Employees
-                .Where(e =>
-                    e.Addresses.Any(a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PRESENT_ADDR) &&
-                    e.Addresses.Any(a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PERM_ADDR)
-                )
-                .ToList();
-        }
+        //// 14. Get all employees who have both present and permanent addresses
+        //public static List<EmployeeViewModel> GetEmployeesWithPresentAndPermanentAddresses()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Employees
+        //        .Where(static e =>
+        //            e.Addresses.Any(static a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PRESENT_ADDR) &&
+        //            e.Addresses.Any(static a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PERM_ADDR)
+        //        )
+        //        .ToList();
+        //}
 
         // 15. Get all employees with their qualification description (if any)
-        public static List<(EmployeeModel Employee, string Qualification)> GetEmployeesWithQualification()
+        public static List<(EmployeeViewModel Employee, string Qualification)> GetEmployeesWithQualification()
         {
             var db = EMSDbContext.GetInstance();
             var qualifications = db.QualificationLookups.ToDictionary(q => q.QualificationIdPk, q => q.Qualification);
