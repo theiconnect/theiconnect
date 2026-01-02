@@ -66,5 +66,7 @@
     <Build Include="Tables\Department.sql" />
     <Build Include="Tables\TEST.sql" />
     <Build Include="Stored Procedures\usp_GetAllDepartments.sql" />
+    <Build Include="Stored Procedures\usp_ManageDepartment.sql" />
+    <Build Include="Stored Procedures\usp_GetDepartmentById.sql" />
   </ItemGroup>
 </Project>

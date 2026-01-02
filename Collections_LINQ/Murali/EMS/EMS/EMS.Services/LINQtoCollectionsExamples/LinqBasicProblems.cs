@@ -15,11 +15,11 @@ namespace EMS.Services.LINQtoCollectionsExamples
     public static class LinqBasicProblems
     {
         // 1. Get all employees as List                          
-        public static List<EmployeeViewModel> GetAllEmployeesAsList()
+        public static List<EmployeeModel> GetAllEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
             var result =  db.Employees.ToList();
-            result.Add(new EmployeeViewModel
+            result.Add(new EmployeeModel
             {
                 EmployeeIdPk = 9999,
                 Employeecode = "E9999",
@@ -69,7 +69,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
 
 
         // 2. Get all employees as IEnumerable
-        public static IEnumerable<EmployeeViewModel> GetAllEmployeesAsEnumerable()
+        public static IEnumerable<EmployeeModel> GetAllEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees;
@@ -84,7 +84,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
 return result3;
         }
         // 3. Get all employees as ICollection (not recommended for LINQ queries)
-        public static ICollection<EmployeeViewModel> GetAllEmployeesAsICollection()
+        public static ICollection<EmployeeModel> GetAllEmployeesAsICollection()
         {
             var db = EMSDbContext.GetInstance();
             // ICollection is not ideal for LINQ, but List<T> implements ICollection<T>
@@ -93,7 +93,7 @@ return result3;
         }
 
         // 4. Get all employees as IList (not recommended for LINQ queries)
-        public static IList<EmployeeViewModel> GetAllEmployeesAsIList()
+        public static IList<EmployeeModel> GetAllEmployeesAsIList()
         {
             var db = EMSDbContext.GetInstance();
             // IList is not ideal for LINQ, but List<T> implements IList<T>
@@ -102,7 +102,7 @@ return result3;
         }
 
         // 5. Get all employees as IQueryable (NOT recommended for in-memory collections)
-        public static IQueryable<EmployeeViewModel> GetAllEmployeesAsQueryable()
+        public static IQueryable<EmployeeModel> GetAllEmployeesAsQueryable()
         {
             var db = EMSDbContext.GetInstance();
             // IQueryable is only useful for remote query providers (like EF Core).
@@ -140,7 +140,7 @@ return result3;
        
 
         // 8. Get all active employees as IEnumerable
-        public static IEnumerable<EmployeeViewModel> GetActiveEmployeesAsEnumerable()
+        public static IEnumerable<EmployeeModel> GetActiveEmployeesAsEnumerable()
         {
             var db = EMSDbContext.GetInstance();
 
@@ -150,18 +150,18 @@ return result3;
 
 
         // 9. Get all inactive employees as List
-        public static List<EmployeeViewModel> GetInactiveEmployeesAsList()
+        public static List<EmployeeModel> GetInactiveEmployeesAsList()
         {
             var db = EMSDbContext.GetInstance();
-            List<EmployeeViewModel> employees = db.Employees;
-            IEnumerable<EmployeeViewModel> activeEmployees = employees.Where(e=> !e.IsActive);
-            List<EmployeeViewModel> empList = activeEmployees.ToList();
+            List<EmployeeModel> employees = db.Employees;
+            IEnumerable<EmployeeModel> activeEmployees = employees.Where(e=> !e.IsActive);
+            List<EmployeeModel> empList = activeEmployees.ToList();
 
             return db.Employees.Where(e => !e.IsActive).ToList();
         }
 
         // 10. Get all employees with salary > 500000 as IEnumerable
-        public static IEnumerable<EmployeeViewModel> GetEmployeesWithHighSalary()
+        public static IEnumerable<EmployeeModel> GetEmployeesWithHighSalary()
         {
             var db = EMSDbContext.GetInstance();
             var result10 = db.Employees.Where(e => (e.SalaryCtc ?? 0) > 500000);
@@ -174,7 +174,7 @@ return result3;
         }
 
         // 11. Get all employees with salary > 500000 as IQueryable (NOT recommended)
-        public static IQueryable<EmployeeViewModel> GetEmployeesWithHighSalaryAsQueryable()
+        public static IQueryable<EmployeeModel> GetEmployeesWithHighSalaryAsQueryable()
         {
             var db = EMSDbContext.GetInstance();
             // IQueryable is not useful here, see previous note.
@@ -184,7 +184,7 @@ return result3;
         }
 
         // 12. Get all employees ordered by first name as List
-        public static List<EmployeeViewModel> GetEmployeesOrderedByFirstName()
+        public static List<EmployeeModel> GetEmployeesOrderedByFirstName()
         {
             var db = EMSDbContext.GetInstance();
             var result12 = db.Employees.OrderBy(e => e.FirstName).ToList();
@@ -196,7 +196,7 @@ return result3;
         }
 
         // 13. Get all employees ordered by salary descending as IEnumerable
-        public static IEnumerable<EmployeeViewModel> GetEmployeesOrderedBySalaryDesc()
+        public static IEnumerable<EmployeeModel> GetEmployeesOrderedBySalaryDesc()
         {
             var db = EMSDbContext.GetInstance();
             return db.Employees.OrderByDescending(e => e.SalaryCtc ?? 0);
@@ -216,7 +216,7 @@ return result3;
         }
 
         // 15. Get all employees as array (not recommended for LINQ chaining)
-        public static EmployeeViewModel[] GetAllEmployeesAsArray()
+        public static EmployeeModel[] GetAllEmployeesAsArray()
         {
             var db = EMSDbContext.GetInstance();
             // Arrays are not ideal for LINQ chaining, prefer IEnumerable/List.
@@ -229,7 +229,7 @@ return result3;
         }
 
         // 16. Get all employees as HashSet (not recommended for ordering)
-        public static HashSet<EmployeeViewModel> GetAllEmployeesAsHashSet()
+        public static HashSet<EmployeeModel> GetAllEmployeesAsHashSet()
         {
             var db = EMSDbContext.GetInstance();
             // HashSet is not ideal for ordered queries, but can be used for uniqueness.
@@ -238,7 +238,7 @@ return result3;
         }
 
         // 17. Get all employees as Dictionary by EmployeeIdPk
-        public static Dictionary<int, EmployeeViewModel> GetAllEmployeesAsDictionary()
+        public static Dictionary<int, EmployeeModel> GetAllEmployeesAsDictionary()
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees.ToDictionary(e => e.EmployeeIdPk);
@@ -246,7 +246,7 @@ return result3;
         }
 
         // 18. Get all employees as Lookup by DepartmentIdFk
-        public static ILookup<int, EmployeeViewModel> GetEmployeesLookupByDepartmentId()
+        public static ILookup<int, EmployeeModel> GetEmployeesLookupByDepartmentId()
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees.ToLookup(e => e.DepartmentIdFk);
@@ -267,7 +267,7 @@ return result3;
         public static void TryAddToIEnumerable()
         {
             var db = EMSDbContext.GetInstance();
-            IEnumerable<EmployeeViewModel> employees = db.Employees;
+            IEnumerable<EmployeeModel> employees = db.Employees;
             var result= employees.ToList();
             
             // employees.Add(new EmployeeModel()); // Not allowed: 'IEnumerable<T>' does not contain a definition for 'Add'

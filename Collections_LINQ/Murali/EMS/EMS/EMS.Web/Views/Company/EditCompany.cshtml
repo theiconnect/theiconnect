@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EMS.Models.CompanyModel>
+﻿@model EMS.Models.CompanyModel
 
 @{
     ViewData["Title"] = "CompanyList";
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" value="@Model.Email"readonly>
+                            <input type="email" class="form-control" asp-for="Email" readonly>
                         </div>
                     </div>
 

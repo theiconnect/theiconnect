@@ -33,12 +33,11 @@ namespace EMS.Web.Controllers
         {
             var employeesFromDB = employeeServices.GetAllEmployees();
 
-            var EmployeeViewModel = new List<EmployeeViewModel>();
             var EmployeeModel = new List<EmployeeListViewModel>();
 
             foreach (var emp in employeesFromDB)
             {
-                EmployeeViewModel obj = new EmployeeViewModel();
+                EmployeeListViewModel obj = new EmployeeListViewModel();
                 obj.EmployeeId = emp.EmployeeIdPk;
                 obj.Code = emp.Employeecode;
                 obj.FirstName = emp.FirstName;
@@ -52,42 +51,16 @@ namespace EMS.Web.Controllers
                 obj.ExpInMonths = emp.ExpInMonths;
                 obj.SalaryCtc = emp.SalaryCtc;
                 obj.IsActive = emp.IsActive;
-                EmployeeListViewModel obj = new EmployeeListViewModel();
-                {
-                    obj.EmployeeId = emp.EmployeeIdPk;
-                    obj.Code = emp.Employeecode;
-                    obj.FirstName = emp.FirstName;
-                    obj.LastName = emp.LastName;
-                    obj.BloodGroup = emp.BloodGroup;
-                    obj.Gender = emp.Gender;
-                    obj.EmailId = emp.EmailId;
-                    obj.MobileNumber = emp.MobileNumber;
-                    obj.DateOfBirth = emp.DateOfBirth;
-                    obj.DateOfJoining = emp.DateOfJoining;
-                    obj.ExpInMonths = emp.ExpInMonths;
-                    obj.SalaryCtc = emp.SalaryCtc;
-                    obj.IsActive = emp.IsActive;
 
-                EmployeeViewModel.Add(obj);
+                EmployeeModel.Add(obj);
             }
-                    EmployeeModel.Add(obj);
 
-                }
-            }
-            ;
-
-
-
-            return View(EmployeeViewModel);
             return View(EmployeeModel);
         }
         public IActionResult AddEmployee()
         {
-
             return View();
         }
-
-
 
         // Route: /Employee/editemployee
         [Route("editemployee/{employeeid}")]
@@ -96,111 +69,22 @@ namespace EMS.Web.Controllers
             var empDB = employeeServices.GetAllEmployees()
                                           .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
 
-            if (empDB == null)
-            {
-                
-                return RedirectToAction("list", "Employee");
-            }
-            else
-            {
-                var model = new EmployeeViewModel(
-               empDB.EmployeeIdPk,
-               empDB.Employeecode,
-               empDB.FirstName,
-               empDB.LastName,
-               empDB.BloodGroup,
-               empDB.Gender,
-               empDB.EmailId,
-               empDB.MobileNumber,
-               empDB.DateOfBirth,
-               empDB.DateOfJoining,
-               empDB.ExpInMonths,
-               empDB.SalaryCtc,
-               empDB.IsActive,
-               empDB.Addresses
-   );
-            }
-
-            permanentaddress = empDB.Addresses
-                 .firstordefault(a =>
-                    a.addresstypeidfk == (int)addresstypes.perm_addr &&
-                    a.isactive);
-        public IActionResult AddEmployee()
-        {
-
             return View();
         }
 
-        // Route: /Employee/editemployee
-        [Route("editemployee/{id}")]
-        public IActionResult EditEmployee(int id)
-        {
-            var empDB = employeeServices.GetAllEmployees().FirstOrDefault(e => e.EmployeeIdPk == id);
-            //var address = employeeServices.GetAllEmployeeAddresses().FirstOrDefault(a => a.EmployeeIdFk == id);
-            var models = new EmployeeModel();
-            //var Models = new EmployeeModel(
-            //empDB.EmployeeIdPk,
-            //empDB.Employeecode,
-            //empDB.FirstName,
-            //empDB.LastName,
-            //empDB.BloodGroup,
-            //empDB.Gender,
-            //empDB.EmailId,
-            //empDB.MobileNumber,
-            //empDB.DateOfBirth,
-            //empDB.DateOfJoining,
-            //empDB.ExpInMonths,
-            //empDB.SalaryCtc,
-            //empDB.IsActive,
 
-            if (permanentaddress != null)
-            {
-                ViewBag.permanentaddress = permanentaddress;
-            }
-
-            var presentaddress = empdb.addresses
-                .firstordefault(a =>
-                    a.addresstypeidfk == (int)addresstypes.present_addr &&
-                    a.isactive);
-            if (presentaddress != null)
-            {
-                viewbag.presentaddress = presentaddress;
-            }
-
-            return View(model);
-            //address.AddressLine1,
-            //address.AddressLine2,
-            //address.State,
-            //address.City,
-            //address.Pincode,
-            //address.AddressTypeId,
-            //address.EmployeeIdFk,
-            //address.isActive);
-        
-            return View(models);
-        }
-
-
-
-            // Route: /Employee/deleteemployee
-
-            //public IActionResult DeleteEmployee()
-            //{
-            //    return View();
-            //}
-
-            // Route: /Employee/viewemployee
-
-            [Route("viewemployee/{id}")]
+        // Route: /Employee/viewemployee
+        [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee(int id)
         {
             return View();
         }
+
         [Route("Delete")]
         [HttpPost]
         public IActionResult DeleteEmployee([FromBody] EmployeeViewModel model)
         {
-            bool isSuccess = employeeServices.ActivateDeactivatEmployee(model.id, isDeactivate: true, out string responseMessage);
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
