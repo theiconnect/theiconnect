@@ -25,7 +25,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 2. Get all employees grouped by department name as Dictionary
-        public static Dictionary<string, List<EmployeeViewModel>> GetEmployeesGroupedByDepartmentName()
+        public static Dictionary<string, List<EmployeeModel>> GetEmployeesGroupedByDepartmentName()
         {
             var db = EMSDbContext.GetInstance();
             var a = db.Employees
@@ -80,7 +80,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 5. Get the highest paid employee in each department as List of tuples
-        public static List<(string DepartmentName, EmployeeViewModel Employee)> GetHighestPaidEmployeePerDepartment()
+        public static List<(string DepartmentName, EmployeeModel Employee)> GetHighestPaidEmployeePerDepartment()
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Departments
@@ -96,7 +96,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 6. Get all employees who have ever held the "TeamLead" designation as List
-        public static List<EmployeeViewModel> GetEmployeesWhoWereTeamLeads()
+        public static List<EmployeeModel> GetEmployeesWhoWereTeamLeads()
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees
@@ -106,7 +106,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 7. Get all employees who joined after a certain date, ordered by joining date as IEnumerable
-        public static IEnumerable<EmployeeViewModel> GetEmployeesJoinedAfter(DateTime date)
+        public static IEnumerable<EmployeeModel> GetEmployeesJoinedAfter(DateTime date)
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees
@@ -116,7 +116,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 8. Get all employees with both present and permanent addresses as List
-        //public static List<EmployeeViewModel> GetEmployeesWithPresentAndPermanentAddresses()
+        //public static List<EmployeeModel> GetEmployeesWithPresentAndPermanentAddresses()
         //{
         //    var db = EMSDbContext.GetInstance();
         //    var result= db.Employees
@@ -129,7 +129,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         //}
 
         // 9. Get all employees with more than one address as IEnumerable
-        public static IEnumerable<EmployeeViewModel> GetEmployeesWithMultipleAddresses()
+        public static IEnumerable<EmployeeModel> GetEmployeesWithMultipleAddresses()
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees.Where(e => e.Addresses.Count > 1).ToList() ;
@@ -137,7 +137,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 10. Get all employees with their qualification description (if any) as List of tuples
-        public static List<(EmployeeViewModel Employee, string Qualification)> GetEmployeesWithQualification()
+        public static List<(EmployeeModel Employee, string Qualification)> GetEmployeesWithQualification()
         {
             var db = EMSDbContext.GetInstance();
             var qualifications = db.QualificationLookups.ToDictionary(q => q.QualificationIdPk, q => q.Qualification);
@@ -165,13 +165,13 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static void TryClearIEnumerable()
         {
             var db = EMSDbContext.GetInstance();
-            IEnumerable<EmployeeViewModel> employees = db.Employees;
+            IEnumerable<EmployeeModel> employees = db.Employees;
             // employees.Clear(); // Not allowed: 'IEnumerable<T>' does not contain a definition for 'Clear'
             // IEnumerable<T> is read-only, you cannot clear items.
         }
 
         // 13. Get all employees as IQueryable and try to use EF-only methods (NOT allowed)
-        public static IQueryable<EmployeeViewModel> GetEmployeesAsQueryableWithEFOnlyMethod()
+        public static IQueryable<EmployeeModel> GetEmployeesAsQueryableWithEFOnlyMethod()
         {
             var db = EMSDbContext.GetInstance();
             // IQueryable is not useful for in-memory collections, and EF-only methods like ThenInclude not available.                                          
@@ -180,7 +180,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 14. Get all employees with at least one address in a given state as List
-        public static List<EmployeeViewModel> GetEmployeesWithAddressInState(string state)
+        public static List<EmployeeModel> GetEmployeesWithAddressInState(string state)
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees
@@ -190,7 +190,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 15. Get all employees grouped by gender as Dictionary
-        public static Dictionary<Genders, List<EmployeeViewModel>> GetEmployeesGroupedByGender()
+        public static Dictionary<Genders, List<EmployeeModel>> GetEmployeesGroupedByGender()
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees
@@ -201,7 +201,7 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 16. Get all employees with a specific qualification as IEnumerable
-        public static IEnumerable<EmployeeViewModel> GetEmployeesByQualificationId(int qualificationId)
+        public static IEnumerable<EmployeeModel> GetEmployeesByQualificationId(int qualificationId)
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees.Where(e => e.QualificationIdFk == qualificationId).ToList();
@@ -209,18 +209,18 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 17. Get all employees with a specific department name as List
-        public static List<EmployeeViewModel> GetEmployeesByDepartmentName(string departmentName)
+        public static List<EmployeeModel> GetEmployeesByDepartmentName(string departmentName)
         {
             var db = EMSDbContext.GetInstance();
             var department = db.Departments.FirstOrDefault(d => d.DepartmentName == departmentName);
-            if (department == null) return new List<EmployeeViewModel>();
+            if (department == null) return new List<EmployeeModel>();
             var result = db.Employees.Where(e => e.DepartmentIdFk == department.DepartmentIdPk).ToList();
                 return result ;
             //GetEmployeesWithDesignationInHistory(DesiginationTypes.SeniorDeveloper);
         }
 
         // 18. Get all employees with a specific designation in their history as List
-        public static List<EmployeeViewModel> GetEmployeesWithDesignationInHistory(DesiginationTypes designation)
+        public static List<EmployeeModel> GetEmployeesWithDesignationInHistory(DesiginationTypes designation)
         {
             var db = EMSDbContext.GetInstance();
             var result= db.Employees
@@ -233,13 +233,13 @@ namespace EMS.Services.LINQtoCollectionsExamples
         public static void TryAddRangeToICollection()
         {
             var db = EMSDbContext.GetInstance();
-            ICollection<EmployeeViewModel> employees = db.Employees.ToList();
+            ICollection<EmployeeModel> employees = db.Employees.ToList();
             // employees.AddRange(db.Employees); // Not allowed: 'ICollection<T>'does not contain a definition for 'AddRange'
             // Use List<T> for AddRange.
         }
 
         // 20. Get all employees as List and use RemoveAll (allowed)
-        public static List<EmployeeViewModel> GetEmployeesAndRemoveInactive()
+        public static List<EmployeeModel> GetEmployeesAndRemoveInactive()
         {
             var db = EMSDbContext.GetInstance();
             var employees = db.Employees.ToList();

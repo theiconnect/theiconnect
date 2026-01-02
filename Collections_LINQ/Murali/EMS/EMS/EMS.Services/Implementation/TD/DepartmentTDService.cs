@@ -37,7 +37,7 @@ namespace EMS.Services.Implementation.TD
             return department;
         }
 
-        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
+        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
         {
             responseMessage = "Success";
             try
@@ -73,7 +73,7 @@ namespace EMS.Services.Implementation.TD
             }
         }
 
-        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
+        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage)
         {
             responseMessage = "Success";
             var department = dbContext.Departments.FirstOrDefault(d => d.DepartmentIdPk == departmentId);

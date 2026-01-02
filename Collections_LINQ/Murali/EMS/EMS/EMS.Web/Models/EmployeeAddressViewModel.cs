@@ -1,12 +1,12 @@
 ﻿using EMS.Models.Enums;
 using System.ComponentModel;
 
-namespace EMS.Web.Models.Enums
+namespace EMS.Web.Models
 {
-    public class EmployeeAddressModel
+    public class EmployeeAddressViewModel
     {
-        public EmployeeAddressModel() { }
-        public EmployeeAddressModel( string? _AddressLine1, string? _AddressLine2, string? _State, string? _City, string _Pincode, AddressTypes _AddressTypeIdFk, int _EmployeeIdFk, bool _IsActive, string _AddressTypeText)
+        public EmployeeAddressViewModel() { }
+        public EmployeeAddressViewModel( string? _AddressLine1, string? _AddressLine2, string? _State, string? _City, string _Pincode, AddressTypes _AddressTypeIdFk, int _EmployeeIdFk, bool _IsActive, string _AddressTypeText)
         {
 
             AddressLine1 = _AddressLine1;

@@ -14,6 +14,7 @@ namespace EMS.Web.Controllers
     public class DepartmentController : Controller
     {
         private IDepartmentService departmentService;
+        public static string userName = "admin";
 
         public DepartmentController(IDepartmentService _departmentService)
         {
@@ -34,6 +35,7 @@ namespace EMS.Web.Controllers
                 obj.DepartmentId = model.DepartmentIdPk;
                 obj.Code = model.DepartmentCode;
                 obj.DeptName = model.DepartmentName;
+                obj.Location = model.Location;
                 obj.IsActive = model.IsActive;
                 ViewModel.Add(obj);
             }
@@ -78,7 +80,7 @@ namespace EMS.Web.Controllers
                 Location = viewModel.Location,
                 IsActive = viewModel.IsActive
             };
-            bool isSuccess = departmentService.SaveDepartment(departmentModel, true, out string message);
+            bool isSuccess = departmentService.SaveDepartment(departmentModel, true, userName, out string message);
 
             if (isSuccess)
             {
@@ -125,7 +127,7 @@ namespace EMS.Web.Controllers
                 Location = updateModel.Location,
                 IsActive = updateModel.IsActive
             };
-            bool IsSuccess = departmentService.SaveDepartment(departmentModel, false, out string responseMessage);
+            bool IsSuccess = departmentService.SaveDepartment(departmentModel, false, userName, out string responseMessage);
 
             return Json(new { IsSuccess = IsSuccess, errorMessage = responseMessage });
         }
@@ -155,7 +157,7 @@ namespace EMS.Web.Controllers
         [HttpPost]
         public IActionResult DeactivateDepartment([FromBody] Test t)
         {
-            bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, out string responseMessage);
+            bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, userName, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
@@ -166,7 +168,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult ActivateDepartment(int id)
         {
-            bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: false, out string responseMessage);
+            bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: false, userName, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
