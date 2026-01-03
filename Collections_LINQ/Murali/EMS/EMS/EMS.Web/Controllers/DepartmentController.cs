@@ -5,6 +5,7 @@ using EMS.Services.Implementation.EFCore;
 using EMS.IServices;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace EMS.Web.Controllers
 {
@@ -13,6 +14,7 @@ namespace EMS.Web.Controllers
     public class DepartmentController : Controller
     {
         private IDepartmentService departmentService;
+        public static string userName = "admin";
 
         public DepartmentController(IDepartmentService _departmentService)
         {
@@ -27,39 +29,29 @@ namespace EMS.Web.Controllers
             var departmentFromDb = departmentService.GetAllDepartments();
 
             var ViewModel = new List<DepartmentViewModel>();
-            foreach(var model in departmentFromDb)
+            foreach (var model in departmentFromDb)
             {
                 var obj = new DepartmentViewModel();
                 obj.DepartmentId = model.DepartmentIdPk;
                 obj.Code = model.DepartmentCode;
                 obj.DeptName = model.DepartmentName;
+                obj.Location = model.Location;
                 obj.IsActive = model.IsActive;
                 ViewModel.Add(obj);
             }
             return View(ViewModel);
-
-
-            
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 81a3672bf21d766444676e1ead5f9cef9782aa2e
         [Route("search")]
         [HttpGet]
         public IActionResult Searching(string searchName, string searchLocation)
         {
-            List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments();
-            var filteredDepartments = departmentsFromDB;
-           
-
-            if (!string.IsNullOrEmpty(searchName))
-            {
-                filteredDepartments = filteredDepartments
-                    .Where(d => d.DepartmentName != null && d.DepartmentName.Contains(searchName, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-            if (!string.IsNullOrEmpty(searchLocation))
-            {
-                filteredDepartments = filteredDepartments
-                    .Where(d => d.Location != null && d.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase)).ToList();
-            }
-         var viewModel = filteredDepartments.Select(d => new DepartmentViewModel
+            List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments(searchName, searchLocation);
+            
+            var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel
             {
                 DepartmentId = d.DepartmentIdPk,
                 Code = d.DepartmentCode,
@@ -67,8 +59,6 @@ namespace EMS.Web.Controllers
                 Location = d.Location,
                 IsActive = d.IsActive
             }).ToList();
-
-
 
             return View("List", viewModel);
         }
@@ -93,7 +83,7 @@ namespace EMS.Web.Controllers
                 Location = viewModel.Location,
                 IsActive = viewModel.IsActive
             };
-            bool isSuccess = departmentService.SaveDepartment(departmentModel, true, out string message);
+            bool isSuccess = departmentService.SaveDepartment(departmentModel, true, userName, out string message);
 
             if (isSuccess)
             {
@@ -114,7 +104,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult EditDepartment(int id)
         {
-            var deptDB = departmentService.GetAllDepartments().FirstOrDefault(d => d.DepartmentIdPk == id);
+            var deptDB = departmentService.GetDepartmentById(id);
 
             var model = new DepartmentViewModel(
                     deptDB.DepartmentIdPk,
@@ -129,7 +119,7 @@ namespace EMS.Web.Controllers
 
         [Route("UpdatesaveDepartment")]
         [HttpPost]
-        public IActionResult UpdatesaveDepartment([FromBody]DepartmentViewModel updateModel)
+        public IActionResult UpdatesaveDepartment([FromBody] DepartmentViewModel updateModel)
         {
 
             DepartmentModel departmentModel = new DepartmentModel
@@ -140,11 +130,9 @@ namespace EMS.Web.Controllers
                 Location = updateModel.Location,
                 IsActive = updateModel.IsActive
             };
-            bool IsSuccess = departmentService.EditDepartmentSave(departmentModel, out string responseMessage);
+            bool IsSuccess = departmentService.SaveDepartment(departmentModel, false, userName, out string responseMessage);
 
             return Json(new { IsSuccess = IsSuccess, errorMessage = responseMessage });
-
-
         }
 
 
@@ -172,7 +160,7 @@ namespace EMS.Web.Controllers
         [HttpPost]
         public IActionResult DeactivateDepartment([FromBody] Test t)
         {
-            bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, out string responseMessage);
+            bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, userName, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
@@ -183,7 +171,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult ActivateDepartment(int id)
         {
-            bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: false, out string responseMessage);
+            bool isSuccess = departmentService.ActivateDeactivateDepartment(id, isDeactivate: false, userName, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 

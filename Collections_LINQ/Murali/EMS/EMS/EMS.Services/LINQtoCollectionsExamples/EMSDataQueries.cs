@@ -132,17 +132,17 @@ namespace EMS.Services.LINQtoCollectionsExamples
                 .ToList();
         }
 
-        // 14. Get all employees who have both present and permanent addresses
-        public static List<EmployeeModel> GetEmployeesWithPresentAndPermanentAddresses()
-        {
-            var db = EMSDbContext.GetInstance();
-            return db.Employees
-                .Where(e =>
-                    e.Addresses.Any(a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PRESENT_ADDR) &&
-                    e.Addresses.Any(a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PERM_ADDR)
-                )
-                .ToList();
-        }
+        //// 14. Get all employees who have both present and permanent addresses
+        //public static List<EmployeeModel> GetEmployeesWithPresentAndPermanentAddresses()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Employees
+        //        .Where(static e =>
+        //            e.Addresses.Any(static a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PRESENT_ADDR) &&
+        //            e.Addresses.Any(static a => a.AddressTypeIdFk == Models.Enums.AddressTypes.PERM_ADDR)
+        //        )
+        //        .ToList();
+        //}
 
         // 15. Get all employees with their qualification description (if any)
         public static List<(EmployeeModel Employee, string Qualification)> GetEmployeesWithQualification()

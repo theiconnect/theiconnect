@@ -1,15 +1,18 @@
 ﻿using EMS.Models.Enums;
+using EMS.Web.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace EMS.Web.Models
-{   
-    public class EmployeeListViewModel
+{
+
+    public class EmployeeViewModel
     {
-        public EmployeeListViewModel()
+        public EmployeeViewModel()
         {
         }
+
         public int EmployeeId { get; set; }
         public string Code { get; set; }
         public string FirstName { get; set; }
@@ -37,8 +40,8 @@ namespace EMS.Web.Models
 
         [DisplayName("Is Active")]
         public bool IsActive { get; set; } = true;
+
         public List<EmployeeAddressViewModel> Addresses { get; set; } = new List<EmployeeAddressViewModel>();
     }
-
-    
 }
+

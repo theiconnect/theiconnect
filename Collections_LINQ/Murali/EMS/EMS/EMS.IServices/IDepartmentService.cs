@@ -5,11 +5,10 @@ namespace EMS.IServices
     public interface IDepartmentService
     {
         List<DepartmentModel> GetAllDepartments();
-        bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage);
-        bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage);
-
-
-            bool EditDepartmentSave(DepartmentModel departmentModel, out string responseMessage);
+        List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation);
+        DepartmentModel GetDepartmentById(int departmentId);
+        bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage);
+        bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage);
     }
 
 }

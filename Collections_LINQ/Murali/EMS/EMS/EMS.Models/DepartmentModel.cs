@@ -11,12 +11,13 @@ namespace EMS.Models
         public int DepartmentIdPk { get; set; }
         public string DepartmentCode { get; set; }
         public string DepartmentName { get; set; }
-        /// <summary>
-        /// 
         public string Location { get; set; }
-        /// </summary>
         public int CompanyIdFk  { get; set; }
         public bool IsActive { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public DateTime? LastUpdatedOn { get; set; }
 
         public List<EmployeeModel> Employees { get; set; } = new List<EmployeeModel>();
         public List<CompanyAddressModel> CompanyAddresses { get; set; } = new List<CompanyAddressModel>();

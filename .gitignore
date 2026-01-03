@@ -80,3 +80,4 @@ _ReSharper*/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/Collections_LINQ/Murali/EMS/EMS/EMS.DB/EMS.DB.jfm

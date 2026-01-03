@@ -22,7 +22,22 @@ namespace EMS.Services.Implementation.TD
             return departments;
         }
 
-        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
+        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        {
+            List<DepartmentModel> departments = dbContext.Departments
+                .Where(d => string.IsNullOrEmpty(deptName) || d.DepartmentName.ToLower().Contains(deptName.ToLower()))
+                .Where(d => string.IsNullOrEmpty(deptLocation) || d.Location.ToLower().Contains(deptLocation.ToLower()))
+                .ToList();
+            return departments;
+        }
+
+        public DepartmentModel GetDepartmentById(int departmentId)
+        {
+            DepartmentModel department = dbContext.Departments.Where(a => a.DepartmentIdPk == departmentId).FirstOrDefault();
+            return department;
+        }
+
+        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
         {
             responseMessage = "Success";
             try
@@ -58,35 +73,7 @@ namespace EMS.Services.Implementation.TD
             }
         }
 
-        public bool EditDepartmentSave(DepartmentModel departmentModel, out string responseMessage)
-        {
-            responseMessage = "Success";
-            try
-            {
-                var existingDepartment = dbContext.Departments.FirstOrDefault(d => d.DepartmentIdPk == departmentModel.DepartmentIdPk);
-                if (existingDepartment != null)
-                {
-                    existingDepartment.DepartmentCode = departmentModel.DepartmentCode;
-                    existingDepartment.DepartmentName = departmentModel.DepartmentName;
-                    existingDepartment.Location = departmentModel.Location;
-                    existingDepartment.IsActive = departmentModel.IsActive;
-                }
-                else
-                {
-                    responseMessage = "Department not found";
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                responseMessage = ex.Message;
-                return false;
-            }
-            return true;
-
-        }
-
-        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
+        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage)
         {
             responseMessage = "Success";
             var department = dbContext.Departments.FirstOrDefault(d => d.DepartmentIdPk == departmentId);

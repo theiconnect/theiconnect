@@ -11,6 +11,8 @@ namespace EMS.DataAccess
     public class EMSDbContext
     {
         private static EMSDbContext _obj;
+        public object employees;
+
         public string PhoneNumber { get; set; }
 
         public List<string> PhoneNumbersList { get; set; }
@@ -82,11 +84,11 @@ namespace EMS.DataAccess
             }
         }
 
-        public List<EmployeeAddressViewModel> EmployeeAddresses
+        public List<EmployeeAddressModel> EmployeeAddresses
         {
             get
             {
-                var addresses = new List<EmployeeAddressViewModel>();
+                var addresses = new List<EmployeeAddressModel>();
                 foreach (var d in Company.Departments)
                 {
                     foreach (var e in d.Employees)
@@ -479,18 +481,18 @@ namespace EMS.DataAccess
             return employees;
         }
 
-        private List<EmployeeAddressViewModel> CreateEmployeeSampleAddresses(int employeeId)
+        private List<EmployeeAddressModel> CreateEmployeeSampleAddresses(int employeeId)
         {
             var random = new Random();
             var cities = new[] { "New York", "Los Angeles", "Chicago", "Houston", "Phoenix" };
             var states = new[] { "NY", "CA", "IL", "TX", "AZ" };
             var streets = new[] { "Main St", "Broadway", "1st Ave", "2nd Ave", "Park Ave" };
 
-            return new List<EmployeeAddressViewModel>
+            return new List<EmployeeAddressModel>
             {
-                new EmployeeAddressViewModel
+                new EmployeeAddressModel
                 {
-                    EmployeeAddressModelIdPk = employeeId * 10 + 1,
+                    EmployeeAddressIdPk = employeeId * 10 + 1,
                     EmployeeIdFk = employeeId,
                     AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
                     AddressLine2 = $"Apt {random.Next(1, 100)}",
@@ -500,9 +502,9 @@ namespace EMS.DataAccess
                     AddressTypeIdFk = AddressTypes.PRESENT_ADDR,
                     isActive = true
                 },
-                new EmployeeAddressViewModel
+                new EmployeeAddressModel
                 {
-                    EmployeeAddressModelIdPk = employeeId * 10 + 2,
+                    EmployeeAddressIdPk = employeeId * 10 + 2,
                     EmployeeIdFk = employeeId,
                     AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
                     AddressLine2 = $"Suite {random.Next(1, 100)}",
@@ -512,9 +514,9 @@ namespace EMS.DataAccess
                     AddressTypeIdFk = AddressTypes.PERM_ADDR,
                     isActive = true
                 },
-                new EmployeeAddressViewModel
+                new EmployeeAddressModel
                 {
-                    EmployeeAddressModelIdPk = employeeId * 10 + 3,
+                    EmployeeAddressIdPk = employeeId * 10 + 3,
                     EmployeeIdFk = employeeId,
                     AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
                     AddressLine2 = $"Floor {random.Next(1, 10)}",

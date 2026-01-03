@@ -1,10 +1,10 @@
-﻿@model List<EMS.Models.EmployeeViewModel>
+﻿@model List<EMS.Web.Models.EmployeeListViewModel>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-	Layout = "~/Views/Shared/_EMSLayout.cshtml";
+
 	int counter = 0;
 
 }
@@ -96,6 +96,7 @@
 									{
 										<tr>
 											<td>@(++counter)</td>
+											<td>@emp.EmployeeId</td>
 											<td>@emp.Code</td>
 											<td>@emp.FirstName @emp.LastName</td>
 											<td>@emp.MobileNumber</td>
@@ -118,3 +119,4 @@
 		</div>
 	</div>
 </main>
+
