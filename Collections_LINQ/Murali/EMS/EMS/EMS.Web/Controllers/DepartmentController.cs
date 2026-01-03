@@ -41,13 +41,6 @@ namespace EMS.Web.Controllers
 
             
         }
-
-
-
-
-
-
-
         [Route("search")]
         [HttpGet]
         public IActionResult Searching(string searchName, string searchLocation)
