@@ -1,0 +1,61 @@
+﻿using StudentWebAppliaction.Models;
+    
+@model List<StudentWebAppliaction.Models.StudentModel>
+
+@{
+   // Layout = '~/Views/Shared/_Layout.cshtml';
+    int counter = 0;
+}
+<h1>Students Details Information</h1>
+
+<a class="btn btn-success" asp-controller="Student" asp-action="Add">Add Student</a>
+
+<table class="table table-bordered">
+    <thead class="table table-dark">
+        <tr>
+            <td>S.NO</td>
+            <td>Student Code</td>
+            <td>Student Name</td>
+            <td>First Name</td>
+            <td>Date of Birth</td>
+            <td>Grade</td>
+            <td>GPA</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+                @foreach(var x in Model)
+                {
+                    <tr>
+                    <td>@(++counter)</td>
+                    <td>@x.StudentId</td>
+                    <td>@x.StudentName</td>
+                    <td>@x.FatherName</td>
+                    <td>@x.Email</td>
+                    <td>@x.MobileNumber</td>
+                    <td>@x.IsActive</td>
+                    <td><a class="btn btn-secondary" asp-action="View" asp-controller="Student" asp-route-id="@x.StudentId">View</a>
+                    <a class="btn btn-primary" asp-action="Edit" asp-controller="Student" asp-route-id="@x.StudentId">Edit</a>
+                    <a class="btn btn-danger" id="deleteaction" asp-action="Delete" asp-controller="Student" asp-route-id="@x.StudentId">Delete</a>
+                    </td>
+                    </tr>
+
+                }
+
+        }
+    </tbody>
+</table>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function(){
+
+                let x =document.getElementById("deleteaction");
+                x.addEventListener("click",function(){
+                    fetch('/Student/list')
+                })
+
+            });
+         </script>
+
+
+
