@@ -41,7 +41,10 @@ namespace EMS.Web.Controllers
             }
             return View(ViewModel);
         }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 81a3672bf21d766444676e1ead5f9cef9782aa2e
         [Route("search")]
         [HttpGet]
         public IActionResult Searching(string searchName, string searchLocation)

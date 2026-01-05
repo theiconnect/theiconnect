@@ -25,7 +25,7 @@ namespace EMS.Services.Implementation.ADO
 	                            IsActive, 
 	                            DeptLocation, 
 	                            CreatedOn,
-	                            ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
+	                            ISNULL(LastUpdatedOn, CreatedOn) as  LastUpdatedOn
                             FROM dbo.Department
                             Order by LastUpdatedOn DESC";
             var departments = new List<DepartmentModel>();
