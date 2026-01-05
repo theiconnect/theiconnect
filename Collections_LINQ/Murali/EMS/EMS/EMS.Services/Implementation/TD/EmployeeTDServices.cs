@@ -38,7 +38,21 @@ namespace EMS.Services.Implementation.TD
         {
             return null;
         }
-        public bool ActivateDeactivateEmployeee(int employeeId, bool isDeactivate, out string responseMessage)
+
+
+        private int GenerateNewEmpId()
+        {
+            if (dbContext.Employees.Count == 0)
+                return 1;
+            return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
+        }
+
+        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
         {
             responseMessage = "Success";
             var employee = dbContext.Employees.FirstOrDefault(e => e.EmployeeIdPk == employeeId);
@@ -67,24 +81,9 @@ namespace EMS.Services.Implementation.TD
                 return true;
             }
             return false;
+           
         }
 
-
-        private int GenerateNewEmpId()
-        {
-            if (dbContext.Employees.Count == 0)
-                return 1;
-            return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
-        }
-
-        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
+
