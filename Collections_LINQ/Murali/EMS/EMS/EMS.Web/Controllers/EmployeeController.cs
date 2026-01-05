@@ -99,8 +99,13 @@ namespace EMS.Web.Controllers
         // Route: /Employee/viewemployee
 
         [Route("viewemployee/{id}")]
-        public IActionResult ViewEmployee(int id)
+        public IActionResult ViewEmployee(int employeeid)
         {
+            var empDB = employeeServices.GetAllEmployees()
+                                          .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
+
+            return View();
+        }
 
 
             var empDB = employeeServices
