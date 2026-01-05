@@ -1,6 +1,160 @@
+<<<<<<< HEAD
+﻿@model EMS.Models.EmployeeModel
+
+=======
 ﻿@using EMS.Models.Enums
 @model EMS.Web.Models.EmployeeViewModel
+>>>>>>> 81a3672bf21d766444676e1ead5f9cef9782aa2e
 @{
 	ViewData["Title"] = "EditEmployee";
 }
 
+<<<<<<< HEAD
+<div class="card-header bg-info text-white">
+    <h5 class="mb-0"> Address Details</h5>
+</div>
+    <form asp-action="saveemployee" asp-controller="Employee">
+        <div class="row">
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Employeecode:</label>
+                <input type="text" id="Code" name="Code234" class="form-control" value="@Model.Employeecode" />
+            </div>
+
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">FirstName:</label>
+                @Html.TextBoxFor(Model => Model.FirstName, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">LastName:</label>
+                @Html.TextBoxFor(Model => Model.LastName, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">BloodGroup:</label>
+                @Html.TextBoxFor(Model => Model.BloodGroup, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Gender:</label>
+                @Html.TextBoxFor(Model => Model.Gender, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">EmailId:</label>
+                @Html.TextBoxFor(Model => Model.EmailId, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">MobileNumber:</label>
+                @Html.TextBoxFor(Model => Model.MobileNumber, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">DateOfBirth:</label>
+                @Html.TextBoxFor(Model => Model.DateOfBirth, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">DateOfJoining:</label>
+                @Html.TextBoxFor(Model => Model.DateOfJoining, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">ExpInMonths:</label>
+                @Html.TextBoxFor(Model => Model.ExpInMonths, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">SalaryCtc:</label>
+                @Html.TextBoxFor(Model => Model.SalaryCtc, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">IsActive:</label>
+                @Html.CheckBoxFor(m => m.IsActive)
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">2. Address Details</h5>
+             </div>
+
+@* <div class="card-body">
+                <h6 class="mb-3"><i class="fas fa-home me-1"></i> Permanent Address</h6>
+                <div class="row g-3 mb-3">
+                    <div class="form-group col-3">
+                        <label class="control-label fw-bold">AddressLine1:</label>
+                        @Html.TextBoxFor(Model => Model.AddressLine1, new { @class = "form-control" })
+                        </div>
+                    <div class="form-group col-3">
+                        <label class="control-label fw-bold">AddressLine2:</label>
+                        @Html.TextBoxFor(Model => Model.AddressLine2, new { @class = "form-control" })
+                        </div>
+                    <div class="form-group col-3">
+                        <label class="control-label fw-bold">State:</label>
+                        @Html.TextBoxFor(Model => Model.State, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-3">
+                        <label class="control-label fw-bold">City:</label>
+                        @Html.TextBoxFor(Model => Model.City, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-3">
+                        <label class="control-label fw-bold">Pincode:</label>
+                        @Html.TextBoxFor(Model => Model.Pincode, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-3">
+                        <label class="control-label fw-bold">AddressTypeId:</label>
+                        @Html.TextBoxFor(Model => Model.AddressTypeId, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group col-5">
+                        <label class="control-label fw-bold">IsActive:</label>
+                        @Html.CheckBoxFor(m => m.IsActive)
+                    </div>
+                    <div class="card-body">
+                        <h6 class="mb-3"><i class="fas fa-home me-1"></i> Present Address</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="form-group col-3">
+                                <label class="control-label fw-bold">AddressLine1:</label>
+                                @Html.TextBoxFor(Model => Model.AddressLine1, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="control-label fw-bold">AddressLine2:</label>
+                                @Html.TextBoxFor(Model => Model.AddressLine2, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="control-label fw-bold">State:</label>
+                                @Html.TextBoxFor(Model => Model.State, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="control-label fw-bold">City:</label>
+                                @Html.TextBoxFor(Model => Model.City, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="control-label fw-bold">Pincode:</label>
+                                @Html.TextBoxFor(Model => Model.Pincode, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="control-label fw-bold">AddressTypeId:</label>
+                                @Html.TextBoxFor(Model => Model.AddressTypeId, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-5">
+                                <label class="control-label fw-bold">IsActive:</label>
+                                @Html.CheckBoxFor(m => m.IsActive)
+                            </div>
+</div>
+</div>
+    </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-10">
+                &nbsp;
+            </div>
+            <div class="col-4">
+                @Html.HiddenFor(m => m.EmployeeIdPK)
+                <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </div>
+    
+</div> *@
+</form>
+=======
+>>>>>>> 81a3672bf21d766444676e1ead5f9cef9782aa2e
