@@ -5,16 +5,16 @@ namespace EMS.Models
     public class EmployeeModel
     {
         public int EmployeeIdPk { get; set; }
-        public string Employeecode { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
+        public string? Employeecode{ get; set; }
+        public string? FirstName { get; set; }
+        public string? MiddleName { get; set; }
+        public string? LastName { get; set; }
         public BloodGroups BloodGroup { get; set; }
         public Genders Gender { get; set; }
-        public string EmailId { get; set; }
-        public string PersonalEmailId { get; set; }
-        public string MobileNumber { get; set; }
-        public string AlternateMobileNumber { get; set; }
+        public string? EmailId { get; set; }
+        public string? PersonalEmailId { get; set; }
+        public string? MobileNumber { get; set; }
+        public string? AlternateMobileNumber { get; set; }
         public int DepartmentIdFk { get; set; } //Current department
         //1e=> 1dept+history dept
         //1d=> m employees
