@@ -104,9 +104,36 @@
 											<td>@emp.EmailId</td>
 											<td>@(emp.IsActive ? "Yes" : "No")</td>
 											<td class="text-center">
-												<a class="btn btn-primary btn-sm me-1" asp-controller="Employee" asp-action="ViewEmployee" asp-route-id="@emp.EmployeeId">View</a>
-												<a class="btn btn-warning btn-sm me-1" asp-controller="Employee" asp-action="EditEmployee" asp-route-id="@emp.EmployeeId">Edit</a>
-												<a class="btn btn-danger btn-sm" asp-controller="Employee" asp-action="DeleteEmployee" asp-route-id="@emp.EmployeeId">Delete</a>
+												<a class="btn btn-primary btn-sm me-1"
+												   asp-controller="Employee"
+												   asp-action="ViewEmployee"
+												   asp-route-id="@emp.EmployeeId">
+													View
+												</a>
+
+												<a class="btn btn-warning btn-sm me-1"
+												   asp-controller="Employee"
+												   asp-action="EditEmployee"
+												   asp-route-id="@emp.EmployeeId">
+													Edit
+												</a>
+
+
+												@if (emp.IsActive)
+												{
+													<button class="btn btn-danger btn-sm"
+															onclick="deleteEmployee(@emp.EmployeeId, '@(emp.FirstName)')">
+														Deactivate
+													</button>
+												}
+												else
+												{
+													<button class="btn btn-success btn-sm"
+															onclick="activateEmployee(@emp.EmployeeId, '@(emp.FirstName)')">
+														Activate
+													</button>
+												}
+
 											</td>
 										</tr>
 									}
@@ -119,4 +146,124 @@
 		</div>
 	</div>
 </main>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/employee/employee-list.js"></script>
+<script type="text/javascript">
+	 function goToAdd(){
+
+		 location.href=  '@Url.Action("CreateEmployee", "Employee")';
+	 }
+	 /*function goToEdit(id){
+		 location.href=  '@Url.Action("EditEmployee", "Employee")' + '/'+ id;
+	 }
+
+	 function goToView(id){
+		 location.href=  '@Url.Action("ViewEmployee", "Employee")' + '/'+ id;
+	 }*/
+	 function deleteEmployee(id,firstName){
+			 var confirmResult  = confirm('Are you sure you want to delete '+ firstName + ' employee?')
+			 if(!confirmResult){
+				 return;
+			 }
+
+			 const myHeaders = new Headers();
+			 myHeaders.append("Content-Type", "application/json");
+
+			 const myRequest = new Request('@Url.Action("delete", "Employee")', {
+			   method: "POST",
+			   body: JSON.stringify({ employeeId: id }),
+			   headers: myHeaders,
+			 });
+
+			 debugger;
+
+			 fetch(myRequest)
+					 .then(response =>{
+						 debugger;
+						 console.log(response)
+						 return response.json()
+					 })
+					 .then(data =>{
+						 debugger;
+
+						 if(data.success){
+							 location.href='';
+							 //success
+						 }else{
+							 alert(data.message);
+							 //failed
+						 }
+
+						 console.log(data)
+						 })
+					 .catch(error =>{
+						 debugger;
+						 console.error('Error:', error)
+					 });
+					 return;
+					  ///////////////////////OLD code//////////////////////
+					   fetch('@Url.Action("delete", "Employee")/' +id)
+					  .then(response =>{
+						  debugger;
+						  console.log(response)
+					  return response.json()
+					  })
+					  .then(data =>{
+						  debugger;
+
+						  if(data.success){
+							  location.href='';
+							  //success
+						  }else{
+							  alert(data.message);
+							  //failed
+						  }
+
+						  console.log(data)
+					  })
+					  .catch(error =>{
+						  debugger;
+						  console.error('Error:', error)
+					  });
+
+
+	}
+	//////////////////old code///////////////////////////////////
+	 function activateEmployee(id, employeeName){
+			   var confirmResult  = confirm('Are you sure you want to activate '+ employeeName + ' ?')
+			  if(!confirmResult){
+				  return;
+			  }
+			  fetch('@Url.Action("active", "Employee")' + '/'+ id)
+					  .then(response =>{
+						  debugger;
+						  console.log(response)
+						  return response.json()
+					  })
+					  .then(data =>{
+					  debugger;
+
+						  if(data.success){
+							  location.href='';
+							  //success
+						  }else{
+							  alert(data.message);
+							  //failed
+						  }
+
+					  console.log(data)
+					  })
+					  .catch(error =>{
+						  debugger;
+						  console.error('Error:', error)
+					  });
+
+	 }
+
+
+	   let table = new DataTable('#empTable');
+
+
+</script>
 
