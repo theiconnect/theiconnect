@@ -1,5 +1,6 @@
 ﻿using EMS.Models.Enums;
 using EMS.Web.Models.Enums;
+using Intuit.Ipp.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,23 @@ namespace EMS.Web.Models
     {
         public EmployeeViewModel()
         {
+        }
+
+        public EmployeeViewModel(int employeeIdPk, string employeecode, string firstName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
+        {
+            EmployeeId = employeeIdPk;
+            Code=employeecode;
+            FirstName = firstName;
+            LastName = lastName;
+            BloodGroup = bloodGroup;
+            Gender = gender;
+            EmailId = emailId;
+            MobileNumber = mobileNumber;
+            DateOfBirth = dateOfBirth;
+            DateOfJoining = dateOfJoining;
+            ExpInMonths = expInMonths;
+            SalaryCtc = salaryCtc;
+            IsActive = isActive;
         }
 
         public int EmployeeId { get; set; }

@@ -213,7 +213,7 @@ namespace EMS.Services.Implementation.ADO
 
                 if (dr.Read())
                 {
-                    DepartmentModel model = new DepartmentModel();
+                    DepartmentModel model = new DepartmentModel(); 
                     model.DepartmentIdPk = Convert.ToInt32(dr["DepartmentIdPk"]);
                     model.DepartmentCode = Convert.ToString(dr["DepartmentCode"]);
                     model.DepartmentName = Convert.ToString(dr["DepartmentName"]);

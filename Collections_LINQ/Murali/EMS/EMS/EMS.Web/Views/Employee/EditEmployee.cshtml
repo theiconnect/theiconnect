@@ -1,362 +1,137 @@
+
 @model EMS.Web.Models.EmployeeViewModel
 @{
     ViewData["Title"] = "EditEmployee";
 }
 
-<div class="container">
-    <h2>Edit Employee</h2>
-    <hr />
-
-    <form asp-action="SaveEmployee" asp-controller="Employee" method="post">
-        <div class="row">
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Employee Code:</label>
-                @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">First Name:</label>
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Last Name:</label>
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Gender:</label>
-                <select asp-for="Gender" class="form-select">
-                    <option value="">Select</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Blood Group:</label>
-                <select asp-for="BloodGroup" class="form-select">
-                    <option value="">Select</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                </select>
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Mobile Number:</label>
-                @Html.TextBoxFor(m => m.MobileNumber, new { @class = "form-control" })
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Date Of Birth:</label>
-                @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", type = "date" })
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Date Of Joining:</label>
-                @Html.TextBoxFor(m => m.DateOfJoining, new { @class = "form-control", type = "date" })
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Experience (Months):</label>
-                @Html.TextBoxFor(m => m.ExpInMonths, new { @class = "form-control" })
-            </div>
-
-            <div class="form-group col-3">
-                <label class="fw-bold">Is Active:</label>
-                @Html.CheckBoxFor(m => m.IsActive)
-            </div>
-
-        </div>
-        <div class="container">
-            <h5>2. Employment & Compensation</h5>
-            <hr />
-            <label for="DepartmentIdFk" class="form-label">Department <span class="text-danger">*</span></label>
-            <select asp-for="DepartmentIdFk" class="form-select" id="DepartmentIdFk" name="DepartmentIdFk" required>
-                <option value="">Select Department</option>
-                <option value="1">IT Services</option>
-                <option value="2">Finance</option>
-                <option value="3">Human Resources</option>
-                <option value="4">Marketing</option>
-            </select>
-            <div class="invalid-feedback">Please select a department.</div>
-        </div>
-
-        <div class="col-md-4">
-            <label for="QualificationIdFk" class="form-label">Qualification</label>
-            <select asp-for="QualificationIdFk" class="form-select" id="QualificationIdFk" name="QualificationIdFk">
-                <option value="">Select</option>
-                <option value="1">B.Tech</option>
-                <option value="2">M.Tech</option>
-                <option value="3">MBA</option>
-                <option value="4">Other</option>
-            </select>
-        </div>
-
-        <div class="col-md-4">
-            <label for="DesignationIdFk" class="form-label">Designation</label>
-            <select asp-for="DesignationIdFk" class="form-select" id="DesignationIdFk" name="DesignationIdFk">
-                <option value="">Select</option>
-                <option value="Junior">Junior Developer</option>
-                <option value="Senior">Senior Developer</option>
-                <option value="Lead">Team Lead</option>
-                <option value="HRManager">HR Manager</option>
-            </select>
-        </div>
-
-        <div class="col-md-4">
-            <label for="SalaryCtc" class="form-label">Salary (CTC)</label>
-            <input asp-for="SalaryCtc" class="form-control" id="SalaryCtc" name="SalaryCtc" type="number" step="0.01" min="0" placeholder="e.g. 75000.00" />
-        </div>
-
-        <div class="col-md-4">
-            <label for="IsActive" class="form-label d-block">Active</label>
-            <div class="form-check form-switch">
-                <input asp-for="IsActive" class="form-check-input" type="checkbox" id="IsActive" name="IsActive" checked />
-                <label class="form-check-label" for="IsActive">Employee is active</label>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <label for="LWD" class="form-label">Last Working Day (if applicable)</label>
-            <input asp-for="LWD" class="form-control" id="LWD" name="LWD" type="date" />
-        </div>
-      </div>
-
-
-      @foreach(var empaddr in Model.Address)
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="row">
-            <div class="col-12 text-end">
-                @Html.HiddenFor(m => m.EmployeeId)
-
-                <a class="btn btn-secondary" asp-action="List" asp-controller="Employee">Go Back</a>
-                <input type="submit" class="btn btn-primary" value="Submit" />
-            </div>
-        </div>
-
-    </form>
+<h2>Edit Employee</h2>
+<div class="card-header bg-info text-white">
+    <h5 class="mb-0"> Employee Details</h5>
 </div>
+<div>
+    <form asp-action="saveemployee" asp-controller="Employee">
+        <div class="row">
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Code:</label>
+                <input type="text" id="Code" name="Code234" class="form-control" value="@Model.Code" />
+            </div>
 
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">FirstName:</label>
+                <input type="text" id="FName" name="Code234" class="form-control" value="@Model.FirstName" />
+            </div>
 
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">LastName:</label>
+                <input type="text" id="LName" name="Code234" class="form-control" value="@Model.LastName" />
+            </div>
 
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">BloodGroup:</label>
+                <input type="text" id="BGroup" name="Code234" class="form-control" value="@Model.BloodGroup" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Gender:</label>
+                <input type="text" id="Gender" name="Code234" class="form-control" value="@Model.Gender" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">EmailId:</label>
+                <input type="text" id="Email" name="Code234" class="form-control" value="@Model.EmailId" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">MobileNumber:</label>
+                <input type="text" id="Mobile" name="Code234" class="form-control" value="@Model.MobileNumber" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">DateOfBirth:</label>
+                <input type="text" id="DOB" name="Code234" class="form-control" value="@Model.DateOfBirth" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">DateOfJoining:</label>
+                <input type="text" id="DOJ" name="Code234" class="form-control" value="@Model.DateOfJoining" />
+            </div>
 
-@* 
-
-
-<div id="main-content">
-    <div class="container-fluid pt-5 mt-3">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3"><i class="fas fa-user-plus me-2"></i> Edit Employee</h2>
-            <a class="btn btn-secondary" asp-controller="Employee" asp-action="EmployeeList">
-                Back to List
-            </a>
-        </div>
-
-        <form id="addEmployeeForm" asp-action="AddEmployee" method="post" class="needs-validation" novalidate>
-            @Html.AntiForgeryToken()
-
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">1. Personal and Contact Details</h5>
-                </div>
-
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <label for="Employeecode" class="form-label">Employee Code (Auto Generated)</label>
-                            <input asp-for="Employeecode" class="form-control" id="Employeecode" name="Employeecode" value="@Model?.Employeecode ?? readonly />
-                            <div class="form-text">This code will be generated/validated on save.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="FirstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                            <input asp-for="FirstName" class="form-control" id="FirstName" name="FirstName" value="@Model?.FirstName required  />
-                            <div class="invalid-feedback">First name is required.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="MiddleName" class="form-label">Middle Name</label>
-                            <input asp-for="MiddleName" class="form-control" id="MiddleName" name="MiddleName" value="@Model?.MiddleName/>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="LastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                            <input asp-for="LastName" class="form-control" id="LastName" name="LastName" value="@Model?.LastName required  />
-                            <div class="invalid-feedback">Last name is required.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="Gender" class="form-label">Gender</label>
-                            <select asp-for="Gender" class="form-select" id="Gender" name="Gender" required>
-                                <option value="">Select</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <div class="invalid-feedback">Please select a gender.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="BloodGroup" class="form-label">Blood Group</label>
-                            <select asp-for="BloodGroup" class="form-select" id="BloodGroup" name="BloodGroup">
-                                <option value="">Select</option>
-                                <option value="APlus">A+</option>
-                                <option value="AMinus">A-</option>
-                                <option value="BPlus">B+</option>
-                                <option value="BMinus">B-</option>
-                                <option value="OPlus">O+</option>
-                                <option value="OMinus">O-</option>
-                                <option value="ABPlus">AB+</option>
-                                <option value="ABMinus">AB-</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="MobileNumber" class="form-label">Mobile <span class="text-danger">*</span></label>
-                            <input asp-for="MobileNumber" class="form-control" type="tel" id="MobileNumber" name="MobileNumber" maxlength="10" inputmode="numeric" value="@Model?.MobileNumber required  />
-                            <div class="invalid-feedback">Please enter a valid mobile number (10 digits).</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="AlternateMobileNumber" class="form-label">Alternate Mobile</label>
-                            <input asp-for="AlternateMobileNumber" class="form-control" id="AlternateMobileNumber" name="AlternateMobileNumber" maxlength="10" inputmode="numeric" value="@Model?.AlternateMobileNumber />
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="EmailId" class="form-label">Work Email <span class="text-danger">*</span></label>
-                            <input asp-for="EmailId" class="form-control" id="EmailId" name="EmailId" type="email" value="@Model?.EmailId required   />
-                            <div class="invalid-feedback">Please provide a valid email.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="PersonalEmailId" class="form-label">Personal Email</label>
-                            <input asp-for="PersonalEmailId" class="form-control" id="PersonalEmailId" name="PersonalEmailId" value="@Model.PersonalEmailId type="email" />
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="DateOfBirth" class="form-label">Date of Birth</label>
-                            <input asp-for="DateOfBirth" class="form-control" id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth type="date" />
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="DateOfJoining" class="form-label">Date of Joining (DOJ) <span class="text-danger">*</span></label>
-                            <input asp-for="DateOfJoining" class="form-control" id="DateOfJoining" name="DateOfJoining" value="@Model.DateOfJoining type="date" required />
-                            <div class="invalid-feedback">Date of joining is required.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="ExpInMonths" class="form-label">Experience (Months)</label>
-                            <input asp-for="ExpInMonths" class="form-control" id="ExpInMonths" name="ExpInMonths" value="@Model.ExpInMonths type="number" min="0" max="600" />
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">ExpInMonths:</label>
+                <input type="text" id="EIM" name="Code234" class="form-control" value="@Model.ExpInMonths" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">SalaryCtc:</label>
-                @Html.TextBoxFor(Model => Model.SalaryCtc, new { @class = "form-control" })
+                <input type="text" id="Salary" name="Code234" class="form-control" value="@Model.SalaryCtc" />
             </div>
             <div class="form-group col-5">
                 <label class="control-label fw-bold">IsActive:</label>
-                @Html.CheckBoxFor(m => m.IsActive)
+                <input type="checkbox" id="Active" name="IsActive" value="@Model.IsActive" />
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-10">
+                &nbsp;
+            </div>
+            <div class="col-4">
+                @Html.HiddenFor(m => m.EmployeeId)
+                <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
+                <input type="button" class="btn btn-primary" value="save" onclick="debugger; goToAdd();" />
             </div>
         </div>
+    </form>
+</div>
 
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">2. Address Details</h5>
-             </div>  *@
+<script type="text/javascript">
+    function goToAdd() {
+        let EmployeeId = '@Model.EmployeeId';
+        let employeeCode = document.getElementById('Code').value;
+        let firstName = document.getElementById('FName').value;
+        let lastName = document.getElementById('LName').value;
+        let bloodGroup = document.getElementById('BGroup').value;
+        let gender = document.getElementById('Gender').value;
+        let emailId = document.getElementById('Email').value;
+        let mobileNumber = document.getElementById('Mobile').value;
+        let dateOfBirth = document.getElementById('DOB').value;
+        let dateOfJoining = document.getElementById('DOJ').value;
+        let expInMonths = document.getElementById('EIM').value;
+        let salaryCtc = document.getElementById('Salary').value;
+        let isActive = document.getElementById('Active').checked;
 
-@*  <div class="card-body">
-                <h6 class="mb-3"><i class="fas fa-home me-1"></i> Permanent Address</h6>
-                <div class="row g-3 mb-3">
-                    <div class="form-group col-3">
-                        <label class="control-label fw-bold">AddressLine1:</label>
-                        @Html.TextBoxFor(Model => Model.AddressLine1, new { @class = "form-control" })
-                        </div>
-                    <div class="form-group col-3">
-                        <label class="control-label fw-bold">AddressLine2:</label>
-                        @Html.TextBoxFor(Model => Model.AddressLine2, new { @class = "form-control" })
-                        </div>
-                        <div class="col-md-3">
-                            <label for="pState" class="form-label">State</label>
-                            <input class="form-control" id="pState" name="PermanentAddress.State" />
-                        </div>
-                    </div>
+        let empObj = {
+            EmployeeIdPk: employeeId,
+            Employeecode: employeeCode,
+            FirstName: firstName,
+            LastName: lastName,
+            BloodGroup: bloodGroup,
+            Gender: gender,
+            EmailId: emailId,
+            MobileNumber: mobileNumber,
+            DateOfBirth: dateOfBirth,
+            DateOfJoining: dateOfJoining,
+            ExpInMonths: expInMonths,
+            SalaryCtc: salaryCtc,
+            IsActive: isActive
+        };
 
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-3">
-                            <label for="pPinCode" class="form-label">Pin Code</label>
-                            <input class="form-control" id="pPinCode" name="PermanentAddress.PinCode" />
-                        </div>
+        debugger;
 
-                        <div class="col-md-9 d-flex align-items-end">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="sameAsPermanent">
-                                <label class="form-check-label" for="sameAsPermanent">
-                                    Present Address is the same as Permanent Address
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+        fetch('/Employee/UpdateSaveEmployee', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(empObj)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.IsSuccess) {
+                alert('Employee details saved successfully');
+                window.location.href = '/Employee/List';
+            } else {
+                alert(data.errorMessage);
+            }
+            location.href='/Employee/List'
+        })
+        .catch(error => {
+            console.error('Error:',error);
+        });
+    }
 
-                    <h6 class="mb-3"><i class="fas fa-map-marker-alt me-1"></i> Present Address</h6>
-                    <div id="presentAddressFields">
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                <label for="tAddressLine1" class="form-label">Address Line 1</label>
-                                <input class="form-control" id="tAddressLine1" name="PresentAddress.Line1" />
-                            </div>
-                            <div class="col-md-3">
-                                <label for="tCity" class="form-label">City</label>
-                                <input class="form-control" id="tCity" name="PresentAddress.City" />
-                            </div>
-                            <div class="col-md-3">
-                                <label for="tState" class="form-label">State</label>
-                                <input class="form-control" id="tState" name="PresentAddress.State" />
-                            </div>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label for="tPinCode" class="form-label">Pin Code</label>
-                                <input class="form-control" id="tPinCode" name="PresentAddress.PinCode" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-9">
-                        <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList">Update Employee</button>
-                        <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
-                    </div>
-
-                </div>
-            </div>
-        </form>
-    </div>
-</div> *@
+  </Script>
