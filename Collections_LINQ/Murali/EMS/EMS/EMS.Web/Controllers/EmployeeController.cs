@@ -77,7 +77,31 @@ namespace EMS.Web.Controllers
         [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee(int id)
         {
-            return View();
+            var empDB = employeeServices.GetAllEmployees()
+                                          .FirstOrDefault(e => e.EmployeeIdPk == id);
+                                          
+                                          
+           if (empDB == null) 
+                return NotFound();
+
+            var model = new EmployeeViewModel
+            {
+                EmployeeId = empDB.EmployeeIdPk,
+                Code = empDB.Employeecode,
+                FirstName = empDB.FirstName,
+                LastName = empDB.LastName,
+                BloodGroup = empDB.BloodGroup,
+                Gender = empDB.Gender,
+                EmailId = empDB.EmailId,
+                MobileNumber = empDB.MobileNumber,
+                DateOfBirth = empDB.DateOfBirth,
+                DateOfJoining = empDB.DateOfJoining,
+                ExpInMonths = empDB.ExpInMonths,
+                SalaryCtc = empDB.SalaryCtc,
+                IsActive = empDB.IsActive
+            };
+
+            return View(model);
         }
     }
 }

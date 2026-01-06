@@ -14,7 +14,7 @@ namespace EMS.Web.Models
         }
 
         public int EmployeeId { get; set; }
-        public string Code { get; set; }
+        public string? Code { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public BloodGroups? BloodGroup { get; set; }
