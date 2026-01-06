@@ -1,13 +1,14 @@
-﻿using System;
+﻿using EMS.IServices;
+using EMS.Models;
+using EMS.Models.Enums;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using EMS.IServices;
-using EMS.Models;
-using EMS.Models.Enums;
-using Microsoft.Data.SqlClient;
 
 
 namespace EMS.Services.Implementation.ADO
@@ -71,7 +72,7 @@ namespace EMS.Services.Implementation.ADO
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error reading employees", ex);
+                        throw new Exception("Error reading employees");
                     }
                     finally
                     {
@@ -82,8 +83,48 @@ namespace EMS.Services.Implementation.ADO
                 }
             }
         }
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
+        {
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            try
+            {
+                using SqlCommand command = new SqlCommand("dbo.AddEmployee", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
 
-        
+                command.Parameters.AddWithValue("@EmployeeIdPk", inputEmployee.EmployeeIdPk);
+                command.Parameters.AddWithValue("@Code", inputEmployee.Employeecode);
+                command.Parameters.AddWithValue("@FirstName", inputEmployee.FirstName);
+                command.Parameters.AddWithValue("@MobileNumber", inputEmployee.MobileNumber);
+                command.Parameters.AddWithValue("@Gender", inputEmployee.Gender);
+                command.Parameters.AddWithValue("@EmailId", inputEmployee.EmailId);
+                command.Parameters.AddWithValue("@IsActive", inputEmployee.IsActive);
+                SqlParameter outputParam = new("@OutputMessage", SqlDbType.NVarChar, 500)
+                {
+                    Direction = ParameterDirection.Output,
+                };
+                command.Parameters.Add(outputParam);
+
+                sqlConnection.Open();
+                command.ExecuteNonQuery();
+                responseMessage = Convert.ToString(outputParam.Value);
+            }
+            catch (Exception ex)
+            {
+                responseMessage = "Error: " + ex.Message;
+                return false;
+            }
+            finally
+            {
+                //Any cleanup code
+                if (sqlConnection.State == ConnectionState.Open)
+                    sqlConnection.Close();
+            }
+            if (responseMessage.ToLower() == "success")
+                return true;
+            else
+                return false;
+
+        }
     }
 }
 
