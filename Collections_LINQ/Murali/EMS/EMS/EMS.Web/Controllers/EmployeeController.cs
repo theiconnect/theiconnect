@@ -79,30 +79,11 @@ namespace EMS.Web.Controllers
         {
             return View();
         }
-
-        [Route("Delete")]
-        [HttpPost]
-        public IActionResult DeleteEmployee([FromBody] EmployeeViewModel model)
-        {
-            bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true, out string responseMessage);
-
-            //return Json(isSuccess, responseMessage);
-
-            return Json(new { Success = isSuccess, Message = responseMessage });
-        }
-
-        [Route("active/{id}")]
-        [HttpGet]
-        public IActionResult ActivateDepartment(int id)
-        {
-            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
-
-            //return Json(isSuccess, responseMessage);
-
-            return Json(new { Success = isSuccess, Message = responseMessage });
-        }
     }
 }
+
+
+          
 
 
 
