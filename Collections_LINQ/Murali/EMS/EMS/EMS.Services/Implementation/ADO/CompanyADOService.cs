@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EMS.Models;
 
 namespace EMS.Services.Implementation.ADO
 {
@@ -13,6 +14,12 @@ namespace EMS.Services.Implementation.ADO
         { 
             
 
+        }
+
+        public CompanyModel GetCompany()
+        {
+            // Implementation to retrieve company data from the database using ADO.NET
+            throw new NotImplementedException();
         }
     }
 }

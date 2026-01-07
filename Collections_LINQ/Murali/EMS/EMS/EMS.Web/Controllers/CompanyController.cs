@@ -1,4 +1,5 @@
 ﻿using EMS.Models;
+using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -10,25 +11,31 @@ namespace EMS.Web.Controllers
    
     public class CompanyController : Controller
     {
-        //[Route("edit")]
-        public IActionResult EditCompany(int id )
+        private readonly CompanyADOService companyADOService;
+        public CompanyController(CompanyADOService _company)
         {
-            object CompanyADOService = null;
-            var company = CompanyADOService.GetCompany().FirstOrDefault(c => c.CompanyId == id);
-            if (company == null) return NotFound();
+            companyADOService = _company;
 
-            var model = new CompanyModel()
-            {
-                CompanyIdPk = company.CompanyId,
-                CompanyName = company.CompanyName,
-                PhoneNumber = company.PhoneNumber,
-                Email = company.Email,
-                RegistrationDate = company.RegistrationDate,
-                Website = company.Website,
-                BankAccountNumber = company.BankAccount
-            };
-            return View(model);
-        }   
+        }
+        //[Route("edit")]
+        //public IActionResult EditCompany(int id )
+        //{
+        //    //object CompanyADOService = null;
+        //    //var company = companyADOService.GetCompany();
+        //    //if (company == null) return NotFound();
+
+        //    //var model = new CompanyModel()
+        //    //{
+        //    //    CompanyIdPk = company.CompanyId,
+        //    //    CompanyName = company.CompanyName,
+        //    //    PhoneNumber = company.PhoneNumber,
+        //    //    Email = company.Email,
+        //    //    RegistrationDate = company.RegistrationDate,
+        //    //    Website = company.Website,
+        //    //    BankAccountNumber = company.BankAccount
+        //    //};
+        //   // return View(model);
+        //}   
           
 
 
