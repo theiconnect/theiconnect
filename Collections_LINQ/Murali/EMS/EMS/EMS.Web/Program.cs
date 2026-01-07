@@ -15,7 +15,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ICompanyService, CompanyTDService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentADOService>();
-builder.Services.AddScoped<IEmployeeService, EmployeeADOService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeTDServices>();
      
 
 //builder.Services.AddScoped<IEmployeeService,>();

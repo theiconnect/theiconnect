@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,6 @@ namespace EMS.Services.Implementation.ADO
     {
         public static string connectionString = "Data Source=anuvenkata\\SQLEXPRESS;Initial Catalog=Employees;Integrated Security=True; TrustServerCertificate=True";
 
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<EmployeeAddressModel> GetAllEmployeeAddresses()
         {
@@ -82,6 +79,11 @@ namespace EMS.Services.Implementation.ADO
 
                 }
             }
+        }
+
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
         }
         public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
         {
