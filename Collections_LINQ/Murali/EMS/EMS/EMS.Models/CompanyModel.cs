@@ -1,4 +1,6 @@
-﻿namespace EMS.Models
+﻿using System.Runtime.InteropServices;
+
+namespace EMS.Models
 {
     public class CompanyModel
     {
@@ -16,3 +18,5 @@
         public List<DepartmentModel> Departments { get; set; }
     }
 }
+
+

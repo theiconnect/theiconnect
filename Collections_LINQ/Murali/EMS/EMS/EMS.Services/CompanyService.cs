@@ -11,8 +11,13 @@ namespace EMS.Services
         {
             Dbcontext = EMSDbContext.GetInstance();
         }
-        
-        public CompanyModel getCompany()
+
+        public List<CompanyModel> GetAllCompanies()
+        {
+            throw new NotImplementedException();
+        }
+
+        public CompanyModel GetCompany()
         {
             var company = Dbcontext.Company;
             return company;

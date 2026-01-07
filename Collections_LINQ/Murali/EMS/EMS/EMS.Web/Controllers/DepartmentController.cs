@@ -23,11 +23,27 @@ namespace EMS.Web.Controllers
             //EMSDbContext obj = EMSDbContext.GetInstance();
             //DepartmentService departmentService = new DepartmentService();
 
-            var departmentsFromDB = departmentService.GetAllDepartments();
+            var ViewModel = new List<DepartmentViewModel>();
+            foreach (var model in departmentFromDb)
+            {
+                var obj = new DepartmentViewModel();
+                obj.DepartmentId = model.DepartmentIdPk;
+                obj.Code = model.DepartmentCode;
+                obj.DeptName = model.DepartmentName;
+                obj.Location = model.Location;
+                obj.IsActive = model.IsActive;
+                ViewModel.Add(obj);
+            }
+            return View(ViewModel);
+       }
 
-            var viewModel = new List<DepartmentViewModel>();
-
-            foreach (var deptDB in departmentsFromDB)
+        [Route("search")]
+        [HttpGet]
+        public IActionResult Searching(string searchName, string searchLocation)
+        {
+            List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments(searchName, searchLocation);
+            
+            var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel
             {
                 var obj = new DepartmentViewModel(
                     _departmentId: deptDB.DepartmentIdPk,

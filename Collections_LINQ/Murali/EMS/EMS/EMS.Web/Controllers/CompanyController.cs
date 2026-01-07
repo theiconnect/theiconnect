@@ -1,8 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EMS.Models;
+﻿using EMS.Models;
+using EMS.Services;
+using EMS.Services.Implementation;
+using EMS.Services.Implementation.EFCore;
+using EMS.IServices;
+using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using EMS.IServices;
+
+
+
 
 namespace EMS.Web.Controllers
 {
@@ -21,7 +27,10 @@ namespace EMS.Web.Controllers
         public IActionResult EditCompany()
         {
             return View();
-        }
+
+          }
+            private ICompanyService CompanyService;
+            public static string userName = "admin";
 
         //[Route("info")]
         //[Route("")]
@@ -60,5 +69,4 @@ namespace EMS.Web.Controllers
         //    IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
         //    return View(companies);
         //}
-    }
-}
+
