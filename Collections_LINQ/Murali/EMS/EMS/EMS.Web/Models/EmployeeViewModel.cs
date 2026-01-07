@@ -1,5 +1,6 @@
 ﻿using EMS.Models.Enums;
 using EMS.Web.Models.Enums;
+using Intuit.Ipp.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,20 +14,31 @@ namespace EMS.Web.Models
         {
         }
 
-        public int EmployeeId { get; set; }
-        public string Code { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public BloodGroups BloodGroup { get; set; }
+        public EmployeeViewModel(int employeeIdPk, string employeecode, string firstName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
+        {
+            EmployeeId = employeeIdPk;
+            Code=employeecode;
+            FirstName = firstName;
+            LastName = lastName;
+            BloodGroup = bloodGroup;
+            Gender = gender;
+            EmailId = emailId;
+            MobileNumber = mobileNumber;
+            DateOfBirth = dateOfBirth;
+            DateOfJoining = dateOfJoining;
+            ExpInMonths = expInMonths;
+            SalaryCtc = salaryCtc;
+            IsActive = isActive;
+        }
 
-        [DisplayName("Gender")]
+        public int EmployeeId { get; set; }
+        public string? Code { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public BloodGroups? BloodGroup { get; set; }
         public Genders Gender { get; set; }
-        public string EmailId { get; set; }
-        public string MobileNumber { get; set; }
-        public string AlternateMobileNumber { get; set; }
-        //1e=> 1dept+history dept
-        //1d=> m employees
+        public string? EmailId { get; set; }
+        public string? MobileNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
 
         [DisplayName("Date Of Joining")]

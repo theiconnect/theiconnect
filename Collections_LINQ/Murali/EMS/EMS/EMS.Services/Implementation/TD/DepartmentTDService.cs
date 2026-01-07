@@ -10,7 +10,7 @@ namespace EMS.Services.Implementation.TD
 {
     public class DepartmentTDService : IServices.IDepartmentService
     {
-        EMSDbContext dbContext;
+        EMSDbContext dbContext; 
         public DepartmentTDService()
         {
             dbContext = EMSDbContext.GetInstance();
@@ -21,7 +21,7 @@ namespace EMS.Services.Implementation.TD
             List<DepartmentModel> departments = dbContext.Departments;
             return departments;
         }
-
+        
         public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
         {
             List<DepartmentModel> departments = dbContext.Departments

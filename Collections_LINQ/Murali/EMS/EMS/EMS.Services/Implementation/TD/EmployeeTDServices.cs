@@ -38,7 +38,60 @@ namespace EMS.Services.Implementation.TD
         {
             return null;
         }
+
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee,out string responseMessage)
+        {
+            responseMessage = "Success";
+
+            try
+            {
+                var existingEmployee = dbContext.Employees
+                    .FirstOrDefault(e => e.EmployeeIdPk == inputEmployee.EmployeeIdPk);
+
+                if (existingEmployee == null)
+                {
+                    responseMessage = "Employee not found";
+                    return false;
+                }
+
+                // Update fields
+                existingEmployee.Employeecode = inputEmployee.Employeecode;
+                existingEmployee.FirstName = inputEmployee.FirstName;
+                existingEmployee.LastName = inputEmployee.LastName;
+                existingEmployee.BloodGroup = inputEmployee.BloodGroup;
+                existingEmployee.Gender = inputEmployee.Gender;
+                existingEmployee.EmailId = inputEmployee.EmailId;
+                existingEmployee.MobileNumber = inputEmployee.MobileNumber;
+                existingEmployee.DateOfBirth = inputEmployee.DateOfBirth;
+                existingEmployee.DateOfJoining = inputEmployee.DateOfJoining;
+                existingEmployee.ExpInMonths = inputEmployee.ExpInMonths;
+                existingEmployee.SalaryCtc = inputEmployee.SalaryCtc;
+                existingEmployee.IsActive = inputEmployee.IsActive;
+
+                dbContext.SaveChanges(); // ✅ MUST
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                responseMessage = ex.Message;
+                return false;
+            }
+        }
+
         public bool ActivateDeactivateEmployeee(int employeeId, bool isDeactivate, out string responseMessage)
+        {
+            if (dbContext.Employees.Count == 0)
+                return 1;
+            return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
+        }
+
+        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
         {
             responseMessage = "Success";
             var employee = dbContext.Employees.FirstOrDefault(e => e.EmployeeIdPk == employeeId);
@@ -67,22 +120,23 @@ namespace EMS.Services.Implementation.TD
                 return true;
             }
             return false;
+           
         }
 
+    }
+}
 
-        private int GenerateNewEmpId()
-        {
-            if (dbContext.Employees.Count == 0)
-                return 1;
-            return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
-        }
-
-        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
         {
             throw new NotImplementedException();
         }
 
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        public bool SaveDepartment(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
         {
             throw new NotImplementedException();
         }

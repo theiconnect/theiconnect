@@ -24,7 +24,7 @@ namespace EMS.Services.Implementation.ADO
 	                            IsActive, 
 	                            DeptLocation, 
 	                            CreatedOn,
-	                            ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
+	                            ISNULL(LastUpdatedOn, CreatedOn) as  LastUpdatedOn
                             FROM dbo.Department
                             Order by LastUpdatedOn DESC";
             var departments = new List<DepartmentModel>();
@@ -202,14 +202,39 @@ namespace EMS.Services.Implementation.ADO
             throw new NotImplementedException();
         }
 
-        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
+                command.Parameters.AddWithValue("@DepartmentId", departmentId);
 
-        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate,string userName, out string responseMessage)
-        {
-            throw new NotImplementedException();
+                sqlConnection.Open();
+                using SqlDataReader dr = command.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    DepartmentModel model = new DepartmentModel();
+                    model.DepartmentIdPk = Convert.ToInt32(dr["DepartmentIdPk"]);
+                    model.DepartmentCode = Convert.ToString(dr["DepartmentCode"]);
+                    model.DepartmentName = Convert.ToString(dr["DepartmentName"]);
+                    model.IsActive = Convert.ToBoolean(dr["IsActive"]);
+                    model.Location = Convert.ToString(dr["DeptLocation"]);
+                    model.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
+                    if (dr["LastUpdatedOn"] != DBNull.Value)
+                        model.LastUpdatedOn = Convert.ToDateTime(dr["LastUpdatedOn"]);
+                    return model;
+                }
+                else
+                {
+                    return new DepartmentModel();
+                }
+            }
+            catch (Exception ex)
+            {
+                return new DepartmentModel();
+            }
+            finally
+            {
+                //Any cleanup code
+                if (sqlConnection.State == ConnectionState.Open)
+                    sqlConnection.Close();
+            }
         }
 
         public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
