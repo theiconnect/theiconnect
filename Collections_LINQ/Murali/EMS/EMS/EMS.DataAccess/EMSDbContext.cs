@@ -578,5 +578,10 @@ namespace EMS.DataAccess
                 new(11, "Diploma", "Diploma in various fields")
             };
         }
+
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
