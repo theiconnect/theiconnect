@@ -1,11 +1,11 @@
 ﻿using EMS.Models;
 using EMS.Services;
 using EMS.Services.Implementation;
-using EMS.Services.Implementation.EFCore;
-using EMS.IServices;
+//using EMS.Services.Implementation.EFCore;
+using EMS.Services;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using EMS.IServices;
+using EMS.Services;
 
 
 
@@ -18,8 +18,8 @@ namespace EMS.Web.Controllers
     public class CompanyController : Controller
     {
 
-        private ICompanyService companyservice;
-        public CompanyController(ICompanyService _obj)
+        private CompanyService companyservice;
+        public CompanyController(CompanyService _obj)
         {
             companyservice = _obj;
         }
@@ -28,16 +28,16 @@ namespace EMS.Web.Controllers
         {
             return View();
 
-          }
-            private ICompanyService CompanyService;
-            public static string userName = "admin";
+        }
+        private CompanyService CompanyService;
+        public static string userName = "admin";
 
         //[Route("info")]
         //[Route("")]
         //[Route("view")]
         //[Route("details")]
-       public  IActionResult ViewCompany() 
-        
+        public IActionResult ViewCompany()
+
         {
             var companyDB = companyservice.GetCompany();
 
@@ -61,6 +61,8 @@ namespace EMS.Web.Controllers
 
             return View(companymodel);
         }
+    }
+}
 
         //[Route("list")]
         //public IActionResult CompanyList()
