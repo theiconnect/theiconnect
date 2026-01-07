@@ -66,8 +66,7 @@ namespace EMS.Web.Controllers
         [Route("editemployee/{employeeid}")]
         public IActionResult EditEmployee(int employeeid)
         {
-            var empDB = employeeServices.GetAllEmployees()
-                                          .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
+            var empDB = employeeServices.GetAllEmployees().FirstOrDefault(e => e.EmployeeIdPk == employeeid);
 
             return View();
         }
@@ -79,6 +78,29 @@ namespace EMS.Web.Controllers
         {
             return View();
         }
+
+        [Route("delete")]
+        [HttpPost]
+        public IActionResult DeactivateEmployee([FromBody] EmployeeViewModel model)
+        {
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true,  out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
+
+            return Json(new { Success = isSuccess, Message = responseMessage });
+        }
+
+        [Route("active/{id}")]
+        [HttpGet]
+        public IActionResult ActivateEmployee(int id)
+        {
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
+
+            return Json(new { Success = isSuccess, Message = responseMessage });
+        }
+
     }
 }
 
