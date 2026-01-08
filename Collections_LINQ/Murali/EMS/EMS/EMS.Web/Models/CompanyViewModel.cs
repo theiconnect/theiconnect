@@ -6,7 +6,21 @@
         public string CompanyName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public DateTime? RegistrationDate { get; set; }
+        public string RegistrationDateDisplayValue
+        {
+            get
+            {
+                if (RegistrationDate.HasValue)
+                {
+                    return RegistrationDate.Value.ToString("dd-MMM-YYYY");
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
         public string Website { get; set; }
         public string BankAccountNumber { get; set; }
         public string TIN { get; set; }

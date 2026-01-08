@@ -16,6 +16,8 @@ namespace EMS.Web.Controllers
             companyservice = _obj;
         }
 
+        [Route("edit")]
+        [Route("modify")]
         public IActionResult EditCompany(int id)
         {
             object CompanyADOService = null;
@@ -35,6 +37,7 @@ namespace EMS.Web.Controllers
             return View(model);
         }
 
+        [Route("view")]
         public IActionResult ViewCompany()
         {
             var companyDB = companyservice.GetCompany();

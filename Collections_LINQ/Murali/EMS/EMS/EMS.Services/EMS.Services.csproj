@@ -12,9 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMS.DataAccess\EMS.DataAccess.csproj">
+    <ProjectReference Include="..\EMS.DataAccess\EMS.DataAccess.TD.csproj">
       <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
+    <ProjectReference Include="..\EMS.IDataAccess\EMS.IDataAccess.csproj" />
     <ProjectReference Include="..\EMS.IServices\EMS.IServices.csproj" />
     <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
   </ItemGroup>
