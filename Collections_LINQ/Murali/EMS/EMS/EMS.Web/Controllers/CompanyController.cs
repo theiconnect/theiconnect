@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace EMS.Web.Controllers
 {
+    [Route("company")] 
     public class CompanyController : Controller
     {
         private readonly CompanyADOService _companyADOService;
