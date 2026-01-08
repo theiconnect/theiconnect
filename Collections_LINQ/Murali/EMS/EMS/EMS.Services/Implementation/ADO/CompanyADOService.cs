@@ -47,6 +47,5 @@ namespace EMS.Services.Implementation.ADO
 
             return companie;
         }
-
     }
 }

@@ -37,7 +37,7 @@
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="regDate" class="form-label">Registration Date</label>
-                            <input type="date" class="form-control" id="regDate" value="@Model.RegistrationDate.ToString("yyyy-MM-dd")" readonly>
+                            <input type="date" class="form-control" id="regDate" value="@(Model.RegistrationDate?.ToString("yyyy-MM-dd"))" readonly>
                         </div>
                         <div class="col-md-8">
                             <label for="website" class="form-label">Website</label>

@@ -12,31 +12,9 @@
 		<ProjectReference Include="..\EMS.Services\EMS.Services.csproj" />
 	</ItemGroup>
 
-<<<<<<< HEAD
 	<ItemGroup>
-		<PackageReference Include="IppDotNetSdkForQuickBooksApiV3" Version="14.7.0.3" />
-		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.22" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.22">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.22" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.22">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
 	</ItemGroup>
-=======
-  <ItemGroup>
-    <PackageReference Include="Google.Apis.Admin.Directory.directory_v1" Version="1.73.0.3980" />
-    <PackageReference Include="IppDotNetSdkForQuickBooksApiV3" Version="14.7.0.3" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.22" />
-  </ItemGroup>
->>>>>>> origin/main
-
-
 
 	<ItemGroup>
 		<Folder Include="wwwroot\EMS_Site\js\NewFolder\" />

@@ -1,14 +1,8 @@
 ﻿using EMS.IServices;
 using EMS.Models;
 using EMS.Models.Enums;
-using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
-using EMS.Web.Models.Enums;
-using Google.Apis.Admin.Directory.directory_v1.Data;
-using Intuit.Ipp.Data;
 using Microsoft.AspNetCore.Mvc;
-
-
 
 namespace EMS.Web.Controllers
 {
@@ -143,23 +137,6 @@ namespace EMS.Web.Controllers
 
             //return Json(isSuccess, responseMessage);
 
-            var model = new EmployeeViewModel
-            {
-                EmployeeId = empDB.EmployeeIdPk,
-                Code = empDB.Employeecode,
-                FirstName = empDB.FirstName,
-                LastName = empDB.LastName,
-                BloodGroup = empDB.BloodGroup,
-                Gender = empDB.Gender,
-                EmailId = empDB.EmailId,
-                MobileNumber = empDB.MobileNumber,
-                DateOfBirth = empDB.DateOfBirth,
-                DateOfJoining = empDB.DateOfJoining,
-                ExpInMonths = empDB.ExpInMonths,
-                SalaryCtc = empDB.SalaryCtc,
-                IsActive = empDB.IsActive
-            };
-
             return View(model);
         }
 
@@ -172,13 +149,7 @@ namespace EMS.Web.Controllers
             //return Json(isSuccess, responseMessage);
 
             return Json(new { Success = isSuccess, Message = responseMessage });
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
         }
-
-
     }
 }
 
