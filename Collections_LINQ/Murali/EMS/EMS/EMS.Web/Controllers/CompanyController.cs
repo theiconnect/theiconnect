@@ -7,46 +7,40 @@ using System.Linq;
 
 namespace EMS.Web.Controllers
 {
-
-   
+    [Route("company")] 
     public class CompanyController : Controller
     {
-        private readonly CompanyADOService companyADOService;
-        public CompanyController(CompanyADOService _company)
+        private readonly CompanyADOService _companyADOService;
+
+        public CompanyController(CompanyADOService companyADOService)
         {
-            companyADOService = _company;
-
+            _companyADOService = companyADOService;
         }
+
         //[Route("edit")]
-        //public IActionResult EditCompany(int id )
-        //{
-        //    //object CompanyADOService = null;
-        //    //var company = companyADOService.GetCompany();
-        //    //if (company == null) return NotFound();
+        public IActionResult EditCompany(int id)
+        {
+            var company = _companyADOService.GetCompany().FirstOrDefault(c => c.CompanyIdPk == id);
+            if (company == null) return NotFound();
 
-        //    //var model = new CompanyModel()
-        //    //{
-        //    //    CompanyIdPk = company.CompanyId,
-        //    //    CompanyName = company.CompanyName,
-        //    //    PhoneNumber = company.PhoneNumber,
-        //    //    Email = company.Email,
-        //    //    RegistrationDate = company.RegistrationDate,
-        //    //    Website = company.Website,
-        //    //    BankAccountNumber = company.BankAccount
-        //    //};
-        //   // return View(model);
-        //}   
-          
-
-
-
-
+            var model = new CompanyModel()
+            {
+                CompanyIdPk = company.CompanyIdPk,
+                CompanyName = company.CompanyName,
+                PhoneNumber = company.PhoneNumber,
+                Email = company.Email,
+                RegistrationDate = company.RegistrationDate,
+                Website = company.Website,
+                BankAccountNumber = company.BankAccountNumber
+            };
+            return View(model);
+        }
 
         //[Route("info")]
         //[Route("")]
         //[Route("view")]
         [Route("details")]
-       public  IActionResult ViewCompany() 
+        public IActionResult ViewCompany()
         {
             return View();
         }
