@@ -1,9 +1,6 @@
 ﻿using EMS.Models;
-using EMS.Services;
-using EMS.Services.Implementation;
-//using EMS.Services.Implementation.EFCore;
-using EMS.Services;
-using EMS.Web.Models;
+using EMS.Services.Implementation.ADO;
+using EMS.Services.Implementation.TD;
 using Microsoft.AspNetCore.Mvc;
 using EMS.Services;
 
@@ -12,9 +9,7 @@ using EMS.Services;
 
 namespace EMS.Web.Controllers
 {
-
-
-    [Route("Company")]
+    [Route("company")] 
     public class CompanyController : Controller
     {
 
@@ -24,8 +19,9 @@ namespace EMS.Web.Controllers
             companyservice = _obj;
         }
         //[Route("edit")]
-        public IActionResult EditCompany(int id )
+        public IActionResult EditCompany(int id)
         {
+            var company = _companyADOService.GetCompany().FirstOrDefault(c => c.CompanyIdPk == id);
             return View();
 
         }
@@ -38,21 +34,16 @@ namespace EMS.Web.Controllers
 
             var model = new CompanyModel()
             {
-                CompanyIdPk = company.CompanyId,
+                CompanyIdPk = company.CompanyIdPk,
                 CompanyName = company.CompanyName,
                 PhoneNumber = company.PhoneNumber,
                 Email = company.Email,
                 RegistrationDate = company.RegistrationDate,
                 Website = company.Website,
-                BankAccountNumber = company.BankAccount
+                BankAccountNumber = company.BankAccountNumber
             };
             return View(model);
-        }   
-          
-
-
-
-
+        }
 
         //[Route("info")]
         //[Route("")]
