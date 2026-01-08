@@ -1,4 +1,4 @@
-﻿@model List<EMS.Web.Models.EmployeeViewModel>
+﻿@model List<EMS.Web.Models.EmployeeListViewModel>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -94,8 +94,8 @@
 								{
 									foreach (var emp in Model)
 									{
-										<tr>
-											<td>@(++counter)</td>
+										<tr>-
+
 											<td>@emp.EmployeeId</td>
 											<td>@emp.Code</td>
 											<td>@emp.FirstName @emp.LastName</td>
@@ -154,13 +154,13 @@
 
 		 location.href=  '@Url.Action("CreateEmployee", "Employee")';
 	 }
-	 /*function goToEdit(id){
+	 function goToEdit(id){
 		 location.href=  '@Url.Action("EditEmployee", "Employee")' + '/'+ id;
 	 }
 
-	 function goToView(id){
-		 location.href=  '@Url.Action("ViewEmployee", "Employee")' + '/'+ id;
-	 }*/
+	 // function goToView(id){
+		//  location.href=  '@Url.Action("ViewEmployee", "Employee")' + '/'+ id;
+	 // }
 	 function deleteEmployee(id,firstName){
 			 var confirmResult  = confirm('Are you sure you want to delete '+ firstName + ' employee?')
 			 if(!confirmResult){

@@ -92,16 +92,20 @@ namespace EMS.Web.Controllers
             return View(model);
         }
         [HttpPost]
-        [Route("Employee/UpdateSaveEmployee")]
+        [Route("UpdateSaveEmployee")]
         public IActionResult UpdateSaveEmployee([FromBody] EmployeeViewModel updateModel)
         {
+            if (updateModel == null)
+            {
+                return Json(new { IsSuccess = false, errorMessage = "Model is null" });
+            }
             EmployeeModel employeeModel = new EmployeeModel
             {
                 EmployeeIdPk = updateModel.EmployeeId,
                 Employeecode = updateModel.Code,
                 FirstName = updateModel.FirstName,
                 LastName = updateModel.LastName,
-                BloodGroup = updateModel.BloodGroup,
+                BloodGroup = (BloodGroups)updateModel.BloodGroup,
                 Gender = updateModel.Gender,
                 EmailId = updateModel.EmailId,
                 MobileNumber = updateModel.MobileNumber,
@@ -111,6 +115,7 @@ namespace EMS.Web.Controllers
                 SalaryCtc = updateModel.SalaryCtc,
                 IsActive = updateModel.IsActive
             };
+
             bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage
                );
             return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
@@ -127,7 +132,24 @@ namespace EMS.Web.Controllers
            if (empDB == null) 
                 return NotFound();
 
-            return Json(new { Success = isSuccess, Message = responseMessage });
+            var model = new EmployeeViewModel
+            {
+                EmployeeId = empDB.EmployeeIdPk,
+                Code = empDB.Employeecode,
+                FirstName = empDB.FirstName,
+                LastName = empDB.LastName,
+                BloodGroup = empDB.BloodGroup,
+                Gender = empDB.Gender,
+                EmailId = empDB.EmailId,
+                MobileNumber = empDB.MobileNumber,
+                DateOfBirth = empDB.DateOfBirth,
+                DateOfJoining = empDB.DateOfJoining,
+                ExpInMonths = empDB.ExpInMonths,
+                SalaryCtc = empDB.SalaryCtc,
+                IsActive = empDB.IsActive
+            };
+
+            return View(model);
         }
 
         [Route("active/{id}")]
@@ -139,10 +161,20 @@ namespace EMS.Web.Controllers
 
             //return Json(isSuccess, responseMessage);
 
-            return View(model);
+            return Json(new { Success = isSuccess, Message = responseMessage });
+
         }
     }
 }
+
+
+
+          
+
+
+
+
+
 
 /*
 // ==============================================
