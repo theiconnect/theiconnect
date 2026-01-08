@@ -1,13 +1,14 @@
 ﻿using EMS.DataAccess;
 using EMS.Models;
+using EMS.IServices;
 using System.Reflection.Metadata.Ecma335;
 
-namespace EMS.Services
+namespace EMS.Services.Implementation.TD
 {
-    public class CompanyService
+    public class CompanyTDService : ICompanyService
     {
         EMSDbContext Dbcontext;
-        public CompanyService()
+        public CompanyTDService()
         {
             Dbcontext = EMSDbContext.GetInstance();
         }
@@ -22,7 +23,7 @@ namespace EMS.Services
             var company = Dbcontext.Company;
             return company;
         }
-        
+
         /*public void test()
         {
             

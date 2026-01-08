@@ -24,13 +24,35 @@ namespace EMS.Web.Controllers
             companyservice = _obj;
         }
         //[Route("edit")]
-        public IActionResult EditCompany()
+        public IActionResult EditCompany(int id )
         {
             return View();
 
         }
         private CompanyService CompanyService;
         public static string userName = "admin";
+
+            object CompanyADOService = null;
+            var company = CompanyADOService.GetCompany().FirstOrDefault(c => c.CompanyId == id);
+            if (company == null) return NotFound();
+
+            var model = new CompanyModel()
+            {
+                CompanyIdPk = company.CompanyId,
+                CompanyName = company.CompanyName,
+                PhoneNumber = company.PhoneNumber,
+                Email = company.Email,
+                RegistrationDate = company.RegistrationDate,
+                Website = company.Website,
+                BankAccountNumber = company.BankAccount
+            };
+            return View(model);
+        }   
+          
+
+
+
+
 
         //[Route("info")]
         //[Route("")]

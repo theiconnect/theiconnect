@@ -11,6 +11,8 @@ namespace EMS.DataAccess
     public class EMSDbContext
     {
         private static EMSDbContext _obj;
+        public object employees;
+
         public string PhoneNumber { get; set; }
 
         public List<string> PhoneNumbersList { get; set; }
@@ -490,7 +492,7 @@ namespace EMS.DataAccess
             {
                 new EmployeeAddressModel
                 {
-                    EmployeeAddressModelIdPk = employeeId * 10 + 1,
+                    EmployeeAddressIdPk = employeeId * 10 + 1,
                     EmployeeIdFk = employeeId,
                     AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
                     AddressLine2 = $"Apt {random.Next(1, 100)}",
@@ -502,7 +504,7 @@ namespace EMS.DataAccess
                 },
                 new EmployeeAddressModel
                 {
-                    EmployeeAddressModelIdPk = employeeId * 10 + 2,
+                    EmployeeAddressIdPk = employeeId * 10 + 2,
                     EmployeeIdFk = employeeId,
                     AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
                     AddressLine2 = $"Suite {random.Next(1, 100)}",
@@ -514,7 +516,7 @@ namespace EMS.DataAccess
                 },
                 new EmployeeAddressModel
                 {
-                    EmployeeAddressModelIdPk = employeeId * 10 + 3,
+                    EmployeeAddressIdPk = employeeId * 10 + 3,
                     EmployeeIdFk = employeeId,
                     AddressLine1 = $"{random.Next(100, 999)} {streets[random.Next(streets.Length)]}",
                     AddressLine2 = $"Floor {random.Next(1, 10)}",
@@ -575,6 +577,11 @@ namespace EMS.DataAccess
                 new QualificationLookupModel(10, "MTech", "Master of Technology"),
                 new(11, "Diploma", "Diploma in various fields")
             };
+        }
+
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
         }
     }
 }

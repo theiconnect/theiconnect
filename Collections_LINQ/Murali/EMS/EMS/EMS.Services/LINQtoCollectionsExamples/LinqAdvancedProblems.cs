@@ -112,11 +112,11 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 10. Get all employees who have never had a permanent address as List
-        public static List<EmployeeModel> GetEmployeesWithoutPermanentAddress()
-        {
-            var db = EMSDbContext.GetInstance();
-            return db.Employees.Where(e => !e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)).ToList();
-        }
+        //public static List<EmployeeModel> GetEmployeesWithoutPermanentAddress()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Employees.Where(static e => !e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)).ToList();
+        //}
 
         // 11. Get all employees as IQueryable and try to use EF navigation property (NOT allowed)
         public static IQueryable<EmployeeModel> GetEmployeesAsQueryableWithNavigation()

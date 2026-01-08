@@ -1,4 +1,4 @@
-﻿@model EMS.Models.EmployeeModel
+﻿@model EMS.Web.Models.EmployeeViewModel
 
 @{
     ViewData["Title"] = "AddEmployee";
@@ -25,7 +25,7 @@
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="Employeecode" class="form-label">Employee Code (Auto Generated)</label>
-                            <input asp-for="Employeecode" class="form-control" id="Employeecode" name="Employeecode" value="@Model?.Employeecode ?? "EMP006"" readonly />
+                            <input asp-for="Code" class="form-control" id="Employeecode" name="Employeecode" value="@Model?.Code ?? "EMP006"" readonly />
                             <div class="form-text">This code will be generated/validated on save.</div>
                         </div>
 
@@ -35,10 +35,7 @@
                             <div class="invalid-feedback">First name is required.</div>
                         </div>
 
-                        <div class="col-md-4">
-                            <label for="MiddleName" class="form-label">Middle Name</label>
-                            <input asp-for="MiddleName" class="form-control" id="MiddleName" name="MiddleName" />
-                        </div>
+                     
 
                         <div class="col-md-4">
                             <label for="LastName" class="form-label">Last Name <span class="text-danger">*</span></label>
@@ -59,7 +56,7 @@
 
                         <div class="col-md-4">
                             <label for="BloodGroup" class="form-label">Blood Group</label>
-                            <select asp-for="BloodGroup" class="form-select" id="BloodGroup" name="BloodGroup">
+                            <select asp-for="BloodGroup" class="form-select" id="" name="BloodGroup">
                                 <option value="">Select</option>
                                 <option value="APlus">A+</option>
                                 <option value="AMinus">A-</option>
@@ -78,10 +75,7 @@
                             <div class="invalid-feedback">Please enter a valid mobile number (10 digits).</div>
                         </div>
 
-                        <div class="col-md-4">
-                            <label for="AlternateMobileNumber" class="form-label">Alternate Mobile</label>
-                            <input asp-for="AlternateMobileNumber" class="form-control" id="AlternateMobileNumber" name="AlternateMobileNumber" maxlength="10" inputmode="numeric" />
-                        </div>
+
 
                         <div class="col-md-4">
                             <label for="EmailId" class="form-label">Work Email <span class="text-danger">*</span></label>
@@ -90,8 +84,8 @@
                         </div>
 
                         <div class="col-md-4">
-                            <label for="PersonEmailId" class="form-label">Personal Email</label>
-                            <input asp-for="PersonEmailId" class="form-control" id="PersonEmailId" name="PersonEmailId" type="email" />
+                            <label for="PersonalEmailId" class="form-label">Personal Email</label>
+                            @* <input asp-for="PersonalEmailId" class="form-control" id="PersonalEmailId" name="PersonalEmailId" type="email" /> *@
                         </div>
 
                         <div class="col-md-4">
@@ -111,6 +105,7 @@
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
 
             <div class="card shadow-sm mb-4">
@@ -118,7 +113,7 @@
                     <h5 class="mb-0">2. Employment & Compensation</h5>
                 </div>
 
-                <div class="card-body">
+                @* <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="DepartmentIdFk" class="form-label">Department <span class="text-danger">*</span></label>
@@ -170,7 +165,7 @@
                         <div class="col-md-4">
                             <label for="LWD" class="form-label">Last Working Day (if applicable)</label>
                             <input asp-for="LWD" class="form-control" id="LWD" name="LWD" type="date" />
-                        </div>
+                        </div> *@
                     </div>
                 </div>
             </div>
@@ -244,30 +239,103 @@
                     <div class="col-3"></div>
                     <div class="col-9">
                         <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList">Save Employee</button>
+                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList" onclick="SaveEmployees();">Save Employee</button>
                         <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
                     </div>
                
                 </div>
             </div>
-        </form>
+        
     </div>
 </div>
 
       <script>
-        (function () {
-            'use strict';
-            const forms = document.querySelectorAll('.needs-validation');
-            Array.from(forms).forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        })();
+
+        function SaveEmployees(){
+        let firstName = document.getElementById('FirstName');
+        let LastName = document.getElementById('LastName');
+        let middleName = document.getElementById('MiddleName');
+        let gender = document.getElementById('Gender');
+        let BloodGroup = document.getElementById('BloodGroup');
+        let Mobile = document.getElementById('Mobile');
+        let AlternateMobile = document.getElementById('AlternateMobile');
+        let WorkEmail = document.getElementById('EmailId');
+        let PersonalEmail = document.getElementById('PersonalEmailId');
+        let DateOfBirth = document.getElementById('DateOfBirth');
+    
+        let DateOfJoining = document.getElementById('DateOfJoining');
+    
+        let ExperienceInMonths = document.getElementById('ExpInMonths');
+    
+        let DepartmentIdFk = document.getElementById('DepartmentIdFk');
+    
+        let QualificationIdFk = document.getElementById('QualificationIdFk');
+    
+        let DesignationIdFk = document.getElementById('DesignationIdFk');
+    
+        let SalaryCtc = document.getElementById('SalaryCtc');
+    
+        let IsActive = document.getElementById('IsActive');
+
+        let LWD = document.getElementById('LWD');
+
+        let empObj = {
+      
+            FirstName: firstName.value,
+            LastName: LastName.value,
+            MiddleName: middleName.value,
+            Gender:gender.value,
+            BloodGroup: BloodGroup.value,
+            MobileNumber: Mobile.value,
+            AlternateMobileNumber: AlternateMobile.value,
+            EmailId: WorkEmail.value,
+            PersonalEmailId: PersonalEmail.value,
+            DateOfBirth: DateOfBirth.value,
+            DateOfJoining: DateOfJoining.value,
+            ExpInMonths: ExperienceInMonths.value,
+            DepartmentIdFk: DepartmentIdFk.value,
+            QualificationIdFk: QualificationIdFk.value,
+            DesignationIdFk: DesignationIdFk.value,
+            SalaryCtc: SalaryCtc.value,
+            IsActive: IsActive.checked,
+            LWD: LWD.value
+        };
+
+        fetch('/Employee/SaveEmployees', {
+            method: "POST",
+            body: JSON.stringify(empObj),
+            headers: {
+                'Content-Type': 'application/json' // Inform the server we're sending JSON
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                let saveResult = data;
+                if (saveResult.isSuccess) {
+                    alert('Employee details saved successfully');
+                } else {
+                    alert('Failed to save employee details: ' + saveResult.errorMessage);
+            }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+        });
+        alert("Employee Added Successfully");
+
+          }
+        // (function () {
+        //     'use strict';
+        //     const forms = document.querySelectorAll('.needs-validation');
+        //     Array.from(forms).forEach(function (form) {
+        //         form.addEventListener('submit', function (event) {
+        //             if (!form.checkValidity()) {
+        //                 event.preventDefault();
+        //                 event.stopPropagation();
+        //             }
+        //             form.classList.add('was-validated');
+        //         }, false);
+        //     });
+        // })();
         function display(){
             location.href="/Employee/EmployeeList";
         }

@@ -116,17 +116,17 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 8. Get all employees with both present and permanent addresses as List
-        public static List<EmployeeModel> GetEmployeesWithPresentAndPermanentAddresses()
-        {
-            var db = EMSDbContext.GetInstance();
-            var result= db.Employees
-                .Where(e =>
-                    e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PRESENT_ADDR) &&
-                    e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)
-                )
-                .ToList();
-            return result;
-        }
+        //public static List<EmployeeModel> GetEmployeesWithPresentAndPermanentAddresses()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    var result= db.Employees
+        //        .Where(e =>
+        //            e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PRESENT_ADDR) &&
+        //            e.Addresses.Any(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR)
+        //        )
+        //        .ToList();
+        //    return result;
+        //}
 
         // 9. Get all employees with more than one address as IEnumerable
         public static IEnumerable<EmployeeModel> GetEmployeesWithMultipleAddresses()
