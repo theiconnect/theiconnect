@@ -1,31 +1,41 @@
 ﻿using EMS.Models;
+using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using EMS.Web.Models;
+using EMS.IServices;
+
 
 namespace EMS.Web.Controllers
 {
 
-   
+    [Route("Company")]
     public class CompanyController : Controller
     {
-        //[Route("edit")]
-        public IActionResult EditCompany(int id )
+        private readonly ICompanyService companyservice;
+        public CompanyController(ICompanyService _obj)
         {
-            object CompanyADOService = null;
-            var company = CompanyADOService.GetCompany().FirstOrDefault(c => c.CompanyId == id);
+            companyservice  = _obj;
+
+        }
+        //[Route("edit")]
+        public IActionResult EditCompany(int i )
+        {
+            //object CompanyADOService = null;
+            var company = companyservice.GetCompany();
             if (company == null) return NotFound();
 
             var model = new CompanyModel()
             {
-                CompanyIdPk = company.CompanyId,
+                CompanyIdPk = company.CompanyIdPk,
                 CompanyName = company.CompanyName,
                 PhoneNumber = company.PhoneNumber,
                 Email = company.Email,
                 RegistrationDate = company.RegistrationDate,
                 Website = company.Website,
-                BankAccountNumber = company.BankAccount
+                BankAccountNumber = company.BankAccountNumber
             };
             return View(model);
         }   
@@ -37,11 +47,24 @@ namespace EMS.Web.Controllers
 
         //[Route("info")]
         //[Route("")]
-        //[Route("view")]
-        [Route("details")]
+        [Route("view")]
+       // [Route("details")]
        public  IActionResult ViewCompany() 
         {
-            return View();
+            var company = companyservice.GetCompany();
+            if (company == null) return NotFound();
+
+            var Viewmodel = new CompanyViewModel()
+            {
+                CompanyIdPk = company.CompanyIdPk,
+                CompanyName = company.CompanyName,
+                PhoneNumber = company.PhoneNumber,
+                Email = company.Email,
+                RegistrationDate = company.RegistrationDate,
+                Website = company.Website,
+                BankAccountNumber = company.BankAccountNumber
+            };
+            return View(Viewmodel);
         }
 
         //[Route("list")]

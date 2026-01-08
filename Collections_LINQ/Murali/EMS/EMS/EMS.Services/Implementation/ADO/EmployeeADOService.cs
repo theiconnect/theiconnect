@@ -127,6 +127,11 @@ namespace EMS.Services.Implementation.ADO
                 return false;
 
         }
+
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

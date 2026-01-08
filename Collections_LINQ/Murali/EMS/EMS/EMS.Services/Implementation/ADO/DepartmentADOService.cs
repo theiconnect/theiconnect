@@ -14,187 +14,19 @@ namespace EMS.Services.Implementation.ADO
 {
     public class DepartmentADOService : IDepartmentService
     {
-        public static string connectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
-        public List<DepartmentModel> GetAllDepartments_Query()
+        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage)
         {
-            string query = @"SELECT 
-	                            DepartmentIdPk, 
-	                            DepartmentCode, 
-	                            DepartmentName, 
-	                            IsActive, 
-	                            DeptLocation, 
-	                            CreatedOn,
-	                            ISNULL(LastUpdatedOn, CreatedOn) as  LastUpdatedOn
-                            FROM dbo.Department
-                            Order by LastUpdatedOn DESC";
-            var departments = new List<DepartmentModel>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(query, con))
-                try
-                {
-                    con.Open();
-                    using (SqlDataReader dataReader = cmd.ExecuteReader())
-                        while (dataReader.Read())
-                        {
-                            DepartmentModel model = new DepartmentModel();
-                            model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
-                            model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
-                            model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
-                            model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
-                            model.Location = Convert.ToString(dataReader["DeptLocation"]);
-
-                            model.CreatedOn = Convert.ToDateTime(dataReader["CreatedOn"]);
-
-                            if (dataReader["LastUpdatedOn"] != DBNull.Value)
-                                model.LastUpdatedOn = Convert.ToDateTime(dataReader["LastUpdatedOn"]);
-
-
-                            departments.Add(model);
-                        }
-                }
-                catch { }
-                finally
-                {
-                    if (con.State == ConnectionState.Open)
-                        con.Close();
-                }
-
-            return departments;
-        }
-
-        public List<DepartmentModel> GetAllDepartments_Query(string deptName, string deptLocation)
-        {
-            if (string.IsNullOrEmpty(deptName))
-                deptName = "NULL";
-            if (string.IsNullOrEmpty(deptLocation))
-                deptLocation = "NULL";
-
-            string query = @"SELECT 
-		                        DepartmentIdPk, 
-		                        DepartmentCode, 
-		                        DepartmentName, 
-		                        IsActive, 
-		                        DeptLocation, 
-		                        CreatedOn,
-		                        ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
-	                        FROM dbo.Department
-	                        WHERE 1=1 ";
-            if (!string.IsNullOrEmpty(deptName))
-                query += $" AND DepartmentName = '{deptName}'";
-            if (!string.IsNullOrEmpty(deptLocation))
-                query += $" AND DeptLocation = '{deptLocation}'";
-            query += " Order by LastUpdatedOn DESC";
-
-            string querywithparam = @"SELECT 
-		                                DepartmentIdPk, 
-		                                DepartmentCode, 
-		                                DepartmentName, 
-		                                IsActive, 
-		                                DeptLocation, 
-		                                CreatedOn,
-		                                ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
-	                                FROM dbo.Department
-	                                WHERE
-		                                (ISNULL(@deptName, '') = '' OR DepartmentName = @deptName)
-		                                AND 
-		                                (ISNULL(@deptName, '') = '' OR DeptLocation = @deptLocation)
-	                                Order by LastUpdatedOn DESC";
-
-
-
-            //       @"(ISNULL(@deptName, '') = '' OR DepartmentName = @deptName)
-            // AND 
-            // (ISNULL(@deptName, '') = '' OR DeptLocation = @deptLocation)
-            //Order by LastUpdatedOn DESC";
-
-            var departments = new List<DepartmentModel>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(query, con))
-                try
-                {
-                    con.Open();
-                    //cmd.Parameters.AddWithValue("@deptname", deptName ?? (object)DBNull.Value);
-                    //cmd.Parameters.AddWithValue("@deptLocation", deptLocation ?? (object)DBNull.Value);
-                    using (SqlDataReader dataReader = cmd.ExecuteReader())
-                        while (dataReader.Read())
-                        {
-                            DepartmentModel model = new DepartmentModel();
-                            model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
-                            model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
-                            model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
-                            model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
-                            model.Location = Convert.ToString(dataReader["DeptLocation"]);
-
-                            model.CreatedOn = Convert.ToDateTime(dataReader["CreatedOn"]);
-
-                            if (dataReader["LastUpdatedOn"] != DBNull.Value)
-                                model.LastUpdatedOn = Convert.ToDateTime(dataReader["LastUpdatedOn"]);
-
-
-                            departments.Add(model);
-                        }
-                }
-                catch { }
-                finally
-                {
-                    if (con.State == ConnectionState.Open)
-                        con.Close();
-                }
-
-            return departments;
-        }
-
-        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
-        {
-            var departments = new List<DepartmentModel>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("usp_GetAllDepartments", con))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@deptName", deptName ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@deptLocation", deptLocation ?? (object)DBNull.Value);
-                try
-                {
-                    con.Open();
-                    using SqlDataReader dataReader = cmd.ExecuteReader();
-                    while (dataReader.Read())
-                    {
-                        DepartmentModel model = new DepartmentModel();
-                        model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
-                        model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
-                        model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
-                        model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
-                        model.Location = Convert.ToString(dataReader["DeptLocation"]);
-
-                        model.CreatedOn = Convert.ToDateTime(dataReader["CreatedOn"]);
-
-                        if (dataReader["LastUpdatedOn"] != DBNull.Value)
-                            model.LastUpdatedOn = Convert.ToDateTime(dataReader["LastUpdatedOn"]);
-
-
-                        departments.Add(model);
-                    }
-                }
-                catch(Exception ex)
-                {
-                    //Log the error 
-                }
-                finally
-                {
-                    if (con.State == ConnectionState.Open)
-                        con.Close();
-                }
-            }
-
-            return departments;
+            throw new NotImplementedException();
         }
 
         public List<DepartmentModel> GetAllDepartments()
         {
-            return GetAllDepartments(null, null);
+            throw new NotImplementedException();
+        }
+
+        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        {
+            throw new NotImplementedException();
         }
 
         public DepartmentModel GetDepartmentById(int departmentId)
@@ -202,61 +34,301 @@ namespace EMS.Services.Implementation.ADO
             throw new NotImplementedException();
         }
 
-                command.Parameters.AddWithValue("@DepartmentId", departmentId);
-
-                sqlConnection.Open();
-                using SqlDataReader dr = command.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    DepartmentModel model = new DepartmentModel();
-                    model.DepartmentIdPk = Convert.ToInt32(dr["DepartmentIdPk"]);
-                    model.DepartmentCode = Convert.ToString(dr["DepartmentCode"]);
-                    model.DepartmentName = Convert.ToString(dr["DepartmentName"]);
-                    model.IsActive = Convert.ToBoolean(dr["IsActive"]);
-                    model.Location = Convert.ToString(dr["DeptLocation"]);
-                    model.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                    if (dr["LastUpdatedOn"] != DBNull.Value)
-                        model.LastUpdatedOn = Convert.ToDateTime(dr["LastUpdatedOn"]);
-                    return model;
-                }
-                else
-                {
-                    return new DepartmentModel();
-                }
-            }
-            catch (Exception ex)
-            {
-                return new DepartmentModel();
-            }
-            finally
-            {
-                //Any cleanup code
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
-        }
-
         public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
         {
             throw new NotImplementedException();
         }
-    }
 
-    public class DepartmentADOService_Practice : IDepartmentService
-    {
-        public List<DepartmentModel> GetAllDepartments_InsertUpdateDelete()
+        //    public static string connectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
+        //    public List<DepartmentModel> GetAllDepartments_Query()
+        //    {
+        //        string query = @"SELECT 
+        //                         DepartmentIdPk, 
+        //                         DepartmentCode, 
+        //                         DepartmentName, 
+        //                         IsActive, 
+        //                         DeptLocation, 
+        //                         CreatedOn,
+        //                         ISNULL(LastUpdatedOn, CreatedOn) as  LastUpdatedOn
+        //                        FROM dbo.Department
+        //                        Order by LastUpdatedOn DESC";
+        //        var departments = new List<DepartmentModel>();
+
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        using (SqlCommand cmd = new SqlCommand(query, con))
+        //            try
+        //            {
+        //                con.Open();
+        //                using (SqlDataReader dataReader = cmd.ExecuteReader())
+        //                    while (dataReader.Read())
+        //                    {
+        //                        DepartmentModel model = new DepartmentModel();
+        //                        model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
+        //                        model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
+        //                        model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
+        //                        model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
+        //                        model.Location = Convert.ToString(dataReader["DeptLocation"]);
+
+        //                        model.CreatedOn = Convert.ToDateTime(dataReader["CreatedOn"]);
+
+        //                        if (dataReader["LastUpdatedOn"] != DBNull.Value)
+        //                            model.LastUpdatedOn = Convert.ToDateTime(dataReader["LastUpdatedOn"]);
+
+
+        //                        departments.Add(model);
+        //                    }
+        //            }
+        //            catch { }
+        //            finally
+        //            {
+        //                if (con.State == ConnectionState.Open)
+        //                    con.Close();
+        //            }
+
+        //        return departments;
+        //    }
+
+        //    public List<DepartmentModel> GetAllDepartments_Query(string deptName, string deptLocation)
+        //    {
+        //        if (string.IsNullOrEmpty(deptName))
+        //            deptName = "NULL";
+        //        if (string.IsNullOrEmpty(deptLocation))
+        //            deptLocation = "NULL";
+
+        //        string query = @"SELECT 
+        //                      DepartmentIdPk, 
+        //                      DepartmentCode, 
+        //                      DepartmentName, 
+        //                      IsActive, 
+        //                      DeptLocation, 
+        //                      CreatedOn,
+        //                      ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
+        //                     FROM dbo.Department
+        //                     WHERE 1=1 ";
+        //        if (!string.IsNullOrEmpty(deptName))
+        //            query += $" AND DepartmentName = '{deptName}'";
+        //        if (!string.IsNullOrEmpty(deptLocation))
+        //            query += $" AND DeptLocation = '{deptLocation}'";
+        //        query += " Order by LastUpdatedOn DESC";
+
+        //        string querywithparam = @"SELECT 
+        //                              DepartmentIdPk, 
+        //                              DepartmentCode, 
+        //                              DepartmentName, 
+        //                              IsActive, 
+        //                              DeptLocation, 
+        //                              CreatedOn,
+        //                              ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
+        //                             FROM dbo.Department
+        //                             WHERE
+        //                              (ISNULL(@deptName, '') = '' OR DepartmentName = @deptName)
+        //                              AND 
+        //                              (ISNULL(@deptName, '') = '' OR DeptLocation = @deptLocation)
+        //                             Order by LastUpdatedOn DESC";
+
+
+
+        //        //       @"(ISNULL(@deptName, '') = '' OR DepartmentName = @deptName)
+        //        // AND 
+        //        // (ISNULL(@deptName, '') = '' OR DeptLocation = @deptLocation)
+        //        //Order by LastUpdatedOn DESC";
+
+        //        var departments = new List<DepartmentModel>();
+
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        using (SqlCommand cmd = new SqlCommand(query, con))
+        //            try
+        //            {
+        //                con.Open();
+        //                //cmd.Parameters.AddWithValue("@deptname", deptName ?? (object)DBNull.Value);
+        //                //cmd.Parameters.AddWithValue("@deptLocation", deptLocation ?? (object)DBNull.Value);
+        //                using (SqlDataReader dataReader = cmd.ExecuteReader())
+        //                    while (dataReader.Read())
+        //                    {
+        //                        DepartmentModel model = new DepartmentModel();
+        //                        model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
+        //                        model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
+        //                        model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
+        //                        model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
+        //                        model.Location = Convert.ToString(dataReader["DeptLocation"]);
+
+        //                        model.CreatedOn = Convert.ToDateTime(dataReader["CreatedOn"]);
+
+        //                        if (dataReader["LastUpdatedOn"] != DBNull.Value)
+        //                            model.LastUpdatedOn = Convert.ToDateTime(dataReader["LastUpdatedOn"]);
+
+
+        //                        departments.Add(model);
+        //                    }
+        //            }
+        //            catch { }
+        //            finally
+        //            {
+        //                if (con.State == ConnectionState.Open)
+        //                    con.Close();
+        //            }
+
+        //        return departments;
+        //    }
+
+        //    public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
+        //    {
+        //        var departments = new List<DepartmentModel>();
+
+        //        using (SqlConnection con = new SqlConnection(connectionString))
+        //        using (SqlCommand cmd = new SqlCommand("usp_GetAllDepartments", con))
+        //        {
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.AddWithValue("@deptName", deptName ?? (object)DBNull.Value);
+        //            cmd.Parameters.AddWithValue("@deptLocation", deptLocation ?? (object)DBNull.Value);
+        //            try
+        //            {
+        //                con.Open();
+        //                using SqlDataReader dataReader = cmd.ExecuteReader();
+        //                while (dataReader.Read())
+        //                {
+        //                    DepartmentModel model = new DepartmentModel();
+        //                    model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
+        //                    model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
+        //                    model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
+        //                    model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
+        //                    model.Location = Convert.ToString(dataReader["DeptLocation"]);
+
+        //                    model.CreatedOn = Convert.ToDateTime(dataReader["CreatedOn"]);
+
+        //                    if (dataReader["LastUpdatedOn"] != DBNull.Value)
+        //                        model.LastUpdatedOn = Convert.ToDateTime(dataReader["LastUpdatedOn"]);
+
+
+        //                    departments.Add(model);
+        //                }
+        //            }
+        //            catch(Exception ex)
+        //            {
+        //                //Log the error 
+        //            }
+        //            finally
+        //            {
+        //                if (con.State == ConnectionState.Open)
+        //                    con.Close();
+        //            }
+        //        }
+
+        //        return departments;
+        //    }
+
+        //    public List<DepartmentModel> GetAllDepartments()
+        //    {
+        //        return GetAllDepartments(null, null);
+        //    }
+
+        //    public DepartmentModel GetDepartmentById(int departmentId)
+        //    {
+        //        command.Parameters.AddWithValue("@DepartmentId", departmentId);
+
+        //        sqlConnection.Open();
+        //        using SqlDataReader dr = command.ExecuteReader();
+
+        //        if (dr.Read())
+        //        {
+        //            DepartmentModel model = new DepartmentModel();
+        //            model.DepartmentIdPk = Convert.ToInt32(dr["DepartmentIdPk"]);
+        //            model.DepartmentCode = Convert.ToString(dr["DepartmentCode"]);
+        //            model.DepartmentName = Convert.ToString(dr["DepartmentName"]);
+        //            model.IsActive = Convert.ToBoolean(dr["IsActive"]);
+        //            model.Location = Convert.ToString(dr["DeptLocation"]);
+        //            model.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
+        //            if (dr["LastUpdatedOn"] != DBNull.Value)
+        //                model.LastUpdatedOn = Convert.ToDateTime(dr["LastUpdatedOn"]);
+        //            return model;
+        //        }
+        //        else
+        //        {
+        //            return new DepartmentModel();
+        //        }
+        //    }
+        //        catch (Exception ex)
+        //        {
+        //            return new DepartmentModel();
+        //}
+        //        finally
+        //        {
+        //            //Any cleanup code
+        //            if (sqlConnection.State == ConnectionState.Open)
+        //                sqlConnection.Close();
+        //        }
+        //    }
+        //    }      
+        //    public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        public class DepartmentADOService_Practice : IDepartmentService
         {
-            string InsertQuery = @" SET NOCOUNT ON;
+            public List<DepartmentModel> GetAllDepartments_InsertUpdateDelete()
+            {
+                string InsertQuery = @" SET NOCOUNT ON;
                                     INSERT INTO TEST (ID,NAME)
                                     SELECT 5, 'E'";
 
-            string UpdateQuery = @"update test set name += name";
+                string UpdateQuery = @"update test set name += name";
 
-            string DeleteQuery = @"delete test where id = 5";
+                string DeleteQuery = @"delete test where id = 5";
 
-            using (SqlConnection con = new SqlConnection())
+                using (SqlConnection con = new SqlConnection())
+                {
+                    try
+                    {
+                        //1. Sql connection 
+                        con.ConnectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
+                        //2. connection open
+                        con.Open();
+
+                        //3. Sql Command
+                        using (SqlCommand cmd = new SqlCommand())
+                        {                         //3.1 pass connection to the command
+                            cmd.Connection = con;
+                            //3.2 pass query to the command
+                            cmd.CommandText = InsertQuery;
+                            //3.3 pass command type to the command
+                            cmd.CommandType = System.Data.CommandType.Text;//StoredProcedure, TableDirect
+                                                                           //cmd.CommandType = System.Data.CommandType.StoredProcedure;//StoredProcedure, TableDirect
+
+                            //4. Execute command
+                            int NoOfRowsAffected = cmd.ExecuteNonQuery();//Insert/Update/Delete
+                                                                         //cmd.ExecuteReader();//select with multiple rows and columns
+                                                                         //                    //multiple results
+                                                                         //object returnValue = cmd.ExecuteScalar();//Select with a single vlaue(1-r,1-col)
+                                                                         //string str =Convert.ToString(cmd.ExecuteScalar());
+                        }
+
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        string msg = ex.Message;
+                    }
+                    finally
+                    {
+                        //5. close connection
+                        if (con.State == ConnectionState.Open)
+                            con.Close();
+                    }
+                }
+
+                return null;
+
+            }
+
+            public List<DepartmentModel> GetAllDepartments_SingleValue()
             {
+                //string SelectSingleValue = @"SELECT COUNT(*) FROM TEST";
+                string SelectSingleValue = @"SELECT getdate()";
+
+                using SqlConnection con = new SqlConnection();
                 try
                 {
                     //1. Sql connection 
@@ -265,22 +337,21 @@ namespace EMS.Services.Implementation.ADO
                     con.Open();
 
                     //3. Sql Command
-                    using (SqlCommand cmd = new SqlCommand())
-                    {                         //3.1 pass connection to the command
-                        cmd.Connection = con;
-                        //3.2 pass query to the command
-                        cmd.CommandText = InsertQuery;
-                        //3.3 pass command type to the command
-                        cmd.CommandType = System.Data.CommandType.Text;//StoredProcedure, TableDirect
-                                                                       //cmd.CommandType = System.Data.CommandType.StoredProcedure;//StoredProcedure, TableDirect
+                    using SqlCommand cmd = new SqlCommand();
+                    //3.1 pass connection to the command
+                    cmd.Connection = con;
+                    //3.2 pass query to the command
+                    cmd.CommandText = SelectSingleValue;
+                    //3.3 pass command type to the command
+                    cmd.CommandType = System.Data.CommandType.Text;//StoredProcedure, TableDirect
+                                                                   //cmd.CommandType = System.Data.CommandType.StoredProcedure;//StoredProcedure, TableDirect
 
-                        //4. Execute command
-                        int NoOfRowsAffected = cmd.ExecuteNonQuery();//Insert/Update/Delete
-                                                                     //cmd.ExecuteReader();//select with multiple rows and columns
-                                                                     //                    //multiple results
-                                                                     //object returnValue = cmd.ExecuteScalar();//Select with a single vlaue(1-r,1-col)
-                                                                     //string str =Convert.ToString(cmd.ExecuteScalar());
-                    }
+                    //4. Execute command
+                    //int NoOfRowsAffected = cmd.ExecuteNonQuery();//Insert/Update/Delete
+                    //cmd.ExecuteReader();//select with multiple rows and columns
+                    //                    //multiple results
+                    object returnValue = cmd.ExecuteScalar();//Select with a single vlaue(1-r,1-col)
+                                                             //string str =Convert.ToString(cmd.ExecuteScalar());
 
 
 
@@ -295,64 +366,15 @@ namespace EMS.Services.Implementation.ADO
                     if (con.State == ConnectionState.Open)
                         con.Close();
                 }
+
+                return null;
+
             }
 
-            return null;
 
-        }
-
-        public List<DepartmentModel> GetAllDepartments_SingleValue()
-        {
-            //string SelectSingleValue = @"SELECT COUNT(*) FROM TEST";
-            string SelectSingleValue = @"SELECT getdate()";
-
-            using SqlConnection con = new SqlConnection();
-            try
+            public List<DepartmentModel> GetAllDepartments_DataReader()
             {
-                //1. Sql connection 
-                con.ConnectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
-                //2. connection open
-                con.Open();
-
-                //3. Sql Command
-                using SqlCommand cmd = new SqlCommand();
-                //3.1 pass connection to the command
-                cmd.Connection = con;
-                //3.2 pass query to the command
-                cmd.CommandText = SelectSingleValue;
-                //3.3 pass command type to the command
-                cmd.CommandType = System.Data.CommandType.Text;//StoredProcedure, TableDirect
-                                                               //cmd.CommandType = System.Data.CommandType.StoredProcedure;//StoredProcedure, TableDirect
-
-                //4. Execute command
-                //int NoOfRowsAffected = cmd.ExecuteNonQuery();//Insert/Update/Delete
-                //cmd.ExecuteReader();//select with multiple rows and columns
-                //                    //multiple results
-                object returnValue = cmd.ExecuteScalar();//Select with a single vlaue(1-r,1-col)
-                                                         //string str =Convert.ToString(cmd.ExecuteScalar());
-
-
-
-            }
-            catch (Exception ex)
-            {
-                string msg = ex.Message;
-            }
-            finally
-            {
-                //5. close connection
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
-
-            return null;
-
-        }
-
-
-        public List<DepartmentModel> GetAllDepartments_DataReader()
-        {
-            string SelectMultiRecordQuery = @"SELECT 
+                string SelectMultiRecordQuery = @"SELECT 
 	                            DepartmentIdPk, 
 	                            DepartmentCode, 
 	                            DepartmentName, 
@@ -368,107 +390,107 @@ namespace EMS.Services.Implementation.ADO
                             SELECT getdate() a, getutcdate() b, 1 c,2 d;";
 
 
-            using SqlConnection con = new SqlConnection();
-            try
-            {
-                //1. Sql connection 
-                con.ConnectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
-                //2. connection open
-                con.Open();
-
-                //3. Sql Command
-                using SqlCommand cmd = new SqlCommand();
-                //3.1 pass connection to the command
-                cmd.Connection = con;
-                //3.2 pass query to the command
-                cmd.CommandText = SelectMultiRecordQuery;
-                //3.3 pass command type to the command
-                cmd.CommandType = System.Data.CommandType.Text;//StoredProcedure, TableDirect
-                                                               //cmd.CommandType = System.Data.CommandType.StoredProcedure;//StoredProcedure, TableDirect
-
-                //4. Execute command
-                //int NoOfRowsAffected = cmd.ExecuteNonQuery();//Insert/Update/Delete
-                //cmd.ExecuteReader();//select with multiple rows and columns
-                //                    //multiple results
-                //object returnValue = cmd.ExecuteScalar();//Select with a single vlaue(1-r,1-col)
-                //string str =Convert.ToString(cmd.ExecuteScalar());
-
-
-                using SqlDataReader dataReader = cmd.ExecuteReader();//select with multiple rows and columns
-                List<DepartmentModel> departments = new List<DepartmentModel>();
-
-                //1- result set
-                while (dataReader.Read())
+                using SqlConnection con = new SqlConnection();
+                try
                 {
-                    DepartmentModel model = new DepartmentModel();
-                    model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
-                    model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
-                    model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
-                    model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
-                    model.Location = Convert.ToString(dataReader["DeptLocation"]);
+                    //1. Sql connection 
+                    con.ConnectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
+                    //2. connection open
+                    con.Open();
 
-                    departments.Add(model);
-                }
+                    //3. Sql Command
+                    using SqlCommand cmd = new SqlCommand();
+                    //3.1 pass connection to the command
+                    cmd.Connection = con;
+                    //3.2 pass query to the command
+                    cmd.CommandText = SelectMultiRecordQuery;
+                    //3.3 pass command type to the command
+                    cmd.CommandType = System.Data.CommandType.Text;//StoredProcedure, TableDirect
+                                                                   //cmd.CommandType = System.Data.CommandType.StoredProcedure;//StoredProcedure, TableDirect
 
-                //2 Result set
-                if (dataReader.NextResult())
-                {
+                    //4. Execute command
+                    //int NoOfRowsAffected = cmd.ExecuteNonQuery();//Insert/Update/Delete
+                    //cmd.ExecuteReader();//select with multiple rows and columns
+                    //                    //multiple results
+                    //object returnValue = cmd.ExecuteScalar();//Select with a single vlaue(1-r,1-col)
+                    //string str =Convert.ToString(cmd.ExecuteScalar());
+
+
+                    using SqlDataReader dataReader = cmd.ExecuteReader();//select with multiple rows and columns
+                    List<DepartmentModel> departments = new List<DepartmentModel>();
+
+                    //1- result set
                     while (dataReader.Read())
                     {
                         DepartmentModel model = new DepartmentModel();
-                        model.DepartmentIdPk = Convert.ToInt32(dataReader["ID"]);
-                        model.DepartmentCode = Convert.ToString(dataReader["NAME"]);
+                        model.DepartmentIdPk = Convert.ToInt32(dataReader["DepartmentIdPk"]);
+                        model.DepartmentCode = Convert.ToString(dataReader["DepartmentCode"]);
+                        model.DepartmentName = Convert.ToString(dataReader["DepartmentName"]);
+                        model.IsActive = Convert.ToBoolean(dataReader["IsActive"]);
+                        model.Location = Convert.ToString(dataReader["DeptLocation"]);
 
                         departments.Add(model);
                     }
-                }
-                string abc = string.Empty;
-                string a = string.Empty;
-                string b = string.Empty;
-                string c = string.Empty;
-                string d = string.Empty;
 
-                //3 Result set
-                if (dataReader.NextResult())
-                {
-                    if (dataReader.Read())
+                    //2 Result set
+                    if (dataReader.NextResult())
                     {
-                        abc = Convert.ToString(dataReader["abc"]);
-                    }
-                }
+                        while (dataReader.Read())
+                        {
+                            DepartmentModel model = new DepartmentModel();
+                            model.DepartmentIdPk = Convert.ToInt32(dataReader["ID"]);
+                            model.DepartmentCode = Convert.ToString(dataReader["NAME"]);
 
-                //4 Result set
-                if (dataReader.NextResult())
-                {
-                    if (dataReader.Read())
+                            departments.Add(model);
+                        }
+                    }
+                    string abc = string.Empty;
+                    string a = string.Empty;
+                    string b = string.Empty;
+                    string c = string.Empty;
+                    string d = string.Empty;
+
+                    //3 Result set
+                    if (dataReader.NextResult())
                     {
-                        a = Convert.ToString(dataReader["a"]);
-                        b = Convert.ToString(dataReader["b"]);
-                        c = Convert.ToString(dataReader["c"]);
-                        d = Convert.ToString(dataReader["d"]);
+                        if (dataReader.Read())
+                        {
+                            abc = Convert.ToString(dataReader["abc"]);
+                        }
                     }
+
+                    //4 Result set
+                    if (dataReader.NextResult())
+                    {
+                        if (dataReader.Read())
+                        {
+                            a = Convert.ToString(dataReader["a"]);
+                            b = Convert.ToString(dataReader["b"]);
+                            c = Convert.ToString(dataReader["c"]);
+                            d = Convert.ToString(dataReader["d"]);
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    string msg = ex.Message;
+                }
+                finally
+                {
+                    //5. close connection
+                    if (con.State == ConnectionState.Open)
+                        con.Close();
                 }
 
+                return null;
 
             }
-            catch (Exception ex)
+
+            public List<DepartmentModel> GetAllDepartments_DataAdapter()
             {
-                string msg = ex.Message;
-            }
-            finally
-            {
-                //5. close connection
-                if (con.State == ConnectionState.Open)
-                    con.Close();
-            }
-
-            return null;
-
-        }
-
-        public List<DepartmentModel> GetAllDepartments_DataAdapter()
-        {
-            string SelectMultiRecordQuery = @"SELECT 
+                string SelectMultiRecordQuery = @"SELECT 
 	                            DepartmentIdPk, 
 	                            DepartmentCode, 
 	                            DepartmentName, 
@@ -484,65 +506,66 @@ namespace EMS.Services.Implementation.ADO
                             SELECT getdate() a, getutcdate() b, 1 c,2 d;";
 
 
-            using SqlConnection con = new SqlConnection();
-            try
-            {
-                //1. Sql connection 
-                con.ConnectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
+                using SqlConnection con = new SqlConnection();
+                try
+                {
+                    //1. Sql connection 
+                    con.ConnectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
 
-                using SqlDataAdapter da = new SqlDataAdapter(SelectMultiRecordQuery, con);
-                DataSet ds = new DataSet();
+                    using SqlDataAdapter da = new SqlDataAdapter(SelectMultiRecordQuery, con);
+                    DataSet ds = new DataSet();
 
-                da.Fill(ds);
+                    da.Fill(ds);
+                }
+                catch (Exception ex)
+                {
+                    string msg = ex.Message;
+                }
+                finally
+                {
+                    //5. close connection
+                    if (con.State == ConnectionState.Open)
+                        con.Close();
+                }
+
+                return null;
+
             }
-            catch (Exception ex)
+
+            public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
             {
-                string msg = ex.Message;
-            }
-            finally
-            {
-                //5. close connection
-                if (con.State == ConnectionState.Open)
-                    con.Close();
+                throw new NotImplementedException();
             }
 
-            return null;
+            public DepartmentModel GetDepartmentById(int departmentId)
+            {
+                throw new NotImplementedException();
+            }
 
-        }
+            public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
+            {
+                throw new NotImplementedException();
+            }
 
-        public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation)
-        {
-            throw new NotImplementedException();
-        }
+            public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
+            {
+                throw new NotImplementedException();
+            }
 
-        public DepartmentModel GetDepartmentById(int departmentId)
-        {
-            throw new NotImplementedException();
-        }
+            public List<DepartmentModel> GetAllDepartments()
+            {
+                throw new NotImplementedException();
+            }
 
-        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
+            public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage)
+            {
+                throw new NotImplementedException();
+            }
 
-        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<DepartmentModel> GetAllDepartments()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
-        {
-            throw new NotImplementedException();
+            public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
