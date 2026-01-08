@@ -19,10 +19,6 @@ namespace EMS.Services.Implementation.ADO
     {
         public static string connectionString = "Data Source=chereddy\\VIJAY;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
 
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
 
         public List<EmployeeAddressModel> GetAllEmployeeAddresses()
         {
@@ -90,7 +86,15 @@ namespace EMS.Services.Implementation.ADO
             }
         }
 
+<<<<<<< HEAD
         public EmployeeModel GetAllEmployeeId(int EmployeeIdPk)
+=======
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
+>>>>>>> origin/main
         {
             using SqlConnection sqlConnection= new SqlConnection(connectionString);
             try
