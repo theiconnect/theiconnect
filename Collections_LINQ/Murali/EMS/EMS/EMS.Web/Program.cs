@@ -16,19 +16,22 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICompanyService, CompanyTDService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentTDService>();
      
+<<<<<<< Updated upstream
 
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
 //builder.Services.AddTransient<EMS.Services.CompanyService>();
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
 
+=======
+>>>>>>> Stashed changes
 //=======================================================================
 //Middle ware - Request pipeline configuration
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline.oo
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error"); 
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
