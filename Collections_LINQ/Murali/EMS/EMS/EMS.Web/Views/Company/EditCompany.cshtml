@@ -21,34 +21,34 @@
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="companyName" class="form-label">Company Name *</label>
-                            <input type="text" class="form-control bg-light" id="companyName" value="Innovatech Solutions Pvt. Ltd." readonly>
+                            <input type="text" class="form-control bg-light" id="companyName" value="@Model.CompanyName" readonly>
                             <div class="form-text">Name cannot be changed here.</div>
                         </div>
                         <div class="col-md-4">
                             <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phoneNumber" value="(555) 123-4567">
+                            <input type="tel" class="form-control" id="phoneNumber" value="@Model.PhoneNumber"readonly>
                         </div>
                         <div class="col-md-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" asp-for="Email" readonly>
+                            <input type="email" class="form-control" asp-for="@Model.Email" readonly>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="regDate" class="form-label">Registration Date</label>
-                            <input type="date" class="form-control" id="regDate" value="2023-01-15" >
+                            <input type="date" class="form-control" id="regDate" value="@Model.RegistrationDate.ToString("yyyy-MM-dd")" readonly>
                         </div>
                         <div class="col-md-8">
                             <label for="website" class="form-label">Website</label>
-                            <input type="url" class="form-control" id="website" value="http://www.innovatech.com">
+                            <input type="url" class="form-control" id="website" value="@Model.Website" readonly>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <label for="bankAccount" class="form-label">Bank Account Number</label>
-                            <input type="text" class="form-control" id="bankAccount" value="98765432101234567890">
+                            <input type="text" class="form-control" id="bankAccount" value="@Model.BankAccountNumber" readonly>
                         </div>
                         <div class="col-md-4">
                             <label for="tin" class="form-label">TIN</label>

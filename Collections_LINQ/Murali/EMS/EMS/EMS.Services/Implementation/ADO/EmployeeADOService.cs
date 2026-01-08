@@ -1,36 +1,87 @@
 ﻿using EMS.IServices;
 using EMS.Models;
+<<<<<<< HEAD
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+=======
 using EMS.Models.Enums;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+>>>>>>> origin/main
 
 
 namespace EMS.Services.Implementation.ADO
 {
-    public class EmployeeADOService : IEmployeeService
+<<<<<<< HEAD
+    public class EmployeeADOService: IEmployeeService
     {
-        public static string connectionString = "Data Source=anuvenkata\\SQLEXPRESS;Initial Catalog=Employees;Integrated Security=True; TrustServerCertificate=True";
+        public static string ConnectionString = @"Data Source=LAPTOP-9LRGN9NO\SAIPRASADMSSQL;Initial Catalog = EMS; Integrated Security = True; TrustServerCertificate=True";
 
         public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
         {
             throw new NotImplementedException();
         }
+=======
+    public class EmployeeADOService : IEmployeeService
+    {
+        public static string connectionString = "Data Source=anuvenkata\\SQLEXPRESS;Initial Catalog=Employees;Integrated Security=True; TrustServerCertificate=True";
+
+>>>>>>> origin/main
 
         public List<EmployeeAddressModel> GetAllEmployeeAddresses()
         {
             throw new NotImplementedException();
         }
 
+<<<<<<< HEAD
+        public List<EmployeeModel> GetAllEmployees()
+        {
+            using(SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("sp_GetAllEmployees", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader reader = cmd.ExecuteReader();
+                List<EmployeeModel> employees = new List<EmployeeModel>();
+                while(reader.Read())
+                {
+                    EmployeeModel emp = new EmployeeModel();
+                    emp.EmployeeIdPk = Convert.ToInt32(reader["EmployeeIdPk"]);
+                    emp.Employeecode = reader["EmployeeCode"].ToString();
+                    emp.FirstName = reader["FirstName"].ToString();
+                    emp.MiddleName = reader["MiddleName"].ToString();
+                    emp.LastName = reader["LastName"].ToString();
+                    // Map other properties as needed
+                    employees.Add(emp);
+                }
+                return employees;
+            }
+        }
+
+=======
+>>>>>>> origin/main
         public EmployeeModel GetEmployeeByID(int empId)
         {
             throw new NotImplementedException();
         }
+<<<<<<< HEAD
+    }
+
+   
+}
+=======
 
 
         public List<EmployeeModel> GetAllEmployees()
@@ -83,6 +134,11 @@ namespace EMS.Services.Implementation.ADO
                 }
             }
         }
+
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
         public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
         {
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
@@ -130,3 +186,4 @@ namespace EMS.Services.Implementation.ADO
 
         
         
+>>>>>>> origin/main

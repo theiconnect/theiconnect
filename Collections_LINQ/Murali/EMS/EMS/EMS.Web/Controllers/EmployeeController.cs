@@ -4,6 +4,7 @@ using EMS.Models.Enums;
 using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
 using EMS.Web.Models.Enums;
+using Google.Apis.Admin.Directory.directory_v1.Data;
 using Intuit.Ipp.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -101,7 +102,7 @@ namespace EMS.Web.Controllers
                 Employeecode = updateModel.Code,
                 FirstName = updateModel.FirstName,
                 LastName = updateModel.LastName,
-                BloodGroup = updateModel.BloodGroup,
+                BloodGroup = (BloodGroups)updateModel.BloodGroup,
                 Gender = updateModel.Gender,
                 EmailId = updateModel.EmailId,
                 MobileNumber = updateModel.MobileNumber,
@@ -117,30 +118,41 @@ namespace EMS.Web.Controllers
         }
 
         // Route: /Employee/viewemployee
-        [Route("viewemployee/{id}")]
-        public IActionResult ViewEmployee(int id)
+        // [Route("viewemployee/{id}")]
+        //public IActionResult ViewEmployee(int id)
+        //{
+        //    var empDB = employeeServices.GetAllEmployees()
+        //                                  .FirstOrDefault(e => e.EmployeeIdPk == id);
+
+
+        //    if (empDB == null)
+        //        return NotFound();
+
+        //  return Json(new { Success = isSuccess, Message = responseMessage });
+        // }
+        [Route("delete")]
+        [HttpPost]
+        public IActionResult DeactivateDepartment([FromBody] EmployeeViewModel model)
         {
-            var empDB = employeeServices.GetAllEmployees()
-                                          .FirstOrDefault(e => e.EmployeeIdPk == id);
-                                          
-                                          
-           if (empDB == null) 
-                return NotFound();
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true, out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
 
             return Json(new { Success = isSuccess, Message = responseMessage });
         }
 
         [Route("active/{id}")]
         [HttpGet]
-
-        public IActionResult ActivateDepartment(int id)
+        public IActionResult ActivateEmployee(int id)
         {
             bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
-            return View(model);
+            return Json(new { Success = isSuccess, Message = responseMessage });
         }
+
+
     }
 }
 
