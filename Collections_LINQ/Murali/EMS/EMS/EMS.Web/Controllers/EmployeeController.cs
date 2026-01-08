@@ -1,13 +1,8 @@
 ﻿using EMS.IServices;
 using EMS.Models;
 using EMS.Models.Enums;
-using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
-using EMS.Web.Models.Enums;
-using Intuit.Ipp.Data;
 using Microsoft.AspNetCore.Mvc;
-
-
 
 namespace EMS.Web.Controllers
 {
@@ -51,7 +46,6 @@ namespace EMS.Web.Controllers
                 obj.ExpInMonths = emp.ExpInMonths;
                 obj.SalaryCtc = emp.SalaryCtc;
                 obj.IsActive = emp.IsActive;
-
                 EmployeeModel.Add(obj);
             }
 
@@ -66,48 +60,103 @@ namespace EMS.Web.Controllers
         [Route("editemployee/{employeeid}")]
         public IActionResult EditEmployee(int employeeid)
         {
-            var empDB = employeeServices.GetAllEmployees()
-                                          .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
+            var empDB = employeeServices
+                .GetAllEmployees()
+                .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
 
-            return View();
-        }
-
-
-        // Route: /Employee/viewemployee
-        [Route("viewemployee/{id}")]
-        public IActionResult ViewEmployee(int id)
-        {
-            var empDB = employeeServices.GetAllEmployees()
-                                          .FirstOrDefault(e => e.EmployeeIdPk == id);
-                                          
-                                          
-           if (empDB == null) 
+            if (empDB == null)
                 return NotFound();
 
-            var model = new EmployeeViewModel
+
+            var model = new EmployeeViewModel(
+                empDB.EmployeeIdPk,
+                empDB.Employeecode,
+                empDB.FirstName,
+                empDB.LastName,
+                empDB.BloodGroup,
+                empDB.Gender,
+                empDB.EmailId,
+                empDB.MobileNumber,
+                empDB.DateOfBirth,
+                empDB.DateOfJoining,
+                empDB.ExpInMonths,
+                empDB.SalaryCtc,
+                empDB.IsActive
+
+            );
+            return View(model);
+        }
+        [HttpPost]
+        [Route("UpdateSaveEmployee")]
+        public IActionResult UpdateSaveEmployee([FromBody] EmployeeViewModel updateModel)
+        {
+            if (updateModel == null)
             {
-                EmployeeId = empDB.EmployeeIdPk,
-                Code = empDB.Employeecode,
-                FirstName = empDB.FirstName,
-                LastName = empDB.LastName,
-                BloodGroup = empDB.BloodGroup,
-                Gender = empDB.Gender,
-                EmailId = empDB.EmailId,
-                MobileNumber = empDB.MobileNumber,
-                DateOfBirth = empDB.DateOfBirth,
-                DateOfJoining = empDB.DateOfJoining,
-                ExpInMonths = empDB.ExpInMonths,
-                SalaryCtc = empDB.SalaryCtc,
-                IsActive = empDB.IsActive
+                return Json(new { IsSuccess = false, errorMessage = "Model is null" });
+            }
+            EmployeeModel employeeModel = new EmployeeModel
+            {
+                EmployeeIdPk = updateModel.EmployeeId,
+                Employeecode = updateModel.Code,
+                FirstName = updateModel.FirstName,
+                LastName = updateModel.LastName,
+                BloodGroup = (BloodGroups)updateModel.BloodGroup,
+                Gender = updateModel.Gender,
+                EmailId = updateModel.EmailId,
+                MobileNumber = updateModel.MobileNumber,
+                DateOfBirth = updateModel.DateOfBirth,
+                DateOfJoining = updateModel.DateOfJoining,
+                ExpInMonths = updateModel.ExpInMonths,
+                SalaryCtc = updateModel.SalaryCtc,
+                IsActive = updateModel.IsActive
             };
 
+            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage
+               );
+            return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
+        }
+
+        // Route: /Employee/viewemployee
+        // [Route("viewemployee/{id}")]
+        //public IActionResult ViewEmployee(int id)
+        //{
+        //    var empDB = employeeServices.GetAllEmployees()
+        //                                  .FirstOrDefault(e => e.EmployeeIdPk == id);
+
+
+        //    if (empDB == null)
+        //        return NotFound();
+
+        //  return Json(new { Success = isSuccess, Message = responseMessage });
+        // }
+        [Route("delete")]
+        [HttpPost]
+        public IActionResult DeactivateDepartment([FromBody] EmployeeViewModel model)
+        {
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true, out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
+
             return View(model);
+        }
+
+        [Route("active/{id}")]
+        [HttpGet]
+        public IActionResult ActivateEmployee(int id)
+        {
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
+
+            return Json(new { Success = isSuccess, Message = responseMessage });
         }
     }
 }
 
 
+
           
+
 
 
 

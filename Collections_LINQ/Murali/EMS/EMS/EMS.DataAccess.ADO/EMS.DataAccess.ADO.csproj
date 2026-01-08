@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
+    <ProjectReference Include="..\EMS.IDataAccess\EMS.IDataAccess.csproj" />
   </ItemGroup>
 
 </Project>
