@@ -15,7 +15,7 @@ namespace EMS.Services.Implementation.ADO
 {
     public class DepartmentADOService : IDepartmentService
     {
-        public static string connectionString = "Data Source=.;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
+        public static string connectionString = @"Data Source=LAPTOP-9LRGN9NO\SAIPRASADMSSQL;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
         public List<DepartmentModel> GetAllDepartments_Query()
         {
             string query = @"SELECT 

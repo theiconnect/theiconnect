@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
-    
+    [Route("company")] 
     public class CompanyController : Controller
     {
         //[Route("edit")]
