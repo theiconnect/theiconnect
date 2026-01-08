@@ -72,7 +72,7 @@
             <div class="col-4">
                 @Html.HiddenFor(m => m.EmployeeId)
                 <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
-                <input type="button" class="btn btn-primary" value="save" onclick="debugger; goToAdd();" />
+                <input type="button" class="btn btn-primary" value="save" onclick="goToAdd();" />
             </div>
         </div>
     </form>
@@ -80,7 +80,8 @@
 
 <script type="text/javascript">
     function goToAdd() {
-        let EmployeeId = '@Model.EmployeeId';
+        console.log('clicked');
+        let employeeId = '@Model.EmployeeId';
         let employeeCode = document.getElementById('Code').value;
         let firstName = document.getElementById('FName').value;
         let lastName = document.getElementById('LName').value;
@@ -93,10 +94,10 @@
         let expInMonths = document.getElementById('EIM').value;
         let salaryCtc = document.getElementById('Salary').value;
         let isActive = document.getElementById('Active').checked;
-
+        debugger;
         let empObj = {
-            EmployeeIdPk: employeeId,
-            Employeecode: employeeCode,
+            EmployeeId: employeeId,
+            Code: employeeCode,
             FirstName: firstName,
             LastName: lastName,
             BloodGroup: bloodGroup,
@@ -121,6 +122,7 @@
         })
         .then(response => response.json())
         .then(data => {
+            debugger;
             if (data.IsSuccess) {
                 alert('Employee details saved successfully');
                 window.location.href = '/Employee/List';

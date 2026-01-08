@@ -79,12 +79,12 @@ namespace EMS.Services.Implementation.TD
             }
         }
 
-        public bool ActivateDeactivateEmployeee(int employeeId, bool isDeactivate, out string responseMessage)
-        {
-            if (dbContext.Employees.Count == 0)
-                return 1;
-            return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
-        }
+        //public bool ActivateDeactivateEmployeee(int employeeId, bool isDeactivate, out string responseMessage)
+        //{
+        //    if (dbContext.Employees.Count == 0)
+        //        return 1;
+        //    return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
+        //}
 
         public List<EmployeeAddressModel> GetAllEmployeeAddresses()
         {
@@ -123,22 +123,5 @@ namespace EMS.Services.Implementation.TD
            
         }
 
-    }
-}
-
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SaveDepartment(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
