@@ -6,8 +6,12 @@ using System.Linq;
 
 namespace EMS.Web.Controllers
 {
+<<<<<<< HEAD
+    [Route("company")] 
+=======
 
    
+>>>>>>> origin/main
     public class CompanyController : Controller
     {
         //[Route("edit")]
