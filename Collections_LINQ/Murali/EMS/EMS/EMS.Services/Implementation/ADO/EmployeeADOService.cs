@@ -1,20 +1,21 @@
-﻿using System;
+﻿using EMS.IServices;
+using EMS.Models;
+using EMS.Models.Enums;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using EMS.IServices;
-using EMS.Models;
-using EMS.Models.Enums;
-using Microsoft.Data.SqlClient;
 
 
 namespace EMS.Services.Implementation.ADO
 {
     public class EmployeeADOService : IEmployeeService
     {
-        public static string connectionString = "Data Source=anuvenkata\\SQLEXPRESS;Initial Catalog=Employees;Integrated Security=True; TrustServerCertificate=True";
+        public static string connectionString = "Data Source=DESKTOP-UG9N4R1;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
 
         public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
         {
@@ -34,15 +35,15 @@ namespace EMS.Services.Implementation.ADO
 
         public List<EmployeeModel> GetAllEmployees()
         {
-            string query = @"SELECT 
-                              EmployeeIdPk,
-                              Code,
-                              FirstName,
-                              MobileNumber,
-                              Gender,
-                              EmailId,
-                              IsActive
-                              FROM dbo.Employee";
+            string query = @"SELECT
+                             EmployeeIdPk,
+                             Code,
+                             FirstName,
+                             MobileNumber,
+                             Gender,
+                             EmailId,
+                             IsActive
+                             FROM dbo.EmpViewDetails1";
             var employees = new List<EmployeeModel>();
 
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -71,7 +72,7 @@ namespace EMS.Services.Implementation.ADO
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error reading employees", ex);
+                        throw;
                     }
                     finally
                     {
@@ -82,8 +83,49 @@ namespace EMS.Services.Implementation.ADO
                 }
             }
         }
+        public EmployeeModel GetEmployeeById(int EmployeeIdPk)
+        {
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
 
-        
+
+            using SqlCommand command = new SqlCommand("dbo.ViewEmpViewDetails1", sqlConnection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@EmployeeIdPk", EmployeeIdPk);
+
+            sqlConnection.Open();
+
+            using SqlDataReader datareader = command.ExecuteReader();
+            {
+                while (datareader.Read())
+                {
+
+                    EmployeeModel Model = new EmployeeModel();
+                    {
+
+                        Model.EmployeeIdPk = Convert.ToInt32(datareader["EmployeeIdPk"]);
+                        Model.Employeecode = Convert.ToString(datareader["Code"]);
+                        Model.FirstName = Convert.ToString(datareader["FirstName"]);
+                        Model.LastName = Convert.ToString(datareader["LastName"]);
+                        Model.BloodGroup = (BloodGroups)Convert.ToInt32(datareader["Bloodgroup"]);
+                        Model.Gender = (Genders)Convert.ToInt32(datareader["Gender"]);
+                        Model.EmailId = Convert.ToString(datareader["EmailId"]);
+                        Model.MobileNumber = Convert.ToString(datareader["MobileNumber"]);
+                        Model.DateOfBirth = Convert.ToDateTime(datareader["DateOfBirth"]);
+                        Model.DateOfJoining = Convert.ToDateTime(datareader["DateOfJoining"]);
+                        Model.ExpInMonths = Convert.ToInt32(datareader["ExpInMonths"]);
+                        Model.SalaryCtc = Convert.ToDecimal(datareader["SalaryCtc"]);
+                        Model.IsActive = Convert.ToBoolean(datareader["IsActive"]);
+                    }
+                    ;
+
+                    return Model;
+                }
+                return null;
+            }
+
+        }
+
+
     }
 }
 
