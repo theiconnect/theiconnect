@@ -1,4 +1,4 @@
-﻿@model List<EMS.Web.Models.EmployeeViewModel>
+﻿@model List<EMS.Web.Models.EmployeeListViewModel>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -211,7 +211,7 @@
 					  })
 					  .then(data =>{
 						  debugger;
-
+						  
 						  if(data.success){
 							  location.href='';
 							  //success
@@ -246,7 +246,7 @@
 
 						  if(data.success){
 							  location.href='';
-							  //success
+							  //success 
 						  }else{
 							  alert(data.message);
 							  //failed

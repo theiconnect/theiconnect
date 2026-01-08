@@ -304,9 +304,9 @@ namespace EMS.Services.Implementation.ADO
                 command.Parameters.AddWithValue("@UserName", userName);
                 SqlParameter outputParam = new("@OutputMessage", SqlDbType.NVarChar, 500)
                 {
-                    Direction = ParameterDirection.Output,
+                    Direction = ParameterDirection.Output,   
                 };
-                command.Parameters.Add(outputParam);
+                command.Parameters.Add(outputParam); 
 
                 sqlConnection.Open();
                 command.ExecuteNonQuery();

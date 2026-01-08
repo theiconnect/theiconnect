@@ -16,7 +16,7 @@ namespace EMS.Services.Implementation.ADO
 {
     public class EmployeeADOService : IEmployeeService
     {
-        public static string connectionString = "Data Source=anuvenkata\\SQLEXPRESS;Initial Catalog=Employees;Integrated Security=True; TrustServerCertificate=True";
+        public static string connectionString = "Data Source=anuvenkata\\SQLEXPRESS;Initial Catalog=EMS;Integrated Security=True; TrustServerCertificate=True";
 
 
         public List<EmployeeAddressModel> GetAllEmployeeAddresses()
@@ -32,15 +32,15 @@ namespace EMS.Services.Implementation.ADO
 
         public List<EmployeeModel> GetAllEmployees()
         {
-            string query = @"SELECT 
+            string query = @"select 
                               EmployeeIdPk,
                               Code,
-                              FirstName,
+                              FirstName, 
                               MobileNumber,
                               Gender,
                               EmailId,
                               IsActive
-                              FROM dbo.Employee";
+                              from dbo.Emp";
             var employees = new List<EmployeeModel>();
 
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -81,51 +81,15 @@ namespace EMS.Services.Implementation.ADO
             }
         }
 
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, out string responseMessage)
         {
             throw new NotImplementedException();
         }
-        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
+
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
         {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
-            try
-            {
-                using SqlCommand command = new SqlCommand("dbo.AddEmployee", sqlConnection);
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@EmployeeIdPk", inputEmployee.EmployeeIdPk);
-                command.Parameters.AddWithValue("@Code", inputEmployee.Employeecode);
-                command.Parameters.AddWithValue("@FirstName", inputEmployee.FirstName);
-                command.Parameters.AddWithValue("@MobileNumber", inputEmployee.MobileNumber);
-                command.Parameters.AddWithValue("@Gender", inputEmployee.Gender);
-                command.Parameters.AddWithValue("@EmailId", inputEmployee.EmailId);
-                command.Parameters.AddWithValue("@IsActive", inputEmployee.IsActive);
-                SqlParameter outputParam = new("@OutputMessage", SqlDbType.NVarChar, 500)
-                {
-                    Direction = ParameterDirection.Output,
-                };
-                command.Parameters.Add(outputParam);
-
-                sqlConnection.Open();
-                command.ExecuteNonQuery();
-                responseMessage = Convert.ToString(outputParam.Value);
-            }
-            catch (Exception ex)
-            {
-                responseMessage = "Error: " + ex.Message;
-                return false;
-            }
-            finally
-            {
-                //Any cleanup code
-                if (sqlConnection.State == ConnectionState.Open)
-                    sqlConnection.Close();
-            }
-            if (responseMessage.ToLower() == "success")
-                return true;
-            else
-                return false;
-
+            throw new NotImplementedException();
         }
     }
 }

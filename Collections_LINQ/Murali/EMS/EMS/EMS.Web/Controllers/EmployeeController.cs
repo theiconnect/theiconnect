@@ -132,7 +132,7 @@ namespace EMS.Web.Controllers
         // }
         [Route("delete")]
         [HttpPost]
-        public IActionResult DeactivateDepartment([FromBody] EmployeeViewModel model)
+        public IActionResult DeactivateEmployee([FromBody] EmployeeViewModel model)
         {
             bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true, out string responseMessage);
 
