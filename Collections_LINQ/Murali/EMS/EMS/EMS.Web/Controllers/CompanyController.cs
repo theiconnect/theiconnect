@@ -3,33 +3,23 @@ using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
 using Microsoft.AspNetCore.Mvc;
 using EMS.Services;
-
-
-
+using EMS.IServices;
 
 namespace EMS.Web.Controllers
 {
-    [Route("company")] 
+    [Route("company")]
     public class CompanyController : Controller
     {
-
-        private CompanyService companyservice;
-        public CompanyController(CompanyService _obj)
+        private ICompanyService companyservice;
+        public CompanyController(ICompanyService _obj)
         {
             companyservice = _obj;
         }
-        //[Route("edit")]
+
         public IActionResult EditCompany(int id)
         {
-            var company = _companyADOService.GetCompany().FirstOrDefault(c => c.CompanyIdPk == id);
-            return View();
-
-        }
-        private CompanyService CompanyService;
-        public static string userName = "admin";
-
             object CompanyADOService = null;
-            var company = CompanyADOService.GetCompany().FirstOrDefault(c => c.CompanyId == id);
+            var company = companyservice.GetCompany();
             if (company == null) return NotFound();
 
             var model = new CompanyModel()
@@ -45,12 +35,7 @@ namespace EMS.Web.Controllers
             return View(model);
         }
 
-        //[Route("info")]
-        //[Route("")]
-        //[Route("view")]
-        //[Route("details")]
         public IActionResult ViewCompany()
-
         {
             var companyDB = companyservice.GetCompany();
 
@@ -76,12 +61,3 @@ namespace EMS.Web.Controllers
         }
     }
 }
-
-        //[Route("list")]
-        //public IActionResult CompanyList()
-        //{
-        //    // Replace with real data retrieval (repository/service) as needed.
-        //    IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
-        //    return View(companies);
-        //}
-
