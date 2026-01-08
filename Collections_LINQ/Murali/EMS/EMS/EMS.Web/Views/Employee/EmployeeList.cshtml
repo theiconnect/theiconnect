@@ -94,9 +94,9 @@
 								{
 									foreach (var emp in Model)
 									{
-										<tr>-
-
-											<td>@emp.EmployeeId</td>
+										<tr>
+											<td>@(++counter)</td>
+											
 											<td>@emp.Code</td>
 											<td>@emp.FirstName @emp.LastName</td>
 											<td>@emp.MobileNumber</td>
