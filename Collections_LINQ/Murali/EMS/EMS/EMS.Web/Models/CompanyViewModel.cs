@@ -13,7 +13,7 @@
             {
                 if (RegistrationDate.HasValue)
                 {
-                    return RegistrationDate.Value.ToString("dd-MMM-YYYY");
+                    return RegistrationDate.Value.ToString("dd-MMM-yyyy");
                 }
                 else
                 {
@@ -25,5 +25,7 @@
         public string BankAccountNumber { get; set; }
         public string TIN { get; set; }
         public string PAN { get; set; }
+
+        public List<CompanyAddressViewModel> CompanyAddresses { get; set; } = new List<CompanyAddressViewModel>();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EMS.IDataAccess;
 using EMS.IServices;
 using EMS.Models;
 
@@ -10,14 +11,16 @@ namespace EMS.Services.Implementation
 {
     public class CompanyService : ICompanyService
     {
-        public List<CompanyModel> GetAllCompanies()
+        ICompanyRepository companyRepository;
+        public CompanyService(ICompanyRepository repository)
         {
-            throw new NotImplementedException();
+            companyRepository = repository;
         }
 
-        public CompanyModel GetCompany()
+        public CompanyModel GetCompanyDetails()
         {
-            throw new NotImplementedException();
+            CompanyModel model = companyRepository.GetCompanyDetails();
+            return model;
         }
     }
 }

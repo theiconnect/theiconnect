@@ -4,6 +4,8 @@ using EMS.Services.Implementation.TD;
 using Microsoft.AspNetCore.Mvc;
 using EMS.Services;
 using EMS.IServices;
+using EMS.Web.Models;
+using EMS.Services.Implementation;
 
 namespace EMS.Web.Controllers
 {
@@ -11,56 +13,59 @@ namespace EMS.Web.Controllers
     public class CompanyController : Controller
     {
         private ICompanyService companyservice;
-        public CompanyController(ICompanyService _obj)
+        public CompanyController(ICompanyService _companyservice)
         {
-            companyservice = _obj;
+            companyservice = _companyservice;
         }
 
         [Route("edit")]
         [Route("modify")]
-        public IActionResult EditCompany(int id)
+        public IActionResult EditCompany()
         {
-            object CompanyADOService = null;
-            var company = companyservice.GetCompany();
-            if (company == null) return NotFound();
+            CompanyViewModel model = GetCompanyDetails();
 
-            var model = new CompanyModel()
-            {
-                CompanyIdPk = company.CompanyIdPk,
-                CompanyName = company.CompanyName,
-                PhoneNumber = company.PhoneNumber,
-                Email = company.Email,
-                RegistrationDate = company.RegistrationDate,
-                Website = company.Website,
-                BankAccountNumber = company.BankAccountNumber
-            };
             return View(model);
         }
 
         [Route("view")]
+        [Route("details")]
+        [Route("info")]
+        [Route("")]
         public IActionResult ViewCompany()
         {
-            var companyDB = companyservice.GetCompany();
+            CompanyViewModel model = GetCompanyDetails();
 
-            //var companymodel = new CompanyModel(){
-            //    companymodel.CompanyName = companyDB.CompanyName,
-            //    companymodel.PhoneNumber = companyDB.PhoneNumber,
-            //    companymodel.BankAccountNumber = companyDB.BankAccountNumber,
+            return View(model);
+        }
 
-            //};
+        private CompanyViewModel GetCompanyDetails()
+        {
+            CompanyModel companyDB = companyservice.GetCompanyDetails();
 
-            var companymodel = new CompanyModel();
-            companymodel.CompanyIdPk = companyDB.CompanyIdPk;
-            companymodel.CompanyName = companyDB.CompanyName;
-            companymodel.PhoneNumber = companyDB.PhoneNumber;
-            companymodel.TIN = companyDB.TIN;
-            companymodel.BankAccountNumber = companyDB.BankAccountNumber;
-            companymodel.RegistrationDate = companyDB.RegistrationDate;
-            companymodel.PAN = companyDB.PAN;
-            companymodel.Website = companyDB.Website;
-            companymodel.Email = companyDB.Email;
+            var companyViewModel = new CompanyViewModel();
+            companyViewModel.CompanyIdPk = companyDB.CompanyIdPk;
+            companyViewModel.CompanyName = companyDB.CompanyName;
+            companyViewModel.PhoneNumber = companyDB.PhoneNumber;
+            companyViewModel.TIN = companyDB.TIN;
+            companyViewModel.BankAccountNumber = companyDB.BankAccountNumber;
+            companyViewModel.RegistrationDate = companyDB.RegistrationDate;
+            companyViewModel.PAN = companyDB.PAN;
+            companyViewModel.Website = companyDB.Website;
+            companyViewModel.Email = companyDB.Email;
+            foreach (var companyAddress in companyDB.Addresses)
+            {
+                var addressViewModel = new CompanyAddressViewModel();
+                addressViewModel.AddressLine1 = companyAddress.AddressLine1;
+                addressViewModel.AddressLine2 = companyAddress.AddressLine2;
+                addressViewModel.City = companyAddress.City;
+                addressViewModel.State = companyAddress.State;
+                addressViewModel.PinCode = companyAddress.Pincode;
+                addressViewModel.AddressTypeId = companyAddress.AddressTypeIdFk;
+                addressViewModel.AddressTypeName = companyAddress.AddressTypeName;
 
-            return View(companymodel);
+                companyViewModel.CompanyAddresses.Add(addressViewModel);
+            }
+            return companyViewModel;
         }
     }
 }

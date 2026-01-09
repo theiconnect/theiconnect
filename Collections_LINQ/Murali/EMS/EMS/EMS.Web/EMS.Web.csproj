@@ -7,9 +7,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\EMS.IServices\EMS.IServices.csproj" />
+		<ProjectReference Include="..\EMS.DataAccess.ADO\EMS.DataAccess.ADO.csproj" />
+		<ProjectReference Include="..\EMS.IServices\EMS.IServices.csproj">
+		  <EmbedInteropTypes></EmbedInteropTypes>
+		  <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+		</ProjectReference>
 		<ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
-		<ProjectReference Include="..\EMS.Services\EMS.Services.csproj" />
+		<ProjectReference Include="..\EMS.Services\EMS.Services.csproj">
+		  <Private>True</Private>
+		  <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
+		</ProjectReference>
 	</ItemGroup>
 
 	<ItemGroup>

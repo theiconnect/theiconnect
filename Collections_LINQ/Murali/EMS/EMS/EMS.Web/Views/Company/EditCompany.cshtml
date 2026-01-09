@@ -1,558 +1,234 @@
-﻿@model EMS.Models.CompanyModel
-
+﻿@model EMS.Web.Models.CompanyViewModel
 @{
-    ViewData["Title"] = "CompanyList";
-    Layout = "~/Views/Shared/_EMSLayout.cshtml";
-
+	Layout = "~/Views/Shared/_EMSLayout.cshtml";
+	int counter = 0;
+	int index = -1;
 }
 
-<main class="content">
-    <div class="page-container py-4">
-        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h1 class="display-6 mb-0 text-dark">
-                <i class="fas fa-pen-square me-2 text-primary"></i> Edit Company Information
-            </h1>
-        </div>
+<div class="container">
+	<h2>Edit Company</h2>
+	<input type="hidden" asp-for="CompanyIdPk" />
+	<hr />
+	<div class="row">
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Name:</label>
+			<input class="form-control" readonly asp-for="CompanyName" />
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Registration Date:</label>
+			<input class="form-control" type="date" asp-for="RegistrationDateDisplayValue" />
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Website:</label>
+			<input class="form-control" maxlength="500" asp-for="Website" />
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">BankAccountNumber:</label>
+			<input class="form-control" maxlength="50" asp-for="BankAccountNumber" />
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">Email:</label>
+			<input class="form-control" type="email" maxlength="100" asp-for="Email" />
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">PhoneNumber:</label>
+			<input class="form-control" type="number" asp-for="PhoneNumber" />
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">TIN:</label>
+			<input class="form-control" maxlength="20" asp-for="TIN" />
+		</div>
+		<div class="form-group col-5">
+			<label class="control-label fw-bold">PAN:</label>
+			<input class="form-control" maxlength="10" asp-for="PAN" />
+		</div>
+	</div>
+	<hr />
+	<h3>Address(es)</h3>
+	<hr />
+	<div class="row">
+		<div class="col-2">Address Line1</div>
+		<div class="col-2">Address Line2</div>
+		<div class="col-2">City</div>
+		<div class="col-2">State</div>
+		<div class="col-2">PIN</div>
+		<div class="col-2">Type</div>
+		<div class="col-2"><input type="text" id="inputLine1" /></div>
+		<div class="col-2"><input type="text" id="inputLine2" /></div>
+		<div class="col-2"><input type="text" id="inputCity" /></div>
+		<div class="col-2"><input type="text" id="inputState" /></div>
+		<div class="col-2"><input type="text" id="inputPIN" /></div>
+		<div class="col-2">
+			<input type="radio" id="inputCorp" name="inputType" value="1" />Corporate
+			<input type="radio" id="inputBranch" name="inputType" value="2" />Branch
+		</div>
+		<div class="col-12">
+			<input type="button" class="btn btn-secondary" value="ADD" onclick="AddAddress()" />
+			<input type="button" class="btn btn-dotted" value="Cancel" onclick="ClearAddress()" />
+		</div>
+	</div>
+	<hr />
 
-        <h2 class="h5 mb-3 text-secondary"><i class="fas fa-info-circle me-2"></i> Company Details</h2>
-        <div class="card shadow-sm mb-5 border-0">
-            <div class="card-body p-4">
-                <form id="companyDetailsForm">
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="companyName" class="form-label">Company Name *</label>
-                            <input type="text" class="form-control bg-light" id="companyName" value="@Model.CompanyName" readonly>
-                            <div class="form-text">Name cannot be changed here.</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phoneNumber" value="@Model.PhoneNumber"readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" asp-for="@Model.Email" readonly>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="regDate" class="form-label">Registration Date</label>
-                            <input type="date" class="form-control" id="regDate" value="@(Model.RegistrationDate?.ToString("yyyy-MM-dd"))" readonly>
-                        </div>
-                        <div class="col-md-8">
-                            <label for="website" class="form-label">Website</label>
-                            <input type="url" class="form-control" id="website" value="@Model.Website" readonly>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="bankAccount" class="form-label">Bank Account Number</label>
-                            <input type="text" class="form-control" id="bankAccount" value="@Model.BankAccountNumber" readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="tin" class="form-label">TIN</label>
-                            <input type="text" class="form-control" id="tin" value="@Model.TIN"readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="pan" class="form-label">PAN</label>
-                            <input type="text" class="form-control" id="pan" value="@Model.PAN"readonly>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <h2 class="h5 mb-3 text-secondary"><i class="fas fa-map-marked-alt me-2"></i> Manage Addresses</h2>
-
-        <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-success shadow-sm" data-bs-toggle="modal" data-bs-target="#addAddressModal">
-                <i class="fas fa-plus me-2"></i> Add New Address
-            </button>
-        </div>
-
-        <div class="table-responsive shadow-sm bg-white border rounded mb-4">
-            <table class="table table-hover table-striped mb-0">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Type</th>
-                        <th>Address Line 1</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Pin Code</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="address-1">
-                        <td data-field="type">Corporate</td>
-                        <td data-field="line1">101 Tech Park Avenue</td>
-                        <td data-field="city">Metroville</td>
-                        <td data-field="state">CA</td>
-                        <td data-field="pin">902100</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editAddressModal"
-                                    data-id="1"
-                                    data-type="Corporate"
-                                    data-line1="101 Tech Park Avenue"
-                                    data-city="Metroville"
-                                    data-state="CA"
-                                    data-pin="902100">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteAddressModal"
-                                    data-id="1">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-        </div>
-
-        <div class="d-flex justify-content-start mt-4 mb-5 btn-group-action">
-            <a href="Company.html" class="btn btn-primary btn-lg me-3" id="saveChangesButton"><i class="fas fa-save me-2"></i> Save Changes</a>
-            <a href="#" class="btn btn-secondary btn-lg"><i class="fas fa-arrow-left me-2"></i> Back to View</a>
-        </div>
-
-    </div>
-</main>
-
-<div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content shadow-lg">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="addAddressModalLabel">Add New Address</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addAddressForm" novalidate>
-                    <div class="mb-3">
-                        <label for="addressType" class="form-label">Address Type *</label>
-                        <select class="form-select" id="addressType" required>
-                            <option value="" selected disabled>Select Address Type</option>
-                            <option value="Corporate">Corporate Headquarters</option>
-                            <option value="Branch">Branch Office</option>
-                        </select>
-                        <div class="invalid-feedback">Please select an address type.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="addressLine1" class="form-label">Address Line 1 *</label>
-                        <input type="text" class="form-control" id="addressLine1" required>
-                        <div class="invalid-feedback">Please enter the address line 1.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="addressLine2" class="form-label">Address Line 2 (Optional)</label>
-                        <input type="text" class="form-control" id="addressLine2">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="city" class="form-label">City *</label>
-                            <input type="text" class="form-control" id="city" required>
-                            <div class="invalid-feedback">Please enter the city.</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="state" class="form-label">State *</label>
-                            <input type="text" class="form-control" id="state" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="pinCode" class="form-label">Pin Code *</label>
-                        <input type="text" class="form-control" id="pinCode" required maxlength="6">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-success" id="confirmAddAddressButton"><i class="fas fa-plus me-2"></i> Add Address</button>
-            </div>
-        </div>
-    </div>
+	<table class="table info-table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Line1</th>
+				<th>Line2</th>
+				<th>City</th>
+				<th>State</th>
+				<th>PIN</th>
+				<th>Type</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody id="address-table">
+			@foreach (var address in Model.CompanyAddresses)
+			{
+				<tr>
+					<td>@(++counter)</td>
+					<td>@address.AddressLine1</td>
+					<td>@address.AddressLine2</td>
+					<td>@address.City</td>
+					<td>@address.State</td>
+					<td>@address.PinCode</td>
+					<td>@address.AddressTypeName</td>
+					<td><a href="#" onclick="EditAddress(@index)">Edit</a></td>
+					<td><a href="#" onclick="DeleteAddress(@index)">Delete</a></td>
+				</tr>
+			}
+			@foreach (var address in Model.CompanyAddresses)
+			{
+				<tr>
+					<td>@(++counter)</td>
+					<td>@address.AddressLine1</td>
+					<td>@address.AddressLine2</td>
+					<td>@address.City</td>
+					<td>@address.State</td>
+					<td>@address.PinCode</td>
+					<td>@address.AddressTypeName</td>
+					<td><a href="#" onclick="EditAddress(@index)">Edit</a></td>
+					<td><a href="#" onclick="DeleteAddress(@index)">Delete</a></td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<hr />
+	<div class="row">
+		<div class="col-10">
+			&nbsp;
+		</div>
+		<div class="col-4">
+			<input type="button" class="btn btn-primary" onclik="SaveCompany()" value="Save" />
+			<a class="btn btn-secondary" asp-action="view" asp-controller="company">Cancel or Back to View</a>
+		</div>
+	</div>
 </div>
 
-<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content shadow-lg">
-            <div class="modal-header bg-info text-white">
-                <h5 class="modal-title" id="editAddressModalLabel"><i class="fas fa-pen me-2"></i> Edit Address Details</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editAddressForm">
-                    <input type="hidden" id="edit-addressId" value="">
-
-                    <div class="mb-3">
-                        <label for="edit-addressType" class="form-label">Address Type *</label>
-                        <select class="form-select" id="edit-addressType" required>
-                            <option value="" selected disabled>Select Address Type</option>
-                            <option value="Corporate">Corporate Headquarters</option>
-                            <option value="Branch">Branch Office</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit-addressLine1" class="form-label">Address Line 1 *</label>
-                        <input type="text" class="form-control" id="edit-addressLine1" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit-addressLine2" class="form-label">Address Line 2 (Optional)</label>
-                        <input type="text" class="form-control" id="edit-addressLine2">
-                    </div>
-                    <div class="row">
-                        3+
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-city" class="form-label">City *</label>
-                            <input type="text" class="form-control" id="edit-city" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-state" class="form-label">State *</label>
-                            <input type="text" class="form-control" id="edit-state" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit-pinCode" class="form-label">Pin Code *</label>
-                        <input type="text" class="form-control" id="edit-pinCode" required maxlength="6">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-info text-white" id="saveEditButton"><i class="fas fa-save me-2"></i> Save Changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="deleteAddressModal" tabindex="-1" aria-labelledby="deleteAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content shadow-lg">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deleteAddressModalLabel"><i class="fas fa-exclamation-triangle me-2"></i> Confirm Delete</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this address?</p>
-                <input type="hidden" id="delete-addressId" value="">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteButton"><i class="fas fa-trash-alt me-2"></i> Delete</button>
-            </div>
-        </div>
-    </div>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	<strong>Warning!</strong> <label id="lblWarningMessage"></label>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
 
-    <script>
-        // --- SIDEBAR TOGGLE LOGIC ---
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
+<script type="text/javascript">
+	function SaveCompany(){
 
-            // 1. Logic to populate the Edit Address Modal fields
-            // We listen for the modal's show event, which is triggered by the Edit button click.
-            $('#editAddressModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // The button that triggered the modal
+	}
+	function EditAddress(rowIndex){
 
-                // Extract data from the data-* attributes on the button
-                var id = button.data('id');
-                var type = button.data('type');
-                var line1 = button.data('line1');
-                var city = button.data('city');
-                var state = button.data('state');
-                var pin = button.data('pin');
+	}
+	function DeleteAddress(rowIndex){
 
-        // --------------------------------------------------------
-        // --- ADDRESS MANAGEMENT AND PERSISTENCE LOGIC ---
+	}
 
-        let nextAddressId = 3;
-        const addressTableBody = document.querySelector('.table tbody');
-        const saveChangesBtn = document.getElementById('saveChangesButton');
-        const addAddressButton = document.getElementById('confirmAddAddressButton');
-        const saveEditButton = document.getElementById('saveEditButton');
-        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+	function AddAddress(){
+		debugger;
+		let line1 = document.getElementById('inputLine1').value;
+		let line2 = document.getElementById('inputLine2').value;
+		let city = document.getElementById('inputCity').value;
+		let state = document.getElementById('inputState').value;
+		let pin = document.getElementById('inputPIN').value;
+		let typeId ;
+		let typeName = '';
 
-        // --- UTILITY FUNCTIONS ---
+		if(document.getElementById('inputCorp').checked){
+			typeId = 1;
+			typeName = 'Corporate office';
+		}else if(document.getElementById('inputBranch').checked){
+			typeId = 2;
+			typeName = 'Branch office';
+		}
 
-        // Function to create a new table row HTML structure
-        function createNewRowHtml(id, type, line1, city, state, pin) {
-            return `
-                    <tr id="address-${id}">
-                        <td data-field="type">${type}</td>b
-                        <td data-field="line1">${line1}</td>
-                        <td data-field="city">${city}</td>
-                        <td data-field="state">${state}</td>
-                        <td data-field="pin">${pin}</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-info me-1 edit-address-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editAddressModal"
-                                data-id="${id}"
-                                data-type="${type}"
-                                data-line1="${line1}"
-                                data-city="${city}"
-                                data-state="${state}"
-                                data-pin="${pin}">
-                                <i class="fas fa-pen"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger delete-address-btn"
-                                data-bs-toggle="modal"
-                                data-bs-target="#deleteAddressModal"
-                                data-id="${id}">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-                `;
-        }
+		if(!line1.trim()){
+			showMessage('Address Line1 is required.');
+			return;
+		}
+		if(!city.trim()){
+			showMessage('City is required.');
+			return;
+		}
+		if(!state.trim()){
+			showMessage('State is required.');
+			return;
+		}
+		if(!typeId){
+			showMessage('Type is required.');
+			return;
+		}
 
-        // --- SAVE AND LOAD FUNCTIONS (Local Storage) ---
+		var count = document.getElementById('address-table').children.length;
 
-        function saveAllData() {
-            // 1. Save Company Details (only editable fields)
-            const companyData = {
-                phoneNumber: document.getElementById('phoneNumber').value,
-                email: document.getElementById('email').value,
-                regDate: document.getElementById('regDate').value,
-                website: document.getElementById('website').value,
-                bankAccount: document.getElementById('bankAccount').value,
-                tin: document.getElementById('tin').value,
-                pan: document.getElementById('pan').value,
-            };
-            localStorage.setItem('companyDetails', JSON.stringify(companyData));
+		var data = [count+ 1, line1, line2, city, state, pin, typeName, '<a href="#" onclick="EditAddress('+count-1+')">Edit</a>',
+		'<a href="#" onclick="DeleteAddress('+count-1+')">Delete</a>'];
+		addRowToTable(data);
+	}
 
-            // 2. Save Address Data
-            const addressList = [];
-            const rows = addressTableBody.querySelectorAll('tr');
-            rows.forEach(row => {
-                const editButton = row.querySelector('.edit-address-btn');
+	function ClearAddress(){
 
-                // Collect data from the button's data attributes (which are the source of truth)
-                if (editButton) {
-                    addressList.push({
-                        id: editButton.getAttribute('data-id'),
-                        type: editButton.getAttribute('data-type'),
-                        line1: editButton.getAttribute('data-line1'),
-                        city: editButton.getAttribute('data-city'),
-                        state: editButton.getAttribute('data-state'),
-                        pin: editButton.getAttribute('data-pin')
-                    });
-                }
-            });
-            localStorage.setItem('companyAddresses', JSON.stringify(addressList));
+	}
 
-            // 2. Logic to set the ID in the Delete Address Modal
-            $('#deleteAddressModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // The button that triggered the modal
-                var id = button.data('id'); // Get the ID to delete
+	function showMessage(msg){
+		alert(msg);
+	}
 
-        function loadAllData() {
-            // 1. Load Company Details
-            const savedCompanyData = localStorage.getItem('companyDetails');
-            if (savedCompanyData) {
-                const data = JSON.parse(savedCompanyData);
-                document.getElementById('phoneNumber').value;
-                document.getElementById('email').value;
-                document.getElementById('regDate').value ;
-                document.getElementById('website').value;
-                document.getElementById('bankAccount').value ;
-                document.getElementById('tin').value ;
-                document.getElementById('pan').value ;
-            }
+		// Function to add a new row with specific data
+	function addRowToTable(data) {
+	  // 1. Get the tbody element
+	  const tbody = document.getElementById('address-table');
 
-            // 2. Load and Render Address Data
-            const savedAddresses = localStorage.getItem('companyAddresses');
-            if (savedAddresses) {
-                const addresses = JSON.parse(savedAddresses);
-                // Clear existing static rows first
-                addressTableBody.innerHTML = '';
+	  // 2. Create a new row (tr) element
+	  const newRow = document.createElement('tr');
 
-                let maxId = 0;
+	  // 3. Iterate over the data to create cells (td)
+	  data.forEach(cellText => {
+		// Create a new cell (td) element
+		const cell = document.createElement('td');
 
-                if (addresses.length > 0) {
-                    addresses.forEach(addr => {
-                        const rowHtml = createNewRowHtml(addr.id, addr.type, addr.line1, addr.city, addr.state, addr.pin);
-                        addressTableBody.insertAdjacentHTML('beforeend', rowHtml);
-                        maxId = Math.max(maxId, parseInt(addr.id));
-                    });
+		// Create a text node with the cell content
+		const cellContent = document.createTextNode(cellText);
 
-                    // Update the counter to avoid ID conflicts
-                    nextAddressId = maxId + 1;
-                } else {
-                    // If savedAddresses is empty, reset counter to 1
-                    nextAddressId = 1;
-                }
-            }
-        }
+		// Append the text node to the cell
+		cell.appendChild(cellContent);
 
-        // --- EVENT LISTENERS ---
+		// Append the cell to the new row
+		newRow.appendChild(cell);
+	  });
 
-        // Event Delegation for Edit/Delete Buttons
-        addressTableBody.addEventListener('click', function (event) {
-            let targetButton = event.target.closest('.edit-address-btn, .delete-address-btn');
-            if (!targetButton) return;
+	  // 4. Append the new row to the tbody
+	  tbody.appendChild(newRow);
+	}
 
-            const id = targetButton.getAttribute('data-id');
+	// Example usage:
+	// Assuming you have a table like:
+	// <table id="myTable">
+	//   <tbody id="myTableBody">
+	//     <!-- existing rows can be here -->
+	//   </tbody>
+	// </table>
 
-            if (targetButton.classList.contains('edit-address-btn')) {
-                // Read data directly from the button that was clicked.
-                const type = targetButton.getAttribute('data-type');
-                const line1 = targetButton.getAttribute('data-line1');
-                const city = targetButton.getAttribute('data-city');
-                const state = targetButton.getAttribute('data-state');
-                const pin = targetButton.getAttribute('data-pin');
+	// Add a new row with data: ['Item A', 'Item B', 'Item C']
+	//addRowToTable(['New Data 1', 'New Data 2', 'New Data 3']);
 
-                // Populate the Edit modal inputs
-                document.getElementById('edit-addressId').value = id;
-                document.getElementById('edit-addressType').value = type;
-                document.getElementById('edit-addressLine1').value = line1;
-                document.getElementById('edit-addressLine2').value = '';
-                document.getElementById('edit-city').value = city;
-                document.getElementById('edit-state').value = state;
-                document.getElementById('edit-pinCode').value = pin;
-            } else if (targetButton.classList.contains('delete-address-btn')) {
-                document.getElementById('delete-addressId').value = id;
-            }
-        });
-
-        // Add Address Logic
-        addAddressButton.addEventListener('click', function () {
-            let type = document.getElementById('addressType').value;
-            let line1 = document.getElementById('addressLine1').value;
-            let city = document.getElementById('city').value;
-            let state = document.getElementById('state').value;
-            let pin = document.getElementById('pinCode').value;
-
-            if (!type || !line1 || !city || !state || !pin) {
-                alert('Please fill in all required address fields.');
-                return;
-            }
-         fetch('/Company/addAddressCompany', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(CompanyData);
-
-    });
-    .then(response=>{response.json()})
-    .then(data=>{
-        console.log('Success:', data);
-    }
-    }
-    
-
-            // Use the current nextAddressId as the ID for the new row
-            // const newRowHtml = createNewRowHtml(nextAddressId, type, line1, city, state, pin);
-            // addressTableBody.insertAdjacentHTML('beforeend', newRowHtml);
-            // nextAddressId++;
-
-            // const modalElement = document.getElementById('addAddressModal');
-            // const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            // modal.hide();
-
-
-            // document.getElementById('addAddressForm').reset();
-
-            // 4. Placeholder logic for save/submit buttons (replace these with your actual AJAX calls)
-
-            $('#confirmAddAddressButton').on('click', function () {
-                 // You would put your client-side validation and AJAX POST/submission logic here
-                 alert('Simulating: Adding new address...');
-                 // Example to close modal after assumed success: $('#addAddressModal').modal('hide');
-            });
-
-        // Save Edit Logic
-                saveEditButton.addEventListener('click', function () {
-            const id = document.getElementById('edit-addressId').value;
-
-            const updatedData = {
-                type: document.getElementById('edit-addressType').value,
-                line1: document.getElementById('edit-addressLine1').value,
-                city: document.getElementById('edit-city').value,
-                state: document.getElementById('edit-state').value,
-                pin: document.getElementById('edit-pinCode').value
-            };
-
-            const row = document.getElementById(`address-${id}`);
-            if (!row) return;
-
-            // 1️ Update table cells
-            row.querySelector('[data-field="type"]').textContent = updatedData.type;
-            row.querySelector('[data-field="line1"]').textContent = updatedData.line1;
-            row.querySelector('[data-field="city"]').textContent = updatedData.city;
-            row.querySelector('[data-field="state"]').textContent = updatedData.state;
-            row.querySelector('[data-field="pin"]').textContent = updatedData.pin;
-
-            // 2️ Update Edit button data attributes (MOST IMPORTANT)
-            const editBtn = row.querySelector('.edit-address-btn');
-            editBtn.dataset.type = updatedData.type;
-            editBtn.dataset.line1 = updatedData.line1;
-            editBtn.dataset.city = updatedData.city;
-            editBtn.dataset.state = updatedData.state;
-            editBtn.dataset.pin = updatedData.pin;
-
-            // 3️ Close modal
-            bootstrap.Modal.getInstance(document.getElementById('editAddressModal')).hide();
-        });
-
-
-        // Confirm Delete Logic
-        confirmDeleteButton.addEventListener('click', function () {
-            const addressIdToDelete = document.getElementById('delete-addressId').value;
-            const rowToDelete = document.getElementById('address-' + addressIdToDelete);
-
-            if (rowToDelete) {
-                rowToDelete.remove();
-            }
-
-            const modalElement = document.getElementById('deleteAddressModal');
-            const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-            modal.hide();
-        });
-
-        // --- Save Changes Handler ---
-        saveChangesBtn.addEventListener('click', function (e) {
-            e.preventDefault(); // Stop the default link navigation first
-            saveAllData();
-
-            // After saving the data to local storage, navigate to Company.html
-            window.location.href = "Company.html";
-        });
-
-        // --- Load Data on Page Load ---
-        document.addEventListener('DOMContentLoaded', loadAllData);
-
-        
-        function goToAdd(){
-            let compName = document.getelementById('companyName').value;
-            let phnNumber = document.getElementById('phoneNumber').value;
-            let email = document.getElementById('email').value;
-            let regdate = document.getElementById('regdate').value;
-            let website = document.getElementById('website').value;
-            let bankAcc = document.getElementById('bankAccount').value;
-            let tin = document.getElementById('tin').value;
-            let pan = document.getElementById('pan').value;
-
-            let companyData = {
-                companyName: compName,
-                phoneNumber: phnNumber,
-                email: email,
-                regDate: regdate,
-                website: website,
-                bankAccount: bankAcc,
-                tin: tin,
-                pan: pan
-            };
-
-
-
-           
-
-
-    </script>
-
-    
+</script>

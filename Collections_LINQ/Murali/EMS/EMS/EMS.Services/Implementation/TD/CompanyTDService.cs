@@ -5,7 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace EMS.Services.Implementation.TD
 {
-    public class CompanyTDService : ICompanyService
+    public class CompanyTDService //: ICompanyService
     {
         EMSDbContext Dbcontext;
         public CompanyTDService()

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EMS.Services.Implementation.ADO
 {
-    public class CompanyADOService : ICompanyService
+    public class CompanyADOService //: ICompanyService
     {
         public List<CompanyModel> GetAllCompanies()
         {
@@ -53,9 +53,6 @@ namespace EMS.Services.Implementation.ADO
             return companie;
         }
 
-        CompanyModel ICompanyService.GetCompany()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
