@@ -1,6 +1,9 @@
 using EMS.Services.Implementation.ADO;
-using EMS.Services.Implementation.TD;
 using EMS.IServices;
+using EMS.Services;
+using EMS.DataAccess.ADO;
+using EMS.Services.Implementation;
+using EMS.IDataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +13,13 @@ builder.Services.AddControllersWithViews();
 
 //MVC pattern
 //Add EMS.Services and EMS.DataAccess classes as references
-//builder.Services.Add(b
+//builder.Services.Add(b)
 // Add EMS.DataAccess.EMSDbContext as a singleton service
 
-builder.Services.AddScoped<ICompanyService, CompanyTDService>();
+builder.Services.AddScoped<ICompanyService,CompanyService>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentADOService>();
-builder.Services.AddScoped<IEmployeeService, EmployeeTDServices>();
+builder.Services.AddScoped<IEmployeeService, EmployeeADOService>();
      
 
 //builder.Services.AddScoped<IEmployeeService,>();

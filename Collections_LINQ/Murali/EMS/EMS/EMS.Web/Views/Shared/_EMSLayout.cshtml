@@ -9,7 +9,10 @@
 
     <!-- Project CSS -->
     <link href="/EMS_Site/css/department.css" rel="stylesheet" />
-
+    @* @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    } *@
 </head>
 <body>
     <!-- Header -->
@@ -37,9 +40,9 @@
 
                 <h6 class="text-muted small">Menu</h6>
                 <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link" asp-controller="Company" asp-action="ViewCompany">Company</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/EMS_Site/DepartmentsList.html">Departments</a></li>
-                    <li class="nav-item"><a class="nav-link active" asp-controller="Employee" asp-action="List">Employees</a></li>
+                    <li class="nav-item"><a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Company" ? "active" : "")" asp-controller="Company" asp-action="ViewCompany">Company</a></li>
+                    <li class="nav-item"><a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Department" ? "active" : "")" asp-controller="Department" asp-action="list">Departments</a></li>
+                    <li class="nav-item"><a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Employee" ? "active" : "")"  asp-controller="Employee" asp-action="List">Employees</a></li>
                 </ul>
             </div>
         </nav>
