@@ -1,4 +1,6 @@
-﻿namespace EMS.Models
+﻿using System.Runtime.InteropServices;
+
+namespace EMS.Models
 {
     public class CompanyModel
     {
@@ -11,6 +13,10 @@
         public string BankAccountNumber { get; set; }
         public string TIN { get; set; }
         public string PAN { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public DateTime? LastUpdatedOn { get; set; }
 
         public List<CompanyAddressModel> Addresses { get; set; } = new List<CompanyAddressModel>();
         public List<DepartmentModel> Departments { get; set; }
