@@ -11,7 +11,7 @@ namespace EMS.Services.Implementation
 {
     public class CompanyService : ICompanyService
     {
-        ICompanyRepository companyRepository;
+        private ICompanyRepository companyRepository;
         public CompanyService(ICompanyRepository repository)
         {
             companyRepository = repository;
@@ -21,6 +21,12 @@ namespace EMS.Services.Implementation
         {
             CompanyModel model = companyRepository.GetCompanyDetails();
             return model;
+        }
+
+        public bool DeleteCompanyAddress(int addressId)
+        {
+            // Business rules can go here later
+            return companyRepository.DeleteCompanyAddress(addressId);
         }
     }
 }

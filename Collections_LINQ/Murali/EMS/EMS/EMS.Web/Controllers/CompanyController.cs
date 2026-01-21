@@ -1,11 +1,13 @@
-﻿using EMS.Models;
+﻿using EMS.IServices;
+using EMS.Models;
+using EMS.Services;
+using EMS.Services.Implementation;
 using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
-using Microsoft.AspNetCore.Mvc;
-using EMS.Services;
-using EMS.IServices;
 using EMS.Web.Models;
-using EMS.Services.Implementation;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using EMS.DataAccess.ADO;
 
 namespace EMS.Web.Controllers
 {
@@ -55,6 +57,7 @@ namespace EMS.Web.Controllers
             foreach (var companyAddress in companyDB.Addresses)
             {
                 var addressViewModel = new CompanyAddressViewModel();
+                addressViewModel.CompanyAddressIdPk = companyAddress.CompanyAddressIdPk;
                 addressViewModel.AddressLine1 = companyAddress.AddressLine1;
                 addressViewModel.AddressLine2 = companyAddress.AddressLine2;
                 addressViewModel.City = companyAddress.City;
@@ -67,5 +70,16 @@ namespace EMS.Web.Controllers
             }
             return companyViewModel;
         }
+
+        [Route("deleteaddress")]
+        [HttpPost]
+        public JsonResult DeleteAddress(int Id)
+        {
+            bool isDeleted = companyservice.DeleteCompanyAddress(Id);
+            return Json(new { success = isDeleted });
+        }
+
+
+
     }
 }

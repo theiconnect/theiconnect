@@ -77,5 +77,18 @@ namespace EMS.DataAccess.ADO
             }
             return company;
         }
+
+        public bool DeleteCompanyAddress(int addressId)
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                string query = "DELETE FROM CompanyAddress WHERE CompanyAddressIdPk = @AddressId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@AddressId", addressId);
+
+                con.Open();
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
     }
 }
