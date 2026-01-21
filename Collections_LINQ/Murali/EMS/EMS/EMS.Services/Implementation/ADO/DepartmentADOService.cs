@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using EMS.DataAccess;
+﻿using System.Data;
 using EMS.IServices;
 using EMS.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.VisualBasic;
 
 namespace EMS.Services.Implementation.ADO
 {
