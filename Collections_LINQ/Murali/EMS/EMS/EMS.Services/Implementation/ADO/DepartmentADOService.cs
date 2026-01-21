@@ -25,7 +25,7 @@ namespace EMS.Services.Implementation.ADO
 	                            IsActive, 
 	                            DeptLocation, 
 	                            CreatedOn,
-	                            ISNULL(LastUpdatedOn, CreatedOn) as  LastUpdatedOn
+	                            ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
                             FROM dbo.Department
                             Order by LastUpdatedOn DESC";
             var departments = new List<DepartmentModel>();
@@ -179,7 +179,7 @@ namespace EMS.Services.Implementation.ADO
                         departments.Add(model);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     //Log the error 
                 }
@@ -213,7 +213,7 @@ namespace EMS.Services.Implementation.ADO
 
                 if (dr.Read())
                 {
-                    DepartmentModel model = new DepartmentModel(); 
+                    DepartmentModel model = new DepartmentModel();
                     model.DepartmentIdPk = Convert.ToInt32(dr["DepartmentIdPk"]);
                     model.DepartmentCode = Convert.ToString(dr["DepartmentCode"]);
                     model.DepartmentName = Convert.ToString(dr["DepartmentName"]);
@@ -284,7 +284,7 @@ namespace EMS.Services.Implementation.ADO
             if (responseMessage.ToLower() == "success")
                 return true;
             else
-                return false; 
+                return false;
 
         }
 

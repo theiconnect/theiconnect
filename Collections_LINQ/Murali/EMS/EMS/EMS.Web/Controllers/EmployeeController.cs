@@ -1,13 +1,8 @@
 ﻿using EMS.IServices;
 using EMS.Models;
 using EMS.Models.Enums;
-using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
-using EMS.Web.Models.Enums;
-using Intuit.Ipp.Data;
 using Microsoft.AspNetCore.Mvc;
-
-
 
 namespace EMS.Web.Controllers
 {
@@ -92,16 +87,20 @@ namespace EMS.Web.Controllers
             return View(model);
         }
         [HttpPost]
-        [Route("Employee/UpdateSaveEmployee")]
+        [Route("UpdateSaveEmployee")]
         public IActionResult UpdateSaveEmployee([FromBody] EmployeeViewModel updateModel)
         {
+            if (updateModel == null)
+            {
+                return Json(new { IsSuccess = false, errorMessage = "Model is null" });
+            }
             EmployeeModel employeeModel = new EmployeeModel
             {
                 EmployeeIdPk = updateModel.EmployeeId,
                 Employeecode = updateModel.Code,
                 FirstName = updateModel.FirstName,
                 LastName = updateModel.LastName,
-                BloodGroup = updateModel.BloodGroup,
+                BloodGroup = (BloodGroups)updateModel.BloodGroup,
                 Gender = updateModel.Gender,
                 EmailId = updateModel.EmailId,
                 MobileNumber = updateModel.MobileNumber,
@@ -111,38 +110,57 @@ namespace EMS.Web.Controllers
                 SalaryCtc = updateModel.SalaryCtc,
                 IsActive = updateModel.IsActive
             };
+
             bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage
                );
             return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
         }
 
         // Route: /Employee/viewemployee
-        [Route("viewemployee/{id}")]
-        public IActionResult ViewEmployee(int id)
+        // [Route("viewemployee/{id}")]
+        //public IActionResult ViewEmployee(int id)
+        //{
+        //    var empDB = employeeServices.GetAllEmployees()
+        //                                  .FirstOrDefault(e => e.EmployeeIdPk == id);
+
+
+        //    if (empDB == null)
+        //        return NotFound();
+
+        //  return Json(new { Success = isSuccess, Message = responseMessage });
+        // }
+        [Route("delete")]
+        [HttpPost]
+        public IActionResult DeactivateDepartment([FromBody] EmployeeViewModel model)
         {
-            var empDB = employeeServices.GetAllEmployees()
-                                          .FirstOrDefault(e => e.EmployeeIdPk == id);
-                                          
-                                          
-           if (empDB == null) 
-                return NotFound();
-
-            return Json(new { Success = isSuccess, Message = responseMessage });
-        }
-
-        [Route("active/{id}")]
-        [HttpGet]
-
-        public IActionResult ActivateDepartment(int id)
-        {
-            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
             return View(model);
         }
+
+        [Route("active/{id}")]
+        [HttpGet]
+        public IActionResult ActivateEmployee(int id)
+        {
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
+
+            //return Json(isSuccess, responseMessage);
+
+            return Json(new { Success = isSuccess, Message = responseMessage });
+        }
     }
 }
+
+
+
+          
+
+
+
+
+
 
 /*
 // ==============================================

@@ -68,5 +68,9 @@
     <Build Include="Stored Procedures\usp_GetAllDepartments.sql" />
     <Build Include="Stored Procedures\usp_ManageDepartment.sql" />
     <Build Include="Stored Procedures\usp_GetDepartmentById.sql" />
+    <Build Include="Tables\Company.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="EMS.DB.refactorlog" />
   </ItemGroup>
 </Project>
