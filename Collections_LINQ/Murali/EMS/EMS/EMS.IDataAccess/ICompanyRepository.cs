@@ -1,9 +1,7 @@
-﻿using EMS.Models;
-
-namespace EMS.IDataAccess
+﻿namespace EMS.IDataAccess
 {
     public interface ICompanyRepository
     {
-        CompanyModel GetCompanyDetails();
+
     }
 }

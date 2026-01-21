@@ -1,8 +1,14 @@
 ﻿using EMS.IServices;
 using EMS.Models;
 using EMS.Models.Enums;
+using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
+using EMS.Web.Models.Enums;
+using Google.Apis.Admin.Directory.directory_v1.Data;
+using Intuit.Ipp.Data;
 using Microsoft.AspNetCore.Mvc;
+
+
 
 namespace EMS.Web.Controllers
 {
@@ -87,13 +93,9 @@ namespace EMS.Web.Controllers
             return View(model);
         }
         [HttpPost]
-        [Route("UpdateSaveEmployee")]
+        [Route("Employee/UpdateSaveEmployee")]
         public IActionResult UpdateSaveEmployee([FromBody] EmployeeViewModel updateModel)
         {
-            if (updateModel == null)
-            {
-                return Json(new { IsSuccess = false, errorMessage = "Model is null" });
-            }
             EmployeeModel employeeModel = new EmployeeModel
             {
                 EmployeeIdPk = updateModel.EmployeeId,
@@ -110,7 +112,6 @@ namespace EMS.Web.Controllers
                 SalaryCtc = updateModel.SalaryCtc,
                 IsActive = updateModel.IsActive
             };
-
             bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage
                );
             return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
@@ -137,7 +138,7 @@ namespace EMS.Web.Controllers
 
             //return Json(isSuccess, responseMessage);
 
-            return View(model);
+            return Json(new { Success = isSuccess, Message = responseMessage });
         }
 
         [Route("active/{id}")]
@@ -150,17 +151,10 @@ namespace EMS.Web.Controllers
 
             return Json(new { Success = isSuccess, Message = responseMessage });
         }
+
+
     }
 }
-
-
-
-          
-
-
-
-
-
 
 /*
 // ==============================================

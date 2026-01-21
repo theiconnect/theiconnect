@@ -1,71 +1,55 @@
 ﻿using EMS.Models;
-using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
 using Microsoft.AspNetCore.Mvc;
-using EMS.Services;
-using EMS.IServices;
-using EMS.Web.Models;
-using EMS.Services.Implementation;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EMS.Web.Controllers
 {
-    [Route("company")]
+
+   
     public class CompanyController : Controller
     {
-        private ICompanyService companyservice;
-        public CompanyController(ICompanyService _companyservice)
+        //[Route("edit")]
+        public IActionResult EditCompany(int id )
         {
-            companyservice = _companyservice;
-        }
+            object CompanyADOService = null;
+            var company = CompanyADOService.GetCompany().FirstOrDefault(c => c.CompanyId == id);
+            if (company == null) return NotFound();
 
-        [Route("edit")]
-        [Route("modify")]
-        public IActionResult EditCompany()
-        {
-            CompanyViewModel model = GetCompanyDetails();
-
-            return View(model);
-        }
-
-        [Route("view")]
-        [Route("details")]
-        [Route("info")]
-        [Route("")]
-        public IActionResult ViewCompany()
-        {
-            CompanyViewModel model = GetCompanyDetails();
-
-            return View(model);
-        }
-
-        private CompanyViewModel GetCompanyDetails()
-        {
-            CompanyModel companyDB = companyservice.GetCompanyDetails();
-
-            var companyViewModel = new CompanyViewModel();
-            companyViewModel.CompanyIdPk = companyDB.CompanyIdPk;
-            companyViewModel.CompanyName = companyDB.CompanyName;
-            companyViewModel.PhoneNumber = companyDB.PhoneNumber;
-            companyViewModel.TIN = companyDB.TIN;
-            companyViewModel.BankAccountNumber = companyDB.BankAccountNumber;
-            companyViewModel.RegistrationDate = companyDB.RegistrationDate;
-            companyViewModel.PAN = companyDB.PAN;
-            companyViewModel.Website = companyDB.Website;
-            companyViewModel.Email = companyDB.Email;
-            foreach (var companyAddress in companyDB.Addresses)
+            var model = new CompanyModel()
             {
-                var addressViewModel = new CompanyAddressViewModel();
-                addressViewModel.AddressLine1 = companyAddress.AddressLine1;
-                addressViewModel.AddressLine2 = companyAddress.AddressLine2;
-                addressViewModel.City = companyAddress.City;
-                addressViewModel.State = companyAddress.State;
-                addressViewModel.PinCode = companyAddress.Pincode;
-                addressViewModel.AddressTypeId = companyAddress.AddressTypeIdFk;
-                addressViewModel.AddressTypeName = companyAddress.AddressTypeName;
+                CompanyIdPk = company.CompanyId,
+                CompanyName = company.CompanyName,
+                PhoneNumber = company.PhoneNumber,
+                Email = company.Email,
+                RegistrationDate = company.RegistrationDate,
+                Website = company.Website,
+                BankAccountNumber = company.BankAccount
+            };
+            return View(model);
+        }   
+          
 
-                companyViewModel.CompanyAddresses.Add(addressViewModel);
-            }
-            return companyViewModel;
+
+
+
+
+        //[Route("info")]
+        //[Route("")]
+        //[Route("view")]
+        [Route("details")]
+       public  IActionResult ViewCompany() 
+        {
+            return View();
         }
+
+        //[Route("list")]
+        //public IActionResult CompanyList()
+        //{
+        //    // Replace with real data retrieval (repository/service) as needed.
+        //    IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
+        //    return View(companies);
+        //}
     }
 }

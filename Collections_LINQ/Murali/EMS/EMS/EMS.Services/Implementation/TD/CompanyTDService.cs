@@ -5,17 +5,12 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace EMS.Services.Implementation.TD
 {
-    public class CompanyTDService //: ICompanyService
+    public class CompanyTDService : ICompanyService
     {
         EMSDbContext Dbcontext;
         public CompanyTDService()
         {
             Dbcontext = EMSDbContext.GetInstance();
-        }
-
-        public List<CompanyModel> GetAllCompanies()
-        {
-            throw new NotImplementedException();
         }
 
         public CompanyModel GetCompany()
