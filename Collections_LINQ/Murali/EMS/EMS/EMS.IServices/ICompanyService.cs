@@ -5,7 +5,7 @@ namespace EMS.IServices
 {
     public interface ICompanyService
     {
-        CompanyModel GetCompany();
+        public CompanyModel GetCompany();
     }
 
 }
