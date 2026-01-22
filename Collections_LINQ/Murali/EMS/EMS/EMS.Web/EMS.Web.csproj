@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\EMS.DataAccess.ADO\EMS.DataAccess.ADO.csproj" />
 		<ProjectReference Include="..\EMS.IServices\EMS.IServices.csproj" />
 		<ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
 		<ProjectReference Include="..\EMS.Services\EMS.Services.csproj" />

@@ -1,9 +1,10 @@
-﻿using EMS.Models;
+﻿using EMS.IServices;
+using EMS.Models;
+using EMS.Services;
 using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
+using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using EMS.Services;
-using EMS.IServices;
 
 namespace EMS.Web.Controllers
 {
@@ -49,7 +50,7 @@ namespace EMS.Web.Controllers
 
             //};
 
-            var companymodel = new CompanyModel();
+            var companymodel = new CompanyViewModel();
             companymodel.CompanyIdPk = companyDB.CompanyIdPk;
             companymodel.CompanyName = companyDB.CompanyName;
             companymodel.PhoneNumber = companyDB.PhoneNumber;
