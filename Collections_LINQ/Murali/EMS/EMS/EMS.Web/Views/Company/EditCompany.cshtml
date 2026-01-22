@@ -16,7 +16,7 @@
 		</div>
 		<div class="form-group col-5">
 			<label class="control-label fw-bold">Registration Date:</label>
-			<input class="form-control" type="date" asp-for="RegistrationDateDisplayValue" />
+			<input class="form-control" type="date" asp-for="@Model.RegistrationDateDisplayValue" />
 		</div>
 		<div class="form-group col-5">
 			<label class="control-label fw-bold">Website:</label>
@@ -46,27 +46,29 @@
 	<hr />
 	<h3>Address(es)</h3>
 	<hr />
-	<div class="row">
-		<div class="col-2">Address Line1</div>
-		<div class="col-2">Address Line2</div>
-		<div class="col-2">City</div>
-		<div class="col-2">State</div>
-		<div class="col-2">PIN</div>
-		<div class="col-2">Type</div>
-		<div class="col-2"><input type="text" id="inputLine1" /></div>
-		<div class="col-2"><input type="text" id="inputLine2" /></div>
-		<div class="col-2"><input type="text" id="inputCity" /></div>
-		<div class="col-2"><input type="text" id="inputState" /></div>
-		<div class="col-2"><input type="text" id="inputPIN" /></div>
-		<div class="col-2">
-			<input type="radio" id="inputCorp" name="inputType" value="1" />Corporate
-			<input type="radio" id="inputBranch" name="inputType" value="2" />Branch
+	<form method="post" asp-action="AddStudent">
+		<div class="row">
+			<div class="col-2">Address Line1</div>
+			<div class="col-2">Address Line2</div>
+			<div class="col-2">City</div>
+			<div class="col-2">State</div>
+			<div class="col-2">PIN</div>
+			<div class="col-2">Type</div>
+			<div class="col-2"><input type="text" id="inputLine1" /></div>
+			<div class="col-2"><input type="text" id="inputLine2" /></div>
+			<div class="col-2"><input type="text" id="inputCity" /></div>
+			<div class="col-2"><input type="text" id="inputState" /></div>
+			<div class="col-2"><input type="text" id="inputPIN" /></div>
+			<div class="col-2">
+				<input type="radio" id="inputCorp" name="inputType" value="1" />Corporate
+				<input type="radio" id="inputBranch" name="inputType" value="2" />Branch
+			</div>
+			<div class="col-12">
+				<input type="button" id="btnAdd" class="btn btn-secondary" value="ADD" onclick="AddAddress()" />
+				<input type="button" class="btn btn-dotted" value="Cancel" onclick="ClearAddress()" />
+			</div>
 		</div>
-		<div class="col-12">
-			<input type="button" class="btn btn-secondary" value="ADD" onclick="AddAddress()" />
-			<input type="button" class="btn btn-dotted" value="Cancel" onclick="ClearAddress()" />
-		</div>
-	</div>
+	</form>
 	<hr />
 
 	<table class="table info-table">
@@ -94,24 +96,22 @@
 					<td>@address.State</td>
 					<td>@address.PinCode</td>
 					<td>@address.AddressTypeName</td>
-					<td><a href="#" onclick="EditAddress(@index)">Edit</a></td>
+					<td>
+						<a href="#" onclick="EditAddress(
+								this,
+							   '@address.AddressLine1',
+							   '@address.AddressLine2',
+							   '@address.City',
+							   '@address.State',
+							   '@address.PinCode',
+							   '@address.AddressTypeName'
+						   )">Edit
+					    </a>
+					</td>
 					<td><a href="#" onclick="DeleteAddress(@index)">Delete</a></td>
 				</tr>
 			}
-			@foreach (var address in Model.CompanyAddresses)
-			{
-				<tr>
-					<td>@(++counter)</td>
-					<td>@address.AddressLine1</td>
-					<td>@address.AddressLine2</td>
-					<td>@address.City</td>
-					<td>@address.State</td>
-					<td>@address.PinCode</td>
-					<td>@address.AddressTypeName</td>
-					<td><a href="#" onclick="EditAddress(@index)">Edit</a></td>
-					<td><a href="#" onclick="DeleteAddress(@index)">Delete</a></td>
-				</tr>
-			}
+			
 		</tbody>
 	</table>
 	<hr />
@@ -136,56 +136,126 @@
 	function SaveCompany(){
 
 	}
-	function EditAddress(rowIndex){
 
+
+	let currentRow = null;
+	function EditAddress(element,line1, line2, city, state, pin, type) {
+		debugger;
+		currentRow = element.closest("tr");
+		document.getElementById("inputLine1").value = line1;
+		document.getElementById("inputLine2").value = line2;
+		document.getElementById("inputCity").value = city;
+		document.getElementById("inputState").value = state;
+		document.getElementById("inputPIN").value = pin;
+
+		if (type === "Corporate Office") {
+			document.getElementById("inputCorp").checked = true;
+		} else {
+			document.getElementById("inputBranch").checked = true;
+		}
+		document.getElementById("btnAdd").value = "UPDATE";
 	}
 	function DeleteAddress(rowIndex){
 
 	}
 
-	function AddAddress(){
-		debugger;
+	function AddAddress() {
+
 		let line1 = document.getElementById('inputLine1').value;
 		let line2 = document.getElementById('inputLine2').value;
-		let city = document.getElementById('inputCity').value;
+		let city  = document.getElementById('inputCity').value;
 		let state = document.getElementById('inputState').value;
-		let pin = document.getElementById('inputPIN').value;
-		let typeId ;
+		let pin   = document.getElementById('inputPIN').value;
+
 		let typeName = '';
-
-		if(document.getElementById('inputCorp').checked){
-			typeId = 1;
-			typeName = 'Corporate office';
-		}else if(document.getElementById('inputBranch').checked){
-			typeId = 2;
-			typeName = 'Branch office';
+		if (document.getElementById('inputCorp').checked) {
+			typeName = 'Corporate Office';
+		} else if (document.getElementById('inputBranch').checked) {
+			typeName = 'Branch Office';
 		}
 
-		if(!line1.trim()){
-			showMessage('Address Line1 is required.');
-			return;
-		}
-		if(!city.trim()){
-			showMessage('City is required.');
-			return;
-		}
-		if(!state.trim()){
-			showMessage('State is required.');
-			return;
-		}
-		if(!typeId){
-			showMessage('Type is required.');
+		let btn = document.getElementById('btnAdd');
+
+		
+		if (btn.value === 'UPDATE' && currentRow !== null) {
+
+			currentRow.cells[1].innerText = line1;
+			currentRow.cells[2].innerText = line2;
+			currentRow.cells[3].innerText = city;
+			currentRow.cells[4].innerText = state;
+			currentRow.cells[5].innerText = pin;
+			currentRow.cells[6].innerText = typeName;
+
+			ClearAddress();
+			currentRow = null;
 			return;
 		}
 
+		
 		var count = document.getElementById('address-table').children.length;
 
-		var data = [count+ 1, line1, line2, city, state, pin, typeName, '<a href="#" onclick="EditAddress('+count-1+')">Edit</a>',
-		'<a href="#" onclick="DeleteAddress('+count-1+')">Delete</a>'];
+		let Addressobj = {
+			AddressLine1: line1,
+			AddressLine2: line2,
+			City: city,
+			State: state,
+			PIN: pin,
+			Type: typeName
+        };
+
+		fetch('/Company/Addaddress'{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+            body: JSON.stringify(Addressobj)
+		})
+        .then(response => response.json())
+		.then(data => {let saveResult = data;
+			if (saveResult.isSuccess) {
+				alert('Department details saved successfully');
+				location.href = '/department/list';
+			} else {
+				alert(saveResult.errorMessage);
+			}
+		})
+
+
+
+	  var data = [
+		count + 1,
+		line1,
+		line2,
+		city,
+		state,
+		pin,
+		typeName,
+		'<a href="#" onclick="EditAddress(this,'
+			+ '\'' + line1 + '\','
+			+ '\'' + line2 + '\','
+			+ '\'' + city + '\','
+			+ '\'' + state + '\','
+			+ '\'' + pin + '\','
+			+ '\'' + typeName + '\''
+		+ ')">Edit</a>',
+		'<a href="#" onclick="DeleteAddress(this)">Delete</a>'
+	  ];
+
+
 		addRowToTable(data);
+		ClearAddress();
 	}
 
+
 	function ClearAddress(){
+		document.getElementById("inputLine1").value = "";
+		document.getElementById("inputLine2").value = "";
+		document.getElementById("inputCity").value = "";
+		document.getElementById("inputState").value = "";
+		document.getElementById("inputPIN").value = "";
+		document.getElementById("inputCorp").checked = false;
+		document.getElementById("inputBranch").checked = false;
+		document.getElementById("btnAdd").value = "ADD"
 
 	}
 
@@ -195,32 +265,18 @@
 
 		// Function to add a new row with specific data
 	function addRowToTable(data) {
-	  // 1. Get the tbody element
-	  const tbody = document.getElementById('address-table');
+		const tbody = document.getElementById('address-table');
+		const newRow = document.createElement('tr');
 
-	  // 2. Create a new row (tr) element
-	  const newRow = document.createElement('tr');
+		data.forEach(cellHtml => {
+			const cell = document.createElement('td');
+			cell.innerHTML = cellHtml;   // ✅ NOT createTextNode
+			newRow.appendChild(cell);
+		});
 
-	  // 3. Iterate over the data to create cells (td)
-	  data.forEach(cellText => {
-		// Create a new cell (td) element
-		const cell = document.createElement('td');
-
-		// Create a text node with the cell content
-		const cellContent = document.createTextNode(cellText);
-
-		// Append the text node to the cell
-		cell.appendChild(cellContent);
-
-		// Append the cell to the new row
-		newRow.appendChild(cell);
-	  });
-
-	  // 4. Append the new row to the tbody
-	  tbody.appendChild(newRow);
+		tbody.appendChild(newRow);
 	}
-
-	// Example usage:
+		// Example usage:
 	// Assuming you have a table like:
 	// <table id="myTable">
 	//   <tbody id="myTableBody">

@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\EMS.DataAccess.ADO\EMS.DataAccess.ADO.csproj" />
+		<ProjectReference Include="..\EMS.DataAccess\EMS.DataAccess.TD.csproj" />
 		<ProjectReference Include="..\EMS.IServices\EMS.IServices.csproj">
 		  <EmbedInteropTypes></EmbedInteropTypes>
 		  <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>

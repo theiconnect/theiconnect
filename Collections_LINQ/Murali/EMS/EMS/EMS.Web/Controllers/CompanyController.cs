@@ -67,5 +67,11 @@ namespace EMS.Web.Controllers
             }
             return companyViewModel;
         }
+
+        public IActionResult Addadress([FromBody] CompanyAddressViewModel student)
+        {
+
+            return View();
+        }
     }
 }
