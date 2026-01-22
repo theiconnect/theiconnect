@@ -27,9 +27,11 @@ BEGIN
 		PinCode,
 		AddressTypeIdFk,
 		atl.AddressTypeCode,
-		atl.AddressTypeDescription
+		atl.AddressTypeDescription,
+		ISNULL(LastUpdatedOn, CreatedOn) AS LastUpdatedOn
 	FROM dbo.CompanyAddress ca
 	JOIN dbo.AddressTypeLookup atl
 		ON ca.AddressTypeIdFk = atl.AddressTypeIdPk
+	ORDER BY LastUpdatedOn
 
 END

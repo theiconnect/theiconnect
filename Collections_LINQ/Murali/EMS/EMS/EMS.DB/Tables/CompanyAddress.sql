@@ -8,4 +8,8 @@
 	[City] VARCHAR(256) NOT NULL,
 	[State] VARCHAR(256) NOT NULL,
 	[PinCode] VARCHAR(20) NULL,
+	[CreatedBy]      VARCHAR (512) NOT NULL,
+    [CreatedOn]      DATETIME      DEFAULT (GETDATE()) NULL,
+    [LastUpdatedBy]  VARCHAR (512) NULL,
+    [LastUpdatedOn]  DATETIME      NULL,
 )

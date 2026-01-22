@@ -12,6 +12,7 @@ namespace EMS.Web.Controllers
     [Route("company")]
     public class CompanyController : Controller
     {
+        public static string userName = "admin";
         private ICompanyService companyservice;
         public CompanyController(ICompanyService _companyservice)
         {
@@ -20,6 +21,7 @@ namespace EMS.Web.Controllers
 
         [Route("edit")]
         [Route("modify")]
+        [HttpGet]
         public IActionResult EditCompany()
         {
             CompanyViewModel model = GetCompanyDetails();
@@ -31,6 +33,7 @@ namespace EMS.Web.Controllers
         [Route("details")]
         [Route("info")]
         [Route("")]
+        [HttpGet]
         public IActionResult ViewCompany()
         {
             CompanyViewModel model = GetCompanyDetails();
@@ -54,18 +57,55 @@ namespace EMS.Web.Controllers
             companyViewModel.Email = companyDB.Email;
             foreach (var companyAddress in companyDB.Addresses)
             {
-                var addressViewModel = new CompanyAddressViewModel();
-                addressViewModel.AddressLine1 = companyAddress.AddressLine1;
-                addressViewModel.AddressLine2 = companyAddress.AddressLine2;
-                addressViewModel.City = companyAddress.City;
-                addressViewModel.State = companyAddress.State;
-                addressViewModel.PinCode = companyAddress.Pincode;
-                addressViewModel.AddressTypeId = companyAddress.AddressTypeIdFk;
-                addressViewModel.AddressTypeName = companyAddress.AddressTypeName;
-
+                var addressViewModel = ConvertModelToViewModel(companyAddress);
                 companyViewModel.CompanyAddresses.Add(addressViewModel);
             }
             return companyViewModel;
+        }
+
+        [HttpGet]
+        [Route("deletecompanyaddress/{id}")]
+        public JsonResult DeleteCompanAddress(int id)
+        {
+            bool isSuccess = companyservice.DeleteCompanyAddress(id, out string errorMessage);
+            return Json(new { isSuccess = isSuccess, ErrorMessage = errorMessage });
+        }
+
+        [HttpPost]
+        [Route("addcompanyaddress")]
+        public JsonResult AddCompanAddress([FromBody]CompanyAddressViewModel addressViewModel)
+        {
+            var model = ConvertViewModelToModel(addressViewModel);
+
+            bool isSuccess = companyservice.AddUpdateCompanyAddress(model, userName, out string errorMessage);
+            return Json(new { isSuccess = isSuccess, ErrorMessage = errorMessage });
+        }
+
+        private CompanyAddressModel ConvertViewModelToModel(CompanyAddressViewModel ViewModel) 
+        {
+            CompanyAddressModel model = new CompanyAddressModel();
+            model.AddressLine1 = ViewModel.AddressLine1;
+            model.AddressLine2 = ViewModel.AddressLine2;
+            model.City = ViewModel.City;
+            model.State = ViewModel.State;
+            model.Pincode = ViewModel.PinCode;
+            model.AddressTypeIdFk = ViewModel.AddressTypeId;
+            model.CompanyAddressIdPk = ViewModel.CompanyAddressIdPk;
+            return model;
+        }
+
+        private CompanyAddressViewModel ConvertModelToViewModel(CompanyAddressModel model)
+        {
+            CompanyAddressViewModel ViewModel = new CompanyAddressViewModel();
+            ViewModel.AddressLine1 = model.AddressLine1;
+            ViewModel.AddressLine2 = model.AddressLine2;
+            ViewModel.City = model.City;
+            ViewModel.State = model.State;
+            ViewModel.PinCode = model.Pincode;
+            ViewModel.AddressTypeId = model.AddressTypeIdFk;
+            ViewModel.AddressTypeName = model.AddressTypeName;
+            ViewModel.CompanyAddressIdPk = model.CompanyAddressIdPk;
+            return ViewModel;
         }
     }
 }

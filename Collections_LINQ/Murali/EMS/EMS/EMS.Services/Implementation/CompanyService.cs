@@ -22,5 +22,14 @@ namespace EMS.Services.Implementation
             CompanyModel model = companyRepository.GetCompanyDetails();
             return model;
         }
+
+        public bool AddUpdateCompanyAddress(CompanyAddressModel addressModel, string UserId, out string errorMessage)
+        {
+            return companyRepository.AddUpdateCompanyAddress(addressModel, UserId, out errorMessage);
+        }
+        public bool DeleteCompanyAddress(int id, out string errorMessage)
+        {
+            return companyRepository.DeleteCompanyAddress(id, out errorMessage);
+        }
     }
 }

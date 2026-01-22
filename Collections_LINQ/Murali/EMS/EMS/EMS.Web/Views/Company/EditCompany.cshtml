@@ -2,7 +2,6 @@
 @{
 	Layout = "~/Views/Shared/_EMSLayout.cshtml";
 	int counter = 0;
-	int index = -1;
 }
 
 <div class="container">
@@ -44,6 +43,15 @@
 		</div>
 	</div>
 	<hr />
+	<div class="row">
+		<div class="col-10">
+			&nbsp;
+		</div>
+		<div class="col-4">
+			<input type="button" class="btn btn-primary" onclik="SaveCompany()" value="Save Company Info" />
+		</div>
+	</div>
+	<hr />
 	<h3>Address(es)</h3>
 	<hr />
 	<div class="row">
@@ -62,8 +70,10 @@
 			<input type="radio" id="inputCorp" name="inputType" value="1" />Corporate
 			<input type="radio" id="inputBranch" name="inputType" value="2" />Branch
 		</div>
-		<div class="col-12">
-			<input type="button" class="btn btn-secondary" value="ADD" onclick="AddAddress()" />
+		<div class="col-8 m-2">&nbsp;</div>
+		<div class="col-3 m-2">
+			<input type="hidden" id="editAddressIdPk" value="0" />
+			<input type="button" class="btn btn-primary" id="btnAddAddress" value="Add Address" onclick="AddAddress()" />
 			<input type="button" class="btn btn-dotted" value="Cancel" onclick="ClearAddress()" />
 		</div>
 	</div>
@@ -83,33 +93,23 @@
 				<th>Delete</th>
 			</tr>
 		</thead>
-		<tbody id="address-table">
+		<tbody>
 			@foreach (var address in Model.CompanyAddresses)
 			{
 				<tr>
-					<td>@(++counter)</td>
-					<td>@address.AddressLine1</td>
-					<td>@address.AddressLine2</td>
-					<td>@address.City</td>
-					<td>@address.State</td>
-					<td>@address.PinCode</td>
+					<td>
+						@(++counter)
+						<input type="hidden" id="addr_id_@counter" value="@address.CompanyAddressIdPk" />
+						<input type="hidden" id="type_id_@counter" value="@((int)address.AddressTypeId)" />
+					</td>
+					<td><span id="line1_@counter"> @address.AddressLine1</span></td>
+					<td><span id="line2_@counter"> @address.AddressLine2</span></td>
+					<td><span id="city_@counter"> @address.City</span></td>
+					<td><span id="state_@counter"> @address.State</span></td>
+					<td><span id="pin_@counter"> @address.PinCode</span></td>
 					<td>@address.AddressTypeName</td>
-					<td><a href="#" onclick="EditAddress(@index)">Edit</a></td>
-					<td><a href="#" onclick="DeleteAddress(@index)">Delete</a></td>
-				</tr>
-			}
-			@foreach (var address in Model.CompanyAddresses)
-			{
-				<tr>
-					<td>@(++counter)</td>
-					<td>@address.AddressLine1</td>
-					<td>@address.AddressLine2</td>
-					<td>@address.City</td>
-					<td>@address.State</td>
-					<td>@address.PinCode</td>
-					<td>@address.AddressTypeName</td>
-					<td><a href="#" onclick="EditAddress(@index)">Edit</a></td>
-					<td><a href="#" onclick="DeleteAddress(@index)">Delete</a></td>
+					<td><a class="link" onclick="EditAddress(@counter)">Edit</a></td>
+					<td><a class="link" onclick="DeleteAddress(@address.CompanyAddressIdPk)">Delete</a></td>
 				</tr>
 			}
 		</tbody>
@@ -120,115 +120,163 @@
 			&nbsp;
 		</div>
 		<div class="col-4">
-			<input type="button" class="btn btn-primary" onclik="SaveCompany()" value="Save" />
 			<a class="btn btn-secondary" asp-action="view" asp-controller="company">Cancel or Back to View</a>
 		</div>
 	</div>
 </div>
 
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-	<strong>Warning!</strong> <label id="lblWarningMessage"></label>
-	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-
-
 <script type="text/javascript">
-	function SaveCompany(){
-
+	function ClearAddress(){
+		document.getElementById('btnAddAddress').value='Add';
+		 document.getElementById('inputLine1').value = '';
+		 document.getElementById('inputLine2').value = '';
+		document.getElementById('inputCity').value = '';
+		 document.getElementById('inputState').value= '';
+		 document.getElementById('inputPIN').value= '';
+		 document.getElementById('editAddressIdPk').value= '0';
+			document.getElementById('inputCorp').checked = false;
+			document.getElementById('inputBranch').checked = false;
 	}
-	function EditAddress(rowIndex){
 
+	function EditAddress(indx){
+		debugger;
+		document.getElementById('btnAddAddress').value='Update';
+		let line1 = document.getElementById('line1_'+ indx).innerText;
+		let line2 = document.getElementById('line2_'+ indx).innerText;
+		let city = document.getElementById('city_'+ indx).innerText;
+		let state = document.getElementById('state_'+ indx).innerText;
+		let pin = document.getElementById('pin_'+ indx).innerText;
+		let addr_id_pk = document.getElementById('addr_id_'+indx).value;
+		let typeid = document.getElementById('type_id_'+indx).value;
+
+
+		 document.getElementById('inputLine1').value = line1;
+		 document.getElementById('inputLine2').value = line2;
+		document.getElementById('inputCity').value = city;
+		 document.getElementById('inputState').value= state;
+		 document.getElementById('inputPIN').value= pin;
+		 document.getElementById('editAddressIdPk').value= addr_id_pk;
+
+		if(document.getElementById('inputCorp').value == typeid){
+			document.getElementById('inputCorp').checked = true;
+		}
+		else{
+			document.getElementById('inputBranch').checked = true;
+		}
 	}
-	function DeleteAddress(rowIndex){
 
+	function DeleteAddress(id){
+		if(!confirm('Are you sure want to permanently delete this address?')){
+			return;
+		}
+
+		fetch('/company/deletecompanyaddress/'+id)
+			.then(response => response.json())
+			.then(data => {
+				debugger;
+				let saveResult = data;
+				if (saveResult.isSuccess) {
+					alert('address removed successfully');
+					location.href='/company/edit';
+				} else {
+					alert(saveResult.errorMessage);
+				}
+			});
 	}
 
 	function AddAddress(){
 		debugger;
+		//1.validation
+		//except addr line2 and pin everything else is mandatory
+		//2.if valid
+			//send the data to db and save it or insert as a new address record
+			//if save is success
+					//bind it to the grid
+					//clear the input controls
+				//or
+					//page reload
+					//it will go to db and get comp, address and load freshly
+			//else (DB save failed)
+				//show error msg as alert saying unable to save address details in the db
+				//do not clear the input controls
+		//else invalid data
+			//show alert msg to the user to provide all required fields.a
+
+		let errorMsg = validateInputAddress();
+		if(errorMsg == ''){
+			//send data to db/server
+			var addressObj = getAddressObjFromInput();
+			//fetch api
+			fetch('/company/addcompanyaddress', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(addressObj)
+			})
+			.then(response => response.json())
+			.then(data => {
+				debugger;
+				let saveResult = data;
+				if (saveResult.isSuccess) {
+					alert('address details saved successfully');
+					location.href='/company/edit';
+				} else {
+					alert(saveResult.errorMessage);
+				}
+			});
+		}
+		else{
+			alert(errorMsg);
+		}
+	}
+
+	function getAddressObjFromInput(){
+
+		let obj = {
+			CompanyAddressIdPk : document.getElementById('editAddressIdPk').value,
+			AddressLine1:document.getElementById('inputLine1').value,
+			AddressLine2 : document.getElementById('inputLine2').value,
+			City: document.getElementById('inputCity').value,
+			State : document.getElementById('inputState').value,
+			PinCode : document.getElementById('inputPIN').value,
+			AddressTypeId : document.getElementById('inputCorp').checked ? 1 : 2
+		}
+
+		return obj;
+
+	}
+
+	function validateInputAddress(){
 		let line1 = document.getElementById('inputLine1').value;
-		let line2 = document.getElementById('inputLine2').value;
 		let city = document.getElementById('inputCity').value;
 		let state = document.getElementById('inputState').value;
-		let pin = document.getElementById('inputPIN').value;
-		let typeId ;
-		let typeName = '';
+		let isCorporate = document.getElementById('inputCorp').checked;
+		let isBranch = document.getElementById('inputBranch').checked;
 
-		if(document.getElementById('inputCorp').checked){
-			typeId = 1;
-			typeName = 'Corporate office';
-		}else if(document.getElementById('inputBranch').checked){
-			typeId = 2;
-			typeName = 'Branch office';
-		}
+		let errorMsg = '';
 
-		if(!line1.trim()){
-			showMessage('Address Line1 is required.');
-			return;
+		if(line1 == ''){
+			errorMsg = `Address Line1 is required\n`;
 		}
-		if(!city.trim()){
-			showMessage('City is required.');
-			return;
+		if(city == ''){
+			errorMsg += `City is required\n`;
 		}
-		if(!state.trim()){
-			showMessage('State is required.');
-			return;
+		if(state == ''){
+			errorMsg += `State is required\n`;
 		}
-		if(!typeId){
-			showMessage('Type is required.');
-			return;
+		if(isCorporate == false && isBranch == false){
+			errorMsg += 'Type of address required';
 		}
 
-		var count = document.getElementById('address-table').children.length;
-
-		var data = [count+ 1, line1, line2, city, state, pin, typeName, '<a href="#" onclick="EditAddress('+count-1+')">Edit</a>',
-		'<a href="#" onclick="DeleteAddress('+count-1+')">Delete</a>'];
-		addRowToTable(data);
+		return errorMsg;
 	}
-
-	function ClearAddress(){
-
-	}
-
-	function showMessage(msg){
-		alert(msg);
-	}
-
-		// Function to add a new row with specific data
-	function addRowToTable(data) {
-	  // 1. Get the tbody element
-	  const tbody = document.getElementById('address-table');
-
-	  // 2. Create a new row (tr) element
-	  const newRow = document.createElement('tr');
-
-	  // 3. Iterate over the data to create cells (td)
-	  data.forEach(cellText => {
-		// Create a new cell (td) element
-		const cell = document.createElement('td');
-
-		// Create a text node with the cell content
-		const cellContent = document.createTextNode(cellText);
-
-		// Append the text node to the cell
-		cell.appendChild(cellContent);
-
-		// Append the cell to the new row
-		newRow.appendChild(cell);
-	  });
-
-	  // 4. Append the new row to the tbody
-	  tbody.appendChild(newRow);
-	}
-
-	// Example usage:
-	// Assuming you have a table like:
-	// <table id="myTable">
-	//   <tbody id="myTableBody">
-	//     <!-- existing rows can be here -->
-	//   </tbody>
-	// </table>
-
-	// Add a new row with data: ['Item A', 'Item B', 'Item C']
-	//addRowToTable(['New Data 1', 'New Data 2', 'New Data 3']);
-
 </script>
+
+<style type="text/css">
+	a.link {
+		color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1));
+		text-decoration: underline;
+		cursor: pointer;
+	}
+</style>
