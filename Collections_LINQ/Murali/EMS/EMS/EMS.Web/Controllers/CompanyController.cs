@@ -67,5 +67,50 @@ namespace EMS.Web.Controllers
             }
             return companyViewModel;
         }
+
+        public IActionResult EditCompany(CompanyViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                CompanyModel companyModel = new CompanyModel
+                {
+                    CompanyIdPk = model.CompanyIdPk,
+                    CompanyName = model.CompanyName,
+                    PhoneNumber = model.PhoneNumber,
+                    TIN = model.TIN,
+                    BankAccountNumber = model.BankAccountNumber,
+                    RegistrationDate = model.RegistrationDate,
+                    PAN = model.PAN,
+                    Website = model.Website,
+                    Email = model.Email,
+                    Addresses = new List<CompanyAddressModel>()
+                };
+                foreach (var addressViewModel in model.CompanyAddresses)
+                {
+                    var addressModel = new CompanyAddressModel
+                    {
+                        AddressLine1 = addressViewModel.AddressLine1,
+                        AddressLine2 = addressViewModel.AddressLine2,
+                        City = addressViewModel.City,
+                        State = addressViewModel.State,
+                        Pincode = addressViewModel.PinCode,
+                        AddressTypeIdFk = addressViewModel.AddressTypeId
+                    };
+                    companyModel.Addresses.Add(addressModel);
+                }
+                
+                return RedirectToAction("ViewCompany");
+            }
+            return View(model);
+        }
+        [HttpPost]
+        [Route("delete")]
+        public IActionResult DeleteCompany()
+        {
+            var result = companyservice.DeleteCompany();
+
+            return RedirectToAction("ViewCompany");
+        }
     }
 }

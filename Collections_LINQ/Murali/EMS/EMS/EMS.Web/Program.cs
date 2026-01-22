@@ -1,8 +1,9 @@
 using EMS.IServices;
 using EMS.Services.Implementation;
-using EMS.IDataAccess;
+using EMS.DataAccess;
 using EMS.DataAccess.ADO;
 using Microsoft.DotNet.Scaffolding.Shared;
+using EMS.IDataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
