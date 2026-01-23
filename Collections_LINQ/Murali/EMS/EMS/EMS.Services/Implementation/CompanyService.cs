@@ -17,10 +17,20 @@ namespace EMS.Services.Implementation
             companyRepository = repository;
         }
 
+        public bool DeleteCompany()
+        {
+            throw new NotImplementedException();
+        }
+
         public CompanyModel GetCompanyDetails()
         {
             CompanyModel model = companyRepository.GetCompanyDetails();
             return model;
+        }
+
+        public bool SaveCompany(CompanyModel company)
+        {
+            throw new NotImplementedException();
         }
     }
 }

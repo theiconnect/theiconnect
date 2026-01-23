@@ -4,6 +4,7 @@ using EMS.DataAccess;
 using EMS.DataAccess.ADO;
 using Microsoft.DotNet.Scaffolding.Shared;
 using EMS.IDataAccess;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
