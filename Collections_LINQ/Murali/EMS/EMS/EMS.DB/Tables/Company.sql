@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Company] (
     CompanyIdPk         INT IDENTITY(1,1)   NOT NULL PRIMARY KEY,
-    CompanyName         VARCHAR(50)         NOT NULL,
+    CompanyName         VARCHAR(50)         NULL,
     PhoneNumber         VARCHAR(15)         NULL,
     Email               VARCHAR(100)        NULL,
     RegistrationDate    DATETIME            NULL,

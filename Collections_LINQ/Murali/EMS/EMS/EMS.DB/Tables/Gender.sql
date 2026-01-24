@@ -1,0 +1,4 @@
+﻿CREATE TABLE Gender (
+    GenderIdPk INT IDENTITY(1,1) PRIMARY KEY,
+    GenderName VARCHAR(20) NOT NULL UNIQUE
+);

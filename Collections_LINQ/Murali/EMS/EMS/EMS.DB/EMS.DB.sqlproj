@@ -70,9 +70,18 @@
     <Build Include="Stored Procedures\usp_GetDepartmentById.sql" />
     <Build Include="Tables\Company.sql" />
     <Build Include="Tables\CompanyAddress.sql" />
-    <Build Include="Tables\AddressType.sql" />
+    <Build Include="Tables\AddressTypeLookup.sql" />
     <Build Include="Stored Procedures\usp_AddUpdateCompanyAddress.sql" />
     <Build Include="Stored Procedures\usp_DeleteCompanyAddress.sql" />
+    <Build Include="Tables\Employee.sql" />
+    <Build Include="Tables\Gender.sql" />
+    <Build Include="Tables\BloodGroup.sql" />
+    <Build Include="Tables\Qualification.sql" />
+    <Build Include="Tables\Designation.sql" />
+    <Build Include="Tables\EmployeeCTC.sql" />
+    <Build Include="Stored Procedures\usp_GetAllEmployeeDetails.sql" />
+    <Build Include="Tables\EmployeeAddress.sql" />
+    <Build Include="Tables\DepartmentAddress.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="EMS.DB.refactorlog" />

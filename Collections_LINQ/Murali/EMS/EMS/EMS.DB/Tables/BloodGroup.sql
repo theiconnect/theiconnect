@@ -1,0 +1,4 @@
+﻿CREATE TABLE BloodGroup (
+    BloodGroupIdPk INT IDENTITY(1,1) PRIMARY KEY,
+    BloodGroupName VARCHAR(5) NOT NULL UNIQUE
+);
