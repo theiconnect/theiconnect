@@ -49,6 +49,7 @@ namespace EMS.DataAccess.ADO
                             employee.ExpInMonths = Convert.ToInt32(reader["ExpInMonths"]);
                             employee.SalaryCtc = reader["SalaryCtc"] != DBNull.Value ? Convert.ToDecimal(reader["SalaryCtc"]) : null;
                             employee.LWD = reader["LWD"] != DBNull.Value ? Convert.ToDateTime(reader["LWD"]) : null;
+                            employee.IsActive = Convert.ToBoolean(reader["IsActive"]);
                             employees.Add(employee);
          
                         }
@@ -59,7 +60,8 @@ namespace EMS.DataAccess.ADO
         }
         public bool AddUpdateEmployeeAddress(CompanyAddressModel addressModel, string UserId, out string errorMessage)
         {
-            throw new NotImplementedException();
+            errorMessage = null;
+            return true;
         }
 
         public bool DeleteEmployeeAddress(int id, out string errorMessage)

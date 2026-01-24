@@ -22,6 +22,7 @@ BEGIN
         DateOfJoining,
         ExpInMonths,
         SalaryCTc,
+        IsActive,
         LWD
         from dbo.Employee
 END

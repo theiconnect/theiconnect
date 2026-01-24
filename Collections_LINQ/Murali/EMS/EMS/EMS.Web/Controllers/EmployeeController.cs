@@ -89,7 +89,7 @@ namespace EMS.Web.Controllers
         }
         [HttpPost]
         [Route("UpdateSaveEmployee")]
-        public IActionResult UpdateSaveEmployee([FromBody] EmployeeViewModel updateModel)
+        public IActionResult UpdateSaveEmployee(EmployeeViewModel updateModel)
         {
             if (updateModel == null)
             {
@@ -112,8 +112,7 @@ namespace EMS.Web.Controllers
                 IsActive = updateModel.IsActive
             };
 
-            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage
-               );
+            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage);
             return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
         }
 

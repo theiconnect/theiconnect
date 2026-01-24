@@ -9,55 +9,55 @@
     <h5 class="mb-0"> Employee Details</h5>
 </div>
 <div>
-    <form asp-action="saveemployee" asp-controller="Employee">
+    <form method="post" asp-action="UpdateSaveEmployee" asp-controller="Employee">
         <div class="row">
             <div class="form-group col-3">
                 <label class="control-label fw-bold">Code:</label>
-                <input type="text" id="Code" name="Code234" class="form-control" value="@Model.Code" />
+                <input type="text" id="Code" name="Code" class="form-control" value="@Model.Code" />
             </div>
 
             <div class="form-group col-3">
                 <label class="control-label fw-bold">FirstName:</label>
-                <input type="text" id="FName" name="Code234" class="form-control" value="@Model.FirstName" />
+                <input type="text" id="FName" name="FirstName" class="form-control" value="@Model.FirstName" />
             </div>
 
             <div class="form-group col-3">
                 <label class="control-label fw-bold">LastName:</label>
-                <input type="text" id="LName" name="Code234" class="form-control" value="@Model.LastName" />
+                <input type="text" id="LName" name="LastName" class="form-control" value="@Model.LastName" />
             </div>
 
             <div class="form-group col-3">
                 <label class="control-label fw-bold">BloodGroup:</label>
-                <input type="text" id="BGroup" name="Code234" class="form-control" value="@Model.BloodGroup" />
+                <input type="text" id="BGroup" name="BloodGroup" class="form-control" value="@Model.BloodGroup" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">Gender:</label>
-                <input type="text" id="Gender" name="Code234" class="form-control" value="@Model.Gender" />
+                <input type="text" id="Gender" name="Gender" class="form-control" value="@Model.Gender" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">EmailId:</label>
-                <input type="text" id="Email" name="Code234" class="form-control" value="@Model.EmailId" />
+                <input type="text" id="Email" name="EmailId" class="form-control" value="@Model.EmailId" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">MobileNumber:</label>
-                <input type="text" id="Mobile" name="Code234" class="form-control" value="@Model.MobileNumber" />
+                <input type="text" id="Mobile" name="MobileNumber" class="form-control" value="@Model.MobileNumber" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">DateOfBirth:</label>
-                <input type="text" id="DOB" name="Code234" class="form-control" value="@Model.DateOfBirth" />
+                <input type="text" id="DOB" name="DateOfBirth" class="form-control" value="@Model.DateOfBirth" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">DateOfJoining:</label>
-                <input type="text" id="DOJ" name="Code234" class="form-control" value="@Model.DateOfJoining" />
+                <input type="text" id="DOJ" name="DateOfJoining" class="form-control" value="@Model.DateOfJoining" />
             </div>
 
             <div class="form-group col-3">
                 <label class="control-label fw-bold">ExpInMonths:</label>
-                <input type="text" id="EIM" name="Code234" class="form-control" value="@Model.ExpInMonths" />
+                <input type="text" id="EIM" name="ExpInMonths" class="form-control" value="@Model.ExpInMonths" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">SalaryCtc:</label>
-                <input type="text" id="Salary" name="Code234" class="form-control" value="@Model.SalaryCtc" />
+                <input type="text" id="Salary" name="SalaryCtc" class="form-control" value="@Model.SalaryCtc" />
             </div>
             <div class="form-group col-5">
                 <label class="control-label fw-bold">IsActive:</label>
@@ -72,7 +72,7 @@
             <div class="col-4">
                 @Html.HiddenFor(m => m.EmployeeId)
                 <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
-                <input type="button" class="btn btn-primary" value="save" onclick="goToAdd();" />
+                <input type="submit" class="btn btn-primary" value="Save" />
             </div>
         </div>
     </form>

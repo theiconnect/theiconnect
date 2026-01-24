@@ -10,7 +10,10 @@ namespace EMS.IDataAccess
     public interface IEmployeeRepository
     {
         List<EmployeeModel> GetEmployeeDetails();
-        bool AddUpdateEmployeeAddress(CompanyAddressModel addressModel, string UserId, out string errorMessage);
+        bool AddUpdateEmployeeAddress(EmployeeModel Model, string UserId, out string errorMessage);
         bool DeleteEmployeeAddress(int id, out string errorMessage);
+
+        
+
     }
 }
