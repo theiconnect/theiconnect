@@ -47,8 +47,8 @@ namespace EMS.DataAccess.ADO
                             employee.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
                             employee.DateOfJoining = Convert.ToDateTime(reader["DateOfJoining"]);
                             employee.ExpInMonths = Convert.ToInt32(reader["ExpInMonths"]);
+                            employee.SalaryCtc = reader["SalaryCtc"] != DBNull.Value ? Convert.ToDecimal(reader["SalaryCtc"]) : null;
                             employee.LWD = reader["LWD"] != DBNull.Value ? Convert.ToDateTime(reader["LWD"]) : null;
-
                             employees.Add(employee);
          
                         }

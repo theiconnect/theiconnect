@@ -164,6 +164,7 @@ namespace EMS.Web.Controllers
             Empolyee.EmployeeId = emp.EmployeeIdPk;
             Empolyee.Code = emp.Employeecode;
             Empolyee.FirstName = emp.FirstName;
+            Empolyee.MiddleName = emp.MiddleName;
             Empolyee.LastName = emp.LastName;
             Empolyee.Gender = emp.Gender;
             Empolyee.BloodGroup = emp.BloodGroup;
