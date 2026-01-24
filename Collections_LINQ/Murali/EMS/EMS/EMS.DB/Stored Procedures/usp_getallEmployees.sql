@@ -10,6 +10,10 @@ BEGIN
         FirstName,
         MiddleName,
         LastName,
+        GenderIdFk,
+        BloodGroupIdFk,
+        QualificationIdFk,
+        DesignationIdFk,
         EmailId,
         PersonalEmailId,
         MobileNumber,
@@ -17,6 +21,7 @@ BEGIN
         DateOfBirth,
         DateOfJoining,
         ExpInMonths,
+        SalaryCTc,
         LWD
         from dbo.Employee
 END

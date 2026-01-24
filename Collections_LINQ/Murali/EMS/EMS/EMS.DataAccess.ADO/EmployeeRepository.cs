@@ -20,29 +20,13 @@ namespace EMS.DataAccess.ADO
         }
         public List<EmployeeModel> GetEmployeeDetails()
         {
-            string query = @"SELECT
-        -- Employee
-        EmployeeIdPk,
-        EmployeeCode,
-        FirstName,
-        MiddleName,
-        LastName,
-        EmailId,
-        PersonalEmailId,
-        GenderIdFk,
-        MobileNumber,
-        AlternateMobileNumber,
-        DateOfBirth,
-        DateOfJoining,
-        ExpInMonths,
-        LWD
-    from dbo.Employee";
             List<EmployeeModel> employees = new List<EmployeeModel>();
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand("usp_getallEmployees", conn))
                 {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         
@@ -56,6 +40,7 @@ namespace EMS.DataAccess.ADO
                             employee.LastName = reader["LastName"].ToString();  
                             employee.EmailId = reader["EmailId"].ToString();
                             employee.Gender = (Genders)Convert.ToInt32(reader["GenderIdFk"]);
+                            employee.BloodGroup = (BloodGroups)Convert.ToInt32(reader["BloodGroupIdFk"]);   
                             employee.PersonalEmailId = reader["PersonalEmailId"].ToString();
                             employee.MobileNumber = reader["MobileNumber"].ToString();
                             employee.AlternateMobileNumber = reader["AlternateMobileNumber"].ToString();

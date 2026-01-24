@@ -79,7 +79,7 @@
     <Build Include="Tables\Qualification.sql" />
     <Build Include="Tables\Designation.sql" />
     <Build Include="Tables\EmployeeCTC.sql" />
-    <Build Include="Stored Procedures\usp_GetAllEmployeeDetails.sql" />
+    <Build Include="Stored Procedures\usp_getallEmployees.sql" />
     <Build Include="Tables\EmployeeAddress.sql" />
     <Build Include="Tables\DepartmentAddress.sql" />
   </ItemGroup>

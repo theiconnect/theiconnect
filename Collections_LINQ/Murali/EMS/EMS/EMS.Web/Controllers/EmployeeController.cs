@@ -25,6 +25,7 @@ namespace EMS.Web.Controllers
         [Route("list")]
         [HttpGet]
         public IActionResult EmployeeList()
+        
         {
             var employeesFromDB = employeeServices.GetAllEmployees();
 
@@ -149,6 +150,34 @@ namespace EMS.Web.Controllers
             //return Json(isSuccess, responseMessage);
 
             return Json(new { Success = isSuccess, Message = responseMessage });
+        }
+
+        [Route("view")]
+        [HttpGet]
+        [Route("ViewEmployee/{id}")]
+        [Route("Details/{id}")]
+        public IActionResult View(int id)
+        {
+            var allemployees = employeeServices.GetAllEmployees();
+            var emp = allemployees.FirstOrDefault(f => f.EmployeeIdPk == id);
+            EmployeeListViewModel Empolyee = new EmployeeListViewModel();
+            Empolyee.EmployeeId = emp.EmployeeIdPk;
+            Empolyee.Code = emp.Employeecode;
+            Empolyee.FirstName = emp.FirstName;
+            Empolyee.LastName = emp.LastName;
+            Empolyee.Gender = emp.Gender;
+            Empolyee.BloodGroup = emp.BloodGroup;
+            Empolyee.EmailId= emp.EmailId;
+            Empolyee.MobileNumber = emp.MobileNumber;
+            Empolyee.AlternateMobileNumber = emp.AlternateMobileNumber;
+            Empolyee.DateOfBirth = emp.DateOfBirth;
+            Empolyee.DateOfJoining = emp.DateOfJoining;
+            Empolyee.ExpInMonths = emp.ExpInMonths;
+            Empolyee.SalaryCtc = emp.SalaryCtc;
+            Empolyee.IsActive = emp.IsActive;
+
+
+            return View(Empolyee);
         }
     }
 }
