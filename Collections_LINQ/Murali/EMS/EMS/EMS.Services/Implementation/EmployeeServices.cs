@@ -36,9 +36,14 @@ namespace EMS.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, out string responseMessage)
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee,string userName, out string responseMessage)
         {
-            throw new NotImplementedException();
+            if (isNewEmployee)
+            {
+                return EmployeeRepository.SaveEmployee(inputEmployee, true, userName, out responseMessage);
+            }
+            return EmployeeRepository.SaveEmployee(inputEmployee, false,userName, out responseMessage);
         }
+
     }
 }

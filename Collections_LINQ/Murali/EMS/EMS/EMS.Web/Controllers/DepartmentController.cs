@@ -80,6 +80,7 @@ namespace EMS.Web.Controllers
                 Location = viewModel.Location,
                 IsActive = viewModel.IsActive
             };
+
             bool isSuccess = departmentService.SaveDepartment(departmentModel, true, userName, out string message);
 
             if (isSuccess)

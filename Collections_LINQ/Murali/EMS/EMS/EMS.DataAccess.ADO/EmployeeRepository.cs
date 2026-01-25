@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,7 +59,7 @@ namespace EMS.DataAccess.ADO
             }
             return employees;
         }
-        public bool AddUpdateEmployeeAddress(CompanyAddressModel addressModel, string UserId, out string errorMessage)
+        public bool AddUpdateEmployeeAddress(EmployeeModel Model, string UserId, out string errorMessage)
         {
             errorMessage = null;
             return true;
@@ -69,6 +70,60 @@ namespace EMS.DataAccess.ADO
             throw new NotImplementedException();
         }
 
-        
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
+        {
+            responseMessage = null;
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("usp_ManageEmployee", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        if (isNewEmployee)
+                        {
+                            command.Parameters.AddWithValue("@ActionType", "ADD");
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@ActionType", "UPDATE");
+                        }
+                        command.Parameters.AddWithValue("@EmployeeIdPk", inputEmployee.EmployeeIdPk);
+                        command.Parameters.AddWithValue("@EmployeeCode", inputEmployee.Employeecode);
+                        command.Parameters.AddWithValue("@firstName", inputEmployee.FirstName);
+                        command.Parameters.AddWithValue("@lastName", inputEmployee.LastName);
+                        command.Parameters.AddWithValue("@genderIdFk", inputEmployee.Gender);
+                        command.Parameters.AddWithValue("@bloodGroupIdFk", inputEmployee.BloodGroup);
+                        command.Parameters.AddWithValue("@emailId", inputEmployee.EmailId);
+                        command.Parameters.AddWithValue("@mobileNumber", inputEmployee.MobileNumber);
+                        command.Parameters.AddWithValue("@dateOfBirth", inputEmployee.DateOfBirth);
+                        command.Parameters.AddWithValue("@dateOfJoining", inputEmployee.DateOfJoining);
+                        command.Parameters.AddWithValue("@expInMonths", inputEmployee.ExpInMonths);
+                        command.Parameters.AddWithValue("@salaryCTc", inputEmployee.SalaryCtc);
+                        command.Parameters.AddWithValue("@isActive", inputEmployee.IsActive);
+                        command.Parameters.AddWithValue("@UserName", userName);
+                        SqlParameter parameter = new("@OutputMessage", SqlDbType.NVarChar, 500)
+                        {
+                            Direction = ParameterDirection.Output,
+                        };
+                        command.Parameters.Add(parameter);
+                        command.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        return true;
+        }
     }
 }

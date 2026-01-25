@@ -19,6 +19,10 @@
 	SalaryCTc Decimal(10,2),
 	IsActive BIT,
 	LWD Date,
+	[CreatedBy]      VARCHAR (512) NOT NULL,
+    [CreatedOn]      DATETIME      DEFAULT (getdate()) NULL,
+    [LastUpdatedBy]  VARCHAR (512) NULL,
+    [LastUpdatedOn]  DATETIME      NULL,
 	CONSTRAINT fk_DepartmentIdFk FOREIGN KEY (DepartmentIdFk)
 		REFERENCES DEPARTMENT(DepartmentIdPk),	
 

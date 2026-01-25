@@ -126,6 +126,10 @@ namespace EMS.Services.Implementation.TD
            
         }
 
+        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

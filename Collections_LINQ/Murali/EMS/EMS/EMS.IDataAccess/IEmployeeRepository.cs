@@ -12,8 +12,9 @@ namespace EMS.IDataAccess
         List<EmployeeModel> GetEmployeeDetails();
         bool AddUpdateEmployeeAddress(EmployeeModel Model, string UserId, out string errorMessage);
         bool DeleteEmployeeAddress(int id, out string errorMessage);
+        bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee,string userName, out string responseMessage);
 
-        
+
 
     }
 }

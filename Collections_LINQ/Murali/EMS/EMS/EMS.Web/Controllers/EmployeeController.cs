@@ -52,6 +52,8 @@ namespace EMS.Web.Controllers
 
             return View(EmployeeModel);
         }
+
+        [Route("Add")]
         public IActionResult AddEmployee()
         {
             return View();
@@ -112,8 +114,38 @@ namespace EMS.Web.Controllers
                 IsActive = updateModel.IsActive
             };
 
-            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage);
-            return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
+            bool isSuccess = employeeServices.SaveEmployee(employeeModel,false,"Admin",out string responseMessage);
+            if (isSuccess)
+            {
+                return RedirectToAction("list", "Employee");
+            }
+            return RedirectToAction("list","Employee");
+        }
+
+        public IActionResult AddSaveEmployee(EmployeeViewModel updateModel)
+        {
+            if (updateModel == null)
+            {
+                return Json(new { IsSuccess = false, errorMessage = "Model is null" });
+            }
+            EmployeeModel employeeModel = new EmployeeModel
+            {
+                Employeecode = updateModel.Code,
+                FirstName = updateModel.FirstName,
+                LastName = updateModel.LastName,
+                BloodGroup = (BloodGroups)updateModel.BloodGroup,
+                Gender = updateModel.Gender,
+                EmailId = updateModel.EmailId,
+                MobileNumber = updateModel.MobileNumber,
+                DateOfBirth = updateModel.DateOfBirth,
+                DateOfJoining = updateModel.DateOfJoining,
+                ExpInMonths = updateModel.ExpInMonths,
+                SalaryCtc = updateModel.SalaryCtc,
+                IsActive = updateModel.IsActive
+            };
+
+            bool isSuccess = employeeServices.SaveEmployee(employeeModel, true,"Admin",out string responseMessage);
+            return RedirectToAction("list");
         }
 
         // Route: /Employee/viewemployee

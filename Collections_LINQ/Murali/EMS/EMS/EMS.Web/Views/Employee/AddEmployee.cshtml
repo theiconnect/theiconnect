@@ -13,7 +13,7 @@
             </a>
         </div>
 
-        <form id="addEmployeeForm" asp-action="AddEmployee" method="post" class="needs-validation" novalidate>
+        <form id="addEmployeeForm" asp-action="AddSaveEmployee" method="post" class="needs-validation" novalidate>
             @Html.AntiForgeryToken()
 
             <div class="card shadow-sm mb-4">
@@ -24,8 +24,8 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <label for="Employeecode" class="form-label">Employee Code (Auto Generated)</label>
-                            <input asp-for="Code" class="form-control" id="Employeecode" name="Employeecode" value="@Model?.Code ?? "EMP006"" readonly />
+                            <label for="Code" class="form-label">Employee Code</label>
+                            <input asp-for="Code" class="form-control" id="Code" name="Code"  />
                             <div class="form-text">This code will be generated/validated on save.</div>
                         </div>
 
@@ -56,16 +56,16 @@
 
                         <div class="col-md-4">
                             <label for="BloodGroup" class="form-label">Blood Group</label>
-                            <select asp-for="BloodGroup" class="form-select" id="" name="BloodGroup">
+                            <select asp-for="BloodGroup" class="form-select" id="BloodGroup" name="BloodGroup">
                                 <option value="">Select</option>
-                                <option value="APlus">A+</option>
-                                <option value="AMinus">A-</option>
-                                <option value="BPlus">B+</option>
-                                <option value="BMinus">B-</option>
-                                <option value="OPlus">O+</option>
-                                <option value="OMinus">O-</option>
-                                <option value="ABPlus">AB+</option>
-                                <option value="ABMinus">AB-</option>
+                                <option value="A_Positive">A+</option>
+                                <option value="A_Negative">A-</option>
+                                <option value="B_Positive">B+</option>
+                                <option value="B_Negative">B-</option>
+                                <option value="O_Positive">O+</option>
+                                <option value="O_Negative">O-</option>
+                                <option value="AB_Positive">AB+</option>
+                                <option value="AB_Negative">AB-</option>
                             </select>
                         </div>
 
@@ -83,10 +83,10 @@
                             <div class="invalid-feedback">Please provide a valid email.</div>
                         </div>
 
-                        <div class="col-md-4">
+                       @*  <div class="col-md-4">
                             <label for="PersonalEmailId" class="form-label">Personal Email</label>
-                            @* <input asp-for="PersonalEmailId" class="form-control" id="PersonalEmailId" name="PersonalEmailId" type="email" /> *@
-                        </div>
+                            <input asp-for="PersonalEmailId" class="form-control" id="PersonalEmailId" name="PersonalEmailId" type="email" />
+                        </div> *@
 
                         <div class="col-md-4">
                             <label for="DateOfBirth" class="form-label">Date of Birth</label>
@@ -103,9 +103,13 @@
                             <label for="ExpInMonths" class="form-label">Experience (Months)</label>
                             <input asp-for="ExpInMonths" class="form-control" id="ExpInMonths" name="ExpInMonths" type="number" min="0" max="600" />
                         </div>
+                        <div class="col-md-4">
+                            <label for="SalaryCtc" class="form-label">SalaryCtc</label>
+                            <input asp-for="SalaryCtc" class="form-control" id="SalaryCtc" name="SalaryCtc" type="number" min="0" m />
+                        </div>
                     </div>
                 </div>
-                </form>
+               
             </div>
 
             <div class="card shadow-sm mb-4">
@@ -165,12 +169,12 @@
                         <div class="col-md-4">
                             <label for="LWD" class="form-label">Last Working Day (if applicable)</label>
                             <input asp-for="LWD" class="form-control" id="LWD" name="LWD" type="date" />
-                        </div> *@
+                        </div> 
                     </div>
                 </div>
             </div>
 
-            <div class="card shadow-sm mb-4">
+            @* <div class="card shadow-sm mb-4">
                 <div class="card-header bg-secondary text-white">
                     <h5 class="mb-0">3. Address Details</h5>
                 </div>
@@ -232,20 +236,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> *@
 
             <div>
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-9">
                         <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList" onclick="SaveEmployees();">Save Employee</button>
+                        <button type="submit" class="btn btn-primary">Save Employee</button>
                         <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
                     </div>
                
                 </div>
             </div>
-        
+         </form>
     </div>
 </div>
 
@@ -340,4 +344,3 @@
             location.href="/Employee/EmployeeList";
         }
     </script>
-}
