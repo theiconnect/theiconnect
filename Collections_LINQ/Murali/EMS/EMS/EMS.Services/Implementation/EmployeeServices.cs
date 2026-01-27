@@ -16,10 +16,17 @@ namespace EMS.Services.Implementation
         {
             EmployeeRepository = _obj;
         }
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate,string userName,  out string responseMessage)
         {
-            throw new NotImplementedException();
+            if (isDeactivate)
+            {
+                return EmployeeRepository.ActivateDeactivateEmp(employeeId, true, userName, out responseMessage);
+
+            }
+            return EmployeeRepository.ActivateDeactivateEmp(employeeId, false, userName, out responseMessage);
         }
+
+      
 
         public List<EmployeeAddressModel> GetAllEmployeeAddresses()
         {

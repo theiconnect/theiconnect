@@ -13,9 +13,12 @@ namespace EMS.IServices
         List<EmployeeModel> GetAllEmployees();
         List<EmployeeAddressModel> GetAllEmployeeAddresses();
         EmployeeModel GetEmployeeByID(int empId);
-        bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage);
+
         bool SaveEmployee(EmployeeModel inputEmployee,bool isNewEmployee,string userName,out string responseMessage);
-      
+
+        bool ActivateDeactivateEmployee(int EmployeeId, bool isDeactivate, String userName, out string responseMessage);
+
+
     }
 }
     

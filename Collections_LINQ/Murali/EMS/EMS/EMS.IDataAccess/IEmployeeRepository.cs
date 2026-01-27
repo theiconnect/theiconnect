@@ -14,6 +14,8 @@ namespace EMS.IDataAccess
         bool DeleteEmployeeAddress(int id, out string errorMessage);
         bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee,string userName, out string responseMessage);
 
+        bool ActivateDeactivateEmp(int EmployeeId, bool isDeactivate, String userName, out string responseMessage);
+
 
 
     }

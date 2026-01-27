@@ -125,5 +125,43 @@ namespace EMS.DataAccess.ADO
             }
         return true;
         }
+
+        public bool ActivateDeactivateEmp(int EmployeeId, bool isDeactivate, String userName, out string responseMessage)
+        {
+            using SqlConnection sqlconnection = new SqlConnection(ConnectionString);
+            try
+            {
+                using SqlCommand command = new SqlCommand("usp_deactivateActivate", sqlconnection);
+                command.CommandType = CommandType.StoredProcedure;
+                if (isDeactivate)
+                    command.Parameters.AddWithValue("@ActionType", "DELETE");
+                else
+                    command.Parameters.AddWithValue("@ActionType", "Activate");
+                command.Parameters.AddWithValue("@EmployeeIdPk", EmployeeId);
+                command.Parameters.AddWithValue("@UserName", userName);
+                SqlParameter outputParam = new("@OutputMessage", SqlDbType.NVarChar, 500)
+                {
+                    Direction = ParameterDirection.Output,
+                };
+                command.Parameters.Add(outputParam);
+                sqlconnection.Open();
+                command.ExecuteNonQuery();
+                responseMessage = Convert.ToString(outputParam.Value);
+            }
+            catch (Exception ex)
+            {
+                responseMessage = "Error:" + ex.Message;
+                return false;
+            }
+            finally
+            {
+                if (sqlconnection.State == ConnectionState.Open)
+                    sqlconnection.Close();
+            }
+            if (responseMessage.ToLower() == "success")
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -130,6 +130,11 @@ namespace EMS.Services.Implementation.TD
         {
             throw new NotImplementedException();
         }
+
+        public bool ActivateDeactivateEmployee(int EmployeeId, bool isDeactivate, string userName, out string responseMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
