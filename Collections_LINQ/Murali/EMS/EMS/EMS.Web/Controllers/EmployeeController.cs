@@ -1,6 +1,8 @@
 ﻿using EMS.IServices;
 using EMS.Models;
 using EMS.Models.Enums;
+using EMS.Services.Implementation;
+using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +28,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult EmployeeList()
         {
-            var employeesFromDB = employeeServices.GetAllEmployees();
+            var employeesFromDB = employeeServices.GetEmployeeDetails();
 
             var EmployeeModel = new List<EmployeeListViewModel>();
 
@@ -37,14 +39,10 @@ namespace EMS.Web.Controllers
                 obj.Code = emp.Employeecode;
                 obj.FirstName = emp.FirstName;
                 obj.LastName = emp.LastName;
-                obj.BloodGroup = emp.BloodGroup;
                 obj.Gender = emp.Gender;
                 obj.EmailId = emp.EmailId;
                 obj.MobileNumber = emp.MobileNumber;
                 obj.DateOfBirth = emp.DateOfBirth;
-                obj.DateOfJoining = emp.DateOfJoining;
-                obj.ExpInMonths = emp.ExpInMonths;
-                obj.SalaryCtc = emp.SalaryCtc;
                 obj.IsActive = emp.IsActive;
                 EmployeeModel.Add(obj);
             }
@@ -56,12 +54,47 @@ namespace EMS.Web.Controllers
             return View();
         }
 
+        [Route("saveemployee")]
+        [HttpPost]
+        public IActionResult SaveEmployee(EmployeeViewModel viewModel)
+        {
+            string userName = User.Identity?.Name ?? "Admin";
+            EmployeeModel EmployeeModel = new EmployeeModel
+            {
+                Employeecode = viewModel.Code,
+                FirstName = viewModel.FirstName,
+                LastName = viewModel.LastName,
+                BloodGroup = (BloodGroups)viewModel.BloodGroup,
+                Gender = (Genders)viewModel.Gender,
+                EmailId = viewModel.EmailId,
+                MobileNumber = viewModel.MobileNumber,
+                DateOfBirth = viewModel.DateOfBirth,
+                DateOfJoining = viewModel.DateOfJoining,
+                ExpInMonths = viewModel.ExpInMonths,
+                SalaryCtc = viewModel.SalaryCtc,
+                IsActive = viewModel.IsActive
+            };
+
+            bool isSuccess = employeeServices.SaveEmployee(EmployeeModel, true, userName, out string message);
+
+            if (isSuccess)
+            {
+                TempData["SuccessMessage"] = $"Employee-{viewModel.FirstName} created successfully.";
+                return RedirectToAction("list", "Employee");
+            }
+            else
+            {
+                ViewBag.ErrorMessage = message;
+                return View("AddEmployee", viewModel);
+            }
+        }
+
         // Route: /Employee/editemployee
         [Route("editemployee/{employeeid}")]
         public IActionResult EditEmployee(int employeeid)
         {
             var empDB = employeeServices
-                .GetAllEmployees()
+                .GetEmployeeDetails()
                 .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
 
             if (empDB == null)
@@ -73,8 +106,8 @@ namespace EMS.Web.Controllers
                 empDB.Employeecode,
                 empDB.FirstName,
                 empDB.LastName,
-                empDB.BloodGroup,
-                empDB.Gender,
+                (int)empDB.BloodGroup,
+                (int)empDB.Gender,
                 empDB.EmailId,
                 empDB.MobileNumber,
                 empDB.DateOfBirth,
@@ -88,63 +121,73 @@ namespace EMS.Web.Controllers
         }
         [HttpPost]
         [Route("UpdateSaveEmployee")]
-        public IActionResult UpdateSaveEmployee([FromBody] EmployeeViewModel updateModel)
+        public IActionResult UpdateSaveEmployee(EmployeeViewModel updateModel)
         {
-            if (updateModel == null)
+            EmployeeModel employeeModel = new EmployeeModel();
             {
-                return Json(new { IsSuccess = false, errorMessage = "Model is null" });
-            }
-            EmployeeModel employeeModel = new EmployeeModel
-            {
-                EmployeeIdPk = updateModel.EmployeeId,
-                Employeecode = updateModel.Code,
-                FirstName = updateModel.FirstName,
-                LastName = updateModel.LastName,
-                BloodGroup = (BloodGroups)updateModel.BloodGroup,
-                Gender = updateModel.Gender,
-                EmailId = updateModel.EmailId,
-                MobileNumber = updateModel.MobileNumber,
-                DateOfBirth = updateModel.DateOfBirth,
-                DateOfJoining = updateModel.DateOfJoining,
-                ExpInMonths = updateModel.ExpInMonths,
-                SalaryCtc = updateModel.SalaryCtc,
-                IsActive = updateModel.IsActive
+                employeeModel.EmployeeIdPk = updateModel.EmployeeId;
+                employeeModel.Employeecode = updateModel.Code;
+                employeeModel.FirstName = updateModel.FirstName;
+                employeeModel.LastName = updateModel.LastName;
+                employeeModel.BloodGroup = (BloodGroups)updateModel.BloodGroup;
+                employeeModel.Gender = (Genders)updateModel.Gender;
+                employeeModel.EmailId = updateModel.EmailId;
+                employeeModel.MobileNumber = updateModel.MobileNumber;
+                employeeModel.DateOfBirth = updateModel.DateOfBirth;
+                employeeModel.DateOfJoining = updateModel.DateOfJoining;
+                employeeModel.ExpInMonths = updateModel.ExpInMonths;
+                employeeModel.SalaryCtc = updateModel.SalaryCtc;
+                employeeModel.IsActive = updateModel.IsActive;
             };
+            string userName = User.Identity?.Name ?? "Admin";
 
-            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage
-               );
-            return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
+            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, userName, out string responseMessage);
+            return RedirectToAction("list");
         }
 
-        // Route: /Employee/viewemployee
-        // [Route("viewemployee/{id}")]
-        //public IActionResult ViewEmployee(int id)
-        //{
-        //    var empDB = employeeServices.GetAllEmployees()
-        //                                  .FirstOrDefault(e => e.EmployeeIdPk == id);
+        [Route("viewemployee/{id}")]
+        public IActionResult ViewEmployee(int id)
+        {
+            var empDB = employeeServices.GetEmployeeDetails()
+                                          .FirstOrDefault(e => e.EmployeeIdPk == id);
+            var model = new EmployeeViewModel(
+                empDB.EmployeeIdPk,
+                empDB.Employeecode,
+                empDB.FirstName,
+                empDB.LastName,
+                (int)empDB.BloodGroup,
+                (int)empDB.Gender,
+                empDB.EmailId,
+                empDB.MobileNumber,
+                empDB.DateOfBirth,
+                empDB.DateOfJoining,
+                empDB.ExpInMonths,
+                empDB.SalaryCtc,
+                empDB.IsActive
 
+            );
+            return View(model);
 
-        //    if (empDB == null)
-        //        return NotFound();
+        }
 
-        //  return Json(new { Success = isSuccess, Message = responseMessage });
-        // }
         [Route("delete")]
         [HttpPost]
-        public IActionResult DeactivateDepartment([FromBody] EmployeeViewModel model)
+        public IActionResult DeactivateDepartment([FromBody] EmployeeViewModel ViewModel)
         {
-            bool isSuccess = employeeServices.ActivateDeactivateEmployee(model.EmployeeId, isDeactivate: true, out string responseMessage);
+            string userName = User.Identity?.Name ?? "Admin";
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(ViewModel.EmployeeId, isDeactivate: true, userName, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
-            return View(model);
+            return Json(new { Success = isSuccess, Message = responseMessage });
         }
 
         [Route("active/{id}")]
         [HttpGet]
-        public IActionResult ActivateEmployee(int id)
+        public IActionResult ActivateDepartment(int id)
         {
-            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, out string responseMessage);
+            string userName = User.Identity?.Name ?? "Admin";
+            bool isSuccess = employeeServices.ActivateDeactivateEmployee(id, isDeactivate: false, userName, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
@@ -155,7 +198,8 @@ namespace EMS.Web.Controllers
 
 
 
-          
+
+
 
 
 

@@ -49,14 +49,14 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 3. Get the count of employees per blood group as Dictionary
-        public static Dictionary<BloodGroups, int> GetEmployeeCountByBloodGroup()
-        {
-            var db = EMSDbContext.GetInstance();
-            var result=db.Employees
-                .GroupBy(e => e.BloodGroup)
-                .ToDictionary(g => g.Key, g => g.Count());
-            return result;
-        }
+        //public static Dictionary<BloodGroups, int> GetEmployeeCountByBloodGroup()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    var result=db.Employees
+        //        .GroupBy(e => e.BloodGroup)
+        //        .ToDictionary(g => g.Key, g => g.Count());
+        //    return result;
+        //}
 
         // Get the only employees of first names as List
 

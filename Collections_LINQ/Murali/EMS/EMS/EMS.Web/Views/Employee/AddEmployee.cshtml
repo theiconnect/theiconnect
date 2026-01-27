@@ -3,341 +3,82 @@
 @{
     ViewData["Title"] = "AddEmployee";
     Layout = "~/Views/Shared/_EMSLayout.cshtml";
+    var a = Model;
 }
-<div id="main-content">
-    <div class="container-fluid pt-5 mt-3">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h3"><i class="fas fa-user-plus me-2"></i> Add New Employee</h2>
-            <a class="btn btn-secondary" asp-controller="Employee" asp-action="EmployeeList">
-                Back to List
-            </a>
-        </div>
-
-        <form id="addEmployeeForm" asp-action="AddEmployee" method="post" class="needs-validation" novalidate>
-            @Html.AntiForgeryToken()
-
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">1. Personal and Contact Details</h5>
-                </div>
-
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <label for="Employeecode" class="form-label">Employee Code (Auto Generated)</label>
-                            <input asp-for="Code" class="form-control" id="Employeecode" name="Employeecode" value="@Model?.Code ?? "EMP006"" readonly />
-                            <div class="form-text">This code will be generated/validated on save.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="FirstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                            <input asp-for="FirstName" class="form-control" id="FirstName" name="FirstName" required />
-                            <div class="invalid-feedback">First name is required.</div>
-                        </div>
-
-                     
-
-                        <div class="col-md-4">
-                            <label for="LastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                            <input asp-for="LastName" class="form-control" id="LastName" name="LastName" required />
-                            <div class="invalid-feedback">Last name is required.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="Gender" class="form-label">Gender</label>
-                            <select asp-for="Gender" class="form-select" id="Gender" name="Gender" required>
-                                <option value="">Select</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <div class="invalid-feedback">Please select a gender.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="BloodGroup" class="form-label">Blood Group</label>
-                            <select asp-for="BloodGroup" class="form-select" id="" name="BloodGroup">
-                                <option value="">Select</option>
-                                <option value="APlus">A+</option>
-                                <option value="AMinus">A-</option>
-                                <option value="BPlus">B+</option>
-                                <option value="BMinus">B-</option>
-                                <option value="OPlus">O+</option>
-                                <option value="OMinus">O-</option>
-                                <option value="ABPlus">AB+</option>
-                                <option value="ABMinus">AB-</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="MobileNumber" class="form-label">Mobile <span class="text-danger">*</span></label>
-                            <input asp-for="MobileNumber" class="form-control" type="tel" id="MobileNumber" name="MobileNumber" maxlength="10" inputmode="numeric" required />
-                            <div class="invalid-feedback">Please enter a valid mobile number (10 digits).</div>
-                        </div>
-
-
-
-                        <div class="col-md-4">
-                            <label for="EmailId" class="form-label">Work Email <span class="text-danger">*</span></label>
-                            <input asp-for="EmailId" class="form-control" id="EmailId" name="EmailId" type="email" required />
-                            <div class="invalid-feedback">Please provide a valid email.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="PersonalEmailId" class="form-label">Personal Email</label>
-                            @* <input asp-for="PersonalEmailId" class="form-control" id="PersonalEmailId" name="PersonalEmailId" type="email" /> *@
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="DateOfBirth" class="form-label">Date of Birth</label>
-                            <input asp-for="DateOfBirth" class="form-control" id="DateOfBirth" name="DateOfBirth" type="date" />
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="DateOfJoining" class="form-label">Date of Joining (DOJ) <span class="text-danger">*</span></label>
-                            <input asp-for="DateOfJoining" class="form-control" id="DateOfJoining" name="DateOfJoining" type="date" required />
-                            <div class="invalid-feedback">Date of joining is required.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="ExpInMonths" class="form-label">Experience (Months)</label>
-                            <input asp-for="ExpInMonths" class="form-control" id="ExpInMonths" name="ExpInMonths" type="number" min="0" max="600" />
-                        </div>
-                    </div>
-                </div>
-                </form>
-            </div>
-
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">2. Employment & Compensation</h5>
-                </div>
-
-                @* <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <label for="DepartmentIdFk" class="form-label">Department <span class="text-danger">*</span></label>
-                            <select asp-for="DepartmentIdFk" class="form-select" id="DepartmentIdFk" name="DepartmentIdFk" required>
-                                <option value="">Select Department</option>
-                                <option value="1">IT Services</option>
-                                <option value="2">Finance</option>
-                                <option value="3">Human Resources</option>
-                                <option value="4">Marketing</option>
-                            </select>
-                            <div class="invalid-feedback">Please select a department.</div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="QualificationIdFk" class="form-label">Qualification</label>
-                            <select asp-for="QualificationIdFk" class="form-select" id="QualificationIdFk" name="QualificationIdFk">
-                                <option value="">Select</option>
-                                <option value="1">B.Tech</option>
-                                <option value="2">M.Tech</option>
-                                <option value="3">MBA</option>
-                                <option value="4">Other</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="DesignationIdFk" class="form-label">Designation</label>
-                            <select asp-for="DesignationIdFk" class="form-select" id="DesignationIdFk" name="DesignationIdFk">
-                                <option value="">Select</option>
-                                <option value="Junior">Junior Developer</option>
-                                <option value="Senior">Senior Developer</option>
-                                <option value="Lead">Team Lead</option>
-                                <option value="HRManager">HR Manager</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="SalaryCtc" class="form-label">Salary (CTC)</label>
-                            <input asp-for="SalaryCtc" class="form-control" id="SalaryCtc" name="SalaryCtc" type="number" step="0.01" min="0" placeholder="e.g. 75000.00" />
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="IsActive" class="form-label d-block">Active</label>
-                            <div class="form-check form-switch">
-                                <input asp-for="IsActive" class="form-check-input" type="checkbox" id="IsActive" name="IsActive" checked />
-                                <label class="form-check-label" for="IsActive">Employee is active</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="LWD" class="form-label">Last Working Day (if applicable)</label>
-                            <input asp-for="LWD" class="form-control" id="LWD" name="LWD" type="date" />
-                        </div> *@
-                    </div>
-                </div>
-            </div>
-
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0">3. Address Details</h5>
-                </div>
-
-                <div class="card-body">
-                    <h6 class="mb-3"><i class="fas fa-home me-1"></i> Permanent Address</h6>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label for="pAddressLine1" class="form-label">Address Line 1</label>
-                            <input class="form-control" id="pAddressLine1" name="PermanentAddress.Line1" />
-                        </div>
-                        <div class="col-md-3">
-                            <label for="pCity" class="form-label">City</label>
-                            <input class="form-control" id="pCity" name="PermanentAddress.City" />
-                        </div>
-                        <div class="col-md-3">
-                            <label for="pState" class="form-label">State</label>
-                            <input class="form-control" id="pState" name="PermanentAddress.State" />
-                        </div>
-                    </div>
-
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-3">
-                            <label for="pPinCode" class="form-label">Pin Code</label>
-                            <input class="form-control" id="pPinCode" name="PermanentAddress.PinCode" />
-                        </div>
-
-                        <div class="col-md-9 d-flex align-items-end">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="sameAsPermanent">
-                                <label class="form-check-label" for="sameAsPermanent">
-                                    Present Address is the same as Permanent Address
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h6 class="mb-3"><i class="fas fa-map-marker-alt me-1"></i> Present Address</h6>
-                    <div id="presentAddressFields">
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                <label for="tAddressLine1" class="form-label">Address Line 1</label>
-                                <input class="form-control" id="tAddressLine1" name="PresentAddress.Line1" />
-                            </div>
-                            <div class="col-md-3">
-                                <label for="tCity" class="form-label">City</label>
-                                <input class="form-control" id="tCity" name="PresentAddress.City" />
-                            </div>
-                            <div class="col-md-3">
-                                <label for="tState" class="form-label">State</label>
-                                <input class="form-control" id="tState" name="PresentAddress.State" />
-                            </div>
-                        </div>
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label for="tPinCode" class="form-label">Pin Code</label>
-                                <input class="form-control" id="tPinCode" name="PresentAddress.PinCode" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-9">
-                        <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList" onclick="SaveEmployees();">Save Employee</button>
-                        <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
-                    </div>
-               
-                </div>
-            </div>
-        
-    </div>
-</div>
-
-      <script>
-
-        function SaveEmployees(){
-        let firstName = document.getElementById('FirstName');
-        let LastName = document.getElementById('LastName');
-        let middleName = document.getElementById('MiddleName');
-        let gender = document.getElementById('Gender');
-        let BloodGroup = document.getElementById('BloodGroup');
-        let Mobile = document.getElementById('Mobile');
-        let AlternateMobile = document.getElementById('AlternateMobile');
-        let WorkEmail = document.getElementById('EmailId');
-        let PersonalEmail = document.getElementById('PersonalEmailId');
-        let DateOfBirth = document.getElementById('DateOfBirth');
-    
-        let DateOfJoining = document.getElementById('DateOfJoining');
-    
-        let ExperienceInMonths = document.getElementById('ExpInMonths');
-    
-        let DepartmentIdFk = document.getElementById('DepartmentIdFk');
-    
-        let QualificationIdFk = document.getElementById('QualificationIdFk');
-    
-        let DesignationIdFk = document.getElementById('DesignationIdFk');
-    
-        let SalaryCtc = document.getElementById('SalaryCtc');
-    
-        let IsActive = document.getElementById('IsActive');
-
-        let LWD = document.getElementById('LWD');
-
-        let empObj = {
-      
-            FirstName: firstName.value,
-            LastName: LastName.value,
-            MiddleName: middleName.value,
-            Gender:gender.value,
-            BloodGroup: BloodGroup.value,
-            MobileNumber: Mobile.value,
-            AlternateMobileNumber: AlternateMobile.value,
-            EmailId: WorkEmail.value,
-            PersonalEmailId: PersonalEmail.value,
-            DateOfBirth: DateOfBirth.value,
-            DateOfJoining: DateOfJoining.value,
-            ExpInMonths: ExperienceInMonths.value,
-            DepartmentIdFk: DepartmentIdFk.value,
-            QualificationIdFk: QualificationIdFk.value,
-            DesignationIdFk: DesignationIdFk.value,
-            SalaryCtc: SalaryCtc.value,
-            IsActive: IsActive.checked,
-            LWD: LWD.value
-        };
-
-        fetch('/Employee/SaveEmployees', {
-            method: "POST",
-            body: JSON.stringify(empObj),
-            headers: {
-                'Content-Type': 'application/json' // Inform the server we're sending JSON
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                let saveResult = data;
-                if (saveResult.isSuccess) {
-                    alert('Employee details saved successfully');
-                } else {
-                    alert('Failed to save employee details: ' + saveResult.errorMessage);
-            }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-        });
-        alert("Employee Added Successfully");
-
-          }
-        // (function () {
-        //     'use strict';
-        //     const forms = document.querySelectorAll('.needs-validation');
-        //     Array.from(forms).forEach(function (form) {
-        //         form.addEventListener('submit', function (event) {
-        //             if (!form.checkValidity()) {
-        //                 event.preventDefault();
-        //                 event.stopPropagation();
-        //             }
-        //             form.classList.add('was-validated');
-        //         }, false);
-        //     });
-        // })();
-        function display(){
-            location.href="/Employee/EmployeeList";
-        }
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <script>
+        alert('@ViewBag.ErrorMessage');
     </script>
 }
+
+
+
+<div class="container">
+	<h2>Add Employee</h2>
+	<hr />
+	<form asp-action="saveemployee" asp-controller="Employee">
+		<div class="row">
+			<div class="form-group col-3">
+				<label class="control-label fw-bold">Employee Code:</label>
+				<input asp-for="Code" class="form-control" />
+			</div>
+
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">First Name:</label>
+                <input asp-for="FirstName" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Last Name:</label>
+                <input asp-for="LastName" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Blood Group:</label>
+                <input asp-for="BloodGroup" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Gender:</label>
+                <input asp-for="Gender" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">EmailId:</label>
+                <input asp-for="EmailId" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Mobile Number:</label>
+                <input asp-for="MobileNumber" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Date Of Birth:</label>
+                <input asp-for="DateOfBirth" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">date Of Joining:</label>
+                <input asp-for="DateOfJoining" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">ExpInMonths:</label>
+                <input asp-for="ExpInMonths" class="form-control" />
+            </div>
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">SalaryCtc:</label>
+                <input asp-for="SalaryCtc" class="form-control" />
+            </div>
+            <div class="form-check col-3">
+                <input class="form-check-input" asp-for="IsActive">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Active
+                </label>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-9">
+                <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
+                <button type="submit" class="btn btn-primary">Save Employee</button>
+                <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

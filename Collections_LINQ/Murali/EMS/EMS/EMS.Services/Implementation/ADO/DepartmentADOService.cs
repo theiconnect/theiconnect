@@ -280,7 +280,7 @@ namespace EMS.Services.Implementation.ADO
 
         }
 
-        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage)
+        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName,out string responseMessage)
         {
             using SqlConnection sqlConnection = new SqlConnection(connectionString);
             try
