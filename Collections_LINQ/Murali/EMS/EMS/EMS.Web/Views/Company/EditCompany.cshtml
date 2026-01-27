@@ -16,7 +16,11 @@
 		</div>
 		<div class="form-group col-5">
 			<label class="control-label fw-bold">Registration Date:</label>
-			<input class="form-control" type="date" asp-for="RegistrationDateDisplayValue" />
+			<input type="date"
+				   name="RegistrationDate"
+				   value="@Model.RegistrationDate"
+				   class="form-control" />
+
 		</div>
 		<div class="form-group col-5">
 			<label class="control-label fw-bold">Website:</label>
@@ -133,7 +137,8 @@
 
 
 <script type="text/javascript">
-	function SaveCompany(){
+	
+		function SaveCompany() {
 		let companyObj = {
 			CompanyIdPk: document.querySelector('[name="CompanyIdPk"]').value,
 			RegistrationDate: document.querySelector('[name="RegistrationDateDisplayValue"]').value,
@@ -144,7 +149,28 @@
 			TIN: document.querySelector('[name="TIN"]').value,
 			PAN: document.querySelector('[name="PAN"]').value
 		};
+
+		fetch('/company/editcompany', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(companyObj)
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.isSuccess) {
+				alert('Company details saved successfully');
+				window.location.href = '/company/view';
+			} else {
+				alert(data.errorMessage);
+			}
+		})
+		.catch(() => {
+			alert('Something went wrong while saving company info');
+		});
 	}
+
 	function EditAddress(rowIndex){
 
 	} 
@@ -239,25 +265,7 @@
 
 	// Add a new row with data: ['Item A', 'Item B', 'Item C']
 	//addRowToTable(['New Data 1', 'New Data 2', 'New Data 3']);
-	fetch('/company/savecompany', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(companyObj)
-		})
-		.then(response => response.json())
-		.then(data => {
-			if (data.isSuccess) {
-				alert('Company details saved successfully');
-				window.location.href = '/company/view';
-			} else {
-				alert(data.errorMessage);
-			}
-		})
-		.catch(err => {
-			alert('Something went wrong while saving company info');
-		});
+	
 	
 
 </script>

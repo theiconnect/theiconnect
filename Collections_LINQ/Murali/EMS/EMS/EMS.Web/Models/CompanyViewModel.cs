@@ -7,18 +7,22 @@
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public DateTime? RegistrationDate { get; set; }
-        public string RegistrationDateDisplayValue
+        public string RegistrationDateInputValue
         {
             get
             {
-                if (RegistrationDate.HasValue)
-                {
-                    return RegistrationDate.Value.ToString("dd-MMM-yyyy");
-                }
-                else
-                {
-                    return string.Empty;
-                }
+                return RegistrationDate.HasValue
+                    ? RegistrationDate.Value.ToString("yyyy-MM-dd")
+                    : string.Empty;
+            }
+        }
+public string RegistrationDateOutputValue 
+            {
+            get
+            {
+                return RegistrationDate.HasValue
+                    ? RegistrationDate.Value.ToString("dd MMMM yyyy")
+                    : string.Empty;
             }
         }
         public string Website { get; set; }

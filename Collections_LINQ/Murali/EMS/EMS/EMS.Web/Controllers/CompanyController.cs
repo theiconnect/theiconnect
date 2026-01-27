@@ -1,11 +1,12 @@
-﻿using EMS.Models;
+﻿using EMS.IServices;
+using EMS.Models;
+using EMS.Services;
+using EMS.Services.Implementation;
 using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
-using Microsoft.AspNetCore.Mvc;
-using EMS.Services;
-using EMS.IServices;
 using EMS.Web.Models;
-using EMS.Services.Implementation;
+using Humanizer;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EMS.Web.Controllers
 {
@@ -68,51 +69,30 @@ namespace EMS.Web.Controllers
             return companyViewModel;
         }
         [HttpPost]
-public IActionResult SaveCompany(CompanyViewModel model)
-{
-    if (!ModelState.IsValid)
-    {
-        return Json(new { isSuccess = false, errorMessage = "responseError" });
-    }
-
-   
-        CompanyModel companyModel = new CompanyModel
+        public IActionResult SaveCompany(CompanyViewModel model)
         {
-            CompanyIdPk = model.CompanyIdPk,
-            CompanyName = model.CompanyName,
-            PhoneNumber = model.PhoneNumber,
-            TIN = model.TIN,
-            BankAccountNumber = model.BankAccountNumber,
-            RegistrationDate = model.RegistrationDate,
-            PAN = model.PAN,
-            Website = model.Website,
-            Email = model.Email,
-            Addresses = new List<CompanyAddressModel>()
-        };
-
-        foreach (var addressViewModel in model.CompanyAddresses)
-        {
-            var addressModel = new CompanyAddressModel
+            if (!ModelState.IsValid)
             {
-                AddressLine1 = addressViewModel.AddressLine1,
-                AddressLine2 = addressViewModel.AddressLine2,
-                City = addressViewModel.City,
-                State = addressViewModel.State,
-                Pincode = addressViewModel.PinCode,
-                AddressTypeIdFk = addressViewModel.AddressTypeId
+                return Json(new { isSuccess = false, errorMessage = "Invalid data" });
+            }
+
+            CompanyModel companyModel = new CompanyModel
+            {
+                CompanyIdPk = model.CompanyIdPk,
+                CompanyName = model.CompanyName,
+                PhoneNumber = model.PhoneNumber,
+                TIN = model.TIN,
+                BankAccountNumber = model.BankAccountNumber,
+                RegistrationDate = model.RegistrationDate,
+                PAN = model.PAN,
+                Website = model.Website,
+                Email = model.Email,
+                Addresses = new List<CompanyAddressModel>()
             };
-            companyModel.Addresses.Add(addressModel);
+            
+
+            return Json(new { isSuccess = true });
         }
-
-        var result = companyservice.SaveCompany(companyModel);
-
-        return Json(new { isSuccess = result });
-    }
-    
-    
-
-
-
         public IActionResult EditCompany(CompanyViewModel model)
         {
             if (ModelState.IsValid)
@@ -131,6 +111,7 @@ public IActionResult SaveCompany(CompanyViewModel model)
                     Email = model.Email,
                     Addresses = new List<CompanyAddressModel>()
                 };
+
                 foreach (var addressViewModel in model.CompanyAddresses)
                 {
                     var addressModel = new CompanyAddressModel
@@ -159,3 +140,5 @@ public IActionResult SaveCompany(CompanyViewModel model)
         }
     }
 }
+
+
