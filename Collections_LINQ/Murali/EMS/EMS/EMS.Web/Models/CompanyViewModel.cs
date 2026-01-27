@@ -13,7 +13,7 @@
             {
                 if (RegistrationDate.HasValue)
                 {
-                    return RegistrationDate.Value.ToString("dd-MMM-yyyy");
+                    return RegistrationDate.Value.ToString("yyyy-MM-dd");
                 }
                 else
                 {

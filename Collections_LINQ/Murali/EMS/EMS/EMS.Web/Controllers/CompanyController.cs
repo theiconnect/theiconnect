@@ -35,6 +35,7 @@ namespace EMS.Web.Controllers
         [Route("")]
         [HttpGet]
         public IActionResult ViewCompany()
+        
         {
             CompanyViewModel model = GetCompanyDetails();
 
@@ -80,7 +81,36 @@ namespace EMS.Web.Controllers
             bool isSuccess = companyservice.AddUpdateCompanyAddress(model, userName, out string errorMessage);
             return Json(new { isSuccess = isSuccess, ErrorMessage = errorMessage });
         }
+        [HttpPost]
+        [Route("edit")]
+        public JsonResult SaveCompany([FromBody] CompanyViewModel companyViewModel)
+        {
+            try
+            {
+                var companyModel = new CompanyModel
+                {
+                    CompanyIdPk = companyViewModel.CompanyIdPk,
+                    CompanyName = companyViewModel.CompanyName,
+                    PhoneNumber = companyViewModel.PhoneNumber,
+                    TIN = companyViewModel.TIN,
+                    BankAccountNumber = companyViewModel.BankAccountNumber,
+                    RegistrationDate = companyViewModel.RegistrationDate,
+                    PAN = companyViewModel.PAN,
+                    Website = companyViewModel.Website,
+                    Email = companyViewModel.Email
+                };
 
+                string errorMsg;
+
+                bool isSuccess = companyservice.SaveCompanyInfo(companyModel,"1",out errorMsg);
+
+                return Json(new { isSuccess = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isSuccess = false, errorMessage = ex.Message });
+            }
+        }
         private CompanyAddressModel ConvertViewModelToModel(CompanyAddressViewModel ViewModel) 
         {
             CompanyAddressModel model = new CompanyAddressModel();

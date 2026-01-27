@@ -11,7 +11,7 @@
 	<div class="row">
 		<div class="form-group col-5">
 			<label class="control-label fw-bold">Name:</label>
-			<input class="form-control" readonly asp-for="CompanyName" />
+			<input id="CompanyName" class="form-control" asp-for="CompanyName" />
 		</div>
 		<div class="form-group col-5">
 			<label class="control-label fw-bold">Registration Date:</label>
@@ -48,7 +48,7 @@
 			&nbsp;
 		</div>
 		<div class="col-4">
-			<input type="button" class="btn btn-primary" onclik="SaveCompany()" value="Save Company Info" />
+			<input type="button" class="btn btn-primary" onclick="SaveCompanyInfo()" value="Save Company Info" />
 		</div>
 	</div>
 	<hr />
@@ -271,8 +271,42 @@
 
 		return errorMsg;
 	}
-</script>
+	function SaveCompanyInfo() {
+		var companyData = {
+     CompanyIdpk : document.getElementById("CompanyIdPk").value, 
+	 companyName: document.getElementById("CompanyName").value,
+	 website: document.getElementById("Website").value,
+	 email: document.getElementById("Email").value,
+	 registrationDate: document.getElementById("RegistrationDateDisplayValue").value,
+	 bankAccountNumber: document.getElementById("BankAccountNumber").value,
+	 phoneNumber: document.getElementById("PhoneNumber").value,
+	 tin: document.getElementById("TIN").value,
+	 pan: document.getElementById("PAN").value,
+		};
 
+		fetch('/company/edit', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(companyData)
+		})
+		.then(response => response.json())
+		.then(data => {
+			debugger;
+			if (data.isSuccess) {
+				alert('Company info saved successfully!');
+				location.href = '/company/view';
+			} else {
+				alert(data.errorMessage || 'Error saving company info.');
+			}
+		})
+		.catch(error => {
+			console.error('Fetch error:', error);
+			alert('Something went wrong.');
+		});
+	}
+</script>
 <style type="text/css">
 	a.link {
 		color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1));

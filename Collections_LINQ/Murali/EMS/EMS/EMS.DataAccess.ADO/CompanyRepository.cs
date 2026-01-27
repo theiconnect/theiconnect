@@ -150,5 +150,44 @@ namespace EMS.DataAccess.ADO
             }
             return false;
         }
+
+        public bool SaveCompanyInfo(CompanyModel companyModel, string userId, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+            using SqlConnection con = new SqlConnection(ConnectionString);
+            try
+            {
+                using SqlCommand cmd = new SqlCommand("usp_SaveCompany", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@CompanyIdPk", companyModel.CompanyIdPk);
+                cmd.Parameters.AddWithValue("@CompanyName", companyModel.CompanyName);
+                cmd.Parameters.AddWithValue("@PhoneNumber", companyModel.PhoneNumber);
+                cmd.Parameters.AddWithValue("@Email", companyModel.Email);
+                cmd.Parameters.AddWithValue("@RegistrationDate", companyModel.RegistrationDate);
+                cmd.Parameters.AddWithValue("@Website", companyModel.Website);
+                cmd.Parameters.AddWithValue("@BankAccountNumber", companyModel.BankAccountNumber);
+                cmd.Parameters.AddWithValue("@TIN", companyModel.TIN);
+                cmd.Parameters.AddWithValue("@PAN", companyModel.PAN);
+                cmd.Parameters.AddWithValue("@UserId", userId);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                return false;
+            }
+            finally
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
     }
 }

@@ -16,11 +16,17 @@ namespace EMS.Services.Implementation
         {
             companyRepository = repository;
         }
+        string errorMessage = string.Empty;
 
         public CompanyModel GetCompanyDetails()
         {
             CompanyModel model = companyRepository.GetCompanyDetails();
             return model;
+        }
+        public bool SaveCompanyInfo(CompanyModel companyModel, string userId, out string errorMessage)
+        {
+               
+            return companyRepository.SaveCompanyInfo(companyModel, "1", out errorMessage);
         }
 
         public bool AddUpdateCompanyAddress(CompanyAddressModel addressModel, string UserId, out string errorMessage)

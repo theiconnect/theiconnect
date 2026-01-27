@@ -6,6 +6,7 @@ namespace EMS.IDataAccess
     {
         CompanyModel GetCompanyDetails();
         bool AddUpdateCompanyAddress(CompanyAddressModel addressModel, string UserId, out string errorMessage);
+        bool SaveCompanyInfo(CompanyModel companyModel, string userId, out string errorMessage);
         bool DeleteCompanyAddress(int id, out string errorMessage);
     }
 }
