@@ -1,15 +1,13 @@
 ﻿using EMS.Models;
-using EMS.Services.Implementation.ADO;
 using EMS.Services.Implementation.TD;
 using Microsoft.AspNetCore.Mvc;
-using EMS.Services;
-using EMS.IServices;
-using EMS.Web.Models;
-using EMS.Services.Implementation;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EMS.Web.Controllers
 {
-    [Route("company")]
+
+   
     public class CompanyController : Controller
     {
         public static string userName = "admin";
@@ -23,11 +21,26 @@ namespace EMS.Web.Controllers
         [Route("modify")]
         [HttpGet]
         public IActionResult EditCompany()
+        //[Route("edit")]
+        public IActionResult EditCompany(int id )
         {
-            CompanyViewModel model = GetCompanyDetails();
+            object CompanyADOService = null;
+            var company = CompanyADOService.GetCompany().FirstOrDefault(c => c.CompanyId == id);
+            if (company == null) return NotFound();
 
+            var model = new CompanyModel()
+            {
+                CompanyIdPk = company.CompanyId,
+                CompanyName = company.CompanyName,
+                PhoneNumber = company.PhoneNumber,
+                Email = company.Email,
+                RegistrationDate = company.RegistrationDate,
+                Website = company.Website,
+                BankAccountNumber = company.BankAccount
+            };
             return View(model);
-        }
+        }   
+          
 
         [Route("view")]
         [Route("details")]
@@ -38,12 +51,7 @@ namespace EMS.Web.Controllers
         {
             CompanyViewModel model = GetCompanyDetails();
 
-            return View(model);
-        }
 
-        private CompanyViewModel GetCompanyDetails()
-        {
-            CompanyModel companyDB = companyservice.GetCompanyDetails();
 
             var companyViewModel = new CompanyViewModel();
             companyViewModel.CompanyIdPk = companyDB.CompanyIdPk;
@@ -107,5 +115,22 @@ namespace EMS.Web.Controllers
             ViewModel.CompanyAddressIdPk = model.CompanyAddressIdPk;
             return ViewModel;
         }
+
+        //[Route("info")]
+        //[Route("")]
+        //[Route("view")]
+        [Route("details")]
+       public  IActionResult ViewCompany() 
+        {
+            return View();
+        }
+
+        //[Route("list")]
+        //public IActionResult CompanyList()
+        //{
+        //    // Replace with real data retrieval (repository/service) as needed.
+        //    IEnumerable<CompanyModel> companies = Enumerable.Empty<CompanyModel>();
+        //    return View(companies);
+        //}
     }
 }

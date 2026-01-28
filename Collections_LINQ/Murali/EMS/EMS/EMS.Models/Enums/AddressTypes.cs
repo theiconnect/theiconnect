@@ -13,9 +13,9 @@ namespace EMS.Models.Enums
         CORP_OFFICE = 1,
         [Description("Branch Office")]
         BRANCH_OFFICE = 2,
-        [Description("Permanent Address")]
-        PERM_ADDR = 3,
         [Description("Present Address")]
-        PRESENT_ADDR = 4
+        PRESENT_ADDR = 3,
+        [Description("Permanent Address")]
+        PERM_ADDR = 4
     }    
 }

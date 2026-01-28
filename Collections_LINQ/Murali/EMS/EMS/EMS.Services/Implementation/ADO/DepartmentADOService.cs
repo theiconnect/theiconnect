@@ -17,7 +17,7 @@ namespace EMS.Services.Implementation.ADO
 	                            IsActive, 
 	                            DeptLocation, 
 	                            CreatedOn,
-	                            ISNULL(LastUpdatedOn, CreatedOn) LastUpdatedOn
+	                            ISNULL(LastUpdatedOn, CreatedOn) as  LastUpdatedOn
                             FROM dbo.Department
                             Order by LastUpdatedOn DESC";
             var departments = new List<DepartmentModel>();
@@ -56,14 +56,14 @@ namespace EMS.Services.Implementation.ADO
             return departments;
         }
 
-        public List<DepartmentModel> GetAllDepartments_QueryWithSearch(string deptName, string deptLocation)
+        public List<DepartmentModel> GetAllDepartments_Query(string deptName, string deptLocation)
         {
             if (string.IsNullOrEmpty(deptName))
                 deptName = "NULL";
             if (string.IsNullOrEmpty(deptLocation))
                 deptLocation = "NULL";
 
-            string queryNotRecommendedDuetoSQLInjection = @"SELECT 
+            string query = @"SELECT 
 		                        DepartmentIdPk, 
 		                        DepartmentCode, 
 		                        DepartmentName, 
@@ -74,10 +74,10 @@ namespace EMS.Services.Implementation.ADO
 	                        FROM dbo.Department
 	                        WHERE 1=1 ";
             if (!string.IsNullOrEmpty(deptName))
-                queryNotRecommendedDuetoSQLInjection += $" AND DepartmentName = '{deptName}'";
+                query += $" AND DepartmentName = '{deptName}'";
             if (!string.IsNullOrEmpty(deptLocation))
-                queryNotRecommendedDuetoSQLInjection += $" AND DeptLocation = '{deptLocation}'";
-            queryNotRecommendedDuetoSQLInjection += " Order by LastUpdatedOn DESC";
+                query += $" AND DeptLocation = '{deptLocation}'";
+            query += " Order by LastUpdatedOn DESC";
 
             string querywithparam = @"SELECT 
 		                                DepartmentIdPk, 
@@ -104,12 +104,12 @@ namespace EMS.Services.Implementation.ADO
             var departments = new List<DepartmentModel>();
 
             using (SqlConnection con = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(querywithparam, con))
+            using (SqlCommand cmd = new SqlCommand(query, con))
                 try
                 {
                     con.Open();
-                    cmd.Parameters.AddWithValue("@deptname", deptName ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@deptLocation", deptLocation ?? (object)DBNull.Value);
+                    //cmd.Parameters.AddWithValue("@deptname", deptName ?? (object)DBNull.Value);
+                    //cmd.Parameters.AddWithValue("@deptLocation", deptLocation ?? (object)DBNull.Value);
                     using (SqlDataReader dataReader = cmd.ExecuteReader())
                         while (dataReader.Read())
                         {
@@ -171,7 +171,7 @@ namespace EMS.Services.Implementation.ADO
                         departments.Add(model);
                     }
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     //Log the error 
                 }
@@ -192,11 +192,8 @@ namespace EMS.Services.Implementation.ADO
 
         public DepartmentModel GetDepartmentById(int departmentId)
         {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
-            try
-            {
-                using SqlCommand command = new SqlCommand("usp_GetDepartmentById", sqlConnection);
-                command.CommandType = CommandType.StoredProcedure;
+            throw new NotImplementedException();
+        }
 
                 command.Parameters.AddWithValue("@DepartmentId", departmentId);
 
@@ -321,6 +318,7 @@ namespace EMS.Services.Implementation.ADO
                 return true;
             else
                 return false;
+            throw new NotImplementedException();
         }
     }
 

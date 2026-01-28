@@ -13,3 +13,4 @@
     [LastUpdatedBy] VARCHAR(512) NULL, 
     [LastUpdatedOn] DATETIME NULL
 );
+

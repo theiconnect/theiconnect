@@ -73,7 +73,7 @@
             <div class="col-4">
                 @Html.HiddenFor(m => m.EmployeeId)
                 <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
-                <input type="submit" class="btn btn-primary" value="save" />
+                <input type="button" class="btn btn-primary" value="save" onclick="debugger; goToAdd();" />
             </div>
         </div>
     </form>
@@ -81,8 +81,7 @@
 
 @* <script type="text/javascript">
     function goToAdd() {
-        console.log('clicked');
-        let employeeId = @Html.Raw(Model.EmployeeId);  
+        let EmployeeId = '@Model.EmployeeId';
         let employeeCode = document.getElementById('Code').value;
         let firstName = document.getElementById('FName').value;
         let lastName = document.getElementById('LName').value;
@@ -95,10 +94,10 @@
         let expInMonths = document.getElementById('EIM').value;
         let salaryCtc = document.getElementById('Salary').value;
         let isActive = document.getElementById('Active').checked;
-        debugger;
+
         let empObj = {
-            EmployeeId: employeeId,
-            Code: employeeCode,
+            EmployeeIdPk: employeeId,
+            Employeecode: employeeCode,
             FirstName: firstName,
             LastName: lastName,
             BloodGroup: bloodGroup,
@@ -123,17 +122,16 @@
         })
         .then(response => response.json())
         .then(data => {
-            debugger;
-            let saveResult = data;
-			if (saveResult.isSuccess) {
-				alert('Employee details saved successfully');
-				location.href = '/Employee/list';
-			} else {
-				alert(saveResult.errorMessage);
-			}
-        })	
-	} 
-</Script>
-
- *@
+            if (data.IsSuccess) {
+                alert('Employee details saved successfully');
+                window.location.href = '/Employee/List';
+            } else {
+                alert(data.errorMessage);
+            }
+            location.href='/Employee/List'
+        })
+        .catch(error => {
+            console.error('Error:',error);
+        });
+    }
 

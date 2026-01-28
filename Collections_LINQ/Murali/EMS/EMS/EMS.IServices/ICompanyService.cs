@@ -9,6 +9,7 @@ namespace EMS.IServices
         bool AddUpdateCompanyAddress(CompanyAddressModel addressModel, string userId, out string errorMessage);
         bool DeleteCompanyAddress(int id, out string errorMessage);
 
+        CompanyModel GetCompany();
     }
 
 }

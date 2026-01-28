@@ -74,7 +74,7 @@
 										   asp-action="ViewDepartment"> @dept.Code </a>
 									</td>
 									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'> @dept.DeptName </td>
-									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@dept.Location </td>
+									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@(string.IsNullOrEmpty(dept.Location) ? "NA" : dept.Location) </td>
 									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@(dept.IsActive ? "Yes" : "No") </td>
 									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>
 

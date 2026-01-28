@@ -61,10 +61,10 @@
     <Folder Include="Tables\" />
     <Folder Include="Views\" />
     <Folder Include="Stored Procedures\" />
-    <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Department.sql" />
+    <Build Include="Tables\TEST.sql" />
     <Build Include="Stored Procedures\usp_GetAllDepartments.sql" />
     <Build Include="Stored Procedures\usp_ManageDepartment.sql" />
     <Build Include="Stored Procedures\usp_GetDepartmentById.sql" />

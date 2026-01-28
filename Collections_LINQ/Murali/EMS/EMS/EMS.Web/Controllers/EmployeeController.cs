@@ -4,7 +4,12 @@ using EMS.Models.Enums;
 using EMS.Services.Implementation;
 using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
+using EMS.Web.Models.Enums;
+using Google.Apis.Admin.Directory.directory_v1.Data;
+using Intuit.Ipp.Data;
 using Microsoft.AspNetCore.Mvc;
+
+
 
 namespace EMS.Web.Controllers
 {
@@ -166,6 +171,28 @@ namespace EMS.Web.Controllers
 
             bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, userName, out string responseMessage);
             return RedirectToAction("list");
+        [Route("Employee/UpdateSaveEmployee")]
+        public IActionResult UpdateSaveEmployee([FromBody] EmployeeViewModel updateModel)
+        {
+            EmployeeModel employeeModel = new EmployeeModel
+            {
+                EmployeeIdPk = updateModel.EmployeeId,
+                Employeecode = updateModel.Code,
+                FirstName = updateModel.FirstName,
+                LastName = updateModel.LastName,
+                BloodGroup = (BloodGroups)updateModel.BloodGroup,
+                Gender = updateModel.Gender,
+                EmailId = updateModel.EmailId,
+                MobileNumber = updateModel.MobileNumber,
+                DateOfBirth = updateModel.DateOfBirth,
+                DateOfJoining = updateModel.DateOfJoining,
+                ExpInMonths = updateModel.ExpInMonths,
+                SalaryCtc = updateModel.SalaryCtc,
+                IsActive = updateModel.IsActive
+            };
+            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, out string responseMessage
+               );
+            return Json(new { IsSuccess = isSuccess, errorMessage = responseMessage });
         }
 
         [Route("viewemployee/{id}")]
@@ -228,6 +255,8 @@ namespace EMS.Web.Controllers
 
 
 
+    }
+}
 
 /*
 // ==============================================
