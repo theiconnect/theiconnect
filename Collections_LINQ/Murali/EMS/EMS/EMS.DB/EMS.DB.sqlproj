@@ -61,7 +61,7 @@
     <Folder Include="Tables\" />
     <Folder Include="Views\" />
     <Folder Include="Stored Procedures\" />
-    <Folder Include="Scripts" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Department.sql" />
