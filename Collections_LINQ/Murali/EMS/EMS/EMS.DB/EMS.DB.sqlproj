@@ -68,5 +68,27 @@
     <Build Include="Stored Procedures\usp_GetAllDepartments.sql" />
     <Build Include="Stored Procedures\usp_ManageDepartment.sql" />
     <Build Include="Stored Procedures\usp_GetDepartmentById.sql" />
+    <Build Include="Tables\Company.sql" />
+    <Build Include="Tables\CompanyAddress.sql" />
+    <Build Include="Tables\AddressType.sql" />
+    <Build Include="Stored Procedures\usp_AddUpdateCompanyAddress.sql" />
+    <Build Include="Stored Procedures\usp_DeleteCompanyAddress.sql" />
+    <Build Include="Stored Procedures\usp_GetAllEmployees.sql" />
+    <Build Include="Tables\Employee.sql" />
+    <Build Include="Stored Procedures\usp_ManageEmployee.sql" />
+    <Build Include="Stored Procedures\usp_DeleteEmployee.sql" />
+    <Build Include="Tables\EmployeeAddress.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="EMS.DB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Stored Procedures\usp_GetCompanyDetails.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\EMS.PostDeploymentScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EMS.DB.publish.xml" />
   </ItemGroup>
 </Project>

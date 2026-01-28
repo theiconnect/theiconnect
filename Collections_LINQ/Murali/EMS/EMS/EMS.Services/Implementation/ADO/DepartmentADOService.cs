@@ -232,6 +232,92 @@ namespace EMS.Services.Implementation.ADO
 
         public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage)
         {
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            try
+            {
+                using SqlCommand command = new SqlCommand("usp_ManageDepartment", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                if (isNewDepartment)
+                    command.Parameters.AddWithValue("@ActionType", "ADD");
+                else
+                    command.Parameters.AddWithValue("@ActionType", "UPDATE");
+
+                command.Parameters.AddWithValue("@DepartmentIdPk", inputDepartment.DepartmentIdPk);
+                command.Parameters.AddWithValue("@DepartmentCode", inputDepartment.DepartmentCode);
+                command.Parameters.AddWithValue("@DepartmentName", inputDepartment.DepartmentName);
+                command.Parameters.AddWithValue("@DeptLocation", inputDepartment.Location);
+                command.Parameters.AddWithValue("@IsActive", inputDepartment.IsActive);
+                command.Parameters.AddWithValue("@UserName", userName);
+                SqlParameter outputParam = new("@OutputMessage", SqlDbType.NVarChar, 500)
+                {
+                    Direction = ParameterDirection.Output,
+                };
+                command.Parameters.Add(outputParam);
+
+                sqlConnection.Open();
+                command.ExecuteNonQuery();
+
+                responseMessage = Convert.ToString(outputParam.Value);
+            }
+            catch (Exception ex)
+            {
+                responseMessage = "Error: " + ex.Message;
+                return false;
+            }
+            finally
+            {
+                //Any cleanup code
+                if (sqlConnection.State == ConnectionState.Open)
+                    sqlConnection.Close();
+            }
+            if (responseMessage.ToLower() == "success")
+                return true;
+            else
+                return false;
+
+        }
+
+        public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName,out string responseMessage)
+        {
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            try
+            {
+                using SqlCommand command = new SqlCommand("usp_ManageDepartment", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                if (isDeactivate)
+                    command.Parameters.AddWithValue("@ActionType", "DELETE");
+                else
+                    command.Parameters.AddWithValue("@ActionType", "ACTIVATE");
+
+                command.Parameters.AddWithValue("@DepartmentIdPk", departmentId);
+                command.Parameters.AddWithValue("@UserName", userName);
+                SqlParameter outputParam = new("@OutputMessage", SqlDbType.NVarChar, 500)
+                {
+                    Direction = ParameterDirection.Output,
+                };
+                command.Parameters.Add(outputParam);
+
+                sqlConnection.Open();
+                command.ExecuteNonQuery();
+
+                responseMessage = Convert.ToString(outputParam.Value);
+            }
+            catch (Exception ex)
+            {
+                responseMessage = "Error: " + ex.Message;
+                return false;
+            }
+            finally
+            {
+                //Any cleanup code
+                if (sqlConnection.State == ConnectionState.Open)
+                    sqlConnection.Close();
+            }
+
+            if (responseMessage.ToLower() == "success")
+                return true;
+            else
+                return false;
             throw new NotImplementedException();
         }
     }

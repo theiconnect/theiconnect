@@ -22,6 +22,24 @@ builder.Services.AddScoped<IEmployeeService, EmployeeTDServices>();
 //builder.Services.AddTransient<EMS.Services.CompanyService>();
 //builder.Services.AddSingleton<EMS.Services.CompanyService>();
 
+
+
+
+
+builder.Services.AddScoped<IEmployeeRepository>(provider =>
+{
+    return new EmployeeRepository(EMSDBconnectionString);
+});
+
+builder.Services.AddScoped<IEmployeeService>(provider =>
+{
+    var employeeRepository = provider.GetRequiredService<IEmployeeRepository>();
+    return new EmployeeService(employeeRepository);
+});
+
+
+
+
 //=======================================================================
 //Middle ware - Request pipeline configuration
 var app = builder.Build();

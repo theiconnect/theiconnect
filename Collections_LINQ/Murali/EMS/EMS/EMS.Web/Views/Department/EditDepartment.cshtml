@@ -46,7 +46,7 @@
 
 <script>
 	function goToAdd() {
-		let departmentId = @Model.DepartmentId;  
+		let departmentId = @Html.Raw(Model.DepartmentId);  
 		let deptcode = document.getElementById('Code').value;
 		let deptname = document.getElementById('DeptName').value;
 		let deptLocation = document.getElementById('Location').value;

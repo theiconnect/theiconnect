@@ -20,12 +20,16 @@ namespace EMS.Models
         //1d=> m employees
         public DateTime DateOfBirth { get; set; }
         public DateTime DateOfJoining { get; set; }
-        public int ExpInMonths { get; set; } = 0;//default value will be zero
+        public int ExpInMonths { get; set; } //default value will be zero
         public int? QualificationIdFk { get; set; }
         public DesiginationTypes DesignationIdFk { get; set; }
         public decimal? SalaryCtc { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime? LWD { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public string LastUpdatedBy { get; set; }
+        public DateTime? LastUpdatedOn { get; set; }
 
         public List<EmployeeAddressModel> Addresses { get; set; } = new List<EmployeeAddressModel>();
         public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>();

@@ -19,5 +19,14 @@ namespace EMS.Services.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public bool AddUpdateCompanyAddress(CompanyAddressModel addressModel, string UserId, out string errorMessage)
+        {
+            return companyRepository.AddUpdateCompanyAddress(addressModel, UserId, out errorMessage);
+        }
+        public bool DeleteCompanyAddress(int id, out string errorMessage)
+        {
+            return companyRepository.DeleteCompanyAddress(id, out errorMessage);
+        }
     }
 }

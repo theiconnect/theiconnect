@@ -13,7 +13,6 @@ namespace EMS.Web.Models
         public EmployeeViewModel()
         {
         }
-
         public EmployeeViewModel(int employeeIdPk, string employeecode, string firstName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
         {
             EmployeeId = employeeIdPk;
@@ -30,13 +29,13 @@ namespace EMS.Web.Models
             SalaryCtc = salaryCtc;
             IsActive = isActive;
         }
-
+      
         public int EmployeeId { get; set; }
-        public string? Code { get; set; }
+        public string Code { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public BloodGroups? BloodGroup { get; set; }
-        public Genders Gender { get; set; }
+        public int BloodGroup { get; set; }
+        public int Gender { get; set; }
         public string? EmailId { get; set; }
         public string? MobileNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -53,7 +52,10 @@ namespace EMS.Web.Models
         [DisplayName("Is Active")]
         public bool IsActive { get; set; } = true;
 
-        public List<EmployeeAddressViewModel> Addresses { get; set; } = new List<EmployeeAddressViewModel>();
+        public EmployeeAddressViewModel PresentAddress { get; set; }
+        public EmployeeAddressViewModel PermanentAddress { get; set; }
+
+        
     }
 }
 

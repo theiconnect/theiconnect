@@ -59,6 +59,6 @@ GO
 
 IF NOT EXISTS (SELECT * FROM dbo.CompanyAddress WHERE AddressTypeIdFk = 1)
 BEGIN
-	INSERT INTO dbo.CompanyAddress(CompanyIdFk, AddressTypeIdFk, AddressLine1, AddressLine2, City, [State], PinCode)
-	VALUES(1, 1, '123 Corporate Blvd', 'Suite 100', 'Metropolis', 'Stateville', '12345');
+	INSERT INTO dbo.CompanyAddress(CompanyIdFk, AddressTypeIdFk, AddressLine1, AddressLine2, City, [State], PinCode, CreatedBy, CreatedOn)
+	VALUES(1, 1, '123 Corporate Blvd', 'Suite 100', 'Metropolis', 'Stateville', '12345', 'System', GETDATE())
 END
