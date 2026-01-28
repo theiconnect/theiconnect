@@ -20,3 +20,4 @@ namespace EMS.Models
         public int CompanyIdFk { get; set; }
     }
 }
+

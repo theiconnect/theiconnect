@@ -1,8 +1,9 @@
+using EMS.DataAccess.ADO;
+using EMS.IDataAccess;
 using EMS.IServices;
 using EMS.Services.Implementation;
-using EMS.IDataAccess;
-using EMS.DataAccess.ADO;
 using Microsoft.DotNet.Scaffolding.Shared;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,24 @@ builder.Services.AddScoped<ICompanyService>(provider =>
     var companyRepository = provider.GetRequiredService<ICompanyRepository>();
     return new CompanyService(companyRepository);
 });
+
+
+
+
+
+builder.Services.AddScoped<IEmployeeRepository>(provider =>
+{
+    return new EmployeeRepository(EMSDBconnectionString);
+});
+
+builder.Services.AddScoped<IEmployeeService>(provider =>
+{
+    var employeeRepository = provider.GetRequiredService<IEmployeeRepository>();
+    return new EmployeeService(employeeRepository);
+});
+
+
+
 
 //=======================================================================
 //Middle ware - Request pipeline configuration

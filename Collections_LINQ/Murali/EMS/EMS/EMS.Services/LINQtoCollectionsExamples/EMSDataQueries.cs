@@ -74,13 +74,13 @@ namespace EMS.Services.LINQtoCollectionsExamples
         }
 
         // 8. Get the count of employees per blood group
-        public static Dictionary<Models.Enums.BloodGroups, int> GetEmployeeCountByBloodGroup()
-        {
-            var db = EMSDbContext.GetInstance();
-            return db.Employees
-                .GroupBy(e => e.BloodGroup)
-                .ToDictionary(g => g.Key, g => g.Count());
-        }
+        //public static Dictionary<Models.Enums.BloodGroups, int> GetEmployeeCountByBloodGroup()
+        //{
+        //    var db = EMSDbContext.GetInstance();
+        //    return db.Employees
+        //        .GroupBy(e => e.BloodGroup)
+        //        .ToDictionary(g => g.Key, g => g.Count());
+        //}
 
         // 9. Get all employees who joined after a certain date, ordered by joining date
         public static List<EmployeeModel> GetEmployeesJoinedAfter(DateTime date)
