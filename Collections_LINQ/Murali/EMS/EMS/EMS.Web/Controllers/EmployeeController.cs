@@ -173,22 +173,7 @@ namespace EMS.Web.Controllers
         {
             var empDB = employeeServices.GetAllEmployees()
                                           .FirstOrDefault(e => e.EmployeeIdPk == id);
-            var model = new EmployeeViewModel(
-                empDB.EmployeeIdPk,
-                empDB.Employeecode,
-                empDB.FirstName,
-                empDB.LastName,
-                (int)empDB.BloodGroup,
-                (int)empDB.Gender,
-                empDB.EmailId,
-                empDB.MobileNumber,
-                empDB.DateOfBirth,
-                empDB.DateOfJoining,
-                empDB.ExpInMonths,
-                empDB.SalaryCtc,
-                empDB.IsActive
-
-            );
+            
             return View(model);
 
         }

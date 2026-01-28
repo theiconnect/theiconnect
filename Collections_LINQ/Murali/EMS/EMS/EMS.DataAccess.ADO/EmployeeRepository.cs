@@ -38,9 +38,9 @@ namespace EMS.DataAccess.ADO
                     model.Employeecode = Convert.ToString(reader["EmployeeCode"]);
                     model.FirstName = Convert.ToString(reader["FirstName"]);
                     model.LastName = Convert.ToString(reader["LastName"]);
-                    model.BloodGroup = (BloodGroups)Convert.ToInt32(reader["BloodGroup"]);
+                    model.BloodGroup = (BloodGroups)Convert.ToInt32(reader["BloodGroupIdFk"]);
                     model.MobileNumber = Convert.ToString(reader["MobileNumber"]);
-                    model.Gender = (Genders)Convert.ToInt32(reader["Gender"]);
+                    model.Gender = (Genders)Convert.ToInt32(reader["GenderIdFk"]);
                     model.EmailId = Convert.ToString(reader["EmailId"]);
                     model.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
                     model.DateOfJoining = Convert.ToDateTime(reader["DateOfJoining"]);
