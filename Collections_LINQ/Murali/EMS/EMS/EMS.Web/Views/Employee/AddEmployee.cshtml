@@ -113,7 +113,7 @@
                     <h5 class="mb-0">2. Employment & Compensation</h5>
                 </div>
 
-                @* <div class="card-body">
+                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="DepartmentIdFk" class="form-label">Department <span class="text-danger">*</span></label>
@@ -165,7 +165,7 @@
                         <div class="col-md-4">
                             <label for="LWD" class="form-label">Last Working Day (if applicable)</label>
                             <input asp-for="LWD" class="form-control" id="LWD" name="LWD" type="date" />
-                        </div> *@
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -239,7 +239,7 @@
                     <div class="col-3"></div>
                     <div class="col-9">
                         <button type="reset" class="btn btn-outline-secondary me-2">Reset Form</button>
-                        <button type="submit" class="btn btn-primary" asp-controller="Employee" asp-action="EmployeeList" onclick="SaveEmployees();">Save Employee</button>
+                        <button type="button" class="btn btn-primary"  onclick="debugger;SaveEmployees();">Save Employee</button>
                         <button onclick="display()" type="button" class="btn btn-primary">Cancel</button>
                     </div>
                
@@ -252,53 +252,53 @@
       <script>
 
         function SaveEmployees(){
-        let firstName = document.getElementById('FirstName');
-        let LastName = document.getElementById('LastName');
-        let middleName = document.getElementById('MiddleName');
-        let gender = document.getElementById('Gender');
-        let BloodGroup = document.getElementById('BloodGroup');
-        let Mobile = document.getElementById('Mobile');
-        let AlternateMobile = document.getElementById('AlternateMobile');
-        let WorkEmail = document.getElementById('EmailId');
-        let PersonalEmail = document.getElementById('PersonalEmailId');
-        let DateOfBirth = document.getElementById('DateOfBirth');
+        let firstName = document.getElementById('FirstName').value;
+        let LastName = document.getElementById('LastName').value;
+        let middleName = document.getElementById('MiddleName').value;
+        let gender = document.getElementById('Gender').value;
+        let BloodGroup = document.getElementById('BloodGroup').value;
+        let Mobile = document.getElementById('Mobile').value;
+        let AlternateMobile = document.getElementById('AlternateMobile').value;
+        let WorkEmail = document.getElementById('EmailId').value;
+        let PersonalEmail = document.getElementById('PersonalEmailId').value;
+        let DateOfBirth = document.getElementById('DateOfBirth').value;
     
-        let DateOfJoining = document.getElementById('DateOfJoining');
+        let DateOfJoining = document.getElementById('DateOfJoining').value;
     
-        let ExperienceInMonths = document.getElementById('ExpInMonths');
+        let ExperienceInMonths = document.getElementById('ExpInMonths').value;
     
-        let DepartmentIdFk = document.getElementById('DepartmentIdFk');
+        let DepartmentIdFk = document.getElementById('DepartmentIdFk').value;
     
-        let QualificationIdFk = document.getElementById('QualificationIdFk');
+        let QualificationIdFk = document.getElementById('QualificationIdFk').value;
     
-        let DesignationIdFk = document.getElementById('DesignationIdFk');
+        let DesignationIdFk = document.getElementById('DesignationIdFk').value;
     
-        let SalaryCtc = document.getElementById('SalaryCtc');
+        let SalaryCtc = document.getElementById('SalaryCtc').value;
     
-        let IsActive = document.getElementById('IsActive');
+        let IsActive = document.getElementById('IsActive').value;
 
-        let LWD = document.getElementById('LWD');
+        let LWD = document.getElementById('LWD').value;
 
         let empObj = {
       
-            FirstName: firstName.value,
-            LastName: LastName.value,
-            MiddleName: middleName.value,
-            Gender:gender.value,
-            BloodGroup: BloodGroup.value,
-            MobileNumber: Mobile.value,
-            AlternateMobileNumber: AlternateMobile.value,
-            EmailId: WorkEmail.value,
-            PersonalEmailId: PersonalEmail.value,
-            DateOfBirth: DateOfBirth.value,
-            DateOfJoining: DateOfJoining.value,
-            ExpInMonths: ExperienceInMonths.value,
-            DepartmentIdFk: DepartmentIdFk.value,
-            QualificationIdFk: QualificationIdFk.value,
-            DesignationIdFk: DesignationIdFk.value,
+            FirstName: firstName,
+            LastName: LastName,
+          
+            Gender:gender,
+            BloodGroup: BloodGroup,
+            MobileNumber: Mobile,
+            AlternateMobileNumber: AlternateMobile,
+            EmailId: WorkEmail,
+            PersonalEmailId: PersonalEmail,
+            DateOfBirth: DateOfBirth,
+            DateOfJoining: DateOfJoining,
+            ExpInMonths: ExperienceInMonths,
+            
+            
+            
             SalaryCtc: SalaryCtc.value,
             IsActive: IsActive.checked,
-            LWD: LWD.value
+            
         };
 
         fetch('/Employee/SaveEmployees', {
@@ -308,21 +308,21 @@
                 'Content-Type': 'application/json' // Inform the server we're sending JSON
             }
         })
-            .then(response => response.json())
-            .then(data => {
+        .then(response => response.json())
+        .then(data => {
                 let saveResult = data;
                 if (saveResult.isSuccess) {
                     alert('Employee details saved successfully');
                 } else {
                     alert('Failed to save employee details: ' + saveResult.errorMessage);
-            }
-            })
+                  }
+        })
             .catch(error => {
                 console.error('Error:', error);
         });
         alert("Employee Added Successfully");
 
-          }
+        }
         // (function () {
         //     'use strict';
         //     const forms = document.querySelectorAll('.needs-validation');

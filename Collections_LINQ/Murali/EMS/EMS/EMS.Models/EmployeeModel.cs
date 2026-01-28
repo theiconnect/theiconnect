@@ -29,5 +29,7 @@ namespace EMS.Models
 
         public List<EmployeeAddressModel> Addresses { get; set; } = new List<EmployeeAddressModel>();
         public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>();
+
+        
     }
 }

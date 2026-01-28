@@ -52,6 +52,18 @@ namespace EMS.Web.Models
         public bool IsActive { get; set; } = true;
 
         public List<EmployeeAddressViewModel> Addresses { get; set; } = new List<EmployeeAddressViewModel>();
+
+        // Add this property to fix CS1061
+        public int? QualificationIdFk { get; set; }
+
+        // Add this property to fix CS1061
+        public string? DesignationIdFk { get; set; }
+        public int  DepartmentIdFk { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Last Working Day (if applicable).
+        /// </summary>
+        public DateTime? LWD { get; set; }
     }
 }
 
