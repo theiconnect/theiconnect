@@ -1,7 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[usp_GetEmployeeDetails]
+﻿CREATE PROCEDURE [dbo].[usp_GetAllEmployees]
 AS
-begin
-	select 
+BEGIN
+	SELECT 
           EmployeeIdPk,
           EmployeeCode,
           FirstName,
@@ -15,7 +15,7 @@ begin
           IsActive,
           ExpInMonths,
           SalaryCtc
-    FROM [dbo].[Employee]
-end 
+    FROM [dbo].[Employee] 
+END 
 
 

@@ -12,17 +12,15 @@
     </script>
 }
 
-
-
 <div class="container">
-	<h2>Add Employee</h2>
-	<hr />
-	<form asp-action="saveemployee" asp-controller="Employee">
-		<div class="row">
-			<div class="form-group col-3">
-				<label class="control-label fw-bold">Employee Code:</label>
-				<input asp-for="Code" class="form-control" />
-			</div>
+    <h2>Add Employee</h2>
+    <hr />
+    <form asp-action="saveemployee" asp-controller="Employee">
+        <div class="row">
+            <div class="form-group col-3">
+                <label class="control-label fw-bold">Employee Code:</label>
+                <input asp-for="Code" class="form-control " disabled />
+            </div>
 
             <div class="form-group col-3">
                 <label class="control-label fw-bold">First Name:</label>
@@ -34,11 +32,29 @@
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">Blood Group:</label>
-                <input asp-for="BloodGroup" class="form-control" />
+                <select asp-for="BloodGroup" class="form-control">
+                <option value="">Select</option>
+                <option  value="O_Positive ">O+ Positive</option>
+                <option  value="O_Negative ">O- Negative</option>
+                <option  value="A_Positive ">A+ Positive</option>
+                <option  value="A_Negative ">A- Negative</option>
+                <option  value="B_Positive ">B+ Positive</option>
+                <option  value="B_Negative ">B- Negative</option>
+                <option  value="AB_Positive">AB+ Positive</option>
+                <option  value="AB_Negative">AB- Negative</option>
+                </select>
+
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">Gender:</label>
-                <input asp-for="Gender" class="form-control" />
+                <select asp-for="Gender" class="form-control">
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Others</option>
+                <option value="Not_Specified">Not Specified</option>
+                </select>
+
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">EmailId:</label>
@@ -46,29 +62,82 @@
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">Mobile Number:</label>
-                <input asp-for="MobileNumber" class="form-control" />
+                <input type="number" asp-for="MobileNumber" class="form-control" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">Date Of Birth:</label>
-                <input asp-for="DateOfBirth" class="form-control" />
+                <input type="date" asp-for="DateOfBirth" class="form-control" />
             </div>
             <div class="form-group col-5">
                 <label class="control-label fw-bold">date Of Joining:</label>
-                <input asp-for="DateOfJoining" class="form-control" />
+                <input type="date" asp-for="DateOfJoining" class="form-control" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">ExpInMonths:</label>
-                <input asp-for="ExpInMonths" class="form-control" />
+                <input type="number" asp-for="ExpInMonths" class="form-control" />
             </div>
             <div class="form-group col-3">
                 <label class="control-label fw-bold">SalaryCtc:</label>
-                <input asp-for="SalaryCtc" class="form-control" />
+                <input type="number" asp-for="SalaryCtc" class="form-control" />
             </div>
             <div class="form-check col-3">
                 <input class="form-check-input" asp-for="IsActive">
                 <label class="form-check-label" for="flexCheckDefault">
                     Active
                 </label>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-5 m-2">
+                <div class="form-group col-3">
+                    <h2>Present Address:</h2>
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">AddressLine1:</label>
+                    <input asp-for="PresentAddress.AddressLine1" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">AddressLine2:</label>
+                    <input asp-for="PresentAddress.AddressLine2" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">City:</label>
+                    <input asp-for="PresentAddress.City" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">State:</label>
+                    <input asp-for="PresentAddress.State" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">Pincode:</label>
+                    <input asp-for="PresentAddress.Pincode" class="form-control" />
+                </div>
+            </div>
+            <div class="col-5 m-2">
+                <div class="form-group col-5">
+                    <h2>Permanant Address:</h2>
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">AddressLine1:</label>
+                    <input asp-for="PermanentAddress.AddressLine1" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">AddressLine2:</label>
+                    <input asp-for="PermanentAddress.AddressLine2" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">City:</label>
+                    <input asp-for="PermanentAddress.City" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">State:</label>
+                    <input asp-for="PermanentAddress.State" class="form-control" />
+                </div>
+                <div class="form-group col-5">
+                    <label class="control-label fw-bold">Pincode:</label>
+                    <input asp-for="PermanentAddress.Pincode" class="form-control" />
+                </div>
             </div>
         </div>
         <hr />

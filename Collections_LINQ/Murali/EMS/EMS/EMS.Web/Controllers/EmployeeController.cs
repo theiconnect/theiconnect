@@ -28,7 +28,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult EmployeeList()
         {
-            var employeesFromDB = employeeServices.GetEmployeeDetails();
+            var employeesFromDB = employeeServices.GetAllEmployees();
 
             var EmployeeModel = new List<EmployeeListViewModel>();
 
@@ -59,7 +59,7 @@ namespace EMS.Web.Controllers
         public IActionResult SaveEmployee(EmployeeViewModel viewModel)
         {
             string userName = User.Identity?.Name ?? "Admin";
-            EmployeeModel EmployeeModel = new EmployeeModel
+            EmployeeModel model = new EmployeeModel
             {
                 Employeecode = viewModel.Code,
                 FirstName = viewModel.FirstName,
@@ -72,10 +72,33 @@ namespace EMS.Web.Controllers
                 DateOfJoining = viewModel.DateOfJoining,
                 ExpInMonths = viewModel.ExpInMonths,
                 SalaryCtc = viewModel.SalaryCtc,
-                IsActive = viewModel.IsActive
+                IsActive = viewModel.IsActive//should be active by default
             };
 
-            bool isSuccess = employeeServices.SaveEmployee(EmployeeModel, true, userName, out string message);
+            //add permanent address from view model to address model
+            EmployeeAddressModel employeeAddress = new EmployeeAddressModel();
+
+            employeeAddress.AddressLine1 = viewModel.PermanentAddress.AddressLine1;
+            employeeAddress.AddressLine2 = viewModel.PermanentAddress.AddressLine2;
+            employeeAddress.City = viewModel.PermanentAddress.City;
+            employeeAddress.State = viewModel.PermanentAddress.State;
+            employeeAddress.Pincode = viewModel.PermanentAddress.Pincode;
+            employeeAddress.AddressTypeIdFk = AddressTypes.PERM_ADDR;
+
+            model.Addresses.Add(employeeAddress);
+
+            //add present address to the model
+            employeeAddress = new EmployeeAddressModel();
+
+            employeeAddress.AddressLine1 = viewModel.PresentAddress.AddressLine1;
+            employeeAddress.AddressLine2 = viewModel.PresentAddress.AddressLine2;
+            employeeAddress.City = viewModel.PresentAddress.City;
+            employeeAddress.State = viewModel.PresentAddress.State;
+            employeeAddress.Pincode = viewModel.PresentAddress.Pincode;
+            employeeAddress.AddressTypeIdFk = AddressTypes.PRESENT_ADDR;
+            model.Addresses.Add(employeeAddress);
+
+            bool isSuccess = employeeServices.SaveEmployee(model, true, userName, out string message);
 
             if (isSuccess)
             {
@@ -94,7 +117,7 @@ namespace EMS.Web.Controllers
         public IActionResult EditEmployee(int employeeid)
         {
             var empDB = employeeServices
-                .GetEmployeeDetails()
+                .GetAllEmployees()
                 .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
 
             if (empDB == null)
@@ -148,7 +171,7 @@ namespace EMS.Web.Controllers
         [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee(int id)
         {
-            var empDB = employeeServices.GetEmployeeDetails()
+            var empDB = employeeServices.GetAllEmployees()
                                           .FirstOrDefault(e => e.EmployeeIdPk == id);
             var model = new EmployeeViewModel(
                 empDB.EmployeeIdPk,

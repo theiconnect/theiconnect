@@ -51,7 +51,10 @@ namespace EMS.Web.Models
         [DisplayName("Is Active")]
         public bool IsActive { get; set; } = true;
 
-        public List<EmployeeAddressViewModel> Addresses { get; set; } = new List<EmployeeAddressViewModel>();
+        public EmployeeAddressViewModel PresentAddress { get; set; }
+        public EmployeeAddressViewModel PermanentAddress { get; set; }
+
+        
     }
 }
 

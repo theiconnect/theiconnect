@@ -13,22 +13,22 @@ using System.Threading.Tasks;
 namespace EMS.DataAccess.ADO
 {
     public class EmployeeRepository : IEmployeeRepository
-    {                                                                                      
+    {
         private static string ConnectionString { get; set; }
         public EmployeeRepository(string _ConnectionString)
         {
             ConnectionString = _ConnectionString;
         }
-        public List<EmployeeModel> GetEmployeeDetails()
+        public List<EmployeeModel> GetAllEmployees()
         {
             List<EmployeeModel> employees = new List<EmployeeModel>();
             using SqlConnection con = new SqlConnection(ConnectionString);
             try
             {
                 con.Open();
-                using SqlCommand cmd = new SqlCommand("usp_GetEmployeeDetails", con);
+                using SqlCommand cmd = new SqlCommand("usp_GetAllEmployees", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                
+
 
                 using SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -38,7 +38,7 @@ namespace EMS.DataAccess.ADO
                     model.Employeecode = Convert.ToString(reader["EmployeeCode"]);
                     model.FirstName = Convert.ToString(reader["FirstName"]);
                     model.LastName = Convert.ToString(reader["LastName"]);
-                    model.BloodGroup= (BloodGroups)Convert.ToInt32(reader["BloodGroup"]);
+                    model.BloodGroup = (BloodGroups)Convert.ToInt32(reader["BloodGroup"]);
                     model.MobileNumber = Convert.ToString(reader["MobileNumber"]);
                     model.Gender = (Genders)Convert.ToInt32(reader["Gender"]);
                     model.EmailId = Convert.ToString(reader["EmailId"]);
@@ -62,7 +62,7 @@ namespace EMS.DataAccess.ADO
             return employees;
         }
 
-        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
+        public bool SaveEmployee(EmployeeModel model, bool isNewEmployee, string userName, out string responseMessage)
         {
             using SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             try
@@ -74,20 +74,36 @@ namespace EMS.DataAccess.ADO
                 else
                     command.Parameters.AddWithValue("@ActionType", "UPDATE");
 
-                command.Parameters.AddWithValue("@EmployeeIdPk", inputEmployee.EmployeeIdPk);
-                command.Parameters.AddWithValue("@EmployeeCode", inputEmployee.Employeecode);
-                command.Parameters.AddWithValue("@FirstName", inputEmployee.FirstName);
-                command.Parameters.AddWithValue("@LastName", inputEmployee.LastName);
-                command.Parameters.AddWithValue("@BloodGroup",inputEmployee.BloodGroup);
-                command.Parameters.AddWithValue("@MobileNumber", inputEmployee.MobileNumber);
-                command.Parameters.AddWithValue("@Gender", inputEmployee.Gender);
-                command.Parameters.AddWithValue("@EmailId", inputEmployee.EmailId);
-                command.Parameters.AddWithValue("@DateOfBirth", inputEmployee.DateOfBirth);
-                command.Parameters.AddWithValue("@DateOfJoining", inputEmployee.DateOfJoining);
-                command.Parameters.AddWithValue("@ExpInMonths", inputEmployee.ExpInMonths);
-                command.Parameters.AddWithValue("@SalaryCtc", inputEmployee.SalaryCtc);
-                command.Parameters.AddWithValue("@IsActive", inputEmployee.IsActive);
+                command.Parameters.AddWithValue("@EmployeeIdPk", model.EmployeeIdPk);
+                command.Parameters.AddWithValue("@EmployeeCode", model.Employeecode);
+                command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                command.Parameters.AddWithValue("@LastName", model.LastName);
+                command.Parameters.AddWithValue("@BloodGroup", model.BloodGroup);
+                command.Parameters.AddWithValue("@MobileNumber", model.MobileNumber);
+                command.Parameters.AddWithValue("@Gender", model.Gender);
+                command.Parameters.AddWithValue("@EmailId", model.EmailId);
+                command.Parameters.AddWithValue("@DateOfBirth", model.DateOfBirth);
+                command.Parameters.AddWithValue("@DateOfJoining", model.DateOfJoining);
+                command.Parameters.AddWithValue("@ExpInMonths", model.ExpInMonths);
+                command.Parameters.AddWithValue("@SalaryCtc", model.SalaryCtc);
+                command.Parameters.AddWithValue("@IsActive", model.IsActive);
                 command.Parameters.AddWithValue("@UserName", userName);
+
+                var permAddr = model.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR);
+                var presAddr = model.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PRESENT_ADDR);
+                
+                command.Parameters.AddWithValue("@PERM_AddressLine1", permAddr.AddressLine1);
+                command.Parameters.AddWithValue("@PERM_AddressLine2", permAddr.AddressLine2);
+                command.Parameters.AddWithValue("@PERM_City", permAddr.City);
+                command.Parameters.AddWithValue("@PERM_State", permAddr.State);
+                command.Parameters.AddWithValue("@PERM_PIN", permAddr.Pincode);
+
+                command.Parameters.AddWithValue("@Pres_AddressLine1", presAddr.AddressLine1);
+                command.Parameters.AddWithValue("@Pres_AddressLine2", presAddr.AddressLine2);
+                command.Parameters.AddWithValue("@Pres_City", presAddr.City);
+                command.Parameters.AddWithValue("@Pres_State", presAddr.State);
+                command.Parameters.AddWithValue("@Pres_PIN", presAddr.Pincode);
+
                 SqlParameter outputParam = new("@OutputMessage", SqlDbType.NVarChar, 500)
                 {
                     Direction = ParameterDirection.Output,
@@ -118,7 +134,7 @@ namespace EMS.DataAccess.ADO
 
 
 
-        public bool ActivateDeactivateEmployee(int EmployeeId,bool isDeactivate,String userName,out string responseMessage)
+        public bool ActivateDeactivateEmployee(int EmployeeId, bool isDeactivate, String userName, out string responseMessage)
         {
             using SqlConnection sqlconnection = new SqlConnection(ConnectionString);
             try
@@ -140,7 +156,7 @@ namespace EMS.DataAccess.ADO
                 command.ExecuteNonQuery();
                 responseMessage = Convert.ToString(outputParam.Value);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 responseMessage = "Error:" + ex.Message;
                 return false;
@@ -154,7 +170,7 @@ namespace EMS.DataAccess.ADO
                 return true;
             else
                 return false;
-        } 
+        }
     }
 }
 
