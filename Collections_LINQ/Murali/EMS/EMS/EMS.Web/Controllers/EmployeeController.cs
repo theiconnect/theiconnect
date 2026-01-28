@@ -171,10 +171,26 @@ namespace EMS.Web.Controllers
         [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee(int id)
         {
-            var empDB = employeeServices.GetAllEmployees()
+            var emp = employeeServices.GetAllEmployees()
                                           .FirstOrDefault(e => e.EmployeeIdPk == id);
-            
-            return View(model);
+            EmployeeListViewModel Empolyee = new EmployeeListViewModel();
+            Empolyee.EmployeeId = emp.EmployeeIdPk;
+            Empolyee.Code = emp.Employeecode;
+            Empolyee.FirstName = emp.FirstName;
+            Empolyee.MiddleName = emp.MiddleName;
+            Empolyee.LastName = emp.LastName;
+            Empolyee.Gender = emp.Gender;
+            Empolyee.BloodGroup = emp.BloodGroup;
+            Empolyee.EmailId = emp.EmailId;
+            Empolyee.MobileNumber = emp.MobileNumber;
+            Empolyee.AlternateMobileNumber = emp.AlternateMobileNumber;
+            Empolyee.DateOfBirth = emp.DateOfBirth;
+            Empolyee.DateOfJoining = emp.DateOfJoining;
+            Empolyee.ExpInMonths = emp.ExpInMonths;
+            Empolyee.SalaryCtc = emp.SalaryCtc;
+            Empolyee.IsActive = emp.IsActive;
+
+            return View(Empolyee);
 
         }
 
