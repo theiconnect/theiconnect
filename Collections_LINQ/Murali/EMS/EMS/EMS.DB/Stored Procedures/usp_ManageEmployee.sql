@@ -149,7 +149,6 @@ BEGIN
             END
 
 
-
             SELECT 
                 @PERM_OLD_ADDRESSLINE1 = AddressLine1, 
                 @PERM_OLD_ADDRESSLINE2 = AddressLine2, 
@@ -188,6 +187,19 @@ BEGIN
             DECLARE @PRES_OLD_City VARCHAR(512)
             DECLARE @PRES_OLD_State VARCHAR(512)
             DECLARE @PRES_OLD_PIN VARCHAR(512)
+
+            IF NOT EXISTS(
+                SELECT *
+                FROM EmployeeAddress 
+                WHERE EmployeeIDFk = @EmployeeIdPk AND AddressTypeIdFk = @PRESAddressTypeId
+                    AND IsActive = 1)
+            BEGIN
+                INSERT INTO [dbo].[EmployeeAddress](EmployeeIDFk, AddressTypeIdFk, AddressLine1, AddressLine2,
+                City, State, PINCode, IsActive, CreatedBy, CreatedOn)
+                VALUES(@EmployeeIdPk, @PRESAddressTypeId, @PRES_AddressLine1, @PRES_AddressLine2,
+                @PRES_City, @PRES_State, @PRES_PIN, 1, @UserName, GETDATE())
+            END
+
 
             SELECT 
                 @PRES_OLD_ADDRESSLINE1 = AddressLine1, 
