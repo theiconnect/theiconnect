@@ -10,14 +10,11 @@ namespace EMS.IServices
 {
     public  interface IEmployeeService
     {
-        List<EmployeeModel> GetAllEmployees();
-        List<EmployeeAddressModel> GetAllEmployeeAddresses();
-        EmployeeModel GetEmployeeByID(int empId);
-        bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage);
 
-     
-            bool SaveEmployee(EmployeeModel inputEmployee,bool isNewEmployee,out string responseMessage);
-
+        List<EmployeeModel> GetEmployeeDetails();
+      
+     bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate,string userName, out string responseMessage);
+        bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage);
     }
 }
     

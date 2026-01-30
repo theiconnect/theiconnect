@@ -9,59 +9,59 @@
     <h5 class="mb-0"> Employee Details</h5>
 </div>
 <div>
-    <form asp-action="saveemployee" asp-controller="Employee">
+    <form method="post" asp-action="UpdateSaveEmployee" asp-controller="Employee">
         <div class="row">
             <div class="form-group col-3">
-                <label class="control-label fw-bold">Code:</label>
-                <input type="text" id="Code" name="Code234" class="form-control" value="@Model.Code" />
+                <label for="Code" class="control-label fw-bold">Code:</label>
+                <input type="text" id="Code" name="Code" class="form-control" value="@Model.Code" />
             </div>
 
             <div class="form-group col-3">
-                <label class="control-label fw-bold">FirstName:</label>
-                <input type="text" id="FName" name="Code234" class="form-control" value="@Model.FirstName" />
+                <label for="FirstName" class="control-label fw-bold">FirstName:</label>
+                <input type="text" id="FirstName" name="FirstName" class="form-control" value="@Model.FirstName" />
             </div>
 
             <div class="form-group col-3">
-                <label class="control-label fw-bold">LastName:</label>
-                <input type="text" id="LName" name="Code234" class="form-control" value="@Model.LastName" />
+                <label for="LastName" class="control-label fw-bold">LastName:</label>
+                <input type="text" id="LastName" name="LastName" class="form-control" value="@Model.LastName" />
             </div>
 
             <div class="form-group col-3">
-                <label class="control-label fw-bold">BloodGroup:</label>
-                <input type="text" id="BGroup" name="Code234" class="form-control" value="@Model.BloodGroup" />
+                <label for="BloodGroup" class="control-label fw-bold">BloodGroup:</label>
+                <input type="text" id="BloodGroup" name="BloodGroup" class="form-control" value="@Model.BloodGroup" />
             </div>
             <div class="form-group col-3">
-                <label class="control-label fw-bold">Gender:</label>
-                <input type="text" id="Gender" name="Code234" class="form-control" value="@Model.Gender" />
+                <label for="Gender" class="control-label fw-bold">Gender:</label>
+                <input type="text" id="Gender" name="Gender" class="form-control" value="@Model.Gender" />
             </div>
             <div class="form-group col-3">
-                <label class="control-label fw-bold">EmailId:</label>
-                <input type="text" id="Email" name="Code234" class="form-control" value="@Model.EmailId" />
+                <label for="EmailId" class="control-label fw-bold">EmailId:</label>
+                <input type="text" id="EmailId" name="EmailId" class="form-control" value="@Model.EmailId" />
             </div>
             <div class="form-group col-3">
-                <label class="control-label fw-bold">MobileNumber:</label>
-                <input type="text" id="Mobile" name="Code234" class="form-control" value="@Model.MobileNumber" />
+                <label for="MobileNumber" class="control-label fw-bold">MobileNumber:</label>
+                <input type="text" id="MobileNumber" name="MobileNumber" class="form-control" value="@Model.MobileNumber" />
             </div>
             <div class="form-group col-3">
-                <label class="control-label fw-bold">DateOfBirth:</label>
-                <input type="text" id="DOB" name="Code234" class="form-control" value="@Model.DateOfBirth" />
+                <label for="DateOfBirth" class="control-label fw-bold">DateOfBirth:</label>
+                <input type="text" id="DateOfBirth" name="DateOfBirth" class="form-control" value="@Model.DateOfBirth" />
             </div>
             <div class="form-group col-3">
-                <label class="control-label fw-bold">DateOfJoining:</label>
-                <input type="text" id="DOJ" name="Code234" class="form-control" value="@Model.DateOfJoining" />
+                <label for="DateOfJoining" class="control-label fw-bold">DateOfJoining:</label>
+                <input type="text" id="DateOfJoining" name="DateOfJoining" class="form-control" value="@Model.DateOfJoining" />
             </div>
 
             <div class="form-group col-3">
-                <label class="control-label fw-bold">ExpInMonths:</label>
-                <input type="text" id="EIM" name="Code234" class="form-control" value="@Model.ExpInMonths" />
+                <label for="ExpInMonths" class="control-label fw-bold">ExpInMonths:</label>
+                <input type="text" id="ExpInMonths" name="ExpInMonths" class="form-control" value="@Model.ExpInMonths" />
             </div>
             <div class="form-group col-3">
-                <label class="control-label fw-bold">SalaryCtc:</label>
-                <input type="text" id="Salary" name="Code234" class="form-control" value="@Model.SalaryCtc" />
+                <label for="SalaryCtc" class="control-label fw-bold">SalaryCtc:</label>
+                <input type="text" id="SalaryCtc" name="SalaryCtc" class="form-control" value="@Model.SalaryCtc" />
             </div>
             <div class="form-group col-5">
-                <label class="control-label fw-bold">IsActive:</label>
-                <input type="checkbox" id="Active" name="IsActive" value="@Model.IsActive" />
+                <label for="IsActive" class="control-label fw-bold">IsActive:</label>
+                <input type="checkbox" id="IsActive" name="IsActive" value="@Model.IsActive" />
             </div>
 
         </div>
@@ -72,68 +72,12 @@
             <div class="col-4">
                 @Html.HiddenFor(m => m.EmployeeId)
                 <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
-                <input type="button" class="btn btn-primary" value="save" onclick="goToAdd();" />
+                <input type="submit" class="btn btn-primary" value="save" />
             </div>
         </div>
     </form>
 </div>
 
-<script type="text/javascript">
-    function goToAdd() {
-        console.log('clicked');
-        let employeeId = '@Model.EmployeeId';
-        let employeeCode = document.getElementById('Code').value;
-        let firstName = document.getElementById('FName').value;
-        let lastName = document.getElementById('LName').value;
-        let bloodGroup = document.getElementById('BGroup').value;
-        let gender = document.getElementById('Gender').value;
-        let emailId = document.getElementById('Email').value;
-        let mobileNumber = document.getElementById('Mobile').value;
-        let dateOfBirth = document.getElementById('DOB').value;
-        let dateOfJoining = document.getElementById('DOJ').value;
-        let expInMonths = document.getElementById('EIM').value;
-        let salaryCtc = document.getElementById('Salary').value;
-        let isActive = document.getElementById('Active').checked;
-        debugger;
-        let empObj = {
-            EmployeeId: employeeId,
-            Code: employeeCode,
-            FirstName: firstName,
-            LastName: lastName,
-            BloodGroup: bloodGroup,
-            Gender: gender,
-            EmailId: emailId,
-            MobileNumber: mobileNumber,
-            DateOfBirth: dateOfBirth,
-            DateOfJoining: dateOfJoining,
-            ExpInMonths: expInMonths,
-            SalaryCtc: salaryCtc,
-            IsActive: isActive
-        };
 
-        debugger;
+  
 
-        fetch('/Employee/UpdateSaveEmployee', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(empObj)
-        })
-        .then(response => response.json())
-        .then(data => {
-            debugger;
-            if (data.IsSuccess) {
-                alert('Employee details saved successfully');
-                window.location.href = '/Employee/List';
-            } else {
-                alert(data.errorMessage);
-            }
-            location.href='/Employee/List'
-        })
-        .catch(error => {
-            console.error('Error:',error);
-        });
-    }
-
-  </Script>

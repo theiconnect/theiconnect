@@ -41,13 +41,16 @@ namespace EMS.Web.Controllers
             }
             return View(ViewModel);
         }
+        //<<<<<<< HEAD
+        //=======
 
+        //>>>>>>> 81a3672bf21d766444676e1ead5f9cef9782aa2e
         [Route("search")]
         [HttpGet]
         public IActionResult Searching(string searchName, string searchLocation)
         {
             List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments(searchName, searchLocation);
-            
+
             var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel
             {
                 DepartmentId = d.DepartmentIdPk,
@@ -60,7 +63,7 @@ namespace EMS.Web.Controllers
             return View("List", viewModel);
         }
 
-        [Route("add")]
+        [Route("Adddepartment")]
         [Route("create")]
         [Route("new")]
         [HttpGet]
@@ -101,7 +104,7 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult EditDepartment(int id)
         {
-            var deptDB = departmentService.GetDepartmentById(id);
+            var deptDB = departmentService.GetAllDepartments().FirstOrDefault(d => d.DepartmentIdPk == id);
 
             var model = new DepartmentViewModel(
                     deptDB.DepartmentIdPk,
@@ -174,8 +177,6 @@ namespace EMS.Web.Controllers
 
             return Json(new { Success = isSuccess, Message = responseMessage });
         }
-
-
     }
 
     public class Test

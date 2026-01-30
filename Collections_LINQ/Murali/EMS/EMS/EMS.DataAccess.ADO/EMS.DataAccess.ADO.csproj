@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EMS.IDataAccess\EMS.IDataAccess.csproj" />
+    <ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
   </ItemGroup>
 
 </Project>
