@@ -45,9 +45,6 @@ builder.Services.AddScoped<ICompanyService>(provider =>
 });
 
 
-
-
-
 builder.Services.AddScoped<IEmployeeRepository>(provider =>
 {
     return new EmployeeRepository(EMSDBconnectionString);
@@ -58,6 +55,20 @@ builder.Services.AddScoped<IEmployeeService>(provider =>
     var employeeRepository = provider.GetRequiredService<IEmployeeRepository>();
     return new EmployeeService(employeeRepository);
 });
+
+
+builder.Services.AddScoped<IDepartmentRepository>(provider =>
+{
+    return new DepartmentRepository(EMSDBconnectionString);
+});
+
+builder.Services.AddScoped<IDepartmentService>(provider =>
+{
+    var departmentRepository = provider.GetRequiredService<IDepartmentRepository>();
+    return new DepartmentService(departmentRepository);
+});
+
+
 
 
 

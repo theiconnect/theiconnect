@@ -7,10 +7,13 @@ namespace EMS.DataAccess.ADO
 {
     public class CompanyRepository : ICompanyRepository
     {
-        private static string ConnectionString { get; set; }
-        public CompanyRepository(string _connectionString)
+        private readonly string _connectionString;
+
+        public string ConnectionString { get; private set; }
+
+        public CompanyRepository(string connectionString)
         {
-            ConnectionString = _connectionString;
+            _connectionString = connectionString;
         }
 
         public CompanyModel GetCompanyDetails()

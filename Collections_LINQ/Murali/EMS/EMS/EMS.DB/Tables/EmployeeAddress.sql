@@ -16,6 +16,6 @@
 	[LastUpdatedBy] VARCHAR(512) NULL, 
 	[LastUpdatedOn] DATETIME NULL
 
-	CONSTRAINT fk_EmployeeIdFk FOREIGN KEY (EmployeeIdFk) REFERENCES EmployeeAddress (EmployeeAddressIdPk)
+	CONSTRAINT fk_EmployeeIdFk FOREIGN KEY (EmployeeIdFk) REFERENCES Employee (EmployeeIdPk)
 );
 
