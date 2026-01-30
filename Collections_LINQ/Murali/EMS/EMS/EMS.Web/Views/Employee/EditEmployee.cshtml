@@ -1,4 +1,3 @@
-
 @model EMS.Web.Models.EmployeeViewModel
 @{
     ViewData["Title"] = "EditEmployee";
@@ -8,9 +7,9 @@
 <div class="card-header bg-info text-white">
     <h5 class="mb-0"> Employee Details</h5>
 </div>
-<div>
+<form method="post" asp-action="UpdateSaveEmployee" asp-controller="Employee">
+    <div>
 
-    <form method="post" asp-action="UpdateSaveEmployee" asp-controller="Employee">
         <div class="row">
             <div class="form-group col-3">
                 <label for="Code" class="control-label fw-bold">Code:</label>
@@ -66,18 +65,106 @@
             </div>
 
         </div>
-        <div class="row">
-            <div class="col-10">
-                &nbsp;
+
+    </div>
+
+    <div class="row">
+        <div class="col-5 m-2">
+            <div class="form-group col-3">
+                <h2>Present Address:</h2>
             </div>
-            <div class="col-4">
-                @Html.HiddenFor(m => m.EmployeeId)
-                <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
-                <input type="submit" class="btn btn-primary" value="save" />
+            <div class="form-group col-5">
+                <label for="AddressLine1" class="control-label fw-bold">AddressLine1:</label>
+                <input asp-for="PresentAddress.AddressLine1" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">AddressLine2:</label>
+                <input asp-for="PresentAddress.AddressLine2" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">City:</label>
+                <input asp-for="PresentAddress.City" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">State:</label>
+                <input asp-for="PresentAddress.State" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">Pincode:</label>
+                <input asp-for="PresentAddress.Pincode" class="form-control" />
             </div>
         </div>
-    </form>
-</div>
+        <div class="col-5 m-2">
+            <div class="form-group col-5">
+                <h2>Permanant Address:</h2>
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">AddressLine1:</label>
+                <input asp-for="PermanentAddress.AddressLine1" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">AddressLine2:</label>
+                <input asp-for="PermanentAddress.AddressLine2" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">City:</label>
+                <input asp-for="PermanentAddress.City" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">State:</label>
+                <input asp-for="PermanentAddress.State" class="form-control" />
+            </div>
+            <div class="form-group col-5">
+                <label class="control-label fw-bold">Pincode:</label>
+                <input asp-for="PermanentAddress.Pincode" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <h2>Addess history</h2>
+        <table class="table table-bordered">
+            <thead>
+            <th>Line1</th>
+            <th>Line2</th>
+            <th>City</th>
+            <th>State</th>
+            <th>PIN</th>
+            </thead>
+            <tbody>
+                @if (Model.AddressHistory == null)
+                {
+                    <tr><td colspan="5">No address History</td></tr>
+                }
+                else
+                {
+                    @foreach (var addr in Model.AddressHistory)
+                    {
+                        <tr>
+                            <td>@addr.AddressLine1</td>
+                            <td>@addr.AddressLine2</td>
+                            <td>@addr.City</td>
+                            <td>@addr.State</td>
+                            <td>@addr.Pincode</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-10">
+            &nbsp;
+        </div>
+        <div class="col-4">
+            @Html.HiddenFor(m => m.EmployeeId)
+            <a class="btn btn-secondary" asp-action="list" asp-controller="Employee">Go Back</a>
+            <input type="submit" class="btn btn-primary" value="save" />
+        </div>
+    </div>
+</form>
 
 @* <script type="text/javascript">
     function goToAdd() {

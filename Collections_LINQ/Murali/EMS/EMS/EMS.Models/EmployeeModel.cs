@@ -32,6 +32,8 @@ namespace EMS.Models
         public DateTime? LastUpdatedOn { get; set; }
 
         public List<EmployeeAddressModel> Addresses { get; set; } = new List<EmployeeAddressModel>();
+
+        public List<EmployeeAddressModel> AddressHistory { get; set; } = new List<EmployeeAddressModel>();
         public List<EmployeeDesignationModel> Designations { get; set; } = new List<EmployeeDesignationModel>();
     }
 }

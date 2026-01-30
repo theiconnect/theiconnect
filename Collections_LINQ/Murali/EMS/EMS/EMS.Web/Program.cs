@@ -2,6 +2,7 @@ using EMS.DataAccess.ADO;
 using EMS.IDataAccess;
 using EMS.IServices;
 using EMS.Services.Implementation;
+using EMS.Services.Implementation.TD;
 using Microsoft.DotNet.Scaffolding.Shared;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -60,7 +61,15 @@ builder.Services.AddScoped<IEmployeeService>(provider =>
 });
 
 
-
+builder.Services.AddScoped<IDepartmentRepository>(Provider =>
+{
+    return new DepartmentRepository(EMSDBconnectionString);
+});
+builder.Services.AddScoped<IDepartmentService>(Provider =>
+{
+    var departmentRepository = Provider.GetRequiredService<IDepartmentRepository>();
+    return new DepartmentService(departmentRepository);
+});
 
 //=======================================================================
 //Middle ware - Request pipeline configuration
