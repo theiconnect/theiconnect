@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Employee](
-EmployeeIdPk int Identity(1,1) NOT NULL,
+EmployeeIdPk int Identity(1,1) NOT NULL PRIMARY KEY,
 EmployeeCode  varchar(50),
 FirstName varchar(50),
 MiddleName Varchar(50),

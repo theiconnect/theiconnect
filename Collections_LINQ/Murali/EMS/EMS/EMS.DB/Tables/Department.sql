@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Department] (
     [DepartmentIdPk] INT           IDENTITY (1, 1) NOT NULL,
-    [DepartmentCode] VARCHAR (50)  NOT NULL,
+    [DepartmentCode] VARCHAR (500)  NOT NULL,
     [DepartmentName] VARCHAR (512) NOT NULL,
     [DeptLocation]   VARCHAR (512) NULL,
     [IsActive]       BIT           DEFAULT ((1)) NOT NULL,

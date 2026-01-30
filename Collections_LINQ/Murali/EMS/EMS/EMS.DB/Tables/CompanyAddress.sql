@@ -11,5 +11,10 @@
 	[CreatedBy]      VARCHAR (512) NOT NULL,
     [CreatedOn]      DATETIME      DEFAULT (GETDATE()) NULL,
     [LastUpdatedBy]  VARCHAR (512) NULL,
-    [LastUpdatedOn]  DATETIME      NULL,
+    [LastUpdatedOn]  DATETIME      NULL 
 )
+GO
+
+ALTER TABLE [dbo].[CompanyAddress]  WITH CHECK ADD  CONSTRAINT [FK_CompanyAddress_Company] FOREIGN KEY([CompanyIdFk])
+REFERENCES [dbo].[Company] ([CompanyIdPk])
+GO

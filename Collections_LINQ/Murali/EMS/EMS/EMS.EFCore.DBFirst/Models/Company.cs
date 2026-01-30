@@ -30,4 +30,6 @@ public partial class Company
     public string? LastUpdatedBy { get; set; }
 
     public DateTime? LastUpdatedOn { get; set; }
+
+    public virtual ICollection<CompanyAddress> CompanyAddresses { get; set; } = new List<CompanyAddress>();
 }

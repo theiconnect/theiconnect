@@ -216,11 +216,16 @@ public partial class EMSDbContext : DbContext
             entity.Property(e => e.State)
                 .HasMaxLength(256)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.CompanyIdFkNavigation).WithMany(p => p.CompanyAddresses)
+                .HasForeignKey(d => d.CompanyIdFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CompanyAddress_Company");
         });
 
         modelBuilder.Entity<Department>(entity =>
         {
-            entity.HasKey(e => e.DepartmentIdPk).HasName("PK__Departme__B32AAA322626B3D7");
+            entity.HasKey(e => e.DepartmentIdPk).HasName("PK__tmp_ms_x__B32AAA327D12A67B");
 
             entity.ToTable("Department");
 
@@ -248,9 +253,9 @@ public partial class EMSDbContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Employee");
+            entity.HasKey(e => e.EmployeeIdPk).HasName("PK__Employee__0EEEF62952B5E3AA");
+
+            entity.ToTable("Employee");
 
             entity.Property(e => e.AlternateMobileNumber)
                 .HasMaxLength(50)
@@ -267,7 +272,6 @@ public partial class EMSDbContext : DbContext
             entity.Property(e => e.EmployeeCode)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.EmployeeIdPk).ValueGeneratedOnAdd();
             entity.Property(e => e.FirstName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -293,9 +297,9 @@ public partial class EMSDbContext : DbContext
 
         modelBuilder.Entity<EmployeeAddress>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("EmployeeAddress");
+            entity.HasKey(e => e.EmployeeAddressIdPk).HasName("PK__tmp_ms_x__5F6CA74EE98A0313");
+
+            entity.ToTable("EmployeeAddress");
 
             entity.Property(e => e.AddressLine1)
                 .HasMaxLength(512)
@@ -312,7 +316,6 @@ public partial class EMSDbContext : DbContext
             entity.Property(e => e.CreatedOn)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.EmployeeAddressIdPk).ValueGeneratedOnAdd();
             entity.Property(e => e.EmployeeIdfk).HasColumnName("EmployeeIDFk");
             entity.Property(e => e.IsActive).HasDefaultValue(true);
             entity.Property(e => e.LastUpdatedBy)

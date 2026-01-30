@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[EmployeeAddress](
-	EmployeeAddressIdPk INT IDENTITY(1,1) NOT NULL,
+	EmployeeAddressIdPk INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 
 	EmployeeIDFk INT NOT NULL, --foreign key
 	AddressTypeIdFk INT NOT NULL,
