@@ -25,6 +25,7 @@ namespace EMS.Web.Controllers
         [Route("list")]
         [Route("all")]
         public IActionResult List()
+        
         {
             var departmentFromDb = departmentService.GetAllDepartments();
 
@@ -37,6 +38,7 @@ namespace EMS.Web.Controllers
                 obj.DeptName = model.DepartmentName;
                 obj.Location = model.Location;
                 obj.IsActive = model.IsActive;
+                obj.CompanyId = model.CompanyIdFk;
                 ViewModel.Add(obj);
             }
             return View(ViewModel);

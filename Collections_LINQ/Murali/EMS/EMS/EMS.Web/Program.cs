@@ -54,6 +54,17 @@ builder.Services.AddScoped<IEmployeeService>(provider =>
     return new EmployeeServices(EmployeeRepository);
 });
 
+builder.Services.AddScoped<IDepartmentRepository>(provider =>
+{
+    return new DepartmentRepository(EMSDBconnectionString);
+});
+
+builder.Services.AddScoped<IDepartmentService>(provider =>
+{
+    var DepartmentRepository = provider.GetRequiredService<IDepartmentRepository>();
+    return new DepartmentService(DepartmentRepository);
+});
+
 //=======================================================================
 //Middle ware - Request pipeline configuration
 var app = builder.Build();

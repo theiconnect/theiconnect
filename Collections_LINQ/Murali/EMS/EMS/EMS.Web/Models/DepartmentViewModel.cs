@@ -33,5 +33,6 @@ namespace EMS.Web.Models
                 return IsActive ? "Yes" : "No";
             }
         }
-    }
+        public int CompanyId { get; set; }
+        }
 }

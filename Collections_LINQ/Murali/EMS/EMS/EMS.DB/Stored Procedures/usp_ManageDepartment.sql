@@ -24,7 +24,8 @@ BEGIN
 				IsActive,
 				DeptLocation,
 				CreatedBy,
-				CreatedOn
+				CreatedOn,
+				CompanyIdFk
 			)
 			VALUES
 			(
@@ -33,7 +34,8 @@ BEGIN
 				@IsActive,
 				@DeptLocation,
 				@UserName,
-				GETDATE()
+				GETDATE(),
+				1
 			);
 			SELECT SCOPE_IDENTITY() AS NewDepartmentId;
 		END
@@ -46,7 +48,8 @@ BEGIN
 				IsActive = @IsActive,
 				DeptLocation = @DeptLocation,
 				LastUpdatedBy = @UserName,
-				LastUpdatedOn = GETDATE()
+				LastUpdatedOn = GETDATE(),
+				CompanyIdFk = 1
 			WHERE DepartmentIdPk = @DepartmentIdPk;
 		END
 		ELSE IF @ActionType = 'DELETE'
@@ -59,7 +62,8 @@ BEGIN
 			SET 
 				IsActive = 0,
 				LastUpdatedBy = @UserName,
-				LastUpdatedOn = GETDATE()
+				LastUpdatedOn = GETDATE(),
+				CompanyIdFk = 1
 			WHERE DepartmentIdPk = @DepartmentIdPk;
 		END
 		ELSE IF @ActionType = 'ACTIVATE'
@@ -68,7 +72,8 @@ BEGIN
 			SET 
 				IsActive = 1,
 				LastUpdatedBy = @UserName,
-				LastUpdatedOn = GETDATE()
+				LastUpdatedOn = GETDATE(),
+				CompanyIdFk = 1
 			WHERE DepartmentIdPk = @DepartmentIdPk;
 		END
 

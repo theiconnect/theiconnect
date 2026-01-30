@@ -4,6 +4,7 @@
 	ViewData["Title"] = "CreateDepartment";
 	Layout = "~/Views/Shared/_EMSLayout.cshtml";
 	var a = Model;
+	
 }
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
 {
@@ -16,7 +17,7 @@
 <div class="container">
 	<h2>Create Department</h2>
 	<hr />
-	<form asp-action="savedepartment" asp-controller="department">
+	<form method="post" asp-action="savedepartment" asp-controller="department">
 		<div class="row">
 			<div class="form-group col-5">
 				<label class="control-label fw-bold">Department Code:</label>
