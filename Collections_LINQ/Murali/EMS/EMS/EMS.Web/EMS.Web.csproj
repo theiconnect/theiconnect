@@ -8,11 +8,13 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\EMS.DataAccess.ADO\EMS.DataAccess.ADO.csproj" />
+		<ProjectReference Include="..\EMS.EFCore.DBFirst\EMS.EFCore.DBFirst.csproj" />
 		<ProjectReference Include="..\EMS.IServices\EMS.IServices.csproj">
 		  <EmbedInteropTypes></EmbedInteropTypes>
 		  <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
 		</ProjectReference>
 		<ProjectReference Include="..\EMS.Models\EMS.Models.csproj" />
+		<ProjectReference Include="..\EMS.Services.EF\EMS.Services.EF.csproj" />
 		<ProjectReference Include="..\EMS.Services\EMS.Services.csproj">
 		  <Private>True</Private>
 		  <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
@@ -20,7 +22,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.22" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		  <PrivateAssets>all</PrivateAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>

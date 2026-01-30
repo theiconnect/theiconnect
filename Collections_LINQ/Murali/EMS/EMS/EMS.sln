@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS.IDataAccess", "EMS.IDat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS.DataAccess.ADO", "EMS.DataAccess.ADO\EMS.DataAccess.ADO.csproj", "{60FC7614-209E-46FF-A2D3-D759B769E19C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS.EFCore.DBFirst", "EMS.EFCore.DBFirst\EMS.EFCore.DBFirst.csproj", "{731F4114-F8CA-4176-BBB2-A2E9F8646836}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMS.Services.EF", "EMS.Services.EF\EMS.Services.EF.csproj", "{391E2F91-E393-4F87-A30A-261DD5FB87A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +83,14 @@ Global
 		{60FC7614-209E-46FF-A2D3-D759B769E19C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60FC7614-209E-46FF-A2D3-D759B769E19C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60FC7614-209E-46FF-A2D3-D759B769E19C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{731F4114-F8CA-4176-BBB2-A2E9F8646836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731F4114-F8CA-4176-BBB2-A2E9F8646836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731F4114-F8CA-4176-BBB2-A2E9F8646836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731F4114-F8CA-4176-BBB2-A2E9F8646836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{391E2F91-E393-4F87-A30A-261DD5FB87A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{391E2F91-E393-4F87-A30A-261DD5FB87A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{391E2F91-E393-4F87-A30A-261DD5FB87A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{391E2F91-E393-4F87-A30A-261DD5FB87A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

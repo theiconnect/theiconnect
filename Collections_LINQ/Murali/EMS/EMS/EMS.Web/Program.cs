@@ -1,9 +1,12 @@
+using AspNetCoreGeneratedDocument;
 using EMS.DataAccess.ADO;
+using EMS.EFCore.DBFirst.Models;
 using EMS.IDataAccess;
 using EMS.IServices;
+using EMS.Services.EF;
 using EMS.Services.Implementation;
 using EMS.Services.Implementation.TD;
-using Microsoft.DotNet.Scaffolding.Shared;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,42 +37,67 @@ builder.Services.AddControllersWithViews();
 var EMSDBconnectionString = builder.Configuration.GetConnectionString("EMSDBConnection");
 
 
-builder.Services.AddScoped<ICompanyRepository>(provider =>
+
+
+
+bool isEF = true;
+if (isEF)
 {
-    return new CompanyRepository(EMSDBconnectionString);
-});
+    builder.Services.AddDbContext<EMSDbContext>(options =>
+    options.UseSqlServer(EMSDBconnectionString));
 
-builder.Services.AddScoped<ICompanyService>(provider =>
+    builder.Services.AddScoped<ICompanyService>(provider =>
+    {
+        var emsDBContext = provider.GetRequiredService<EMSDbContext>();
+        return new CompanyEFService(emsDBContext);
+    });
+
+    builder.Services.AddScoped<IEmployeeService>(provider =>
+    {
+        var emsDBContext = provider.GetRequiredService<EMSDbContext>();
+        return new EmployeeEFService(emsDBContext);
+    });
+
+    builder.Services.AddScoped<IDepartmentService>(provider =>
+    {
+        var emsDBContext = provider.GetRequiredService<EMSDbContext>();
+        return new DepartmentEFService(emsDBContext);
+    });
+}
+else
 {
-    var companyRepository = provider.GetRequiredService<ICompanyRepository>();
-    return new CompanyService(companyRepository);
-});
+    builder.Services.AddScoped<ICompanyRepository>(provider =>
+    {
+        return new CompanyRepository(EMSDBconnectionString);
+    });
+    builder.Services.AddScoped<ICompanyService>(provider =>
+    {
+        var companyRepository = provider.GetRequiredService<ICompanyRepository>();
+        return new CompanyService(companyRepository);
+    });
 
+    builder.Services.AddScoped<IEmployeeRepository>(provider =>
+    {
+        return new EmployeeRepository(EMSDBconnectionString);
+    });
 
+    builder.Services.AddScoped<IEmployeeService>(provider =>
+    {
+        var employeeRepository = provider.GetRequiredService<IEmployeeRepository>();
+        return new EmployeeService(employeeRepository);
+    });
 
+    builder.Services.AddScoped<IDepartmentRepository>(Provider =>
+    {
+        return new DepartmentRepository(EMSDBconnectionString);
+    });
 
-
-builder.Services.AddScoped<IEmployeeRepository>(provider =>
-{
-    return new EmployeeRepository(EMSDBconnectionString);
-});
-
-builder.Services.AddScoped<IEmployeeService>(provider =>
-{
-    var employeeRepository = provider.GetRequiredService<IEmployeeRepository>();
-    return new EmployeeService(employeeRepository);
-});
-
-
-builder.Services.AddScoped<IDepartmentRepository>(Provider =>
-{
-    return new DepartmentRepository(EMSDBconnectionString);
-});
-builder.Services.AddScoped<IDepartmentService>(Provider =>
-{
-    var departmentRepository = Provider.GetRequiredService<IDepartmentRepository>();
-    return new DepartmentService(departmentRepository);
-});
+    builder.Services.AddScoped<IDepartmentService>(Provider =>
+    {
+        var departmentRepository = Provider.GetRequiredService<IDepartmentRepository>();
+        return new DepartmentService(departmentRepository);
+    });
+}
 
 //=======================================================================
 //Middle ware - Request pipeline configuration

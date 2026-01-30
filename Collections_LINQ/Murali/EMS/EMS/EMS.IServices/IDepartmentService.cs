@@ -11,7 +11,6 @@ namespace EMS.IServices
 
         bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage);
 
-        public List<DepartmentModel> GetAllDepartments_QueryWithSearch(string deptName, string deptLocation);
         public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation);
     }
 }
