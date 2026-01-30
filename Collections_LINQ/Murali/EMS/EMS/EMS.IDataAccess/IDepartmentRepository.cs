@@ -1,15 +1,17 @@
 ﻿using EMS.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace EMS.IServices
+namespace EMS.IDataAccess
 {
-    public interface IDepartmentService
+    public interface IDepartmentRepository
     {
-
         List<DepartmentModel> GetAllDepartments();
-       
+        public bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage);
         public bool ActivateDeactivateDepartment(int departmentId, bool isDeactivate, string userName, out string responseMessage);
-
-        bool SaveDepartment(DepartmentModel inputDepartment, bool isNewDepartment, string userName, out string responseMessage);
 
         public List<DepartmentModel> GetAllDepartments_QueryWithSearch(string deptName, string deptLocation);
         public List<DepartmentModel> GetAllDepartments(string deptName, string deptLocation);

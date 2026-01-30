@@ -136,6 +136,20 @@ BEGIN
             DECLARE @PERM_OLD_State VARCHAR(512)
             DECLARE @PERM_OLD_PIN VARCHAR(512)
 
+            IF NOT EXISTS(
+                SELECT *
+                FROM EmployeeAddress 
+                WHERE EmployeeIDFk = @EmployeeIdPk AND AddressTypeIdFk = @PermAddressTypeId
+                    AND IsActive = 1)
+            BEGIN
+                INSERT INTO [dbo].[EmployeeAddress](EmployeeIDFk, AddressTypeIdFk, AddressLine1, AddressLine2,
+                City, State, PINCode, IsActive, CreatedBy, CreatedOn)
+                VALUES(@EmployeeIdPk, @PermAddressTypeId, @PERM_AddressLine1, @PERM_AddressLine2,
+                @PERM_City, @PERM_State, @PERM_PIN, 1, @UserName, GETDATE())
+            END
+
+
+
             SELECT 
                 @PERM_OLD_ADDRESSLINE1 = AddressLine1, 
                 @PERM_OLD_ADDRESSLINE2 = AddressLine2, 
@@ -207,7 +221,6 @@ BEGIN
                 @PRES_City, @PRES_State, @PRES_PIN, 1, @UserName, GETDATE())
             END
         END
-
 	END TRY
 	BEGIN CATCH
 		SET @OutputMessage  = 'FAILED WITH ERROR: ' + ERROR_MESSAGE();

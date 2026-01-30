@@ -116,15 +116,13 @@ namespace EMS.Web.Controllers
         [Route("editemployee/{employeeid}")]
         public IActionResult EditEmployee(int employeeid)
         {
-            var empDB = employeeServices
-                .GetAllEmployees()
-                .FirstOrDefault(e => e.EmployeeIdPk == employeeid);
+            var empDB = employeeServices.GetEmployeeDetailsById(employeeid);
 
             if (empDB == null)
                 return NotFound();
 
 
-            var model = new EmployeeViewModel(
+            var viewModel = new EmployeeViewModel(
                 empDB.EmployeeIdPk,
                 empDB.Employeecode,
                 empDB.FirstName,
@@ -138,42 +136,101 @@ namespace EMS.Web.Controllers
                 empDB.ExpInMonths,
                 empDB.SalaryCtc,
                 empDB.IsActive
-
             );
-            return View(model);
+            var permAddress = empDB.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR);
+
+            if (permAddress != null)
+            {
+                viewModel.PermanentAddress = new EmployeeAddressViewModel();
+                viewModel.PermanentAddress.AddressLine1 = permAddress.AddressLine1;
+                viewModel.PermanentAddress.AddressLine2 = permAddress.AddressLine2;
+                viewModel.PermanentAddress.City = permAddress.City;
+                viewModel.PermanentAddress.State = permAddress.State;
+                viewModel.PermanentAddress.Pincode = permAddress.Pincode;
+            }
+
+            var presentAddress = empDB.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PRESENT_ADDR);
+            if (presentAddress != null)
+            {
+                viewModel.PresentAddress = new EmployeeAddressViewModel();
+                viewModel.PresentAddress.AddressLine1 = presentAddress.AddressLine1;
+                viewModel.PresentAddress.AddressLine2 = presentAddress.AddressLine2;
+                viewModel.PresentAddress.City = presentAddress.City;
+                viewModel.PresentAddress.State = presentAddress.State;
+                viewModel.PresentAddress.Pincode = presentAddress.Pincode;
+            }
+
+
+            //viewModel.AddressHistory = empDB.AddressHistory;
+            foreach(var dbhistory in empDB.AddressHistory)
+            {
+                viewModel.AddressHistory.Add(new EmployeeAddressViewModel()
+                {
+                    AddressLine1 = dbhistory.AddressLine1,
+                    AddressLine2 = dbhistory.AddressLine2,
+                    City = dbhistory.City,
+                    State = dbhistory.State,
+                    Pincode = dbhistory.Pincode
+                });
+            }
+
+
+
+            return View(viewModel);
         }
         [HttpPost]
         [Route("UpdateSaveEmployee")]
         public IActionResult UpdateSaveEmployee(EmployeeViewModel updateModel)
         {
-            EmployeeModel employeeModel = new EmployeeModel();
+            EmployeeModel model = new EmployeeModel();
             {
-                employeeModel.EmployeeIdPk = updateModel.EmployeeId;
-                employeeModel.Employeecode = updateModel.Code;
-                employeeModel.FirstName = updateModel.FirstName;
-                employeeModel.LastName = updateModel.LastName;
-                employeeModel.BloodGroup = (BloodGroups)updateModel.BloodGroup;
-                employeeModel.Gender = (Genders)updateModel.Gender;
-                employeeModel.EmailId = updateModel.EmailId;
-                employeeModel.MobileNumber = updateModel.MobileNumber;
-                employeeModel.DateOfBirth = updateModel.DateOfBirth;
-                employeeModel.DateOfJoining = updateModel.DateOfJoining;
-                employeeModel.ExpInMonths = updateModel.ExpInMonths;
-                employeeModel.SalaryCtc = updateModel.SalaryCtc;
-                employeeModel.IsActive = updateModel.IsActive;
+                model.EmployeeIdPk = updateModel.EmployeeId;
+                model.Employeecode = updateModel.Code;
+                model.FirstName = updateModel.FirstName;
+                model.LastName = updateModel.LastName;
+                model.BloodGroup = (BloodGroups)updateModel.BloodGroup;
+                model.Gender = (Genders)updateModel.Gender;
+                model.EmailId = updateModel.EmailId;
+                model.MobileNumber = updateModel.MobileNumber;
+                model.DateOfBirth = updateModel.DateOfBirth;
+                model.DateOfJoining = updateModel.DateOfJoining;
+                model.ExpInMonths = updateModel.ExpInMonths;
+                model.SalaryCtc = updateModel.SalaryCtc;
+                model.IsActive = updateModel.IsActive;
             };
+            //add permanent address from view model to address model
+            EmployeeAddressModel employeeAddress = new EmployeeAddressModel();
+            employeeAddress.AddressLine1 = updateModel.PermanentAddress.AddressLine1;
+            employeeAddress.AddressLine2 = updateModel.PermanentAddress.AddressLine2;
+            employeeAddress.City = updateModel.PermanentAddress.City;
+            employeeAddress.State = updateModel.PermanentAddress.State;
+            employeeAddress.Pincode = updateModel.PermanentAddress.Pincode;
+            employeeAddress.AddressTypeIdFk = AddressTypes.PERM_ADDR;
+
+            model.Addresses.Add(employeeAddress);
+
+            //add present address to the model
+            employeeAddress = new EmployeeAddressModel();
+
+            employeeAddress.AddressLine1 = updateModel.PresentAddress.AddressLine1;
+            employeeAddress.AddressLine2 = updateModel.PresentAddress.AddressLine2;
+            employeeAddress.City = updateModel.PresentAddress.City;
+            employeeAddress.State = updateModel.PresentAddress.State;
+            employeeAddress.Pincode = updateModel.PresentAddress.Pincode;
+            employeeAddress.AddressTypeIdFk = AddressTypes.PRESENT_ADDR;
+            model.Addresses.Add(employeeAddress);
+
             string userName = User.Identity?.Name ?? "Admin";
 
-            bool isSuccess = employeeServices.SaveEmployee(employeeModel, false, userName, out string responseMessage);
+            bool isSuccess = employeeServices.SaveEmployee(model, false, userName, out string responseMessage);
             return RedirectToAction("list");
         }
 
         [Route("viewemployee/{id}")]
         public IActionResult ViewEmployee(int id)
         {
-            var empDB = employeeServices.GetAllEmployees()
-                                          .FirstOrDefault(e => e.EmployeeIdPk == id);
-            var model = new EmployeeViewModel(
+            var empDB = employeeServices.GetEmployeeDetailsById(id);
+            var viewModel = new EmployeeViewModel(
                 empDB.EmployeeIdPk,
                 empDB.Employeecode,
                 empDB.FirstName,
@@ -187,10 +244,44 @@ namespace EMS.Web.Controllers
                 empDB.ExpInMonths,
                 empDB.SalaryCtc,
                 empDB.IsActive
-
             );
-            return View(model);
+            var permAddress = empDB.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR);
 
+            if (permAddress != null)
+            {
+                viewModel.PermanentAddress = new EmployeeAddressViewModel();
+                viewModel.PermanentAddress.AddressLine1 = permAddress.AddressLine1;
+                viewModel.PermanentAddress.AddressLine2 = permAddress.AddressLine2;
+                viewModel.PermanentAddress.City = permAddress.City;
+                viewModel.PermanentAddress.State = permAddress.State;
+                viewModel.PermanentAddress.Pincode = permAddress.Pincode;
+            }
+
+            var presentAddress = empDB.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PRESENT_ADDR);
+            if (presentAddress != null)
+            {
+                viewModel.PresentAddress = new EmployeeAddressViewModel();
+                viewModel.PresentAddress.AddressLine1 = presentAddress.AddressLine1;
+                viewModel.PresentAddress.AddressLine2 = presentAddress.AddressLine2;
+                viewModel.PresentAddress.City = presentAddress.City;
+                viewModel.PresentAddress.State = presentAddress.State;
+                viewModel.PresentAddress.Pincode = presentAddress.Pincode;
+            }
+
+
+            //viewModel.AddressHistory = empDB.AddressHistory;
+            foreach (var dbhistory in empDB.AddressHistory)
+            {
+                viewModel.AddressHistory.Add(new EmployeeAddressViewModel()
+                {
+                    AddressLine1 = dbhistory.AddressLine1,
+                    AddressLine2 = dbhistory.AddressLine2,
+                    City = dbhistory.City,
+                    State = dbhistory.State,
+                    Pincode = dbhistory.Pincode
+                });
+            }
+            return View(viewModel);
         }
 
         [Route("delete")]
@@ -229,117 +320,3 @@ namespace EMS.Web.Controllers
 
 
 
-/*
-// ==============================================
-// 2. Employee1Controller
-// ==============================================
-[Route("e")]
-public class Employee1Controller : Controller
-{
-    // Route: /e, /e/hellobabai, /e/hellochicha, /e/helloKaka
-    [Route("")]
-    [Route("hellobabai")]
-
-    [Route("helloKaka")]
-    public string Index()
-    {
-        return "Employee1Controller - Hello from sai ram";
-    }
-
-
-    // Route: /e/Index2 (Implicit default routing)
-    public int Index2()
-    {
-        return 100;
-    }
-
-    // Route: /e/Index3 (Implicit default routing)
-    public int Index3()
-    {
-        return 100;
-    }
-
-    // This action cannot be called via a URL because of the [NonAction] attribute
-    [NonAction]
-    public string Index1()
-    {
-        return "Hello from Index1";
-    }
-}
-
-// ==============================================
-// 3. TestController
-// ==============================================
-[Route("Test")]
-public class TestController : Controller
-{
-    // Route: /Test/Sai
-    [Route("Sai")]
-    public IActionResult A()
-    {
-        return View();
-    }
-
-    // Route: /Test/test
-    [Route("test")]
-    public string B()
-    {
-        return string.Empty;
-    }
-
-    // Route: /Test/C (Implicit default routing)
-    public string C()
-    {
-        return string.Empty;
-    }
-}
-
-// ==============================================
-// 4. Test1Controller
-// ==============================================
-[Route("Test1")]
-public class Test1Controller : Controller
-{
-    // Route: /Test1/A (Implicit default routing)
-    public string A()
-    {
-        return string.Empty;
-    }
-
-    // Route: /Test1/test
-    [Route("test")]
-    public string B()
-    {
-        return string.Empty;
-    }
-
-    // Route: /Test1/C (Implicit default routing)
-    public string C()
-    {
-        return "Hello hii";
-    }
-}
-
-// ==============================================
-//// 5. CompanyController (For your Company Edit Page)
-//// ==============================================
-//[Route("Company")]
-//public class CompanyController : Controller
-//{
-//    // Route: /Company/EditCompany or /Company/edit
-//    [Route("edit")]
-//    public IActionResult EditCompany()
-//    {
-//        // This returns the view file located at /Views/Company/EditCompany.cshtml
-//        return View();
-//    }
-
-//    // Route: /Company/list
-//    [Route("list")]
-//    public IActionResult CompanyList()
-//    {
-//        return View();
-//    }
-//}
-}
-*/

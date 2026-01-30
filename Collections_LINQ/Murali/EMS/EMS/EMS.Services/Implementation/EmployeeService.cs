@@ -11,24 +11,30 @@ namespace EMS.Services.Implementation
 {
     public class EmployeeService : IEmployeeService
     {
-        IEmployeeRepository EmployeeRepository;
+        IEmployeeRepository employeeRepository;
         public EmployeeService(IEmployeeRepository repository)
         {
-            EmployeeRepository = repository;
+            employeeRepository = repository;
         }
         public List<EmployeeModel> GetAllEmployees()
         {
-            List<EmployeeModel> model = EmployeeRepository.GetAllEmployees();
+            List<EmployeeModel> model = employeeRepository.GetAllEmployees();
             return model;
         }
+
+        public EmployeeModel GetEmployeeDetailsById(int EmployeeId)
+        {
+            return employeeRepository.GetEmployeeDetailsById(EmployeeId);
+        }
+
         public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee, string userName, out string responseMessage)
         {
-            return EmployeeRepository.SaveEmployee(inputEmployee, isNewEmployee, userName, out responseMessage
+            return employeeRepository.SaveEmployee(inputEmployee, isNewEmployee, userName, out responseMessage
             );
         }
         public bool ActivateDeactivateEmployee(int EmployeeId, bool isDeactivate, String userName, out string responseMessage)
         {
-            return EmployeeRepository.ActivateDeactivateEmployee(EmployeeId, isDeactivate, userName, out responseMessage);
+            return employeeRepository.ActivateDeactivateEmployee(EmployeeId, isDeactivate, userName, out responseMessage);
         }
 
     }

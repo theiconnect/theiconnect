@@ -38,15 +38,21 @@ namespace EMS.DataAccess.ADO
                     model.Employeecode = Convert.ToString(reader["EmployeeCode"]);
                     model.FirstName = Convert.ToString(reader["FirstName"]);
                     model.LastName = Convert.ToString(reader["LastName"]);
-                    model.BloodGroup = (BloodGroups)Convert.ToInt32(reader["BloodGroup"]);
+                    if (reader["BloodGroup"] != DBNull.Value)
+                        model.BloodGroup = (BloodGroups)Convert.ToInt32(reader["BloodGroup"]);
                     model.MobileNumber = Convert.ToString(reader["MobileNumber"]);
-                    model.Gender = (Genders)Convert.ToInt32(reader["Gender"]);
+                    if (reader["Gender"] != DBNull.Value)
+                        model.Gender = (Genders)Convert.ToInt32(reader["Gender"]);
                     model.EmailId = Convert.ToString(reader["EmailId"]);
-                    model.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
-                    model.DateOfJoining = Convert.ToDateTime(reader["DateOfJoining"]);
+                    if (reader["DateOfBirth"] != DBNull.Value)
+                        model.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
+                    if (reader["DateOfJoining"] != DBNull.Value)
+                        model.DateOfJoining = Convert.ToDateTime(reader["DateOfJoining"]);
                     model.IsActive = Convert.ToBoolean(reader["IsActive"]);
-                    model.ExpInMonths = Convert.ToInt32(reader["ExpInMonths"]);
-                    model.SalaryCtc = Convert.ToDecimal(reader["SalaryCtc"]);
+                    if (reader["ExpInMonths"] != DBNull.Value)
+                        model.ExpInMonths = Convert.ToInt32(reader["ExpInMonths"]);
+                    if (reader["SalaryCtc"] != DBNull.Value)
+                        model.SalaryCtc = Convert.ToDecimal(reader["SalaryCtc"]);
                     employees.Add(model);
                 }
             }
@@ -60,6 +66,78 @@ namespace EMS.DataAccess.ADO
                     con.Close();
             }
             return employees;
+        }
+
+        public EmployeeModel GetEmployeeDetailsById(int EmployeeId)
+        {
+            EmployeeModel model = new EmployeeModel();
+            using SqlConnection con = new SqlConnection(ConnectionString);
+            try
+            {
+                con.Open();
+                using SqlCommand cmd = new SqlCommand("usp_GetEmployeeDetailsById", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@EmployeeId", EmployeeId);
+
+                using SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    model.EmployeeIdPk = Convert.ToInt32(reader["EmployeeIdPk"]);
+                    model.Employeecode = Convert.ToString(reader["EmployeeCode"]);
+                    model.FirstName = Convert.ToString(reader["FirstName"]);
+                    model.LastName = Convert.ToString(reader["LastName"]);
+                    model.BloodGroup = (BloodGroups)Convert.ToInt32(reader["BloodGroup"]);
+                    model.MobileNumber = Convert.ToString(reader["MobileNumber"]);
+                    model.Gender = (Genders)Convert.ToInt32(reader["Gender"]);
+                    model.EmailId = Convert.ToString(reader["EmailId"]);
+                    model.DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]);
+                    model.DateOfJoining = Convert.ToDateTime(reader["DateOfJoining"]);
+                    model.IsActive = Convert.ToBoolean(reader["IsActive"]);
+                    model.ExpInMonths = Convert.ToInt32(reader["ExpInMonths"]);
+                    model.SalaryCtc = Convert.ToDecimal(reader["SalaryCtc"]);
+                }
+
+                if (reader.NextResult())
+                {
+                    while (reader.Read())
+                    {
+                        EmployeeAddressModel addressModel = new EmployeeAddressModel();
+                        addressModel.AddressLine1 = Convert.ToString(reader["AddressLine1"]);
+                        addressModel.AddressLine2 = Convert.ToString(reader["AddressLine2"]);
+                        addressModel.City = Convert.ToString(reader["City"]);
+                        addressModel.State = Convert.ToString(reader["State"]);
+                        addressModel.Pincode = Convert.ToString(reader["PINCode"]);
+                        addressModel.AddressTypeIdFk = (AddressTypes)Convert.ToInt32(reader["AddressTypeIdFk"]);
+                        model.Addresses.Add(addressModel);
+                    }
+                }
+                if (reader.NextResult())
+                {
+                    while (reader.Read())
+                    {
+                        EmployeeAddressModel addressHistory = new EmployeeAddressModel();
+                        addressHistory.AddressLine1 = Convert.ToString(reader["AddressLine1"]);
+                        addressHistory.AddressLine2 = Convert.ToString(reader["AddressLine2"]);
+                        addressHistory.City = Convert.ToString(reader["City"]);
+                        addressHistory.State = Convert.ToString(reader["State"]);
+                        addressHistory.Pincode = Convert.ToString(reader["PINCode"]);
+                        addressHistory.AddressTypeIdFk = (AddressTypes)Convert.ToInt32(reader["AddressTypeIdFk"]);
+
+                        model.AddressHistory.Add(addressHistory);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error reading employees" + ex.Message);
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+            }
+            return model;
         }
 
         public bool SaveEmployee(EmployeeModel model, bool isNewEmployee, string userName, out string responseMessage)
@@ -91,7 +169,7 @@ namespace EMS.DataAccess.ADO
 
                 var permAddr = model.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PERM_ADDR);
                 var presAddr = model.Addresses.Find(a => a.AddressTypeIdFk == AddressTypes.PRESENT_ADDR);
-                
+
                 command.Parameters.AddWithValue("@PERM_AddressLine1", permAddr.AddressLine1);
                 command.Parameters.AddWithValue("@PERM_AddressLine2", permAddr.AddressLine2);
                 command.Parameters.AddWithValue("@PERM_City", permAddr.City);
@@ -126,14 +204,8 @@ namespace EMS.DataAccess.ADO
                 if (sqlConnection.State == ConnectionState.Open)
                     sqlConnection.Close();
             }
-            if (responseMessage.ToLower() == "success")
-                return true;
-            else
-                return false;
+            return true;
         }
-
-
-
         public bool ActivateDeactivateEmployee(int EmployeeId, bool isDeactivate, String userName, out string responseMessage)
         {
             using SqlConnection sqlconnection = new SqlConnection(ConnectionString);

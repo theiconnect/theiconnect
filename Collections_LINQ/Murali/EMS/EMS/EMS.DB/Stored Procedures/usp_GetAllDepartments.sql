@@ -1,7 +1,7 @@
 ﻿
 CREATE PROCEDURE [dbo].[usp_GetAllDepartments]
 (
-	@deptName		VARCHAR(512) = NULL,  
+	@deptName		VARCHAR(512) = NULL,
 	@deptLocation	VARCHAR(512) = NULL
 )
 AS

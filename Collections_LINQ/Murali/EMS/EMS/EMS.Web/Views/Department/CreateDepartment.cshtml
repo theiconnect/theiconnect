@@ -5,14 +5,12 @@
 	Layout = "~/Views/Shared/_EMSLayout.cshtml";
 	var a = Model;
 }
-@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))   
 {
 	<script>
 		alert('@ViewBag.ErrorMessage');
 	</script>
 }
-
-
 <div class="container">
 	<h2>Create Department</h2>
 	<hr />
@@ -20,7 +18,7 @@
 		<div class="row">
 			<div class="form-group col-5">
 				<label class="control-label fw-bold">Department Code:</label>
-				<input asp-for="Code" class="form-control" />
+				<input asp-for="Code" class="form-control"/>
 			</div>
 
 			<div class="form-group col-5">
@@ -46,8 +44,8 @@
 			</div>
 			<div class="col-4">
 				<a class="btn btn-secondary" asp-action="list" asp-controller="department">Go Back</a>
-				<input type="submit" class="btn btn-primary" value="Submit" />
+				<input type="submit" class="btn btn-primary" value="Submit"/>
 			</div>
 		</div>
 	</form>
-</div>
+</div>- 
