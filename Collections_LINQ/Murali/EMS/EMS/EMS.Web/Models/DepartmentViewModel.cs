@@ -5,13 +5,14 @@ namespace EMS.Web.Models
     public class DepartmentViewModel
     {
         public DepartmentViewModel() { }
-        public DepartmentViewModel(int _departmentId, string _code, string _name, string _location, bool _isActive)
+        public DepartmentViewModel(int _departmentId, string _code, string _name, string _location, bool _isActive, int CompanyIdPk)
         {
             DepartmentId = _departmentId;
             Code = _code;
             DeptName = _name;
             Location = _location;
             IsActive = _isActive;
+            CompanyId = CompanyIdPk;
         }
         public int DepartmentId { get; set; }
 
@@ -33,5 +34,9 @@ namespace EMS.Web.Models
                 return IsActive ? "Yes" : "No";
             }
         }
+
+        public int CompanyId { get; set; } = 1;
+
+
     }
 }

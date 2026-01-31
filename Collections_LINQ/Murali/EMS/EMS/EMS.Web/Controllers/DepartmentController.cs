@@ -37,6 +37,7 @@ namespace EMS.Web.Controllers
                 obj.DeptName = model.DepartmentName;
                 obj.Location = model.Location;
                 obj.IsActive = model.IsActive;
+                obj.CompanyId = model.CompanyIdFk;
                 ViewModel.Add(obj);
             }
             return View(ViewModel);
@@ -81,9 +82,11 @@ namespace EMS.Web.Controllers
             DepartmentModel departmentModel = new DepartmentModel
             {
                 DepartmentCode = viewModel.Code,
+                DepartmentIdPk = viewModel.DepartmentId,
                 DepartmentName = viewModel.DeptName,
                 Location = viewModel.Location,
-                IsActive = viewModel.IsActive
+                IsActive = viewModel.IsActive,
+                CompanyIdFk = viewModel.CompanyId
             };
             bool isSuccess = departmentService.SaveDepartment(departmentModel, true, userName, out string message);
 
@@ -115,7 +118,8 @@ namespace EMS.Web.Controllers
                     deptDB.DepartmentCode,
                     deptDB.DepartmentName,
                     deptDB.Location,
-                    deptDB.IsActive
+                    deptDB.IsActive,
+                    deptDB.CompanyIdFk
                     );
 
             return View(model);
@@ -152,7 +156,8 @@ namespace EMS.Web.Controllers
                     deptDB.DepartmentCode,
                     deptDB.DepartmentName,
                     deptDB.Location,
-                    deptDB.IsActive
+                    deptDB.IsActive,
+                    deptDB.CompanyIdFk
                     );
 
             return View(model);

@@ -143,7 +143,7 @@
 
 			const myRequest = new Request('@Url.Action("delete", "Department")', {
 			  method: "POST",
-			  body: JSON.stringify({ id: id, code : "code1", name: "name1", active:false }),
+			  body: JSON.stringify({ id: id, code : "code1", name: "name1", active:false , departmentId : id}),
 			  headers: myHeaders,
 			});
 
