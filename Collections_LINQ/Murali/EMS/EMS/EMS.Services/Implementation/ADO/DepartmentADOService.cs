@@ -625,6 +625,11 @@ namespace EMS.Services.Implementation.ADO
         {
             throw new NotImplementedException();
         }
+
+        public List<DepartmentModel> GetAllDepartments_QueryWithSearch(string deptName, string deptLocation)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

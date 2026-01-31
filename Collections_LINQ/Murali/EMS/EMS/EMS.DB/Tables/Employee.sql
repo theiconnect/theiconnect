@@ -1,0 +1,23 @@
+﻿CREATE TABLE [dbo].[Employee]
+(
+	EmployeeIdPk INT NOT NULL Identity(1,1),
+	Employeecode varchar(50) NOT NULL,
+	FirstName varchar(50) NOT NULL,
+	MiddleName varchar(50) NULL,
+	LastName varchar(50) NOT NULL,
+	BloodGroup varchar(50) NOT NULL,
+	Gender varchar(50) NOT NULL,
+	EmailId varchar(50) NOT Null,
+	PersonalEmailId varchar(50) NULL,
+	MobileNumber Varchar(50) NOT NULL,
+	AlternateMobileNumber Varchar(50) NULL,
+	DateOfBirth Date NOT NULL,
+	DateOfJoining Date NOT NULL,
+	ExpInMonths int NOT NULL,
+	SalaryCtc int NOT NULL,
+	IsActive Bit NOT NULL DEFAULT (1),
+	LastUpdatedOn DATETIME NULL,
+	CreatedOn DATETIME NOT NULL DEFAULT (GETDATE()),
+	LastUpdatedBy varchar(50) NULL,
+	CreatedBy varchar(50) NOT NULL,
+)

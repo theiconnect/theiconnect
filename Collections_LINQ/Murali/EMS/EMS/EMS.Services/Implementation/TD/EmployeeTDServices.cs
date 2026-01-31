@@ -10,123 +10,123 @@ using EMS.Models;
 using EMS.IServices;
 
 
-namespace EMS.Services.Implementation.TD
-{
-    public class EmployeeTDServices : IEmployeeService
+//namespace EMS.Services.Implementation.TD
+//{
+//    public class EmployeeTDServices : IEmployeeService
 
-    {
-        private EMSDbContext dbContext;
+//    {
+//        private EMSDbContext dbContext;
 
-        public EmployeeTDServices()
-        {
-            dbContext = EMSDbContext.GetInstance();
-        }
+//        public EmployeeTDServices()
+//        {
+//            dbContext = EMSDbContext.GetInstance();
+//        }
 
-        //public List<EmployeeAddressModel> GetAllEmployeeAddresses()
-        //{
-        //    throw new NotImplementedException();
-        //}
+//        //public List<EmployeeAddressModel> GetAllEmployeeAddresses()
+//        //{
+//        //    throw new NotImplementedException();
+//        //}
 
-        public List<EmployeeModel> GetAllEmployees()
-        {
-            List<EmployeeModel> employees = dbContext.Employees;
+//        public List<EmployeeModel> GetAllEmployees()
+//        {
+//            List<EmployeeModel> employees = dbContext.Employees;
 
-            return employees;
-        }
+//            return employees;
+//        }
 
-        public EmployeeModel GetEmployeeByID(int empId)
-        {
-            return null;
-        }
+//        public EmployeeModel GetEmployeeByID(int empId)
+//        {
+//            return null;
+//        }
 
-        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee,out string responseMessage)
-        {
-            responseMessage = "Success";
+//        public bool SaveEmployee(EmployeeModel inputEmployee, bool isNewEmployee,out string responseMessage)
+//        {
+//            responseMessage = "Success";
 
-            try
-            {
-                var existingEmployee = dbContext.Employees
-                    .FirstOrDefault(e => e.EmployeeIdPk == inputEmployee.EmployeeIdPk);
+//            try
+//            {
+//                var existingEmployee = dbContext.Employees
+//                    .FirstOrDefault(e => e.EmployeeIdPk == inputEmployee.EmployeeIdPk);
 
-                if (existingEmployee == null)
-                {
-                    responseMessage = "Employee not found";
-                    return false;
-                }
+//                if (existingEmployee == null)
+//                {
+//                    responseMessage = "Employee not found";
+//                    return false;
+//                }
 
-                // Update fields
-                existingEmployee.Employeecode = inputEmployee.Employeecode;
-                existingEmployee.FirstName = inputEmployee.FirstName;
-                existingEmployee.LastName = inputEmployee.LastName;
-                existingEmployee.BloodGroup = inputEmployee.BloodGroup;
-                existingEmployee.Gender = inputEmployee.Gender;
-                existingEmployee.EmailId = inputEmployee.EmailId;
-                existingEmployee.MobileNumber = inputEmployee.MobileNumber;
-                existingEmployee.DateOfBirth = inputEmployee.DateOfBirth;
-                existingEmployee.DateOfJoining = inputEmployee.DateOfJoining;
-                existingEmployee.ExpInMonths = inputEmployee.ExpInMonths;
-                existingEmployee.SalaryCtc = inputEmployee.SalaryCtc;
-                existingEmployee.IsActive = inputEmployee.IsActive;
+//                // Update fields
+//                existingEmployee.Employeecode = inputEmployee.Employeecode;
+//                existingEmployee.FirstName = inputEmployee.FirstName;
+//                existingEmployee.LastName = inputEmployee.LastName;
+//                existingEmployee.BloodGroup = inputEmployee.BloodGroup;
+//                existingEmployee.Gender = inputEmployee.Gender;
+//                existingEmployee.EmailId = inputEmployee.EmailId;
+//                existingEmployee.MobileNumber = inputEmployee.MobileNumber;
+//                existingEmployee.DateOfBirth = inputEmployee.DateOfBirth;
+//                existingEmployee.DateOfJoining = inputEmployee.DateOfJoining;
+//                existingEmployee.ExpInMonths = inputEmployee.ExpInMonths;
+//                existingEmployee.SalaryCtc = inputEmployee.SalaryCtc;
+//                existingEmployee.IsActive = inputEmployee.IsActive;
 
-                dbContext.SaveChanges(); // ✅ MUST
+//                dbContext.SaveChanges(); // ✅ MUST
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                responseMessage = ex.Message;
-                return false;
-            }
-        }
+//                return true;
+//            }
+//            catch (Exception ex)
+//            {
+//                responseMessage = ex.Message;
+//                return false;
+//            }
+//        }
 
-        public bool ActivateDeactivateEmployeee(int employeeId, bool isDeactivate, out string responseMessage)
-        {
-            responseMessage = "success";
+//        public bool ActivateDeactivateEmployeee(int employeeId, bool isDeactivate, out string responseMessage)
+//        {
+//            responseMessage = "success";
 
-            //if (dbContext.Employees.Count == 0)
-            //    return 1;
-            //return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
-            return true;
-        }
+//            //if (dbContext.Employees.Count == 0)
+//            //    return 1;
+//            //return dbContext.Employees.Max(e => e.EmployeeIdPk) + 1;
+//            return true;
+//        }
 
-        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
-        {
-            throw new NotImplementedException();
-        }
+//        public List<EmployeeAddressModel> GetAllEmployeeAddresses()
+//        {
+//            throw new NotImplementedException();
+//        }
 
-        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
-        {
-            responseMessage = "Success";
-            var employee = dbContext.Employees.FirstOrDefault(e => e.EmployeeIdPk == employeeId);
+//        public bool ActivateDeactivateEmployee(int employeeId, bool isDeactivate, out string responseMessage)
+//        {
+//            responseMessage = "Success";
+//            var employee = dbContext.Employees.FirstOrDefault(e => e.EmployeeIdPk == employeeId);
 
-            if (employee != null)
-            {
-                //if (isDeactivate)
-                //{
-                //    if(dbContext.Employees.Any(e => e.DepartmentIdFk == departmentId && e.IsActive))
-                //    {
+//            if (employee != null)
+//            {
+//                //if (isDeactivate)
+//                //{
+//                //    if(dbContext.Employees.Any(e => e.DepartmentIdFk == departmentId && e.IsActive))
+//                //    {
 
-                //        responseMessage = "Unable to delete department due to Active employees exists in this deapartment!";
-                //        return false;
-                //    }
-                //}
-                //department.IsActive = !isDeactivate;
+//                //        responseMessage = "Unable to delete department due to Active employees exists in this deapartment!";
+//                //        return false;
+//                //    }
+//                //}
+//                //department.IsActive = !isDeactivate;
 
-                if (isDeactivate)
-                {
-                    employee.IsActive = false;
-                }
-                else
-                {
-                    employee.IsActive = true;
-                }
-                return true;
-            }
-            return false;
+//                if (isDeactivate)
+//                {
+//                    employee.IsActive = false;
+//                }
+//                else
+//                {
+//                    employee.IsActive = true;
+//                }
+//                return true;
+//            }
+//            return false;
            
-        }
+//        }
 
-    }
-}
+//    }
+//}
 
         

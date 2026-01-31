@@ -18,7 +18,7 @@ namespace EMS.Web.Models
         public BloodGroups BloodGroup { get; set; }
 
         [DisplayName("Gender")]
-        public Genders Gender { get; set; }
+        public int Gender { get; set; }
         public string EmailId { get; set; }
         public string MobileNumber { get; set; }
         public string AlternateMobileNumber { get; set; }

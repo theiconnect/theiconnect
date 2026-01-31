@@ -11,7 +11,7 @@ BEGIN
 	SELECT 
 		DepartmentIdPk, 
 		DepartmentCode, 
-		DepartmentName, 
+		DepartmentName,
 		IsActive, 
 		DeptLocation, 
 		CreatedOn,

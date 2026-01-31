@@ -12,7 +12,7 @@ namespace EMS.Web.Models
         public EmployeeViewModel()
         {
         }
-        public EmployeeViewModel(int employeeIdPk, string employeecode, string firstName, string lastName, BloodGroups bloodGroup, Genders gender, string emailId, string mobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
+        public EmployeeViewModel(int employeeIdPk, string employeecode, string firstName, string lastName, int bloodGroup, int gender, string emailId, string mobileNumber, DateTime dateOfBirth, DateTime dateOfJoining, int expInMonths, decimal? salaryCtc, bool isActive)
         {
             EmployeeId = employeeIdPk;
             Code=employeecode;
@@ -33,8 +33,8 @@ namespace EMS.Web.Models
         public string? Code { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public BloodGroups? BloodGroup { get; set; }
-        public Genders Gender { get; set; }
+        public int  BloodGroup { get; set; }
+        public int  Gender { get; set; }
         public string? EmailId { get; set; }
         public string? MobileNumber { get; set; }
         public DateTime DateOfBirth { get; set; }

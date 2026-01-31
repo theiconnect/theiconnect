@@ -26,6 +26,11 @@ namespace EMS.Services.Implementation.EFCore
             throw new NotImplementedException();
         }
 
+        public List<DepartmentModel> GetAllDepartments_QueryWithSearch(string deptName, string deptLocation)
+        {
+            throw new NotImplementedException();
+        }
+
         public DepartmentModel GetDepartmentById(int departmentId)
         {
             throw new NotImplementedException();

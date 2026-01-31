@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMS.IDataAccess\EMS.IDataAccess.csproj" />
+	  <ProjectReference Include="..\EMS.IDataAccess\EMS.IDataAccess.csproj" >
+		  <Private>False</Private>
+	  </ProjectReference>
   </ItemGroup>
 
 </Project>

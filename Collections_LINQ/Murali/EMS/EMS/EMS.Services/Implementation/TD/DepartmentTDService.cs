@@ -112,6 +112,11 @@ namespace EMS.Services.Implementation.TD
                 return 1;
             return dbContext.Departments.Max(d => d.DepartmentIdPk) + 1;
         }
+
+        public List<DepartmentModel> GetAllDepartments_QueryWithSearch(string deptName, string deptLocation)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

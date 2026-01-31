@@ -1,8 +1,9 @@
-﻿using EMS.Models;
+﻿using EMS.IServices;
+using EMS.Models;
 using EMS.Services;
 using EMS.Services.Implementation;
 using EMS.Services.Implementation.EFCore;
-using EMS.IServices;
+using EMS.Services.Implementation.TD;
 using EMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -42,12 +43,13 @@ namespace EMS.Web.Controllers
             return View(ViewModel);
         }
 
+
         [Route("search")]
         [HttpGet]
         public IActionResult Searching(string searchName, string searchLocation)
         {
             List<DepartmentModel> departmentsFromDB = departmentService.GetAllDepartments(searchName, searchLocation);
-            
+
             var viewModel = departmentsFromDB.Select(d => new DepartmentViewModel
             {
                 DepartmentId = d.DepartmentIdPk,
@@ -90,9 +92,10 @@ namespace EMS.Web.Controllers
             else
             {
                 ViewBag.ErrorMessage = message;
-                return View("CreateDepartment", viewModel);
+                return View("list");
             }
         }
+
 
         [Route("edit/{id}")]
         [Route("update/{id}")]
@@ -101,7 +104,8 @@ namespace EMS.Web.Controllers
         [HttpGet]
         public IActionResult EditDepartment(int id)
         {
-            var deptDB = departmentService.GetDepartmentById(id);
+            var deptDB = departmentService.GetAllDepartments()
+                .FirstOrDefault(d => d.DepartmentIdPk == id);
 
             var model = new DepartmentViewModel(
                     deptDB.DepartmentIdPk,
@@ -153,11 +157,12 @@ namespace EMS.Web.Controllers
         }
 
 
+
         [Route("delete")]
         [HttpPost]
-        public IActionResult DeactivateDepartment([FromBody] Test t)
+        public IActionResult DeactivateDepartment([FromBody] DepartmentViewModel ViewModel)
         {
-            bool isSuccess = departmentService.ActivateDeactivateDepartment(t.id, isDeactivate: true, userName, out string responseMessage);
+            bool isSuccess = departmentService.ActivateDeactivateDepartment(ViewModel.DepartmentId, isDeactivate: true, userName, out string responseMessage);
 
             //return Json(isSuccess, responseMessage);
 
@@ -174,15 +179,17 @@ namespace EMS.Web.Controllers
 
             return Json(new { Success = isSuccess, Message = responseMessage });
         }
-
-
-    }
-
-    public class Test
-    {
-        public int id { get; set; }
-        public string code { get; set; }
-        public string name { get; set; }
-        public bool active { get; set; }
     }
 }
+
+//    }
+//}
+
+//public class Test
+//{
+//    public int id { get; set; }
+//    public string code { get; set; }
+//    public string name { get; set; }
+//    public bool active { get; set; }
+//}
+//}
