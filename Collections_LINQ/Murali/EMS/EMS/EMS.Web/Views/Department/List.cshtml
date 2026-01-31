@@ -78,7 +78,7 @@
 									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>@(dept.IsActive ? "Yes" : "   No") </td>
 									<td style='background-color:@(!dept.IsActive ? "red!important" : "")'>
 
-										@Html.ActionLink("View", "View", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
+										@Html.ActionLink("View", "View", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" } )
 										@Html.ActionLink("Edit", "EditDepartment", "Department", new { @id = dept.DepartmentId }, new { @class = "btn btn-info" })
 
 										@if (dept.IsActive)

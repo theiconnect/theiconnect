@@ -36,10 +36,6 @@ builder.Services.AddControllersWithViews();
 // Read a connection string
 var EMSDBconnectionString = builder.Configuration.GetConnectionString("EMSDBConnection");
 
-
-
-
-
 bool isEF = true;
 if (isEF)
 {

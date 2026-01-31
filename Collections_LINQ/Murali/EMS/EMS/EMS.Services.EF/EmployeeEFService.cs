@@ -24,7 +24,7 @@ namespace EMS.Services.EF
 
         public List<EmployeeModel> GetAllEmployees()
         {
-            throw new NotImplementedException();
+           return new List<EmployeeModel>();
         }
 
         public EmployeeModel GetEmployeeDetailsById(int EmployeeId)

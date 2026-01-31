@@ -15,6 +15,8 @@ public partial class Department
 
     public bool IsActive { get; set; }
 
+    public int CompanyIdFk { get; set; }
+
     public string CreatedBy { get; set; } = null!;
 
     public DateTime? CreatedOn { get; set; }
@@ -22,4 +24,6 @@ public partial class Department
     public string? LastUpdatedBy { get; set; }
 
     public DateTime? LastUpdatedOn { get; set; }
+
+    public virtual ICollection<Employee> Employees { get; set; } = new List<Employee>();
 }

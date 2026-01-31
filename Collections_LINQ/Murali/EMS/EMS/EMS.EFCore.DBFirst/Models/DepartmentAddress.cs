@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace EMS.EFCore.DBFirst.Models;
 
-public partial class EmployeeAddress
+public partial class DepartmentAddress
 {
-    public int EmployeeAddressIdPk { get; set; }
+    public int DepartmentAddressIdPk { get; set; }
 
     public string AddressLine1 { get; set; } = null!;
 
@@ -18,14 +18,6 @@ public partial class EmployeeAddress
     public string PinCode { get; set; } = null!;
 
     public int AddressTypeIdFk { get; set; }
-
-    public int EmployeeIdFk { get; set; }
-
-    public bool IsActive { get; set; }
-
-    public DateTime? CreatedOn { get; set; }
-
-    public string? CreatedBy { get; set; }
 
     public virtual AddressTypeLookup AddressTypeIdFkNavigation { get; set; } = null!;
 }
